@@ -34,7 +34,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_subbet_selection`</mark>
 
 1. **basic info**
-	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to:
+	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to :
 	
 	- **decrease query costs** - since not all of the tables mentioned above have a common distribution key that could be used when joining tables, they need to be redistributed every time they are joined together, which is a costly operation;
 	- **simplify queries** - using a single flat table instead of multiple individual realsports tables simplifies the query and makes it shorter and easier to read.
@@ -51,7 +51,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_extend`</mark>
 
 1. **basic info**
-	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to:
+	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to :
 	
 	- **decrease query costs** - since not all of the tables mentioned above have a common distribution key that could be used when joining tables, they need to be redistributed every time they are joined together, which is a costly operation;
 	- **simplify queries** - using a single flat table instead of multiple individual realsports tables simplifies the query and makes it shorter and easier to read.
@@ -65,7 +65,21 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 5. **Data retention** : last 15 days
 
+<mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_source`</mark>
 
+1. **basic info**
+	The `afbet_realsports_{country code}.t_realsports_bet_selection_source` flat tables combine `afbet_realsports_{country code}.t_realsports_selection_source` tables with a `bet_id` column from `afbet_realsports`.`t_realsports_bet_selection` production tables. The tables were created to :
+	
+	- **decrease query costs** - there are multiple pipelines where `t_realsports_bet_selection_source` tables are joined to `t_realsports_bet_subbet_selection` flat tables on the `selection_id` column, which results in data redistribution every time, which is a costly operation. Using `bet_id` column for joins instead would help avoid this.
+
+2. **Schedule interval** : every 10 mins
+
+3. **Pipeline** : [_afbet_realsports.t_realsports_bet_selection_source_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_selection_source/grid "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_selection_source/grid") 
+
+4. **Distribution and sort keys**
+	 The <span style="color:rgb(255, 192, 0)">`bet_id`</span> column is used as the distribution key in these flat tables, as it is used for deleting duplicate records from the target table before inserting new records, and, as mentioned above, joining the new flat tables to `t_realsports_bet_subbet_selection` flat tables. <span style="color:rgb(255, 0, 0)">The table does not have any sort keys currently</span>
+
+5. **Data retention** : last 61 days
 
 #### Reference
 [Flat tables Confluence](https://opennetltd.atlassian.net/wiki/spaces/BT/pages/2950758486/Flat+tables)
