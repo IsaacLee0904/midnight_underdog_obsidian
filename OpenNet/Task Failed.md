@@ -6,4 +6,5 @@
 
 **Step1. 按 👀 讓其他人知道你正在處理**
 
-**Step2. 看 <mark style="background: #FFB86CA6;">c設定
+**Step2. 解決錯誤**
+* 如果只是暫時的就
