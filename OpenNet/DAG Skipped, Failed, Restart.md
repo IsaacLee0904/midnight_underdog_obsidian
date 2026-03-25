@@ -4,6 +4,13 @@
 - Airflow 或 Redshift 繁忙時，DAG 可能被跳過或逾時
 - DBA 正在對某些資料庫進行維護或升級，可能導致連線失敗
 - 某些程式碼邏輯有誤，導致錯誤發生並執行失敗
+#### Scenario
+
+<mark style="background: #ABF7F7A6;">Scenario 1 </mark>
+![[Al BI Alert APP 1230.png]]
+this means a DAG is delayed or behind. backfill job can trigger this and we can mark it as ✅
+
+Scenario 2 
 
 #### What to do ?
 
