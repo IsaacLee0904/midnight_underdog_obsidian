@@ -61,14 +61,15 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 	- **decrease query costs** - since not all of the tables mentioned above have a common distribution key that could be used when joining tables, they need to be redistributed every time they are joined together, which is a costly operation;
 	- **simplify queries** - using a single flat table instead of multiple individual realsports tables simplifies the query and makes it shorter and easier to read.
 
-2. **Schedule interval** : every 10 mins
+![[afbet_realsports. t_realsports_bet_selection_extend|800]]
+1. **Schedule interval** : every 10 mins
 
-3. **Pipeline** : [_afbet_realsports.t_realsports_bet_subbet_selection_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard") & [_afbet_realsports.t_realsports_bet_subbet_selection_u_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code") 
+2. **Pipeline** : [_afbet_realsports.t_realsports_bet_subbet_selection_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard") & [_afbet_realsports.t_realsports_bet_subbet_selection_u_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code") 
 
-4. **Distribution and sort keys**
-	 The `bet_id` column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records, and most of the queries that join other tables to `t_realsports_bet` table use `bet_id` as the join column. The table uses `bet_id`, `subbet_id` and `selection_id` columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_realsports_bet`, `t_realsports_subbet` and `t_realsports_selection` Redshift tables.
+3. **Distribution and sort keys**
+	 The <span style="color:rgb(255, 192, 0)">`bet_id`</span> column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records, and most of the queries that join other tables to `t_realsports_bet` table use `bet_id` as the join column. The table uses `bet_id`, `subbet_id` and `selection_id` columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_realsports_bet`, `t_realsports_subbet` and `t_realsports_selection` Redshift tables.
 
-5. **Data retention** : last 15 days
+4. **Data retention** : last 15 days
 
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_source`</mark>
 
