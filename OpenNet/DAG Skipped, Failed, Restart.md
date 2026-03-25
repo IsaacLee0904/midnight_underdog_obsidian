@@ -10,8 +10,8 @@
 ![[Al BI Alert APP 1230.png]]
 this means a DAG is delayed or behind. backfill job can trigger this and we can mark it as ✅
 
-Scenario 2 
-
+<mark style="background: #ABF7F7A6;">Scenario 2 </mark>
+連續幾次執行失敗，系統有設定一個 task 只會 retry 3 次，失敗 3 次之後不會再重新執行，就需要特別注意並做一些處理
 #### What to do ?
 
 **Step1. 實際進去看 DAG 是為什麼錯誤**
