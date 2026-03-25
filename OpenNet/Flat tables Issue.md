@@ -30,9 +30,9 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 3. **Pipeline** : [_afbet_pocket.t_pocket_pay_record_ch_request_shard_](http://172.31.71.234:8080/dags/afbet_pocket.t_pocket_pay_record_ch_request_shard/grid?tags=flat_tables&search=afbet_pocket.t_pocket_pay_record_ch_request_shard "http://172.31.71.234:8080/dags/afbet_pocket.t_pocket_pay_record_ch_request_shard/grid?tags=flat_tables&search=afbet_pocket.t_pocket_pay_record_ch_request_shard") 
 
 4. **Distribution and sort keys**
-	 The `pay_id` column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records. The table uses `pay_id`, `status` and `trade_code` columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_pocket_pay_record` and `t_pocket_pay_record_ch_request` Redshift tables.
+	 The <span style="color:rgb(255, 192, 0)">`pay_id`</span> column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records. The table uses <span style="color:rgb(255, 192, 0)">`pay_id`</span>, <span style="color:rgb(255, 192, 0)">`status`</span> and <span style="color:rgb(255, 192, 0)">`trade_code`</span> columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_pocket_pay_record` and `t_pocket_pay_record_ch_request` Redshift tables.
 
-5. **Data retention** : last 90 days
+5. **Data retention** : <mark style="background: #FF5582A6;">last 90 days</mark>
 
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_subbet_selection`</mark>
 
@@ -49,7 +49,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 3. **Pipeline** : [_afbet_realsports.t_realsports_bet_subbet_selection_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard") & [_afbet_realsports.t_realsports_bet_subbet_selection_u_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code") 
 
 4. **Distribution and sort keys**
-	 The `bet_id` column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records, and most of the queries that join other tables to `t_realsports_bet` table use `bet_id` as the join column. The table uses `bet_id`, `subbet_id` and `selection_id` columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_realsports_bet`, `t_realsports_subbet` and `t_realsports_selection` Redshift tables.
+	 The <span style="color:rgb(255, 192, 0)">`bet_id`</span> column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records, and most of the queries that join other tables to `t_realsports_bet` table use `bet_id` as the join column. The table uses <span style="color:rgb(255, 192, 0)">`bet_id`</span>, `subbet_id` and `selection_id` columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_realsports_bet`, `t_realsports_subbet` and `t_realsports_selection` Redshift tables.
 
 5. **Data retention** : last 15 days
 
