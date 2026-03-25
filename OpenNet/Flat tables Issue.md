@@ -14,7 +14,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 ### Exist Flat tables
 
-`afbet_pocket_{country code}.t_pocket_pay_record_ch_request`
+<mark style="background: #FFB86CA6;">`afbet_pocket_{country code}.t_pocket_pay_record_ch_request`</mark>
 
 1. **basic info**
 	The `afbet_pocket_{country code}.t_pocket_pay_record_ch_request` flat tables combine `afbet_pocket_{country code}.t_pocket_pay_record` and `afbet_pocket_{country code}.t_pocket_pay_ch_request` table data into one. The tables were created to:
@@ -31,7 +31,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 5. **Data retention** : last 90 days
 
-==afbet_realsports_{country code}.t_realsports_bet_subbet_selection==
+<mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_subbet_selection`</mark>
 
 1. **basic info**
 	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to:
@@ -48,7 +48,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 5. **Data retention** : last 15 days
 
-==afbet_realsports_{country code}.t_realsports_bet_selection_extend==
+<mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_extend`</mark>
 
 1. **basic info**
 	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to:
