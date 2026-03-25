@@ -16,11 +16,14 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 <mark style="background: #FFB86CA6;">`afbet_pocket_{country code}.t_pocket_pay_record_ch_request`</mark>
 
-1. **basic info**
+1. **basic info and pipeline overview** 
 	The `afbet_pocket_{country code}.t_pocket_pay_record_ch_request` flat tables combine `afbet_pocket_{country code}.t_pocket_pay_record` and `afbet_pocket_{country code}.t_pocket_pay_ch_request` table data into one. The tables were created to:
 	
 	- **speed up queries that join these tables together** - slow running queries are an issue in Metabase dashboards, as they result in timeouts;
 	- **decrease query costs** - since individual tables do not have a common distribution key that could be used when joining tables, they need to be redistributed every time they are joined together, which is a costly operation.
+	
+![[afbet_pocket.t_pocket_pay_record_ch_request_shard|800]]
+
 
 2. **Schedule interval** : every 10 mins
 
@@ -33,11 +36,13 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_subbet_selection`</mark>
 
-1. **basic info**
+1. **basic info and pipeline overview**
 	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to :
 	
 	- **decrease query costs** - since not all of the tables mentioned above have a common distribution key that could be used when joining tables, they need to be redistributed every time they are joined together, which is a costly operation;
 	- **simplify queries** - using a single flat table instead of multiple individual realsports tables simplifies the query and makes it shorter and easier to read.
+	
+![[afbet_realsports.t_realsports_bet_subbet_selection|800]]
 
 2. **Schedule interval** : every 10 mins
 
@@ -50,7 +55,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_extend`</mark>
 
-1. **basic info**
+1. **basic info and pipeline overview**
 	The `afbet_realsports_{country code}.t_realsports_bet_subbet_selection` flat tables combine `afbet_realsports_{country code}.t_realsports_bet`, `afbet_realsports_{country code}.t_realsports_subbet` and `afbet_realsports_{country code}.t_realsports_selection` table data into one. The tables were created to :
 	
 	- **decrease query costs** - since not all of the tables mentioned above have a common distribution key that could be used when joining tables, they need to be redistributed every time they are joined together, which is a costly operation;
@@ -67,7 +72,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_source`</mark>
 
-1. **basic info**
+1. **basic info and pipeline overview**
 	The `afbet_realsports_{country code}.t_realsports_bet_selection_source` flat tables combine `afbet_realsports_{country code}.t_realsports_selection_source` tables with a `bet_id` column from `afbet_realsports`.`t_realsports_bet_selection` production tables. The tables were created to :
 	
 	- **decrease query costs** - there are multiple pipelines where `t_realsports_bet_selection_source` tables are joined to `t_realsports_bet_subbet_selection` flat tables on the `selection_id` column, which results in data redistribution every time, which is a costly operation. Using `bet_id` column for joins instead would help avoid this.
