@@ -4,3 +4,4 @@
 [[Redshift Concurrency scaling Alarm]]
 [[Memory Alert]]
 [[Task Failed]]
+[[Query elapsed more than xx minutes]]
