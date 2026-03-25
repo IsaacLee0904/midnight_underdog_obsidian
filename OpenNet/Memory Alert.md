@@ -4,6 +4,12 @@
 
 #### What to do ?
 
-Short term solution
+<mark style="background: #ABF7F7A6;">Short term solution</mark>
+* Find the DAG is causing the OOM issue and stop it
+* increase instance size
 
-Long term solution
+<mark style="background: #ABF7F7A6;">Long term solution</mark>
+* Re-write the DAG to use a more - memory-friendly approach 
+	- Export data directly to S3
+	- Loading and processing data in multi batches
+	* Decrease the size of the data
