@@ -14,7 +14,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 
 ### Exist Flat tables
 
-==`afbet_pocket_{country code}.t_pocket_pay_record_ch_request`==
+==`afbet_pocket_{country code}.t_pocket_pay_record_ch_request`
 
 1. **basic info**
 	The `afbet_pocket_{country code}.t_pocket_pay_record_ch_request` flat tables combine `afbet_pocket_{country code}.t_pocket_pay_record` and `afbet_pocket_{country code}.t_pocket_pay_ch_request` table data into one. The tables were created to:
