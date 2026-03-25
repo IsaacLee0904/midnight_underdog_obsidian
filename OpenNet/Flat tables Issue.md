@@ -78,6 +78,8 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 	
 	- **decrease query costs** - there are multiple pipelines where `t_realsports_bet_selection_source` tables are joined to `t_realsports_bet_subbet_selection` flat tables on the `selection_id` column, which results in data redistribution every time, which is a costly operation. Using `bet_id` column for joins instead would help avoid this.
 
+![[afbet_realsports.t_realsports_bet_selection_source|800]]
+
 2. **Schedule interval** : every 10 mins
 
 3. **Pipeline** : [_afbet_realsports.t_realsports_bet_selection_source_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_selection_source/grid "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_selection_source/grid") 
