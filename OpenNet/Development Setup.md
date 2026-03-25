@@ -1,2 +1,2 @@
 [[uv]]
-[pyenv]
+[[pyenv]]
