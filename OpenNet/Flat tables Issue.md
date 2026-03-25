@@ -51,7 +51,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 4. **Distribution and sort keys**
 	 The <span style="color:rgb(255, 192, 0)">`bet_id`</span> column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records, and most of the queries that join other tables to `t_realsports_bet` table use `bet_id` as the join column. The table uses <span style="color:rgb(255, 192, 0)">`bet_id`</span>, <span style="color:rgb(255, 192, 0)">`subbet_id`</span> and <span style="color:rgb(255, 192, 0)">`selection_id`</span> columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_realsports_bet`, `t_realsports_subbet` and `t_realsports_selection` Redshift tables.
 
-5. **Data retention** : last 15 days
+5. **Data retention** : <mark style="background: #FF5582A6;">last 15 days</mark>
 
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_extend`</mark>
 
@@ -67,9 +67,9 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 2. **Pipeline** : [_afbet_realsports.t_realsports_bet_subbet_selection_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_shard") & [_afbet_realsports.t_realsports_bet_subbet_selection_u_shard_](http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code "http://172.31.71.234:8080/dags/afbet_realsports.t_realsports_bet_subbet_selection_u_shard/grid?tags=flat_tables&search=afbet_realsports.t_realsports_bet_subbet_selection_u_shard&tab=code") 
 
 3. **Distribution and sort keys**
-	 The <span style="color:rgb(255, 192, 0)">`bet_id`</span> column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records, and most of the queries that join other tables to `t_realsports_bet` table use `bet_id` as the join column. The table uses `bet_id`, `subbet_id` and `selection_id` columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_realsports_bet`, `t_realsports_subbet` and `t_realsports_selection` Redshift tables.
+	 The <span style="color:rgb(255, 192, 0)">`bet_id`</span> column is used as the distribution key in these flat tables, as it is used to delete duplicate records from the target table before inserting new records, and most of the queries that join other tables to `t_realsports_bet` table use `bet_id` as the join column. The table uses <span style="color:rgb(255, 192, 0)">`bet_id`</span>, <span style="color:rgb(255, 192, 0)">`subbet_id`</span> and <span style="color:rgb(255, 192, 0)">`selection_id`</span> columns as a sort keys, since they are most often used to filter data in BI DAG queries that use `t_realsports_bet`, `t_realsports_subbet` and `t_realsports_selection` Redshift tables.
 
-4. **Data retention** : last 15 days
+4. **Data retention** : <mark style="background: #FF5582A6;">last 15 days</mark>
 
 <mark style="background: #FFB86CA6;">`afbet_realsports_{country code}.t_realsports_bet_selection_source`</mark>
 
@@ -87,7 +87,7 @@ In our case, flat tables are created in Redshift to combine data from two or mor
 4. **Distribution and sort keys**
 	 The <span style="color:rgb(255, 192, 0)">`bet_id`</span> column is used as the distribution key in these flat tables, as it is used for deleting duplicate records from the target table before inserting new records, and, as mentioned above, joining the new flat tables to `t_realsports_bet_subbet_selection` flat tables. <span style="color:rgb(255, 0, 0)">The table does not have any sort keys currently</span>
 
-5. **Data retention** : last 61 days
+5. **Data retention** : <mark style="background: #FF5582A6;">last 61 days</mark>
 
 #### Reference
 [Flat tables Confluence](https://opennetltd.atlassian.net/wiki/spaces/BT/pages/2950758486/Flat+tables)
