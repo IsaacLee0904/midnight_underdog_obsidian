@@ -3,3 +3,4 @@
 [[DAG Skipped, Failed, Restart]]
 [[Redshift Concurrency scaling Alarm]]
 [[Memory Alert]]
+[[Task Failed]]
