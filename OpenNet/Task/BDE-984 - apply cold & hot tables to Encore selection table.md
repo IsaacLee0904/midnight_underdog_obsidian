@@ -32,10 +32,14 @@ FROM afbet_realsports_ng.t_realsports_selection
 WHERE created_at >= DATEADD(day, -30, GETDATE());
 
 -- Step2.
-
+ALTER TABLE t_realsports_selection_hot RENAME TO t_realsports_selection;
+ALTER TABLE t_realsports_selection RENAME TO t_realsports_selection_cold;
 ```
 
 zg
 ```sql
 
 ```
+
+
+afbet_realsports.t_realsports_selection_cold_copy
