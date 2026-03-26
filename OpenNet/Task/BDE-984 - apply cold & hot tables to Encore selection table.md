@@ -97,7 +97,7 @@ gh
 CREATE TABLE afbet_main_gh.t_order_record_hot AS
 SELECT *
 FROM afbet_main_gh.t_order_record
-WHERE created_at >= DATEADD(day, -70, GETDATE());
+WHERE created_at >= DATEADD(day, -200, GETDATE());
 
 -- Step2.
 ALTER TABLE afbet_main_gh.t_order_record RENAME TO t_order_record_cold;
@@ -110,7 +110,7 @@ ng
 CREATE TABLE afbet_main_ng.t_order_record_hot AS
 SELECT *
 FROM afbet_main_ng.t_order_record
-WHERE created_at >= DATEADD(day, -70, GETDATE());
+WHERE created_at >= DATEADD(day, -200, GETDATE());
 
 -- Step2.
 ALTER TABLE afbet_main_ng.t_order_record RENAME TO t_order_record_cold;
