@@ -1,9 +1,8 @@
 [
-  "highlightr-plugin",
-  "obsidian-excalidraw-plugin",
   "obsidian-git",
-  "dataview",
-  "colored-text",
+  "obsidian-excalidraw-plugin",
   "calendar",
+  "colored-text",
+  "highlightr-plugin",
   "obsidian-style-settings"
 ]
