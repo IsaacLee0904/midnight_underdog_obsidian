@@ -27,7 +27,7 @@ gh
 CREATE TABLE afbet_realsports_gh.t_realsports_selection_hot AS
 SELECT *
 FROM afbet_realsports_gh.t_realsports_selection
-WHERE created_at >= DATEADD(day, -30, GETDATE());
+WHERE created_at >= DATEADD(day, -40, GETDATE());
 
 -- Step2.
 ALTER TABLE afbet_realsports_gh.t_realsports_selection RENAME TO afbet_realsports_gh.t_realsports_selection_cold;
@@ -40,7 +40,7 @@ ng
 CREATE TABLE afbet_realsports_ng.t_realsports_selection_hot AS
 SELECT *
 FROM afbet_realsports_ng.t_realsports_selection
-WHERE created_at >= DATEADD(day, -30, GETDATE());
+WHERE created_at >= DATEADD(day, -40, GETDATE());
 
 -- Step2.
 ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO afbet_realsports_ng.t_realsports_selection_cold;
@@ -62,7 +62,7 @@ gh
 CREATE TABLE afbet_realsports_gh.t_realsports_bet_hot AS
 SELECT *
 FROM afbet_realsports_gh.t_realsports_bet
-WHERE created_at >= DATEADD(day, -30, GETDATE());
+WHERE created_at >= DATEADD(day, -70, GETDATE());
 
 -- Step2.
 ALTER TABLE afbet_realsports_gh.t_realsports_bet RENAME TO afbet_realsports_gh.t_realsports_bet_cold;
@@ -75,7 +75,7 @@ ng
 CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot AS
 SELECT *
 FROM afbet_realsports_ng.t_realsports_bet
-WHERE created_at >= DATEADD(day, -30, GETDATE());
+WHERE created_at >= DATEADD(day, -70, GETDATE());
 
 -- Step2.
 ALTER TABLE afbet_realsports_ng.t_realsports_bet RENAME TO afbet_realsports_ng.t_realsports_bet_cold;
