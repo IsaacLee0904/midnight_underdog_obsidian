@@ -163,3 +163,42 @@ ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO
 **Switch Time**
 * gh
 * ng
+
+### logs_patron_fe_behav 
+
+![[Screenshot 2026-03-26 at 4.20.45 PM.png]]
+Encore Prod 是空得還要做嗎
+
+gh
+```sql
+-- Step1. 
+CREATE TABLE afbet_patron_gh.t_facts_sporty_uof_messages_odds_change_hot AS
+SELECT *
+FROM afbet_facts_gh.t_facts_sporty_uof_messages_odds_change
+WHERE created_at >= DATEADD(day, -40, GETDATE());
+
+-- Step2.
+ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
+ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
+```
+
+ng
+```sql
+-- Step1. 
+CREATE TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot AS
+SELECT *
+FROM afbet_facts_ng.t_facts_sporty_uof_messages_odds_change
+WHERE created_at >= DATEADD(day, -40, GETDATE());
+
+-- Step2.
+ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
+ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
+```
+
+**Open DAG**
+* afbet_main.t_order_record_cold_copy
+* afbet_main.t_order_record_hot_delete
+
+**Switch Time**
+* gh
+* ng
