@@ -48,7 +48,7 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_reals
 ```
 
 **Open DAG**
-* 
+* afbet_realsports.t_realsports_selection_reshard_v2
 * afbet_realsports.t_realsports_selection_cold_copy
 * afbet_realsports.t_realsports_selection_hot_delete
 
