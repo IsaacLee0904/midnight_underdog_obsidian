@@ -54,21 +54,33 @@ ALTER TABLE xxxx RENAME TO xxxx_cold;
 
 ## Performance Improvement
 
+#### Table Size
 實施冷熱表之後可以看到，table 資料量級相差極大 ：
 
 ![[Pasted image 20260326141257.png]]
 
 
+#### Task Duration 
+NG selection 資料表更新任務的執行時間大幅縮短，尤其是原本的瓶頸 `DELETE` 步驟，速度提升約 **5～10 倍**
+![[Pasted image 20260326141803.png]]
+
+#### Other task in Warehouse
+其他 Warehouse 任務也因負載降低而受益，EX. `t_order_record` NG 更新任務速度提升約 **2 倍**
+![[Pasted image 20260326141916.png]]
+
+#### Warehouse Workload
+Redshift 的整體負載與 CS 使用量顯著下降
+![[Pasted image 20260326142021.png]]
+
+#### DA Query
+部分使用 NG selection 資料表的 DA 任務執行速度也明顯加快
+![[Pasted image 20260326142052.png]]
 
 
 
 
 
-
-
-
-
-
+#### Reference
 [[BDE-984 - apply cold & hot tables to Encore selection table]]
 
 
