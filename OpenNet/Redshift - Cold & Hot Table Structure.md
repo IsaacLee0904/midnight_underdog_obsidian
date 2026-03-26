@@ -32,11 +32,24 @@ hot tables only save recent data and cold tables with suffix `_cold`have all dat
 
 Create a <mark style="background: #FFB86CA6;">xxxx_hot</mark> table, and move data from <mark style="background: #FFB86CA6;">xxxx</mark> table to it from one month ago
 
+```sql
+CREATE TABLE xxxx_hot AS
+SELECT *
+FROM xxxx
+WHERE created_at >= DATEADD(day, -30, GETDATE());
+```
+
 **Step2. Rename table** 
 
-* xxxx_hot -> xxxx
-* xxxx -> xxxx_cold
+* Rename hot table to original table : <mark style="background: #FFB86CA6;">xxxx_hot</mark> -> <mark style="background: #FFB86CA6;">xxxx</mark> 
+```sql
+ALTER TABLE xxxx_hot RENAME TO xxxx;
+```
 
+* Rename original table to cold table : <mark style="background: #FFB86CA6;">xxxx</mark> -> <mark style="background: #FFB86CA6;">xxxx_cold</mark>
+```sql
+ALTER TABLE xxxx RENAME TO xxxx_cold;
+```
 
 
 
