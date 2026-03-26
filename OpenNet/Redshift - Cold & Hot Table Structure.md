@@ -28,8 +28,13 @@ hot tables only save recent data and cold tables with suffix `_cold`have all dat
 
 ![[cold hot table processing|800]]
 
-**Step3. Create DAG**
+**Step1. Create DAG**
 
+![[Pasted image 20260326142631.png]]
+
+- `xxxx_v2`：每 10 分鐘從 MySQL 同步資料至 Redshift
+- xxxx_cold_copy`：每小時將熱資料表資料複製至冷資料表
+- `xxxx_hot_delete`：每日刪除熱資料表中 40 天以前的舊資料
 
 
 **Step2. Create hot table and integrate data**
