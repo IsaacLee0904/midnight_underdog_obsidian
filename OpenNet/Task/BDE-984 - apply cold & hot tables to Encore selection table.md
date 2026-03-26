@@ -169,12 +169,48 @@ ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO
 
 >[!WARNING] Encore Prod 沒有 table
 
-### t_realsports_selection_source 
+### t_realsports_selection_source ✅
 
 gh
 ```sql
 -- Step1. 
 CREATE TABLE afbet_realsports_gh.t_realsports_selection_source_hot AS
+SELECT *
+FROM afbet_realsports_gh.t_realsports_selection_source
+WHERE created_at >= DATEADD(day, -70, GETDATE());
+
+-- Step2.
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
+```
+
+ng
+```sql
+-- Step1. 
+CREATE TABLE afbet_realsports_ng.t_realsports_selection_source_hot AS
+SELECT *
+FROM afbet_realsports_ng.t_realsports_selection_source
+WHERE created_at >= DATEADD(day, -70, GETDATE());
+
+-- Step2.
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
+```
+
+**Open DAG**
+* afbet_realsports.t_realsports_selection_source_cold_copy
+* afbet_realsports.t_realsports_selection_source_hot_delete
+
+**Switch Time**
+* gh
+* ng
+
+### src_realsports_all_orders_v12 
+
+gh
+```sql
+-- Step1. 
+CREATE TABLE afbet_realsports_gh.src_realsports_all_orders_v12_hot AS
 SELECT *
 FROM afbet_realsports_gh.t_realsports_selection_source
 WHERE created_at >= DATEADD(day, -70, GETDATE());
