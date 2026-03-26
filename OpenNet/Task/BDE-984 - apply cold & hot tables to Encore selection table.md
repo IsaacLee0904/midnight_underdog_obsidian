@@ -21,12 +21,58 @@ Apply below table in Encore to cold / hot tables :
 ## Implement
 
 ### t_realsports_selection
-
 gh
+```sql
+-- Step1. 
+CREATE TABLE afbet_realsports_gh.t_realsports_selection_hot AS
+SELECT *
+FROM afbet_realsports_gh.t_realsports_selection
+WHERE created_at >= DATEADD(day, -30, GETDATE());
 
+-- Step2.
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_hot RENAME TO afbet_realsports_gh.t_realsports_selection;
+ALTER TABLE afbet_realsports_gh.t_realsports_selection RENAME TO afbet_realsports_gh.t_realsports_selection_cold;
+```
+
+ng
 ```sql
 -- Step1. 
 CREATE TABLE afbet_realsports_ng.t_realsports_selection_hot AS
+SELECT *
+FROM afbet_realsports_ng.t_realsports_selection
+WHERE created_at >= DATEADD(day, -30, GETDATE());
+
+-- Step2.
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_realsports_ng.t_realsports_selection;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO afbet_realsports_ng.t_realsports_selection_cold;
+```
+
+**Open DAG**
+* afbet_realsports.t_realsports_selection_cold_copy
+* afbet_realsports.t_realsports_selection_hot_delete
+
+**Switch Time**
+* gh
+* ng
+
+### t_realsports_bet
+gh
+```sql
+-- Step1. 
+CREATE TABLE afbet_realsports_gh.t_realsports_bet_hot AS
+SELECT *
+FROM afbet_realsports_gh.t_realsports_bet
+WHERE created_at >= DATEADD(day, -30, GETDATE());
+
+-- Step2.
+ALTER TABLE t_realsports_bet_hot RENAME TO t_realsports_bet;
+ALTER TABLE t_realsports_bet RENAME TO t_realsports_bet_cold;
+```
+
+ng
+```sql
+-- Step1. 
+CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot AS
 SELECT *
 FROM afbet_realsports_ng.t_realsports_selection
 WHERE created_at >= DATEADD(day, -30, GETDATE());
@@ -36,12 +82,10 @@ ALTER TABLE t_realsports_selection_hot RENAME TO t_realsports_selection;
 ALTER TABLE t_realsports_selection RENAME TO t_realsports_selection_cold;
 ```
 
-zg
-```sql
+**Open DAG**
+* afbet_realsports.t_realsports_selection_cold_copy
+* afbet_realsports.t_realsports_selection_hot_delete
 
-```
-
-
-afbet_realsports.t_realsports_selection_cold_copy
-
-記錄時間
+**Switch Time**
+* gh
+* ng
