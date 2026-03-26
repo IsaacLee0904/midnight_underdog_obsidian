@@ -1,0 +1,1 @@
+現在有很多 ETL function EX. sql_to_dataframe 還在使用 pandas 但 pandas 一直以來對記憶體要求比較高，看看是不是有機會改由 duckdb 來做一方面加速了資料處理另一方面也可以解決資料佔用記憶體的問題
