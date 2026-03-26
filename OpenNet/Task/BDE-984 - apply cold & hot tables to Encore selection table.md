@@ -128,7 +128,8 @@ ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
 ### t_facts_sporty_uof_messages_odds_change ✅
 
 ![[Screenshot 2026-03-26 at 4.20.45 PM.png]]
-Encore Prod 是空得還要做嗎
+
+>[!WARNING] Encore Prod 有 table 但是空的
 
 gh
 ```sql
@@ -163,6 +164,10 @@ ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO
 **Switch Time**
 * gh
 * ng
+
+### logs_patron_fe_behav ✅
+
+>[!WARNING] Encore Prod 沒有 table
 
 ### logs_patron_fe_behav 
 
