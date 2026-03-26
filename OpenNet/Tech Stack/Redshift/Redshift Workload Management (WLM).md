@@ -11,13 +11,19 @@ Link : [Workload Management Page](https://eu-central-1.console.aws.amazon.com/re
 
 ### Detail of different Queue
 
+大致上是利用 <span style="color:rgb(255, 0, 0)">db user account</span> 來決定 query 會決定進去哪一個 queue
+
 #### Monitor Queue
 
-1. **用途** ：用來 integrate Grafana metrics 用的 queue
+1. **用途** : 用來 integrate Grafana metrics 用的 queue
 2. **Query priority** : Highest
-3. 
+3. **User role** : app_redshift_exporter
 
 #### Openmetatadata Queue
+
+1. **用途** : OM 用的 queue，主要提供 DQ check 與 data linage 的功能
+2. **Query priority** : Highest
+3. **User role** : app_redshift_exporter
 
 #### Human user queries
 
