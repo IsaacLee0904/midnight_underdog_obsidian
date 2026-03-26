@@ -65,8 +65,8 @@ FROM afbet_realsports_gh.t_realsports_bet
 WHERE created_at >= DATEADD(day, -30, GETDATE());
 
 -- Step2.
-ALTER TABLE t_realsports_bet_hot RENAME TO t_realsports_bet;
-ALTER TABLE t_realsports_bet RENAME TO t_realsports_bet_cold;
+ALTER TABLE afbet_realsports_gh.t_realsports_bet_hot RENAME TO afbet_realsports_gh.t_realsports_bet;
+ALTER TABLE afbet_realsports_gh.t_realsports_bet RENAME TO afbet_realsports_gh.t_realsports_bet_cold;
 ```
 
 ng
