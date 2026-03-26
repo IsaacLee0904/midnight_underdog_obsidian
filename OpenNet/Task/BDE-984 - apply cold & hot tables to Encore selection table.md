@@ -20,7 +20,7 @@ Apply below table in Encore to cold / hot tables :
 
 ## Implement
 
-### t_realsports_selection
+### t_realsports_selection ok
 gh
 ```sql
 -- Step1. 
@@ -55,7 +55,7 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_reals
 * gh
 * ng
 
-### t_realsports_bet
+### t_realsports_bet ok 
 gh
 ```sql
 -- Step1. 
@@ -80,6 +80,41 @@ WHERE created_at >= DATEADD(day, -70, GETDATE());
 -- Step2.
 ALTER TABLE afbet_realsports_ng.t_realsports_bet RENAME TO t_realsports_bet_cold;
 ALTER TABLE afbet_realsports_ng.t_realsports_bet_hot RENAME TO t_realsports_bet;
+```
+
+**Open DAG**
+* afbet_realsports.t_realsports_bet_cold_copy
+* afbet_realsports.t_realsports_bet_hot_delete
+
+**Switch Time**
+* gh
+* ng
+
+### t_order_record
+gh
+```sql
+-- Step1. 
+CREATE TABLE afbet_main_gh.t_order_record_hot AS
+SELECT *
+FROM afbet_main_gh.t_order_record
+WHERE created_at >= DATEADD(day, -70, GETDATE());
+
+-- Step2.
+ALTER TABLE afbet_main_gh.t_order_record RENAME TO t_order_record_cold;
+ALTER TABLE afbet_main_gh.t_order_record_hot RENAME TO t_order_record;
+```
+
+ng
+```sql
+-- Step1. 
+CREATE TABLE afbet_main_ng.t_order_record_hot AS
+SELECT *
+FROM afbet_main_ng.t_order_record
+WHERE created_at >= DATEADD(day, -70, GETDATE());
+
+-- Step2.
+ALTER TABLE afbet_main_ng.t_order_record RENAME TO t_order_record_cold;
+ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
 ```
 
 **Open DAG**
