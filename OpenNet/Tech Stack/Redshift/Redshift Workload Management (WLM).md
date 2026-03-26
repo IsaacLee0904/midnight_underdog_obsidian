@@ -54,6 +54,13 @@ Link : [Workload Management Page](https://eu-central-1.console.aws.amazon.com/re
 4. <mark style="background: #FFB86CA6;">Query groups</mark> : bi_dag_long_queries
 5. **Query monitoring rules** : abort_long_running_queries (Query execution time (seconds) > 3600)
 
+> [!info] DA Airlfow DAG 會透過他們對 DAG 的 tag 來決定 query groups，如果是 `high_importance_flag`，就會期待不管怎麼樣都跑完所以丟進 long queries queue
+> ```python
+> # _run_sql_in_redshift
+> if high_importance_flag:
+        redshift_cur.execute("SET query_group TO 'bi_dag_long_queries';")
+> ```
+
 #### BI DAG queries
 
 1. **用途** : DA Airflow DAG 使用的 queue
