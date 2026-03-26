@@ -169,9 +169,7 @@ ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO
 
 >[!WARNING] Encore Prod 沒有 table
 
-### logs_patron_fe_behav 
-
-Encore Prod 沒有 table
+### t_realsports_selection_source 
 
 gh
 ```sql
