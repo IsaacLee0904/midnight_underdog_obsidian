@@ -166,8 +166,7 @@ ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO
 
 ### logs_patron_fe_behav 
 
-![[Screenshot 2026-03-26 at 4.20.45 PM.png]]
-Encore Prod 是空得還要做嗎
+Encore Prod 沒有 table
 
 gh
 ```sql
