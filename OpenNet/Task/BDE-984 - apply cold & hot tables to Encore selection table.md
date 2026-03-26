@@ -21,6 +21,8 @@ Apply below table in Encore to cold / hot tables :
 ## Implement
 
 ### t_realsports_selection ✅
+先把原本排程關掉
+
 gh
 ```sql
 -- Step1. 
