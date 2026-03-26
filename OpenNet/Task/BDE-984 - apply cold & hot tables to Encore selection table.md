@@ -18,3 +18,10 @@ Apply below table in Encore to cold / hot tables :
 | `bi_warehouse` | `t_realsports_selection_source`           | Encore    | last 70 days  |
 | `bi_report`    | `src_realsports_all_orders_v12`           | Encore    | last 90 days  |
 
+## Implement
+
+### t_realsports_selection
+
+```sql
+
+```
