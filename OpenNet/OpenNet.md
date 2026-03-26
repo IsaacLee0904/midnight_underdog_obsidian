@@ -1,4 +1,5 @@
 [[Daily Work]]
 [[Development Setup]]
+[[Idea]]
 [[Project]]
 [[Tech Stack]]
