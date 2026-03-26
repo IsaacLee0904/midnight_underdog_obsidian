@@ -24,8 +24,7 @@ hot tables only save recent data and cold tables with suffix `_cold`have all dat
 - **冷資料表**：儲存全部資料，但使用頻率低
 - **熱資料表**：僅儲存近期資料，使用頻率高
 
-
-## Impletment
+## Implement Step
 
 
 
