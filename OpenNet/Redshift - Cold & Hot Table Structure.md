@@ -28,7 +28,11 @@ hot tables only save recent data and cold tables with suffix `_cold`have all dat
 
 ![[cold hot table processing|800]]
 
-**Step1. Create hot table and integrate data**
+**Step3. Create DAG**
+
+
+
+**Step2. Create hot table and integrate data**
 
 Create a <mark style="background: #FFB86CA6;">xxxx_hot</mark> table, and move data from <mark style="background: #FFB86CA6;">xxxx</mark> table to it from one month ago
 
@@ -39,7 +43,7 @@ FROM xxxx
 WHERE created_at >= DATEADD(day, -30, GETDATE());
 ```
 
-**Step2. Rename table** 
+**Step3. Rename table** 
 
 * Rename hot table to original table : <mark style="background: #FFB86CA6;">xxxx_hot</mark> -> <mark style="background: #FFB86CA6;">xxxx</mark> 
 ```sql
