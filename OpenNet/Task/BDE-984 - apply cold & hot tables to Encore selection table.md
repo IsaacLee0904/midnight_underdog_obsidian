@@ -55,8 +55,8 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_reals
 * afbet_realsports.t_realsports_selection_hot_delete
 
 **Switch Time**
-* gh
-* ng
+* gh - 3/26 17:34 ~ 17:41
+* ng - 3/26 17:41 ~ 
 
 ### t_realsports_bet ✅
 gh
