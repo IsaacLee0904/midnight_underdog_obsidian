@@ -14,3 +14,6 @@ DELETE
 FROM public.table_update_check
 where table_id = '`connections_versioning`'
 ```
+
+#### Reference
+[[Ad hoc - minutes tables not updated cause by zombie query]]
