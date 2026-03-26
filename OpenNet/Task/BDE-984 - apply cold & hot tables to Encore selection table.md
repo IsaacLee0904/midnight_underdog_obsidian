@@ -158,8 +158,8 @@ ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO
 ```
 
 **Open DAG**
-* afbet_main.t_order_record_cold_copy
-* afbet_main.t_order_record_hot_delete
+* afbet_facts.t_facts_sporty_uof_messages_odds_change_cold_copy
+* afbet_facts.t_facts_sporty_uof_messages_odds_change_hot_delete 
 
 **Switch Time**
 * gh
