@@ -54,6 +54,8 @@ ALTER TABLE xxxx RENAME TO xxxx_cold;
 
 ## Performance Improvement
 
+實施冷熱表之後可以看到，table 資料量級相差極大 ：
+
 ![[Pasted image 20260326141257.png]]
 
 
