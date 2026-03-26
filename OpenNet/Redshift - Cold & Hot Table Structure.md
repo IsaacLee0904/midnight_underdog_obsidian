@@ -26,7 +26,9 @@ hot tables only save recent data and cold tables with suffix `_cold`have all dat
 
 ## Implement Step
 
+![[cold hot table processing|800]]
 
+Step1. 
 
 
 
