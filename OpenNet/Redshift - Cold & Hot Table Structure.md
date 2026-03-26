@@ -90,6 +90,7 @@ Redshift 的整體負載與 CS 使用量顯著下降
 
 
 #### Reference
+[Confluence Page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/3334045924/Redshift+-+Cold+Hot+Table+Structure)
 [[BDE-984 - apply cold & hot tables to Encore selection table]]
 
 
