@@ -118,8 +118,8 @@ ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
 ```
 
 **Open DAG**
-* afbet_realsports.t_realsports_bet_cold_copy
-* afbet_realsports.t_realsports_bet_hot_delete
+* afbet_main.t_order_record_cold_copy
+* afbet_main.t_order_record_hot_delete
 
 **Switch Time**
 * gh
