@@ -174,27 +174,27 @@ ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO
 gh
 ```sql
 -- Step1. 
-CREATE TABLE afbet_patron_gh.t_facts_sporty_uof_messages_odds_change_hot AS
+CREATE TABLE afbet_realsports_gh.t_realsports_selection_source_hot AS
 SELECT *
-FROM afbet_facts_gh.t_facts_sporty_uof_messages_odds_change
-WHERE created_at >= DATEADD(day, -40, GETDATE());
+FROM afbet_realsports_gh.t_realsports_selection_source
+WHERE created_at >= DATEADD(day, -70, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
-ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
 ```
 
 ng
 ```sql
 -- Step1. 
-CREATE TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot AS
+CREATE TABLE afbet_realsports_ng.t_realsports_selection_source_hot AS
 SELECT *
-FROM afbet_facts_ng.t_facts_sporty_uof_messages_odds_change
-WHERE created_at >= DATEADD(day, -40, GETDATE());
+FROM afbet_realsports_ng.t_realsports_selection_source
+WHERE created_at >= DATEADD(day, -70, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
-ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
 ```
 
 **Open DAG**
