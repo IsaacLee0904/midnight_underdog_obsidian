@@ -30,8 +30,8 @@ FROM afbet_realsports_gh.t_realsports_selection
 WHERE created_at >= DATEADD(day, -30, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_realsports_gh.t_realsports_selection_hot RENAME TO afbet_realsports_gh.t_realsports_selection;
 ALTER TABLE afbet_realsports_gh.t_realsports_selection RENAME TO afbet_realsports_gh.t_realsports_selection_cold;
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_hot RENAME TO afbet_realsports_gh.t_realsports_selection;
 ```
 
 ng
@@ -43,8 +43,8 @@ FROM afbet_realsports_ng.t_realsports_selection
 WHERE created_at >= DATEADD(day, -30, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_realsports_ng.t_realsports_selection;
 ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO afbet_realsports_ng.t_realsports_selection_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_realsports_ng.t_realsports_selection;
 ```
 
 **Open DAG**
@@ -65,8 +65,8 @@ FROM afbet_realsports_gh.t_realsports_bet
 WHERE created_at >= DATEADD(day, -30, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_realsports_gh.t_realsports_bet_hot RENAME TO afbet_realsports_gh.t_realsports_bet;
 ALTER TABLE afbet_realsports_gh.t_realsports_bet RENAME TO afbet_realsports_gh.t_realsports_bet_cold;
+ALTER TABLE afbet_realsports_gh.t_realsports_bet_hot RENAME TO afbet_realsports_gh.t_realsports_bet;
 ```
 
 ng
@@ -74,17 +74,17 @@ ng
 -- Step1. 
 CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot AS
 SELECT *
-FROM afbet_realsports_ng.t_realsports_selection
+FROM afbet_realsports_ng.t_realsports_bet
 WHERE created_at >= DATEADD(day, -30, GETDATE());
 
 -- Step2.
-ALTER TABLE t_realsports_selection_hot RENAME TO t_realsports_selection;
-ALTER TABLE t_realsports_selection RENAME TO t_realsports_selection_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_bet RENAME TO afbet_realsports_ng.t_realsports_bet_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_bet_hot RENAME TO afbet_realsports_ng.t_realsports_bet;
 ```
 
 **Open DAG**
-* afbet_realsports.t_realsports_selection_cold_copy
-* afbet_realsports.t_realsports_selection_hot_delete
+* afbet_realsports.t_realsports_bet_cold_copy
+* afbet_realsports.t_realsports_bet_hot_delete
 
 **Switch Time**
 * gh
