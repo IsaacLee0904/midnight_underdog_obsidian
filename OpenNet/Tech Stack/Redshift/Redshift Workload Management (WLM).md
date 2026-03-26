@@ -17,19 +17,36 @@ Link : [Workload Management Page](https://eu-central-1.console.aws.amazon.com/re
 
 1. **用途** : 用來 integrate Grafana metrics 用的 queue
 2. **Query priority** : Highest
-3. **User role** : app_redshift_exporter
+3. **Concurrency on main** : Auto
+4. **User role** : app_redshift_exporter
 
 #### Openmetatadata Queue
 
 1. **用途** : OM 用的 queue，主要提供 DQ check 與 data linage 的功能
-2. **Query priority** : Highest
-3. **User role** : app_redshift_exporter
+2. **Query priority** : Low
+3. **Concurrency on main** : Auto
+4. **User role** : app_openmetadata
 
 #### Human user queries
 
+1. **用途** : 一般使用者 personal account 用的 queue
+2. **Query priority** : Low
+3. **Concurrency on main** : Auto
+4. **User role** : ds_group, da_group, de_group, de_select
+
 #### Metabase queries
 
+1. **用途** : Metabase dashboard 使用的 queue
+2. **Query priority** : Normal
+3. **Concurrency on main** : Auto
+4. **User role** : bi_dag_long_queries
+
 #### BI DAG long queries
+
+1. **用途** : DA Airflow DAG 使用的 queue
+2. **Query priority** : Normal
+3. **Concurrency on main** : Auto
+4. **User role** : metabase
 
 #### BI DAG queries
 
