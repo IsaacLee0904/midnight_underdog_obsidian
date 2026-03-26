@@ -125,31 +125,35 @@ ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
 * gh
 * ng
 
-### t_facts_sporty_uof_messages_odds_change
+### t_facts_sporty_uof_messages_odds_change ✅
+
+![[Screenshot 2026-03-26 at 4.20.45 PM.png]]
+Encore Prod 是空得還要做嗎
+
 gh
 ```sql
 -- Step1. 
-CREATE TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change AS
+CREATE TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change_hot AS
 SELECT *
-FROM afbet_main_gh.t_order_record
+FROM afbet_facts_gh.t_facts_sporty_uof_messages_odds_change
 WHERE created_at >= DATEADD(day, -20, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_main_gh.t_order_record RENAME TO t_order_record_cold;
-ALTER TABLE afbet_main_gh.t_order_record_hot RENAME TO t_order_record;
+ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
+ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
 ```
 
 ng
 ```sql
 -- Step1. 
-CREATE TABLE afbet_main_ng.t_order_record_hot AS
+CREATE TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot AS
 SELECT *
-FROM afbet_main_ng.t_order_record
+FROM afbet_facts_ng.t_facts_sporty_uof_messages_odds_change
 WHERE created_at >= DATEADD(day, -20, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_main_ng.t_order_record RENAME TO t_order_record_cold;
-ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
+ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
+ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
 ```
 
 **Open DAG**
