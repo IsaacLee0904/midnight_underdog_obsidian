@@ -25,6 +25,11 @@ Apply below table in Encore to cold / hot tables :
 gh
 
 ```sql
+CREATE TABLE xxxx_hot AS
+SELECT *
+FROM afbet_realsports_ng.t_realsports_selection
+WHERE created_at >= DATEADD(day, -30, GETDATE());
+
 
 ```
 
