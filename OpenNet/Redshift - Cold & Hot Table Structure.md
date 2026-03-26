@@ -21,8 +21,8 @@ hot tables only save recent data and cold tables with suffix `_cold`have all dat
 
 為解決此問題，我們將一張龐大的資料表拆分為兩張：
 
-- **冷資料表**：儲存全部資料，但使用頻率低
-- **熱資料表**：僅儲存近期資料，使用頻率高
+- **Cold Table**：儲存全部資料，但使用頻率低
+- **Hot Table**：僅儲存近期資料，使用頻率高
 
 ## Implement Step
 
