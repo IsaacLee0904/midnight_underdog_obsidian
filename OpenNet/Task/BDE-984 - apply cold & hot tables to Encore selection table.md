@@ -87,7 +87,9 @@ WHERE create_time >= DATEADD(day, -10, GETDATE())
 
 ```
 
-> Why use create_time not
+> **Why use `create_time` not `index` ?**
+> 
+> 根據 
 
 
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
