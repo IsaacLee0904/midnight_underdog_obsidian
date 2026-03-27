@@ -91,11 +91,10 @@ WHERE create_time >= DATEADD(day, -10, GETDATE())
 > 
 > 根據 `svv_table_info` 資訊 `index` 是 sort_key，然而根據 `EXPLAIN` 的結果發現實際上使用 `create_time` 與 `id` 都會是 full table scan
 >
->* filter with create_time
->![[Screenshot 2026-03-27 at 1.38.44 PM.png]]
+>* filter with create_time![[Screenshot 2026-03-27 at 5.48.29 PM.png]]
 >
-> * filter with index
-> ![[Screenshot 2026-03-27 at 1.37.31 PM.png]]
+> * filter with index ![[Screenshot 2026-03-27 at 5.46.42 PM.png]]
+
 ```sql
 EXPLAIN
 SELECT * FROM afbet_realsports_gh.t_realsports_selection
@@ -107,6 +106,8 @@ SELECT *
 FROM afbet_realsports_gh.t_realsports_selection
 WHERE id >= CONCAT(TO_CHAR(DATEADD(day, -10, GETDATE()), 'YYMMDDHHMMSS'), '0000000000000');
 ```
+
+>[]
 
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
 ```sql
