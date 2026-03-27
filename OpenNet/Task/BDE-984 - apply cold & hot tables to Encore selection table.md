@@ -127,10 +127,12 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsport
 2. 按 action -> 等 approve -> SQL execute -> 檢查結果
 
 
-**Open DAG**
+Step4. Open DAG
 * afbet_realsports.t_realsports_selection_reshard_v2
 * afbet_realsports.t_realsports_selection_cold_copy
 * afbet_realsports.t_realsports_selection_hot_delete
+
+>[!WARNING] 需要額外創建 Airflow Variables
 
 **Switch Time**
 * gh - 2026-03-27 14:36
