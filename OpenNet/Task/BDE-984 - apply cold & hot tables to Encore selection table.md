@@ -89,7 +89,10 @@ WHERE create_time >= DATEADD(day, -10, GETDATE())
 
 > **Why use `create_time` not `index` ?**
 > 
-> 根據 
+> 根據 `svv_table_info` 資訊 `index` 是 sort_key，然而根據 `EXPLAIN` 的結果發現實際上使用 `create_time` 與 `id` 都會是 full table scan
+> ```sql
+> 
+> ```
 
 
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
