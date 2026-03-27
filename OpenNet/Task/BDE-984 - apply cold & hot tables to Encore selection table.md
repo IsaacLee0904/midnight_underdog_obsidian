@@ -119,6 +119,11 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO t_realsports_se
 ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsports_selection;
 ```
 
+分兩段  
+1. 發PR -> 等approve -> merge
+2. 按action -> 等approve -> SQL execute -> 檢查結果
+
+
 **Open DAG**
 * afbet_realsports.t_realsports_selection_reshard_v2
 * afbet_realsports.t_realsports_selection_cold_copy
