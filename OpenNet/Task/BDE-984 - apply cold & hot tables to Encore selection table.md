@@ -88,29 +88,12 @@ WHERE create_time >= DATEADD(day, -10, GETDATE())
 ```
 
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
-
-gh
 ```sql
--- Step1. 
-CREATE TABLE afbet_realsports_gh.t_realsports_selection_hot AS
-SELECT *
-FROM afbet_realsports_gh.t_realsports_selection
-WHERE update_time >= DATEADD(day, -40, GETDATE());
-
--- Step2.
+-- gh
 ALTER TABLE afbet_realsports_gh.t_realsports_selection RENAME TO t_realsports_selection_cold;
 ALTER TABLE afbet_realsports_gh.t_realsports_selection_hot RENAME TO t_realsports_selection;
-```
 
-ng
-```sql
--- Step1. 
-CREATE TABLE afbet_realsports_ng.t_realsports_selection_hot AS
-SELECT *
-FROM afbet_realsports_ng.t_realsports_selection
-WHERE update_time >= DATEADD(day, -40, GETDATE());
-
--- Step2.
+-- ng
 ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO t_realsports_selection_cold;
 ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsports_selection;
 ```
@@ -121,8 +104,8 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsport
 * afbet_realsports.t_realsports_selection_hot_delete
 
 **Switch Time**
-* gh - 3/26 17:34 ~ 17:41
-* ng - 3/26 17:41 ~ 
+* gh - 
+* ng - 
 
 ### t_realsports_bet 
 gh
