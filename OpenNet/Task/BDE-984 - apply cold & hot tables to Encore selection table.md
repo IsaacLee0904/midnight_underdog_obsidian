@@ -111,8 +111,8 @@ FROM afbet_realsports_ng.t_realsports_selection
 WHERE update_time >= DATEADD(day, -40, GETDATE());
 
 -- Step2.
-ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO afbet_realsports_ng.t_realsports_selection_cold;
-ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_realsports_ng.t_realsports_selection;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO t_realsports_selection_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsports_selection;
 ```
 
 **Open DAG**
