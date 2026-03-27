@@ -21,7 +21,17 @@ Apply below table in Encore to cold / hot tables :
 ## Implement
 
 ### t_realsports_selection 
-先把原本排程關掉
+
+Step1. Create Empty hot table
+```sql
+-- gh 
+CREATE TABLE afbet_realsports_gh.t_realsports_selection_hot
+(LIKE afbet_realsports_gh.t_realsports_selection);
+
+-- ng
+CREATE TABLE afbet_realsports_ng.t_realsports_selection_hot
+(LIKE afbet_realsports_ng.t_realsports_selection);
+```
 
 gh
 ```sql
