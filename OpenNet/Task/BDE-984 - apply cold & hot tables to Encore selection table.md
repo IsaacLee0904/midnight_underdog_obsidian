@@ -130,8 +130,8 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsport
 * afbet_realsports.t_realsports_selection_hot_delete
 
 **Switch Time**
-* gh - 
-* ng - 
+* gh - 2026-03-27 14:36
+* ng - 2026-03-27 14:36
 
 ### t_realsports_bet 
 gh
