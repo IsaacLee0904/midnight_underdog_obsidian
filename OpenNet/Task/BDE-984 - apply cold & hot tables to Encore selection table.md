@@ -108,7 +108,7 @@ WHERE id >= CONCAT(TO_CHAR(DATEADD(day, -10, GETDATE()), 'YYMMDDHHMMSS'), '00000
 ```
 
 >[!hint]
->
+> 需要透過 `ANALYIZE` 來優化
 
 
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
