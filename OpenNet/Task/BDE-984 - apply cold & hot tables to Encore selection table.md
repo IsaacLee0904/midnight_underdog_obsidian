@@ -107,7 +107,9 @@ FROM afbet_realsports_gh.t_realsports_selection
 WHERE id >= CONCAT(TO_CHAR(DATEADD(day, -10, GETDATE()), 'YYMMDDHHMMSS'), '0000000000000');
 ```
 
->[]
+>[!hint]
+>
+
 
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
 ```sql
