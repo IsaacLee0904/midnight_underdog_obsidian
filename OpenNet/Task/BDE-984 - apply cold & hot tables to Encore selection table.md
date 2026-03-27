@@ -120,8 +120,8 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsport
 ```
 
 分兩段  
-1. 發PR -> 等approve -> merge
-2. 按action -> 等approve -> SQL execute -> 檢查結果
+1. 發 PR -> 等 approve -> merge
+2. 按 action -> 等 approve -> SQL execute -> 檢查結果
 
 
 **Open DAG**
