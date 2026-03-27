@@ -61,9 +61,33 @@ WHERE update_time >= DATEADD(day, -10, GETDATE())
   AND update_time < GETDATE();
 
 -- ng
+-- Day 1-10
+INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_selection
+WHERE update_time >= DATEADD(day, -40, GETDATE())
+  AND update_time < DATEADD(day, -30, GETDATE());
+
+-- Day 11-20
+INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_selection
+WHERE update_time >= DATEADD(day, -30, GETDATE())
+  AND update_time < DATEADD(day, -20, GETDATE());
+
+-- Day 21-30
+INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_selection
+WHERE update_time >= DATEADD(day, -20, GETDATE())
+  AND update_time < DATEADD(day, -10, GETDATE());
+
+-- Day 31-40
+INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_selection
+WHERE update_time >= DATEADD(day, -10, GETDATE())
+  AND update_time < GETDATE();
 
 ```
 
+Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
 
 gh
 ```sql
