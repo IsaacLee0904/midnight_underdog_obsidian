@@ -33,6 +33,15 @@ CREATE TABLE afbet_realsports_ng.t_realsports_selection_hot
 (LIKE afbet_realsports_ng.t_realsports_selection);
 ```
 
+Step2. Insert data to hot table 
+```sql
+-- gh
+
+-- ng
+
+```
+
+
 gh
 ```sql
 -- Step1. 
