@@ -20,7 +20,7 @@ Apply below table in Encore to cold / hot tables :
 
 ## Implement
 
-### t_realsports_selection ✅
+### t_realsports_selection 
 先把原本排程關掉
 
 gh
@@ -58,7 +58,7 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO afbet_reals
 * gh - 3/26 17:34 ~ 17:41
 * ng - 3/26 17:41 ~ 
 
-### t_realsports_bet ✅
+### t_realsports_bet 
 gh
 ```sql
 -- Step1. 
@@ -93,7 +93,7 @@ ALTER TABLE afbet_realsports_ng.t_realsports_bet_hot RENAME TO t_realsports_bet;
 * gh
 * ng
 
-### t_order_record ✅
+### t_order_record 
 gh
 ```sql
 -- Step1. 
@@ -127,52 +127,7 @@ ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
 **Switch Time**
 * gh
 * ng
-
-### t_facts_sporty_uof_messages_odds_change ✅
-
-![[Screenshot 2026-03-26 at 4.20.45 PM.png]]
-
->[!WARNING] Encore Prod 有 table 但是空的
-
-gh
-```sql
--- Step1. 
-CREATE TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change_hot AS
-SELECT *
-FROM afbet_facts_gh.t_facts_sporty_uof_messages_odds_change
-WHERE created_at >= DATEADD(day, -20, GETDATE());
-
--- Step2.
-ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
-ALTER TABLE afbet_facts_gh.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
-```
-
-ng
-```sql
--- Step1. 
-CREATE TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot AS
-SELECT *
-FROM afbet_facts_ng.t_facts_sporty_uof_messages_odds_change
-WHERE created_at >= DATEADD(day, -20, GETDATE());
-
--- Step2.
-ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change RENAME TO t_facts_sporty_uof_messages_odds_change_cold;
-ALTER TABLE afbet_facts_ng.t_facts_sporty_uof_messages_odds_change_hot RENAME TO t_facts_sporty_uof_messages_odds_change;
-```
-
-**Open DAG**
-* afbet_facts.t_facts_sporty_uof_messages_odds_change_cold_copy
-* afbet_facts.t_facts_sporty_uof_messages_odds_change_hot_delete 
-
-**Switch Time**
-* gh
-* ng
-
-### logs_patron_fe_behav ✅
-
->[!WARNING] Encore Prod 沒有 table
-
-### t_realsports_selection_source ✅
+### t_realsports_selection_source 
 
 gh
 ```sql
@@ -243,3 +198,14 @@ ALTER TABLE afbet_realsports_ng.t_realsports_selection_source_hot RENAME TO t_re
 **Switch Time**
 * gh
 * ng
+
+
+### t_facts_sporty_uof_messages_odds_change 
+
+![[Screenshot 2026-03-26 at 4.20.45 PM.png]]
+
+>[!WARNING] Encore Prod 有 table 但是空的
+
+### logs_patron_fe_behav 
+
+>[!WARNING] Encore Prod 沒有 table
