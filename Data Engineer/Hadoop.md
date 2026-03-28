@@ -2,6 +2,7 @@ tags : #big-data #hadoop #data-engineering
 source : Notion
 
 ---
+![[Pasted image 20260328152523.png]]
 ## Introduction to Big Data
 
 ### What is Big Data？
