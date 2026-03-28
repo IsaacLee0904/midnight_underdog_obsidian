@@ -1,10 +1,7 @@
-# Hadoop
-
-tags: #big-data #hadoop #data-engineering
-source: [[Isaac's Note]]
+tags : #big-data #hadoop #data-engineering
+source : Notion
 
 ---
-
 ## Introduction to Big Data
 
 ### What is Big Data？
