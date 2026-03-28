@@ -1,7 +1,5 @@
-# CICD with GitLab
-
-tags: #cicd #gitlab #devops #data-engineering
-source: [[Isaac's Note]]
+tags : #cicd #gitlab #devops #data-engineering
+source : Notion
 
 ---
 

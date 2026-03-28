@@ -1,7 +1,5 @@
-# Clickhouse
-
-tags: #clickhouse #olap #database #data-engineering
-source: [[Isaac's Note]]
+tags : #clickhouse #olap #database #data-engineering
+source : Notion
 
 ---
 

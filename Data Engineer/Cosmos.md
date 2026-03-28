@@ -1,7 +1,5 @@
-# Cosmos (Astronomer Cosmos)
-
-tags: #airflow #dbt #cosmos #data-engineering
-source: [[Isaac's Note]]
+tags : #airflow #dbt #cosmos #data-engineering
+source : Notion
 
 ---
 

@@ -1,7 +1,5 @@
-# Ansible
-
 tags: #ansible #devops #automation #data-engineering
-source: [[Isaac's Note]]
+source: Notion
 
 ---
 
