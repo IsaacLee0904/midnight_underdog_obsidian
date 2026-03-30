@@ -8,7 +8,8 @@
 **Step1. 創建 SQL file**
 在 [dba_redshfit_executor](https://github.com/opennetltd/dba-redshift-executor) & [dba_redshift_executor_prod](https://github.com/opennetltd/dba-redshift-executor-prod) 兩個 repo 下的 ddl folder 創建建立 table 的 SQL file
 
-Step2. 
+**Step2. 等待 Approve and Merge**
+
 
 
 
