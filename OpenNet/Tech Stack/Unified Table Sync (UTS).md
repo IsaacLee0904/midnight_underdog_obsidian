@@ -6,22 +6,21 @@ source : OpenNet
 
 DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含 backfill 與排程設定
 
-UTS Slack App 提供：
-
-- 一個自助式 DA 申請表單
-- DE 審核與核准流程
-- 自動化執行：
-  1. 觸發 Airflow bootstrap DAG
-  2. 從 template 產生 DAG
-  3. 建立 GitHub PR
-  4. 將 PR 連結回傳至 Slack thread
-
+UTS Slack App 的功能
+* A **self-serve DA request form**
+* A **DE review & approval workflow**
+* Automated workflow
+	* triggering of Airflow bootstrap DAGs
+	* DAG generation from templates
+	* creation of GitHub PRs
+	* posting PR links back into Slack threads
 ---
 
 ## High-Level Architecture
 
-UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app
+![[Pasted image 20260330111503.png]]
 
+UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app
 ### Components
 
 **Sporty Slack App**
@@ -36,9 +35,9 @@ UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app
 - 為 DAG 建立 GitHub PR
 
 **FastAPI callback server（部署於 OpenNet runtime）**
-接收：
-- Sporty app 轉發的 DA request
-- Airflow callback payload（`ddl_result`）
+* Receives
+	- Sporty app 轉發的 DA request
+	- Airflow callback payload（`ddl_result`）
 
 非同步分派工作
 
@@ -51,10 +50,6 @@ UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app
 
 **Meta DB**
 - 用於 metadata 查詢與 config 展開
-
-### Architecture Diagram
-
-![[UTS Architecture.png]]
 
 ---
 
