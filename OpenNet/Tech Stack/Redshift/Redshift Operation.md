@@ -12,3 +12,9 @@ ORDER BY schema;
 ```
 
 Step2. Change Sort Key
+
+```sql
+ALTER TABLE bi_warehouse.afbet_realsports_gh.t_realsports_selection
+ALTER SORTKEY (id);
+```
+- 不需要 rebuild table (但底層還是會重排資料)
