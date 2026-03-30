@@ -24,9 +24,9 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 **<mark style="background: #ADCCFFA6;">Sporty Slack App</mark>
 - DA 的入口（modal / slash command）
-	```bash
-	
-	```
+```bash
+/table_sync
+```
 - 將 request payload 透過 FastAPI 轉發至 OpenNet runtime
 
 **OpenNet Slack App**
