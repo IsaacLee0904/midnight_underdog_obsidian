@@ -20,7 +20,7 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 ![[Pasted image 20260330111503.png]]
 
-> UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app
+> <span style="color:rgb(184, 191, 193)">UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app</span>
 ### Components
 
 **Sporty Slack App**
