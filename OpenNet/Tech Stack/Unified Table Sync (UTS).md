@@ -78,3 +78,5 @@ UTS_MANAGED_DAG = True
 - 若 DAG 已存在 **且** 含有 `UTS_MANAGED_DAG = True` → UTS 不會重新建立非 managed 版本
 - 此機制防止重複，並維持所有權邊界
 
+#### Reference
+[Confluence Page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4282351705/Unified+Table+Sync+UTS+Slack+App+Developer+Maintainer+Guide)
