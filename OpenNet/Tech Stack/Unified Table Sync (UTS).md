@@ -59,6 +59,7 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 > * Slack 規定你必須在 **3 秒內** 回 `ack()`，否則 Slack 會認為你的 server 沒有回應，然後跳出錯誤訊息給使用者，所以先 `ack()`，讓 Slack 收到再把耗時的工作 EX. Airflow、Create PR 弄到背景做非同步處理
 
 ### DEs Workflow
+![[UTS workflow|800]]
 
 ---
 
