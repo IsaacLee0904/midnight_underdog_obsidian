@@ -11,10 +11,10 @@ UTS Slack App 提供：
 - 一個自助式 DA 申請表單
 - DE 審核與核准流程
 - 自動化執行：
-  - 觸發 Airflow bootstrap DAG
-  - 從 template 產生 DAG
-  - 建立 GitHub PR
-  - 將 PR 連結回傳至 Slack thread
+  1. 觸發 Airflow bootstrap DAG
+  2. 從 template 產生 DAG
+  3. 建立 GitHub PR
+  4. 將 PR 連結回傳至 Slack thread
 
 ---
 
