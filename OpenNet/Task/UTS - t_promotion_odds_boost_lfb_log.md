@@ -10,9 +10,10 @@
 
 **Step2. 等待 Approve and Merge**
 ![[Screenshot 2026-03-30 at 2.31.02 PM.png]]
-到 Slack 發訊息請別人 Approve
+到 Slack 發訊息請別人 Approve 之後 Merge
 
 **Step3. Run SQL on Redshift**
+![[Screenshot 2026-03-30 at 2.33.49 PM.png]]
 
 
 
