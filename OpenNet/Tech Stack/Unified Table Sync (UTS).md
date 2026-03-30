@@ -50,39 +50,15 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 - 接收 callback handler 建立的 PR
 ---
 
-## End-to-End Flow (What Happens In Production)
+## End-to-End Flow 
+### Script Workflow
 ![[Pasted image 20260330114314.png]]
 
-### 3.1 DA Submission Flow (Sporty → OpenNet)
+> 所有的任務都會先回應 `ack()`
+> 
+> * Slack 規定你必須在 **3 秒內** 回 `ack()`，否則 Slack 會認為你的 server 沒有回應，然後跳出錯誤訊息給使用者，所以先 `ack()`，讓 Slack 收到再把耗時的工作 EX. Airflow、Create PR 弄到背景做非同步處理
 
-![[UTS Sequence 1.png]]
-
-**步驟說明**
-
-1. DA 觸發流程（slash command / modal）
-2. Modal 開啟
-3. DA 提交表單
-4. Slack 要求在約 3 秒內 `ack()` → app 立即回應 success view
-5. Sporty App 將 payload 轉發至 OpenNet FastAPI：`POST /internal/uts/da_submit`
-6. FastAPI 快速回傳 200
-7. OpenNet app 非同步將申請發佈至 DE 審核頻道（`bi_de`）
-8. 含操作按鈕的 DE thread 建立完成
-
-### 3.2 DE Review & Automation Flow (Approve → Airflow → Callback → PRs)
-
-![[UTS Sequence 2.png]]
-
-**步驟說明**
-
-1. DE 點擊 Approve / Edit & Approve / Reject
-2. OpenNet app 接收 action payload
-3. App 立即執行 `ack()`
-4. App 針對所選的 brand/env 觸發 Airflow bootstrap DAG
-5. Airflow 執行完畢並發送 callback：`POST /internal/uts/ddl_result`
-6. FastAPI 回傳 200
-7. Callback handler 非同步處理結果
-8. Callback handler 建立 GitHub PR
-9. PR 連結回傳至同一個 Slack thread
+### DEs Workflow
 
 ---
 
