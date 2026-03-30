@@ -21,10 +21,12 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 ![[Pasted image 20260330111503.png]]
 
 > <span style="color:rgb(184, 191, 193)">UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app</span>
-### Components
 
-**Sporty Slack App**
+**<mark style="background: #ADCCFFA6;">Sporty Slack App</mark>
 - DA 的入口（modal / slash command）
+	```bash
+	
+	```
 - 將 request payload 透過 FastAPI 轉發至 OpenNet runtime
 
 **OpenNet Slack App**
