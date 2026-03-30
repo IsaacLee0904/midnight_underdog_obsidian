@@ -29,8 +29,8 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 ```
 - 將 request payload 透過 FastAPI 轉發至 OpenNet runtime
 
-**OpenNet Slack App**
-- 將申請發佈至 DE 審核頻道（`bi_de`）
+<mark style="background: #ADCCFFA6;">OpenNet Slack App</mark>
+- 將申請發佈至 DE 審核頻道（`bi_de`）![[Screenshot 2026-03-30 at 11.25.22 AM.png]]
 - 處理 DE 操作（Approve / Edit & Approve / Reject）
 - 觸發 Airflow
 - 處理 Airflow callback
