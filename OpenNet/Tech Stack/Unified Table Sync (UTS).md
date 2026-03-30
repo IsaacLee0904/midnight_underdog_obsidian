@@ -6,7 +6,7 @@ source : OpenNet
 
 DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含 backfill 與排程設定
 
-UTS Slack App 的功能
+<mark style="background: #FFB86CA6;">UTS Slack App 的功能</mark>
 * A **self-serve DA request form**
 * A **DE review & approval workflow**
 * Automated workflow
@@ -20,7 +20,7 @@ UTS Slack App 的功能
 
 ![[Pasted image 20260330111503.png]]
 
-UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app
+> UTS 跨兩個 Slack workspace 運行，因此使用兩個 Slack app
 ### Components
 
 **Sporty Slack App**
