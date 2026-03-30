@@ -42,19 +42,16 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 - Airflow callback payload（`ddl_result`）
 > <span style="color:rgb(184, 191, 193)">是非同步分派工作</span>
 
-**Airflow**
+<mark style="background: #ADCCFFA6;">Airflow</mark>
 - 執行 `uts_ddl_bootstrap` DAG（bootstrap）
-- schema/table DAG 架構就緒後，回呼 UTS server
+- schema / table DAG 架構就緒後，回呼 UTS server
 
-**GitHub**
+<mark style="background: #ADCCFFA6;">GitHub</mark>
 - 接收 callback handler 建立的 PR
-
-**Meta DB**
-- 用於 metadata 查詢與 config 展開
-
 ---
 
-## 3. End-to-End Flow (What Happens In Production)
+## End-to-End Flow (What Happens In Production)
+![[Pasted image 20260330114314.png]]
 
 ### 3.1 DA Submission Flow (Sporty → OpenNet)
 
