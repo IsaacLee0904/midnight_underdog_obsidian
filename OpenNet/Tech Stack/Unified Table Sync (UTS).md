@@ -24,15 +24,14 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 **<mark style="background: #ADCCFFA6;">Sporty Slack App</mark>
 - <span style="color:rgb(255, 0, 0)">bi_job</span> 的 Slack Channel
-- DA 的入口（modal / slash command）
+- DA 的入口，透過指令可以創建需求單
 ```bash
 /table_sync
 ```
 - 將 request payload 透過 FastAPI 轉發至 OpenNet runtime
 
 <mark style="background: #ADCCFFA6;">OpenNet Slack App</mark>
-- 將申請發佈至 DE 審核頻道（`bi_de`）![[Screenshot 2026-03-30 at 11.25.22 AM.png]]
-- 處理 DE 操作（Approve / Edit & Approve / Reject）
+- 將申請發佈到 <span style="color:rgb(255, 0, 0)">bi_de</span> 給 DE 審核![[Screenshot 2026-03-30 at 11.25.22 AM.png]]
 - 觸發 Airflow
 - 處理 Airflow callback
 - 為 DAG 建立 GitHub PR
