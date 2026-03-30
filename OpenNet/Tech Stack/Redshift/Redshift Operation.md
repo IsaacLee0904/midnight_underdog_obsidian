@@ -11,4 +11,4 @@ WHERE 1 = 1
 ORDER BY schema;
 ```
 
-Step2. Alter sort key
+Step2. Change Sort Key
