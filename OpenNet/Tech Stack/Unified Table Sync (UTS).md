@@ -60,6 +60,7 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 ### DEs Workflow
 ![[UTS workflow|800]]
+
 ---
 
 ## UTS-Managed DAG Rules
@@ -79,33 +80,7 @@ UTS_MANAGED_DAG = True
 
 ---
 
-## 7. Deployment Notes (K8s)
-
-UTS 以兩個 runtime instance 部署（相同 codebase）：
-
-### 7.1 Sporty Deployment
-
-- 僅處理 DA modal 提交
-- 轉發至 OpenNet FastAPI
-- **不**發佈至 `bi_de`
-
-### 7.2 OpenNet Deployment
-
-- 部署 FastAPI endpoint
-- 發佈至 DE 審核頻道
-- 處理 DE 操作
-- 處理 callback
-- 建立 PR
-
-**Configuration**
-
-K8s 使用：
-- `ConfigMap`：非敏感環境變數
-- `Secret`：token 與 secret
-
----
-
-## 8. How to Modify Safely (Maintenance Guide)
+## How to Modify Safely (Maintenance Guide)
 
 ### 8.1 Slack Timeout Rule
 
