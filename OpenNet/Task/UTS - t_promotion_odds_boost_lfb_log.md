@@ -9,6 +9,10 @@
 在 [dba_redshfit_executor](https://github.com/opennetltd/dba-redshift-executor) & [dba_redshift_executor_prod](https://github.com/opennetltd/dba-redshift-executor-prod) 兩個 repo 下的 ddl folder 創建建立 table 的 SQL file
 
 **Step2. 等待 Approve and Merge**
+![[Screenshot 2026-03-30 at 2.31.02 PM.png]]
+到 Slack 發訊息請別人 Approve
+
+**Step3. Run SQL on Redshift**
 
 
 
