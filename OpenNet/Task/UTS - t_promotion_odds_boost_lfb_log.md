@@ -17,7 +17,7 @@
 **Step3. Run SQL on Redshift**
 ![[Screenshot 2026-03-30 at 2.33.49 PM.png]]
 
-
+### Create Table
 
 
 #### Reference
