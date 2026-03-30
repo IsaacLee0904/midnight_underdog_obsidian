@@ -1,6 +1,10 @@
 ## Check Table info
 ### with data
 ```sql
+SHOW search_path;
+
+SET search_path to afbet_marketing_br -- need to assign a schema
+
 SELECT *
 FROM svv_table_info
 WHERE 1 = 1
