@@ -1,7 +1,5 @@
-# Airflow
-
-tags: #airflow #data-engineering #workflow #orchestration
-source: [[Isaac's Note]]
+tags : #airflow #data-engineering #workflow #orchestration
+source : Notion
 
 ---
 
