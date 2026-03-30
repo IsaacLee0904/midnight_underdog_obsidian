@@ -36,12 +36,11 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 - 處理 Airflow callback
 - 為 DAG 建立 GitHub PR
 
-**FastAPI callback server（部署於 OpenNet runtime）**
-* Receives
-	- Sporty app 轉發的 DA request
-	- Airflow callback payload（`ddl_result`）
-
-非同步分派工作
+<mark style="background: #ADCCFFA6;">FastAPI callback server</mark>
+* 部署於 OpenNet runtime
+- Sporty app 轉發的 DA request
+- Airflow callback payload（`ddl_result`）
+> <span style="color:rgb(184, 191, 193)">是非同步分派工作</span>
 
 **Airflow**
 - 執行 `uts_ddl_bootstrap` DAG（bootstrap）
