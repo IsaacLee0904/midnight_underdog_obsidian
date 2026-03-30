@@ -14,6 +14,11 @@ LIMIT 10;
 
 這個例子是 `ticket_info` 的欄位超過了原本設定的 var 數值，但也到了 Redshift 的上限，所以透過去 pipeline 把字串截斷來處理
 
+> [!important]
+> Redshift 的 `VARCHAR(n)` 中的 `n` 是以 **bytes（位元組）** 計算，不是字元數
+> 因此一個中文字（UTF-8）佔 3 bytes，emoji 佔 4 bytes
+> 例如 `VARCHAR(100)` 最多只能存約 33 個中文字，而不是 100 個
+
 Step2. 修正錯誤
 ```python
 def unzip_and_to_json(ticket_info: str):
