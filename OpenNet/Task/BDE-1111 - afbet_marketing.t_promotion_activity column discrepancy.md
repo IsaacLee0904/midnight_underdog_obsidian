@@ -9,5 +9,9 @@
 - [ ] Prod Encore
 - [ ] UAT Encore
 
-after investage 
+after investigate only Sporty had added two new column
+
+**Step2. Add columns with dba-tools**
+
+
 
