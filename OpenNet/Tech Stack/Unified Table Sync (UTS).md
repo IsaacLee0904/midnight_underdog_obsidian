@@ -85,8 +85,10 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 #### Create Pipeline
 
+按完 Approve 之後會跳出 Slack 訊息
+
 **Step1. Check the PR**
-去
+去 GitHub repo 看 PR
 
 
 
