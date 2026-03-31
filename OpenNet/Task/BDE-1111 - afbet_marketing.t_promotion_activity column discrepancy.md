@@ -2,3 +2,5 @@
 
 在 RDS 中有 `promotion_title_cms_page` 與 `promotion_title_cms_key` 兩個 columns 但 Redshift 沒有
 
+**Step1. Check in RDS Prod and UAT**
+
