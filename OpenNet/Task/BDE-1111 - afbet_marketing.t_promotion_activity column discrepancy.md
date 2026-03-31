@@ -4,23 +4,8 @@
 
 **Step1. Check in RDS Prod and UAT**
 
-<mark style="background: #FFB86CA6;">Prod Sporty</mark>
-- [x] br
-- [ ] gh
-- [ ] ke
-- [ ] ng
-- [ ] tz
-- [ ] za
-- [ ] zm
-- [ ] int
-
-<mark style="background: #FFB86CA6;">UAT Sporty</mark>
-- [ ] gh
-- [x] ng
-- [ ] int
-
-<mark style="background: #FFB86CA6;">Prod Encore</mark>
-
-
-<mark style="background: #FFB86CA6;">UAT Encore</mark>
+- [x] Prod Sporty
+- [x] UAT Sporty
+- [ ] Prod Encore
+- [ ] UAT Encore
 
