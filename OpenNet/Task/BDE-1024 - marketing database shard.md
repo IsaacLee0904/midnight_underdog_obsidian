@@ -1,4 +1,7 @@
 
+
+
+### Verify SQL query after DBA fix the columns different 
 ```sql
 SELECT
 	table_name,

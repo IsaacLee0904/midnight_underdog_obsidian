@@ -13,3 +13,4 @@
 **Step3. 解決之後標註 ✅**
 
 [[Ad hoc - Airflow Pipeline stl_load_errors]]
+[[BDE-1111 - afbet_marketing.t_promotion_activity column discrepancy]]
