@@ -62,6 +62,9 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 ![[UTS workflow|800]]
 
+#### Review Request
+
+
 #### Create Table
 因為這個需求單有特別說到需要以 `user_id` 作為 distkey，因此需要另外使用 dba_tools 來手動建立 table
 
@@ -81,7 +84,8 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 #### Create Pipeline
 
-Step1. 
+Step1. Check the PR
+如果是
 
 
 
