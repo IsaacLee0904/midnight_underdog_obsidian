@@ -12,6 +12,19 @@
 after investigate only Sporty had added two new column
 
 **Step2. Add columns with dba-tools**
+Prod
+
+UAT
+```sql
+ALTER TABLE afbet_marketing_gh.t_promotion_activity ADD COLUMN promotion_title_cms_page VARCHAR(64);
+ALTER TABLE afbet_marketing_ng.t_promotion_activity ADD COLUMN promotion_title_cms_page VARCHAR(64);
+ALTER TABLE afbet_marketing_int.t_promotion_activity ADD COLUMN promotion_title_cms_page VARCHAR(64);
+
+ALTER TABLE afbet_marketing_gh.t_promotion_activity ADD COLUMN promotion_title_cms_key VARCHAR(64);
+ALTER TABLE afbet_marketing_ng.t_promotion_activity ADD COLUMN promotion_title_cms_key VARCHAR(64);
+ALTER TABLE afbet_marketing_int.t_promotion_activity ADD COLUMN promotion_title_cms_key VARCHAR(64);
+```
+
 
 
 
