@@ -83,12 +83,17 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 **Step3. Run SQL on Redshift**
 ![[Screenshot 2026-03-30 at 2.33.49 PM.png]]
 
+如此一來在按完 Approve 之後，會得到以下的通知 : 
+![[Screenshot 2026-03-31 at 11.29.06 AM.png]]
+
 #### Create Pipeline
 
 按完 Approve 之後會跳出 Slack 訊息
+![[Screenshot 2026-03-31 at 11.29.50 AM.png]]
 
-**Step1. Check the PR**
-去 GitHub repo 看 PR
+
+**Step1. Review the PR**
+點擊 View PR 之後，轉跳到 GitHub repo 看 PR，會創建兩個
 
 
 
