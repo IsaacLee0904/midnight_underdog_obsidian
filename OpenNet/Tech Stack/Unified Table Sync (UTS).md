@@ -81,6 +81,7 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 #### Create Pipeline
 
+Step1. 
 
 
 
