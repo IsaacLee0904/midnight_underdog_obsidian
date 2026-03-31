@@ -64,7 +64,6 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 #### Review Request
 先確認一下 sync pipeline 的需求，看看有沒有額外的需求 EX. 特別的 distkey, 適用的 country 不是 all ...，如果需要則跳到 [[#Create Table]] 章節，如果不需要就<span style="color:rgb(0, 176, 80)">按 Approve</span>
 
->[!WARNING] 有時候
 >
 
 #### Create Table
