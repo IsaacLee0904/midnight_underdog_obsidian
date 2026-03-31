@@ -3,9 +3,20 @@
 在 RDS 中有 `promotion_title_cms_page` 與 `promotion_title_cms_key` 兩個 columns 但 Redshift 沒有
 
 **Step1. Check in RDS Prod and UAT**
-Prod
-[] 
+<mark style="background: #FFB86CA6;">Prod Sporty</mark>
+- [x] br
+- [ ] gh
+- [ ] ke
+- [ ] ng
+- [ ] tz
+- [ ] za
+- [ ] zm
+- [ ] int
 
+UAT Sporty
+- [ ] 
 
-UAT
+Prod Encore
+
+UAT Encore
 
