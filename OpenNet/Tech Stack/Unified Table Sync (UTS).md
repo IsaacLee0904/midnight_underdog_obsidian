@@ -60,8 +60,6 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 ### DEs Workflow
 
-^b68437
-
 ![[UTS workflow|800]]
 
 #### Create Table

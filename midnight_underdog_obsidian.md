@@ -1,9 +1,17 @@
-# midnight_underdog_obsidian
+# Obsidian Tutorial
+
+
+### Link a block to other page
+```
+![[page_name#title_name]]
+```
+
+### Different Blockquotes Type
 
 | 語法                                           | 顏色  |
 | -------------------------------------------- | --- |
 | `[!note]`                                    | 藍   |
-| `[!tip]` / `[!hint]` / `[!important]`*       | 綠   |
+| `[!tip]` / `[!hint]` / `[!important]`        | 綠   |
 | `[!warning]` / `[!caution]` / `[!attention]` | 橘   |
 | `[!danger]` / `[!error]`                     | 紅   |
 | `[!info]`                                    | 藍   |
