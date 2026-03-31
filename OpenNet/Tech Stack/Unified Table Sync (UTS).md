@@ -93,9 +93,60 @@ DA 團隊經常需要建立新的 Redshift table sync pipeline，並可能包含
 
 
 **Step1. Review the PR**
-點擊 View PR 之後，轉跳到 GitHub repo 看 PR，會創建兩個
+點擊 View PR 之後，轉跳到 GitHub repo 看 PR，會創建兩個 DAG (不需要 backfill 的話就只會有一個)
 
+**<mark style="background: #ADCCFFA6;">Normal Sync DAG</mark>**
 
+- DAG naming : `{schema}.{table}.py`
+- 針對每個 country 執行平行 task
+- 使用 Airflow 的 `data_interval_start` / `data_interval_end` 為 time windows
+
+>[!important] Normal sync DAG 是 UTS-managed，包含 `UTS_MANAGED_DAG = True`
+
+**<mark style="background: #ADCCFFA6;">Backfill DAG</mark>**
+
+- DAG naming：`{schema}.{table}_backfill.py`
+- 每次跑 **1 週**的資料窗口，cursor 向前推進一週
+- 有狀態地持續往前直到追上今天為止
+
+**Step2. Backfill Data**
+
+**Backfill cursor 存在 Redshift（不用 Airflow Variables）**
+
+> <span style="color:rgb(184, 191, 193)">為了避免頻繁更新 Airflow Variables 造成噪音，進度儲存在 Redshift 中</span>
+> table name：`bi_wh_monitoring.uts_backfill_state`
+
+DAG 從這裡讀取目前的 cursor：
+```sql
+SELECT cursor_start_ts
+FROM bi_wh_monitoring.uts_backfill_state
+...
+LIMIT 1;
+```
+
+**Backfill time windows 怎麼推進**
+- 用 `cursor_start_ts` 作為 start time
+- `end_time_filter` = cursor + 1 週
+- 載入一週資料後，等**最後一個 country 完成**才更新 cursor：
+```sql
+UPDATE bi_wh_monitoring.uts_backfill_state
+SET cursor_start_ts = '{end_time_filter}',
+    last_request_id = '{rid}',
+    update_time = GETDATE()
+...
+```
+
+**Backfill 什麼時候停止**
+當 cursor 已經到今天或超過今天，DAG 就不做任何工作：
+```python
+if start_dt.date() >= datetime.now().date():
+    print(f"start_time_filter {start_dt} > today, skipping load.")
+    return
+```
+
+**Step3. Merge into main**
+
+在確認都沒問題之後就可以 `merge` 到 main 根據需求的 brand 開啟 Airflow UI 上的 DAG
 
 ---
 
