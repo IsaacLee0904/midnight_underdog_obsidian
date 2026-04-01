@@ -52,11 +52,23 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 ![[Screenshot 2026-04-01 at 4.25.32 PM.png]]
 
 Step1. Make a spec：說明要建立的 data pipeline 與做法
-Step2. Spec review：需要給資料架構師、staff 以及 stakeholder review
-Step3. Build and backfill：撰寫 Spark, Airflow code -> 但只 backfill 一個月的資料就好
-Step4. SQL Validation：由 DA 來驗證這一個月的資料是不是正確
-Step5. Metrics Validation：建立新的 metrics ( Minerva 是 Airbnb 存放 metrics 的 repo )
 
+Step2. Spec review：需要給資料架構師、staff 以及 stakeholder review
+
+Step3. Build and backfill：撰寫 Spark, Airflow code -> 但只 backfill 一個月的資料就好
+
+Step4. SQL validation：由 DA 來驗證這一個月的資料是不是正確
+
+Step5. Metrics validation：建立新的 metrics ( Minerva 是 Airbnb 存放 metrics 的 repo )
+
+Step6. Data and code review：架構師會進來檢查 data model 或 code，確定 unit test 與 
+	integration test
+	
+Step7. Metics migration
+
+Step8. Final review：由
+
+Step9. 
 
 
 
