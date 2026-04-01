@@ -37,8 +37,8 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ## Data Spec
 
-理想狀況，在開發一個 data pipeline 之前，需要把所有的 downstream stakeholder 聚在一起
-在投入生產之前，你需要發揮『同理心』，把所有的下游利害關係人聚集在一起問：『如果成本和時間不是問題，你會想要什麼資料？』。這能讓你更清楚他們試圖解決的問題，並幫助你制定未來半年到一年的長期藍圖。你要去思考他們『目前與未來的需求』，不要只為了他們當下一個狹隘的問題去建立單一管道，那會讓你陷入『客製化地獄』(bespoke hell)
+理想狀況，在開發一個 data pipeline 之前，需要把所有的 downstream stakeholder 聚在一起然後做一些需求訪談，確保可以更清楚他們試圖想解決的問題，蠻重要的點是需要思考「目前和未來的需求」，不要只為了一個單一問題去建立 pipeline，最後產出一個規格書 (data spec) 並且被其他人 review EX. Airbnb 需要另外給 staff data engineer 來 reivew 
+
 
 
 
