@@ -66,9 +66,9 @@ Step6. Data and code review：架構師會進來檢查 data model 或 code，確
 	
 Step7. Metics migration
 
-Step8. Final review：由
+Step8. Final review：由 staff DS review
 
-Step9. 
+Step9. Launch PSA：宣布 dataset 正式上線
 
 
 
