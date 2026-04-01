@@ -19,7 +19,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 	* table level：指的是單一的 table 有沒有全部欄位都同步到然後歷史資料也沒有缺漏，同時也包含不應該有 NULL 的欄位就不能有 NULL 值，然後不應該有 duplicate
 
 * <mark style="background: #BBFABBA6;">資料的易用性</mark>
-  table_name 跟 col_name 需要合理且明顯 EX. Airbnb 用 `m_` 來命名 metrics 相關的欄位、`dim_` 來密名維度欄位 同時也體現在使用者是否好找到這些資料 -> [[Data Quality#Data Spec]]
+  table_name 跟 col_name 需要合理且明顯 EX. Airbnb 用 `m_` 來命名 metrics 相關的欄位、`dim_` 來密名維度欄位 同時也體現在使用者是否好找到這些資料 -> [[Data Quality#Data Spec and Data trust]]
 
 * <mark style="background: #BBFABBA6;">指標定義一致性</mark>
   從不同 data pipeline 取得的指標定義要一致，最好符合 single source of truth 可以做 data pipeline 的整合，避免 DA 跟業務端計算 KPI 邏輯不一樣的狀況
@@ -33,11 +33,11 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * <mark style="background: #BBFABBA6;">商業價值</mark>
   每一條你寫的資料管道要麼能產生更多收入，要麼能節省成本 EX. 測量在 AWS 上的花費 唯一的例外是提供戰略價值的資料集，這類資料主要用於重大高層決策 -> Metabase 上有很多用不到的 Dashboard
 
-> 資料品質 = 資料信任 + 資料影響力
+> 資料品質 = 資料信任 (data trust) + 資料影響力
 
-## Data Spec
+## Data Spec and Data trust
 
-理想狀況，在開發一個 data pipeline 之前，需要把所有的 downstream stakeholder 聚在一起然後做一些需求訪談，確保可以更清楚他們試圖想解決的問題，蠻重要的點是需要思考「目前和未來的需求」，不要只為了一個單一問題去建立 pipeline，最後產出一個規格書 (data spec) 並且被其他人 review EX. Airbnb 需要另外給 staff data engineer 來 reivew 
+理想狀況，在開發一個 data pipeline 之前，需要把所有的 downstream stakeholder 聚在一起然後做一些需求訪談，確保可以更清楚他們試圖想解決的問題，<span style="color:rgb(255, 0, 0)">額外需要思考「目前和未來的需求」，不要只為了一個單一問題去建立 pipeline，才能建立一個既可以回答他們今天問題，也能回答未來六個月問題的 data model</span>，最後產出一個規格書 (data spec) 並且被其他人 review EX. Airbnb 需要另外給 staff data engineer 來 reivew 
 
 
 
