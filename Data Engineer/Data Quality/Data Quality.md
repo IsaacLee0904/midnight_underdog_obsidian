@@ -45,6 +45,10 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 > EX. 可能會有 stakeholder 說他想要知道 2023 年巴西因為舉辦某個活動 Airbnb 房源出租狀況
 > 千萬不要直接開始做，因為這麼 narrow down 的需求會反覆的出現
 
+### Airbnb MIDAS process
+
+在 AIrbnb 有一個建立 data pipeline 的
+
 
 
 
