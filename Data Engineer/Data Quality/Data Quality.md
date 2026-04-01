@@ -39,6 +39,9 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 理想狀況，在開發一個 data pipeline 之前，需要把所有的 downstream stakeholder 聚在一起然後做一些需求訪談，確保可以更清楚他們試圖想解決的問題，<span style="color:rgb(255, 0, 0)">額外需要思考「目前和未來的需求」，不要只為了一個單一問題去建立 pipeline，才能建立一個既可以回答他們今天問題，也能回答未來六個月問題的 data model</span>，最後產出一個規格書 (data spec) 並且被其他人 review EX. Airbnb 需要另外給 staff data engineer 來 reivew 
 
+> [!HINT] **Business Impact 對 promotion 的影響**
+> 
+
 
 
 
