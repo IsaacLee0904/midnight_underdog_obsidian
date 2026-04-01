@@ -17,17 +17,20 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * <mark style="background: #BBFABBA6;">資料的完整性</mark>
 	* overview level：主要是關於整體資料的誤解與不完整定義 EX. Zillow 曾經以為他們有完美的模型可以預測房地產，結果因為沒有考慮到模型遺漏了哪些資料點，導致損失
 	* table level：指的是單一的 table 有沒有全部欄位都同步到然後歷史資料也沒有缺漏，同時也包含不應該有 NULL 的欄位就不能有 NULL 值，然後不應該有 duplicate
-* 
 
-* **指標定義一致性**：
+* <mark style="background: #BBFABBA6;">資料的易用性</mark>
+  table_name 跟 col_name 需要合理且明顯 EX. Airbnb 用 `m_` 來命名 metrics 相關的欄位、`dim_` 來密名維度欄位 同時也體現在使用者是否好找到這些資料 -> [[Data Spec]]
 
-* **來源可靠性**：
+* <mark style="background: #BBFABBA6;">指標定義一致性</mark>
+  從不同 data pipeline 取得的指標定義要一致，最好符合 single source of truth 可以做 data pipeline 的整合，避免 DA 跟業務端計算 KPI 邏輯不一樣的狀況
 
+* <mark style="background: #BBFABBA6;">來源可靠性</mark>
+  資料品質會受到上游資料品質的疊加影響，要確保來源的可靠性，要仰賴資料血緣 (data lineage) 的追蹤，包含表和表之間的關聯 (table lineage)，以及欄位和欄位之間 (column linage) 的繼承關係
 
 
 
 - **從資料中獲得商業價值**：這通常指的是金錢。每一條你寫的資料管道要麼能產生更多收入，要麼能節省成本（例如測量在 AWS 上的花費，好讓我們少給 Jeff Bezos 幾十億美元）。唯一的例外是提供戰略價值的資料集，這類資料主要用於重大高層決策。
-- **資料易於使用**：欄位名稱必須明顯且合理。例如 Airbnb 常見的命名慣例是維度欄位以 `dim` 開頭，指標欄位以 `m_` 開頭。
+
 - **資料及時到達**：與分析團隊達成一致的資料到達時間非常強大，可以讓他們的工作更順暢，並減少資料工程師收到的無謂請求。
 
 簡而言之，**資料品質 = 資料信任 + 資料影響力**。如果你能持續建立具備這兩個屬性的資料集，你很快就會獲得晉升
