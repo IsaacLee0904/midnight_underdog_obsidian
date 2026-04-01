@@ -7,9 +7,18 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * Data quality checks and how thet diff between facts and dims 
 ## Data Quality Basic
 
-資料品質 (Data Quality) 是指資料的準確性、一致性、完整性和可靠性，高品質的資料能夠讓企業基於
-
 >Data quality refers to the development and implementation of activities that apply quality management techniques to data in order to ensure the data is fit to serve the specific needs of an organization in a particular context.
+
+資料品質 (Data Quality) 是指資料的準確性、一致性、完整性和可靠性，高品質的資料能夠讓企業基於準確資訊做出有效的決策，而資料品質包含數個面向：
+
+* **可發現性 (Discoverability)**：指的是當 user 想要做決策，他們能輕鬆知道資料是否存在並且要去哪裡取用它 -> 應該算是定義更嚴格的的資料可用性 (Data Availability)
+
+* **時間完整性** :
+* **屬性完整性**：
+* **指標定義一致性**：
+* **運用準確性**：
+* **來源可靠性**：
+
 
 - **可發現性 (Discoverability)**：這點常被低估且困難。意味著如果有人想做決策，他們能輕鬆知道資料是否存在並取得它。
 - **對資料品質的誤解與不完整定義**：例如 Zillow 曾以為他們有完美的機器學習模型可以預測房地產市場，結果損失了上億美元，因為他們的資料品質不夠高，沒有考慮到模型可能遺漏了哪些重要的資料點。有時候甚至會遇到難以預測的『黑天鵝事件』（例如 COVID-19 疫情）。
