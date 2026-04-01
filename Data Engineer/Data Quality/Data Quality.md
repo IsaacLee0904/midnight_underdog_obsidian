@@ -37,6 +37,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ## Data Spec
 
+在投入生產之前，你需要發揮『同理心』，把所有的下游利害關係人聚集在一起問：『如果成本和時間不是問題，你會想要什麼資料？』。這能讓你更清楚他們試圖解決的問題，並幫助你制定未來半年到一年的長期藍圖。你要去思考他們『目前與未來的需求』，不要只為了他們當下一個狹隘的問題去建立單一管道，那會讓你陷入『客製化地獄』(bespoke hell)
 
 
 
