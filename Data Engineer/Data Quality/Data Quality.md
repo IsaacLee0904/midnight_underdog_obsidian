@@ -7,7 +7,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * Data quality checks and how thet diff between facts and dims 
 ## Data Quality Basic
 
-資料品質檢查是我們今天要深入探討的理論面。那麼資料品質到底意味著什麼？
+資料品質 (Data Quality) 是指資料的準確性、一致性、完整性和可靠性，高品質的資料能夠讓企業基於
 
 >Data quality refers to the development and implementation of activities that apply quality management techniques to data in order to ensure the data is fit to serve the specific needs of an organization in a particular context.
 
@@ -22,3 +22,6 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 
 [[Data Quality Patterns]]
+
+## Reference
+[《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
