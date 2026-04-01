@@ -40,7 +40,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 #### Basic checks
 例如確認有沒有資料、不該有 NULL、不應該有重複值以及 enums 枚舉所有可能的值
 #### Intermediate checks
-例如週與週的行數比較。一定要比對週與週，因為星期六和星期五的行為不同。但這種檢查在聖誕節等假日經常會因為季節性而失敗
+例如週與週的行數比較。一定要比對週與週，因為星期六和星期五的行為不同，但這種檢查在聖誕節等假日經常會因為季節性而失敗
 #### Advanced checks
 引入機器學習等技術，建立經季節性調整的行數檢查，減少品質檢查的誤報率
 
