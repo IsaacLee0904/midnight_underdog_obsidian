@@ -10,11 +10,10 @@
 
 | 語法                                           | 顏色  |
 | -------------------------------------------- | --- |
-| `[!note]`                                    | 藍   |
+| `[!note]` / `[!info]`                        | 藍   |
 | `[!tip]` / `[!hint]` / `[!important]`        | 綠   |
 | `[!warning]` / `[!caution]` / `[!attention]` | 橘   |
 | `[!danger]` / `[!error]`                     | 紅   |
-| `[!info]`                                    | 藍   |
 | `[!success]` / `[!check]` / `[!done]`        | 綠   |
 | `[!question]` / `[!help]` / `[!faq]`         | 黃綠  |
 | `[!failure]` / `[!fail]` / `[!missing]`      | 紅   |

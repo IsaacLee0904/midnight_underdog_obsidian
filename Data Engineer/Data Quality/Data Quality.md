@@ -47,7 +47,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ### Airbnb MIDAS process
 
-在 AIrbnb 有一個建立 data pipeline 的標準流程 [MIDAS](https://medium.com/airbnb-engineering/data-quality-at-airbnb-e582465f3ef7) 總共會有 9 個步驟：
+在 Airbnb 當需要建立重要 data pipeline 的時候 (很重要會提供不少價值並且不會隨時變動)，有一個建立 data pipeline 的標準流程 [MIDAS](https://medium.com/airbnb-engineering/data-quality-at-airbnb-e582465f3ef7) 總共會有 9 個步驟：
 
 ![[Screenshot 2026-04-01 at 4.25.32 PM.png]]
 
@@ -70,6 +70,9 @@ Step8. Final review：由 staff DS review
 
 Step9. Launch PSA：宣布 dataset 正式上線
 
+> [!note]  在建立 data pipeline 之前先把 stakeholder 拉進來，他們會覺得自己也與這個 pipeline 有關，能有效得減少未來的指責並且更早突顯出溝通問題
+
+### Good Design Spec
 
 
 
