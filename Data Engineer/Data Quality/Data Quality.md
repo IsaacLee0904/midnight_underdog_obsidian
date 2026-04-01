@@ -74,6 +74,12 @@ Step9. Launch PSA：宣布 dataset 正式上線
 
 ### Good Design Spec
 
+一份好的規格書應該要包含 pipeline description、flow diagrams (from source to warehouse, modeling, metics, dashboard)、schemas (DDL of create table statements 然後應該要包含 `_fct`, `_dim`, `scd`, `agg` & column comments)、quality checks、metics definitions、example queries
+
+![[Screenshot 2026-04-01 at 5.53.00 PM.png]]
+<span style="color:rgb(184, 191, 193)">A example of good flow diagram </span>
+
+
 
 
 
