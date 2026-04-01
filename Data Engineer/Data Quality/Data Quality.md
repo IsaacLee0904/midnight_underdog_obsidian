@@ -19,7 +19,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 	* table level：指的是單一的 table 有沒有全部欄位都同步到然後歷史資料也沒有缺漏，同時也包含不應該有 NULL 的欄位就不能有 NULL 值，然後不應該有 duplicate
 
 * <mark style="background: #BBFABBA6;">資料的易用性</mark>
-  table_name 跟 col_name 需要合理且明顯 EX. Airbnb 用 `m_` 來命名 metrics 相關的欄位、`dim_` 來密名維度欄位 同時也體現在使用者是否好找到這些資料 -> [[OpenNet Data Spec]]
+  table_name 跟 col_name 需要合理且明顯 EX. Airbnb 用 `m_` 來命名 metrics 相關的欄位、`dim_` 來密名維度欄位 同時也體現在使用者是否好找到這些資料 -> [[Data Quality#Data Spec]]
 
 * <mark style="background: #BBFABBA6;">指標定義一致性</mark>
   從不同 data pipeline 取得的指標定義要一致，最好符合 single source of truth 可以做 data pipeline 的整合，避免 DA 跟業務端計算 KPI 邏輯不一樣的狀況
