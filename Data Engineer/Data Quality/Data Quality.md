@@ -7,7 +7,9 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * Data quality checks and how thet diff between facts and dims 
 ## Data Quality Basic
 
-資料品質檢查是我們今天要深入探討的理論面。那麼資料品質到底意味著什麼？。
+資料品質檢查是我們今天要深入探討的理論面。那麼資料品質到底意味著什麼？
+
+>Data quality refers to the development and implementation of activities that apply quality management techniques to data in order to ensure the data is fit to serve the specific needs of an organization in a particular context.
 
 - **可發現性 (Discoverability)**：這點常被低估且困難。意味著如果有人想做決策，他們能輕鬆知道資料是否存在並取得它。
 - **對資料品質的誤解與不完整定義**：例如 Zillow 曾以為他們有完美的機器學習模型可以預測房地產市場，結果損失了上億美元，因為他們的資料品質不夠高，沒有考慮到模型可能遺漏了哪些重要的資料點。有時候甚至會遇到難以預測的『黑天鵝事件』（例如 COVID-19 疫情）。
