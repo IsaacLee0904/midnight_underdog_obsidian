@@ -5,7 +5,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * How to build high trust in the data sets that you build
 * How to build good data docs
 * Data quality checks and how thet diff between facts and dims 
-## Data Quality Basic
+## Data Quality
 
 >Data quality refers to the development and implementation of activities that apply quality management techniques to data in order to ensure the data is fit to serve the specific needs of an organization in a particular context.
 
@@ -34,6 +34,15 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
   每一條你寫的資料管道要麼能產生更多收入，要麼能節省成本 EX. 測量在 AWS 上的花費 唯一的例外是提供戰略價值的資料集，這類資料主要用於重大高層決策 -> Metabase 上有很多用不到的 Dashboard
 
 > 資料品質 = 資料信任 (data trust) + 資料影響力
+
+### Three Type of Quality Check
+
+#### Basic checks
+例如確認有沒有資料、不該有 NULL、不應該有重複值以及 enums 枚舉所有可能的值
+#### Intermediate checks
+例如週與週的行數比較。一定要比對週與週，因為星期六和星期五的行為不同。但這種檢查在聖誕節等假日經常會因為季節性而失敗
+#### Advanced checks
+引入機器學習等技術，建立經季節性調整的行數檢查，減少品質檢查的誤報率
 
 ## Data Spec and Data trust
 
