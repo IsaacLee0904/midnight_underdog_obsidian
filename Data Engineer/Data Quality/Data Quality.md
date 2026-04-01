@@ -47,10 +47,15 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ### Airbnb MIDAS process
 
-在 AIrbnb 有一個建立 data pipeline 的標準流程 [MIDAS](https://medium.com/airbnb-engineering/data-quality-at-airbnb-e582465f3ef7)
-
+在 AIrbnb 有一個建立 data pipeline 的標準流程 [MIDAS](https://medium.com/airbnb-engineering/data-quality-at-airbnb-e582465f3ef7) 總共會有 9 個步驟：
 
 ![[Screenshot 2026-04-01 at 4.25.32 PM.png]]
+
+Step1. Make a spec：說明要建立的 data pipeline 與做法
+Step2. Spec review：需要給資料架構師、staff 以及 stakeholder review
+Step3. Build and backfill：撰寫 Spark, Airflow code -> 但只 backfill 一個月的資料就好
+Step4. SQL Validation：由 DA 來驗證這一個月的資料是不是正確
+Step5. Metrics Validation：建立新的 metrics ( Minerva 是 Airbnb 存放 metrics 的 repo )
 
 
 
