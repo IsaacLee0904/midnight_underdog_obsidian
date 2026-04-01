@@ -53,7 +53,9 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 3. Complex relationship should be check EX. Facebook 好友不能超過 5000 人
 
 #### Fact table
-1. 
+1. Row count：因為 fact table 會有<span style="color:rgb(255, 0, 0)">季節性因素</span>所以不要做 day-over-day 的檢查，可能<span style="color:rgb(255, 0, 0)">要做跨週、跨季甚至跨年的比較</span>
+2. grow sharply：fact table 是有可能劇烈增長的
+3. duplicate：更容易出現重複值 EX. 所以在 presto 可能要用 `approx_count_distinct`
 
 ## Data Spec and Data trust
 
