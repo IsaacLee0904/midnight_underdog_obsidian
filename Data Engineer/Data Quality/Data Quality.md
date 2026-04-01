@@ -41,6 +41,10 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 > [!HINT] **Business Impact 對 promotion 的影響**
 > 延續上面說的要去釐清 stakeholder 現在和未來的需求，就是一種釐清商業影響力的表現，而這很重要是會很大的影響了個人的 performance reviews
+> 
+> EX. 可能會有 stakeholder 說他想要知道 2023 年巴西因為舉辦某個活動 Airbnb 房源出租狀況
+> 千萬不要直接開始做
+
 
 
 
