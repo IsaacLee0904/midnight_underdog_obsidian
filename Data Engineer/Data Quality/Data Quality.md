@@ -43,6 +43,17 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 例如週與週的行數比較。一定要比對週與週，因為星期六和星期五的行為不同，但這種檢查在聖誕節等假日經常會因為季節性而失敗
 #### Advanced checks
 引入機器學習等技術，建立經季節性調整的行數檢查，減少品質檢查的誤報率
+>[!cite] 在 Airbnb 這類的 ML DQC 甚至只是一行 yaml 的 code
+
+### How to Decide Quality Check
+
+#### Dimensional table
+1. Grow or are flat day-over-day：維度表通常每天增長或持平，常見檢查像是表格正在成長
+2. Don't grow sharply：百分比的變化不應該很劇烈
+3. Complex relationship should be check EX. Facebook 好友不能超過 5000 人
+
+#### Fact table
+1. 
 
 ## Data Spec and Data trust
 
