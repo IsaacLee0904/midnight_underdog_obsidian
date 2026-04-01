@@ -27,13 +27,15 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * <mark style="background: #BBFABBA6;">來源可靠性</mark>
   資料品質會受到上游資料品質的疊加影響，要確保來源的可靠性，要仰賴資料血緣 (data lineage) 的追蹤，包含表和表之間的關聯 (table lineage)，以及欄位和欄位之間 (column linage) 的繼承關係
 
+* <mark style="background: #BBFABBA6;">資料新鮮度 (Data Freshness)</mark>
+  指資料的更新頻率和實效性，透過任務編排的執行頻率，以及資料倉儲對資料源歷程變化的記載方式共同決定，並且是 DE 與 user 之間的共識，可以減少收到無謂的需求
+
+* <mark style="background: #BBFABBA6;">商業價值</mark>
+  每一條你寫的資料管道要麼能產生更多收入，要麼能節省成本 EX. 測量在 AWS 上的花費 唯一的例外是提供戰略價值的資料集，這類資料主要用於重大高層決策 -> Metabase 上有很多用不到的 Dashboard
+
+> 資料品質 = 資料信任 + 資料影響力
 
 
-- **從資料中獲得商業價值**：這通常指的是金錢。每一條你寫的資料管道要麼能產生更多收入，要麼能節省成本（例如測量在 AWS 上的花費，好讓我們少給 Jeff Bezos 幾十億美元）。唯一的例外是提供戰略價值的資料集，這類資料主要用於重大高層決策。
-
-- **資料及時到達**：與分析團隊達成一致的資料到達時間非常強大，可以讓他們的工作更順暢，並減少資料工程師收到的無謂請求。
-
-簡而言之，**資料品質 = 資料信任 + 資料影響力**。如果你能持續建立具備這兩個屬性的資料集，你很快就會獲得晉升
 
 
 [[Data Quality Patterns]]
