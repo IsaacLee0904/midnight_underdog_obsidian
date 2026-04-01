@@ -47,7 +47,11 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ### Airbnb MIDAS process
 
-在 AIrbnb 有一個建立 data pipeline 的
+在 AIrbnb 有一個建立 data pipeline 的標準流程 [MIDAS](https://medium.com/airbnb-engineering/data-quality-at-airbnb-e582465f3ef7)
+
+
+![[Screenshot 2026-04-01 at 4.25.32 PM.png]]
+
 
 
 
