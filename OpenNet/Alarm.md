@@ -2,6 +2,7 @@
 [[Redshift Reboot]]
 [[DAG Skipped, Failed, Restart]]
 [[Redshift Concurrency scaling Alarm]]
+[[Rejection pipeline Memory Alert]]
 [[Memory Alert]]
 [[Task Failed]]
 [[Query elapsed more than xx minutes]]
