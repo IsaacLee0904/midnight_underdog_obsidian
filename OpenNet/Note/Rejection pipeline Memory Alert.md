@@ -11,3 +11,6 @@
 ![[Screenshot 2026-04-02 at 12.02.11 PM.png]]
 
 **Step2. 重啟 workers**
+
+Workloads > airflow-rejection-worker > Redeploy
+![[Screenshot 2026-04-02 at 1.53.55 PM.png]]
