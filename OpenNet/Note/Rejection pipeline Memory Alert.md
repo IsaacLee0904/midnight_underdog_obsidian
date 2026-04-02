@@ -6,7 +6,8 @@
 
 #### Solution : 定期重啟 Worker
 
-**Step1. 開啟 [Rancher](https://rancher.on.sportybet2.com/dashboard/c/c-m-b2n7dcll/explorer/apps.deployment)** 
-	到
+**Step1. 開啟 [Rancher](https://rancher.on.sportybet2.com/dashboard/c/c-m-b2n7dcll/explorer/apps.deployment)** : 到 [sporty-pub-prod-bi](https://rancher.on.sportybet2.com/dashboard/c/c-m-b2n7dcll/explorer) 裡面選 airflow-rejection
+![[Screenshot 2026-04-02 at 12.01.15 PM.png]]
+![[Screenshot 2026-04-02 at 12.02.11 PM.png]]
 
-
+**Step2. 重啟 workers**
