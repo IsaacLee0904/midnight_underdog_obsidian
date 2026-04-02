@@ -1,10 +1,6 @@
 ## Check Table info
 ### with data
 ```sql
-SHOW search_path;
-
-SET search_path to afbet_marketing_br -- need to assign a schema
-
 SELECT *
 FROM svv_table_info
 WHERE 1 = 1
@@ -15,6 +11,10 @@ ORDER BY schema;
 
 #### without data
 ```sql
+SHOW search_path;
+
+SET search_path to afbet_marketing_br -- need to assign a schema
+
 select *
 from pg_table_def
 where schemaname = 'afbet_marketing_br' and tablename = 't_promotion_odds_boost_lfb_log'
