@@ -101,7 +101,27 @@ Step9. Launch PSA：宣布 dataset 正式上線
 ![[Screenshot 2026-04-01 at 5.53.00 PM.png]]
 <span style="color:rgb(184, 191, 193)">A example of good flow diagram </span>
 
+#### Title 
+	首先會需要一個好的標題，明確的知道這個 pipeline spec 是什麼，並且清楚的描述這個 pipeline 做什麼、解決了什麼問題
 
+```text
+EcZachly Inc is a new startup that wants to messure its website traffic and user growth.
+
+The goal of this pipeline is to answer the following questions:
+
+- How many people are going to web_link and web_link on a daily basis ?
+  - What is the geo and device break down of that traffic ?
+  - Where are these people coming from ? Linkedin ? Youtube ?
+
+- How many people are signing up with an account each day ?
+  - Whar percentage of traffic is converting to signing up ?
+
+- How many people are pyrchasing boot camps and course ?
+	- What percentage of signups convert to paying ?
+```
+
+#### Business Metrics
+1. 最好以表格的形式展現，包含 metric name、definition、is guardrail 等欄位
 
 
 
