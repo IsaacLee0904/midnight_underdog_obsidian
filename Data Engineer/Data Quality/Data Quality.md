@@ -126,6 +126,8 @@ The goal of this pipeline is to answer the following questions:
 > 一般來說我們會有 primary metrics 用來測量想積極推動的目標 EX. 新 UX 的 hit rate，而 guardrail metrics 則是負責守護產品整體健康的指標 EX. 頁面載入時間、使用者錯誤率
 
 * Airbnb：在測試為了「增加訂房量」（主要指標）的改動時，他們會將「房客滿意度分數」設為護欄指標，確保業務成長不會犧牲客戶的滿意度
+* Netflix：在測試新的個人化推薦演算法時，他們的護欄指標是「影片開始播放的載入時間」與「緩衝比例」，確保推薦系統升級的同時，核心的「流暢觀影體驗」沒有受到損害
+* Uber：為了提升「行程轉換率」推出新配對演算法時，護欄指標是「乘客總發送請求數」**，這是為了確保轉換率的提升，不是因為系統把總請求數量砍掉而製造出來的數學假象
 
 
 | Metrics Name           | Definition                           | Is Guardrail |
