@@ -122,6 +122,14 @@ The goal of this pipeline is to answer the following questions:
 
 #### Business Metrics
 1. 最好以表格的形式展現，包含 metric name、definition、is guardrail 等欄位
+2. 護欄指標 (guardrail metrics)：
+
+
+
+| Metrics Name           | Definition                           | Is Guardrail |
+| ---------------------- | ------------------------------------ | ------------ |
+| signup_conversion_rate | COUNT(signups) / COUNT(website_hits) |              |
+
 
 
 
