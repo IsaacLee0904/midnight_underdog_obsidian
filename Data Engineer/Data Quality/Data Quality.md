@@ -121,19 +121,31 @@ The goal of this pipeline is to answer the following questions:
 ```
 
 #### Business Metrics
-1. 最好以表格的形式展現，包含 metric name、definition、is guardrail 等欄位
+1. 最好以<span style="color:rgb(255, 0, 0)">表格</span>的形式展現，包含 metric name、definition、is guardrail 等欄位
 2. [護欄指標 (guardrail metrics)](https://www.statsig.com/blog/what-are-guardrail-metrics-in-ab-tests)：是<span style="color:rgb(255, 0, 0)">一種用來保護業務的衡量指標，當它發生顯著變化時，能像團隊發出「業務出現問題」的強烈信號</span>，可以想像成是避免翻車的安全網或護欄，目標是為了確保在某個領域的獲利，不會導致另一個冷遇的損失
+
 > 一般來說我們會有 primary metrics 用來測量想積極推動的目標 EX. 新 UX 的 hit rate，而 guardrail metrics 則是負責守護產品整體健康的指標 EX. 頁面載入時間、使用者錯誤率
+> - 如何選擇合適的 guardrail metrics ？
+> 	- 依據核心業務：可以將<span style="color:rgb(255, 0, 0)">影響公司命脈的指標納入</span> EX. 無論進行什麼測試，都監控「使用者流失率 (churn)」或「工作階段時長 (session duration)」
+> 	- **依據潛在的技術災難**：<span style="color:rgb(255, 0, 0)">預測這個功能上線可能會搞砸什麼</span>。經典的技術護欄指標包含：頁面載入時間變慢、使用者重試次數增加、或是 Bug 回報率飆升
+> - 使用護欄指標的兩大限制與陷阱
+> 	- **雜訊風險 (Risk of noise)**：護欄指標絕對<span style="color:rgb(255, 0, 0)">不是越多越好</span>。在 A/B 測試中，加入越多的指標，就越容易因為隨機機率而產生「統計結果看似顯著，但其實只是雜訊」的狀況。過多的指標反而會造成數據超載，干擾你做出明確決策 >> <span style="color:rgb(184, 191, 193)">就像統計模型丟一堆變數進去就會顯著</span>
+> 	- **靈敏度不足 (Sensitivity)**：你的 A/B 測試樣本數通常是為了「主要指標」量身打造的 EX. 足以測量出 1% 的微幅提升。但是，<span style="color:rgb(255, 0, 0)">護欄指標的資料分佈可能完全不同</span><span style="color:rgb(255, 0, 0)">，這意味著護欄指標可能要發生 10%、20% 甚至 30% 的崩跌時，統計學上才抓得出來</span>。因此，你必須在事前根據業務邏輯定出「究竟多糟才算糟」的容忍閾值 EX. 網頁因為新功能變慢了 1%，這個代價是否值得？
+> - guardrail metrics 的例子
+> 	- Airbnb：在測試為了「增加訂房量」（主要指標）的改動時，他們會將「房客滿意度分數」設為護欄指標，確保業務成長不會犧牲客戶的滿意度
+> 	- Netflix：在測試新的個人化推薦演算法時，他們的護欄指標是「影片開始播放的載入時間」與「緩衝比例」，確保推薦系統升級的同時，核心的「流暢觀影體驗」沒有受到損害
+> 	- Uber：為了提升「行程轉換率」推出新配對演算法時，護欄指標是「乘客總發送請求數」**，這是為了確保轉換率的提升，不是因為系統把總請求數量砍掉而製造出來的數學假象
 
-* Airbnb：在測試為了「增加訂房量」（主要指標）的改動時，他們會將「房客滿意度分數」設為護欄指標，確保業務成長不會犧牲客戶的滿意度
-* Netflix：在測試新的個人化推薦演算法時，他們的護欄指標是「影片開始播放的載入時間」與「緩衝比例」，確保推薦系統升級的同時，核心的「流暢觀影體驗」沒有受到損害
-* Uber：為了提升「行程轉換率」推出新配對演算法時，護欄指標是「乘客總發送請求數」**，這是為了確保轉換率的提升，不是因為系統把總請求數量砍掉而製造出來的數學假象
+| Metrics Name             | Definition                            | Is Guardrail |
+| ------------------------ | ------------------------------------- | ------------ |
+| signup_conversion_rate   | COUNT(signups) / COUNT(website_hits)  | yes          |
+| purchase_conversoin_rate | COUNT(purchases) / COUNT(signups)     | yes          |
+| traffic_breakdown        | COUNT(website_hits) GROUP BY referrer | no           |
+* `signup_conversion_rate` 是 guardrail 是因為如果下降代表登入頁面 (landing page) 有問題
+* `purchase_conversion_rate` 是 guardrail 是因為如果下降代表結帳頁面 (checkout page) 有問題
+* `traffic_breakdown` 不是 guardrail 是因為可能會在網站上做的 AB 測試，並不會影響流量是來自 LinkedIn 還是 Twitter
 
-
-| Metrics Name           | Definition                           | Is Guardrail |
-| ---------------------- | ------------------------------------ | ------------ |
-| signup_conversion_rate | COUNT(signups) / COUNT(website_hits) |              |
-
+#### Flow Diagram
 
 
 
