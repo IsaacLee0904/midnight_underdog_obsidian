@@ -122,8 +122,10 @@ The goal of this pipeline is to answer the following questions:
 
 #### Business Metrics
 1. 最好以表格的形式展現，包含 metric name、definition、is guardrail 等欄位
-2. 護欄指標 (guardrail metrics)：
+2. [護欄指標 (guardrail metrics)](https://www.statsig.com/blog/what-are-guardrail-metrics-in-ab-tests)：是<span style="color:rgb(255, 0, 0)">一種用來保護業務的衡量指標，當它發生顯著變化時，能像團隊發出「業務出現問題」的強烈信號</span>，可以想像成是避免翻車的安全網或護欄，目標是為了確保在某個領域的獲利，不會導致另一個冷遇的損失
+> 一般來說我們會有 primary metrics 用來測量想積極推動的目標 EX. 新 UX 的 hit rate，而 guardrail metrics 則是負責守護產品整體健康的指標 EX. 頁面載入時間、使用者錯誤率
 
+* Airbnb：在測試為了「增加訂房量」（主要指標）的改動時，他們會將「房客滿意度分數」設為護欄指標，確保業務成長不會犧牲客戶的滿意度
 
 
 | Metrics Name           | Definition                           | Is Guardrail |
