@@ -158,7 +158,8 @@ The goal of this pipeline is to answer the following questions:
 | dim_action_type  | `STRING`    | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
 | event_timestamp  | `TIMESTAMP` | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
 | dim_host_name    | `STRING`    |                                                                                                                                                                         |
-| ds               | `STRING`    |                                                                                                                                                                         |
+| ds               | `STRING`    | This is the partition col for this table                                                                                                                                |
+|                  |             |                                                                                                                                                                         |
 
 
 
