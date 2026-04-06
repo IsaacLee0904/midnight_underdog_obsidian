@@ -98,11 +98,8 @@ Step9. Launch PSA：宣布 dataset 正式上線
 
 一份好的規格書應該要包含 pipeline description、flow diagrams (from source to warehouse, modeling, metics, dashboard)、schemas (DDL of create table statements 然後應該要包含 `_fct`, `_dim`, `scd`, `agg` & column comments)、quality checks、metics definitions、example queries
 
-![[Screenshot 2026-04-01 at 5.53.00 PM.png]]
-<span style="color:rgb(184, 191, 193)">A example of good flow diagram </span>
-
 #### Title 
-	首先會需要一個好的標題，明確的知道這個 pipeline spec 是什麼，並且清楚的描述這個 pipeline 做什麼、解決了什麼問題
+首先會需要一個好的標題，明確的知道這個 pipeline spec 是什麼，並且清楚的描述這個 pipeline 做什麼、解決了什麼問題
 
 ```text
 EcZachly Inc is a new startup that wants to messure its website traffic and user growth.
@@ -144,12 +141,11 @@ The goal of this pipeline is to answer the following questions:
 * `signup_conversion_rate` 是 guardrail 是因為如果下降代表登入頁面 (landing page) 有問題
 * `purchase_conversion_rate` 是 guardrail 是因為如果下降代表結帳頁面 (checkout page) 有問題
 * `traffic_breakdown` 不是 guardrail 是因為可能會在網站上做的 AB 測試，並不會影響流量是來自 LinkedIn 還是 Twitter
-
-#### Flow Diagram
-
+#### Diagram
 
 
-[[Data Quality Patterns]]
+
+
 
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
