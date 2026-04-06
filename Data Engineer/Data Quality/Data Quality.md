@@ -179,7 +179,11 @@ The goal of this pipeline is to answer the following questions:
 * aggregation_level：這個欄位的用處是，我們把所有不同維度的 GROUP BY 都塞進一個 table，如此一來，到了 metric layer，分析師完全不需要做任何繁重的 GROUP BY 運算，只需要下一個簡單的 SELECT 並且 WHERE <span style="color:rgb(255, 0, 0)">aggregation_level = `xxx`</span> 就可以了，如此我們也把所有繁重的計算留給 Spark 
 
 #### Quality Checks
-
+* Not null checks on : dim_hostname, dim_action_type, event_timestamp, dim_country, logged_out_user_id
+* Make sure no duplicates on PK
+* dim_hostname is well formatted as www.xxxx.com
+* row count checks
+	* GROUP ON dim_hostname and check week-over-week counts for 
 
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
