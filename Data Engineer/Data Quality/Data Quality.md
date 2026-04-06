@@ -153,13 +153,13 @@ The goal of this pipeline is to answer the following questions:
 | col name         | col type    | col comment                                                                                                                                                             |
 | ---------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | user_id          | `BIGINT`    | This col is nullable for logged out events.<br>This col indicates the user who generated this event.                                                                    |
+| dim_hostname     | `STRING`    | What is the host associated with                                                                                                                                        |
 | dim_country      | `STRING`    | The country associated with the IP address of the request.                                                                                                              |
 | dim_device_brand | `STRING`    | The device brand associated with this request.                                                                                                                          |
 | dim_action_type  | `STRING`    | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
 | event_timestamp  | `TIMESTAMP` | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
-| dim_host_name    | `STRING`    |                                                                                                                                                                         |
+|                  | `STRING`    |                                                                                                                                                                         |
 | ds               | `STRING`    | This is the partition col for this table                                                                                                                                |
-|                  |             |                                                                                                                                                                         |
 
 
 
