@@ -166,18 +166,20 @@ The goal of this pipeline is to answer the following questions:
 
 <mark style="background: #BBFABBA6;">core.agg_website_events</mark>
 * 這是所有 website events 的聚合 view
-* 
 
-| col name         | col type              | col comment                                                                                                                                                             |
-| ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| action_type      | `STRING`              | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
-| country          | `STRING`              | The IP country.                                                                                                                                                         |
-| dim_hostname     | `STRING`              | What is the host associated with this event (eczachly.com, zachwilson.tech etc)                                                                                         |
-| dim_country      | `STRING`              | The country associated with the IP address of the request.                                                                                                              |
-| dim_device_brand | `STRING`              | The device brand associated with this request.                                                                                                                          |
-| dim_action_type  | `STRING`              | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
-| event_timestamp  | `TIMESTAMP`           | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
-| other_properties | `MAP[STRING, STRING]` | Any other valid properties that are part of this request.                                                                                                               |
-| ds               | `STRING`              | This is the partition col for this table                                                                                                                                |
+| col name          | col type  | col comment                                                                                                                                                             |
+| ----------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| action_type       | `STRING`  | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
+| country           | `STRING`  | The IP country.                                                                                                                                                         |
+| dim_device_brand  | `STRING`  | The device brand EX. android, iphone etc                                                                                                                                |
+| event_hour        | `INTEGER` | The hour this event took place in UTC                                                                                                                                   |
+| m_total_events    | `BIGINT`  | The total number of events for this slice.                                                                                                                              |
+| aggregation_level | `STRING`  | This is how this agg table is GROUPED. Values include (dim_action_type, dim_country...)                                                                                 |
+| ds                | `STRING`  | This is the partition col for this table                                                                                                                                |
+* aggregation_level：這個欄位的用處是，我們把所有不同維度的 GROUP BY 都塞進一個 table，如此一來，到了 metric layer，分析師完全不需要做任何繁重的 GROUP BY 運算，只需要下一個簡單的 SELECT 並且 WHERE <span style="color:rgb(255, 0, 0)">aggregation_level = `xxx`</span> 就可以了，如此我們也把所有繁重的計算留給 Spark 
+
+#### Quality Checks
+
+
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
