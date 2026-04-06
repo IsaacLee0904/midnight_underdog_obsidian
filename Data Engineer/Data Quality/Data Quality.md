@@ -142,11 +142,12 @@ The goal of this pipeline is to answer the following questions:
 * `purchase_conversion_rate` 是 guardrail 是因為如果下降代表結帳頁面 (checkout page) 有問題
 * `traffic_breakdown` 不是 guardrail 是因為可能會在網站上做的 AB 測試，並不會影響流量是來自 LinkedIn 還是 Twitter
 #### Flow Diagram
-![[Screenshot 2026-04-06 at 7.27.50 PM.png]]
+![[Screenshot 2026-04-06 at 8.12.12 PM.png]]
 * IP Enrichment：那層用來處理原始資料，將 IP 地址傳送到某個 API，來查詢這個 IP 是哪裡的 IP
 * User Agent Enrichment：用來取得設備的品牌資訊
 
 #### Schema
+
 <mark style="background: #BBFABBA6;">core.fct_website_events</mark>
 * 這張表包含了 Exactly.com 的所有事件，並帶有地理與設備資料
 * unique identifier 為 logged_out_user_id + event_timestamp
@@ -163,7 +164,19 @@ The goal of this pipeline is to answer the following questions:
 | other_properties   | `MAP[STRING, STRING]` | Any other valid properties that are part of this request.                                                                                                               |
 | ds                 | `STRING`              | This is the partition col for this table                                                                                                                                |
 
+<mark style="background: #BBFABBA6;">core.agg_website_events</mark>
+* 
 
-
+| col name           | col type              | col comment                                                                                                                                                             |
+| ------------------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| user_id            | `BIGINT`              | This col is nullable for logged out events.<br>This col indicates the user who generated this event.                                                                    |
+| logged_out_user_id | `BIGINT`              | This col is a hash of IP address and device information.                                                                                                                |
+| dim_hostname       | `STRING`              | What is the host associated with this event (eczachly.com, zachwilson.tech etc)                                                                                         |
+| dim_country        | `STRING`              | The country associated with the IP address of the request.                                                                                                              |
+| dim_device_brand   | `STRING`              | The device brand associated with this request.                                                                                                                          |
+| dim_action_type    | `STRING`              | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
+| event_timestamp    | `TIMESTAMP`           | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
+| other_properties   | `MAP[STRING, STRING]` | Any other valid properties that are part of this request.                                                                                                               |
+| ds                 | `STRING`              | This is the partition col for this table                                                                                                                                |
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
