@@ -153,7 +153,7 @@ The goal of this pipeline is to answer the following questions:
 | col name           | col type    | col comment                                                                                                                                                             |
 | ------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | user_id            | `BIGINT`    | This col is nullable for logged out events.<br>This col indicates the user who generated this event.                                                                    |
-| logged_out_user_id | `BIGINT`    |                                                                                                                                                                         |
+| logged_out_user_id | `BIGINT`    | This col is a hash of IP address and device information.                                                                                                                |
 | dim_hostname       | `STRING`    | What is the host associated with this event (eczachly.com, zachwilson.tech etc)                                                                                         |
 | dim_country        | `STRING`    | The country associated with the IP address of the request.                                                                                                              |
 | dim_device_brand   | `STRING`    | The device brand associated with this request.                                                                                                                          |
