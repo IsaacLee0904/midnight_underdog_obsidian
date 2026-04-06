@@ -149,18 +149,19 @@ The goal of this pipeline is to answer the following questions:
 #### Schema
 <mark style="background: #BBFABBA6;">core.fct_website_events</mark>
 * 這張表包含了 Exactly.com 的所有事件，並帶有地理與設備資料
+* unique identifier 為 logged_out_user_id + event_timestamp
 
-| col name           | col type    | col comment                                                                                                                                                             |
-| ------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| user_id            | `BIGINT`    | This col is nullable for logged out events.<br>This col indicates the user who generated this event.                                                                    |
-| logged_out_user_id | `BIGINT`    | This col is a hash of IP address and device information.                                                                                                                |
-| dim_hostname       | `STRING`    | What is the host associated with this event (eczachly.com, zachwilson.tech etc)                                                                                         |
-| dim_country        | `STRING`    | The country associated with the IP address of the request.                                                                                                              |
-| dim_device_brand   | `STRING`    | The device brand associated with this request.                                                                                                                          |
-| dim_action_type    | `STRING`    | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
-| event_timestamp    | `TIMESTAMP` | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
-|                    | `MAP`       |                                                                                                                                                                         |
-| ds                 | `STRING`    | This is the partition col for this table                                                                                                                                |
+| col name           | col type              | col comment                                                                                                                                                             |
+| ------------------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| user_id            | `BIGINT`              | This col is nullable for logged out events.<br>This col indicates the user who generated this event.                                                                    |
+| logged_out_user_id | `BIGINT`              | This col is a hash of IP address and device information.                                                                                                                |
+| dim_hostname       | `STRING`              | What is the host associated with this event (eczachly.com, zachwilson.tech etc)                                                                                         |
+| dim_country        | `STRING`              | The country associated with the IP address of the request.                                                                                                              |
+| dim_device_brand   | `STRING`              | The device brand associated with this request.                                                                                                                          |
+| dim_action_type    | `STRING`              | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
+| event_timestamp    | `TIMESTAMP`           | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
+| other_properties   | `MAP[STRING, STRING]` | Any other valid properties that are part of this request.                                                                                                               |
+| ds                 | `STRING`              | This is the partition col for this table                                                                                                                                |
 
 
 
