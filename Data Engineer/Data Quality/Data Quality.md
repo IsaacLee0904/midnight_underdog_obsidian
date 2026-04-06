@@ -141,7 +141,7 @@ The goal of this pipeline is to answer the following questions:
 * `signup_conversion_rate` 是 guardrail 是因為如果下降代表登入頁面 (landing page) 有問題
 * `purchase_conversion_rate` 是 guardrail 是因為如果下降代表結帳頁面 (checkout page) 有問題
 * `traffic_breakdown` 不是 guardrail 是因為可能會在網站上做的 AB 測試，並不會影響流量是來自 LinkedIn 還是 Twitter
-#### Diagram
+#### Flow Diagram
 
 
 
