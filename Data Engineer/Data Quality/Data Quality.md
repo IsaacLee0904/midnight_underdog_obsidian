@@ -165,6 +165,7 @@ The goal of this pipeline is to answer the following questions:
 | ds                 | `STRING`              | This is the partition col for this table                                                                                                                                |
 
 <mark style="background: #BBFABBA6;">core.agg_website_events</mark>
+* 這是所有 website events 的聚合 view
 * 
 
 | col name           | col type              | col comment                                                                                                                                                             |
