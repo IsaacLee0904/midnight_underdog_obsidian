@@ -168,16 +168,16 @@ The goal of this pipeline is to answer the following questions:
 * 這是所有 website events 的聚合 view
 * 
 
-| col name           | col type              | col comment                                                                                                                                                             |
-| ------------------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| user_id            | `BIGINT`              | This col is nullable for logged out events.<br>This col indicates the user who generated this event.                                                                    |
-| logged_out_user_id | `BIGINT`              | This col is a hash of IP address and device information.                                                                                                                |
-| dim_hostname       | `STRING`              | What is the host associated with this event (eczachly.com, zachwilson.tech etc)                                                                                         |
-| dim_country        | `STRING`              | The country associated with the IP address of the request.                                                                                                              |
-| dim_device_brand   | `STRING`              | The device brand associated with this request.                                                                                                                          |
-| dim_action_type    | `STRING`              | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
-| event_timestamp    | `TIMESTAMP`           | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
-| other_properties   | `MAP[STRING, STRING]` | Any other valid properties that are part of this request.                                                                                                               |
-| ds                 | `STRING`              | This is the partition col for this table                                                                                                                                |
+| col name         | col type              | col comment                                                                                                                                                             |
+| ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| action_type      | `STRING`              | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
+| country          | `STRING`              | The IP country.                                                                                                                                                         |
+| dim_hostname     | `STRING`              | What is the host associated with this event (eczachly.com, zachwilson.tech etc)                                                                                         |
+| dim_country      | `STRING`              | The country associated with the IP address of the request.                                                                                                              |
+| dim_device_brand | `STRING`              | The device brand associated with this request.                                                                                                                          |
+| dim_action_type  | `STRING`              | This is an <span style="color:rgb(255, 0, 0)">enumerated list </span>of actions that a user could take on this website EX. signup, watch video, go to landing page etc. |
+| event_timestamp  | `TIMESTAMP`           | The <span style="color:rgb(255, 0, 0)">UTC</span> timestamp for when this event occured.                                                                                |
+| other_properties | `MAP[STRING, STRING]` | Any other valid properties that are part of this request.                                                                                                               |
+| ds               | `STRING`              | This is the partition col for this table                                                                                                                                |
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
