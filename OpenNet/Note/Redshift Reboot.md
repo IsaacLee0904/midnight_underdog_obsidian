@@ -8,3 +8,10 @@ After reboot there are three things need to keep in mind :
 ![[Screenshot 2026-03-24 at 2.00.27 PM.png]]
 
 3. [Airflow DAG Grafana](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/adk6avn6n2tc0aee/airflow-eks?orgId=1&from=now-1h&to=now&timezone=utc&var-datasource=P28ADB2B68CA29654&var-airflow_id=airflow-warehouse&var-dag_id=$__all&var-airflow_pod=) : Monitoring whether the `DAG run schedule delay > 20 mins` metrics decrease
+
+4. 然後在 Slack 群組傳送
+```text
+^ Redshift weekly reboot with patch version upgrade
+
+^ Redshift is catching up
+```
