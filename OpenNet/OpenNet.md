@@ -1,5 +1,6 @@
 [[Daily Work]]
 [[Development Setup]]
 [[Idea]]
+[[Pipeline]]
 [[Project]]
 [[Tech Stack]]
