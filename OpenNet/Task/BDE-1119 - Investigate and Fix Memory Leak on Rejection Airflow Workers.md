@@ -8,3 +8,9 @@
 
 ![[Rejection pipeline Memory Alert#Solution 定期重啟 Worker]]
 
+<mark style="background: #BBFABBA6;">Improvement Solution</mark>
+
+What can improve ?
+1. Database connections are never closed after querying
+2. Intermediate staging files (.feather) are not deleted after use
+3. 在 heavy task 後面用 gc 清掉 
