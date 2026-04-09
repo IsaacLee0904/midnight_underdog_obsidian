@@ -6,13 +6,16 @@ Rejection pipeline 跑的 Airflow Worker 會在 `de_alert4933` 的 channel 中�
 
 ![[Screenshot 2026-04-02 at 11.27.04 AM.png]]
 
-<mark style="background: #BBFABBA6;">Temporary Solution</mark>
+### Solution
+
+#### Temporary Solution
 
 ![[Rejection pipeline Memory Alert#Solution 定期重啟 Worker]]
 
-<mark style="background: #BBFABBA6;">Improvement Solution</mark>
+#### Improvement Solution
 
-What can improve ?
-1. Database connections are never closed after querying
+##### What can improve ?
+1. Database connections are never closed after querying with function `get_dataframe_by_sql_without_sharding_db`
+
 2. Intermediate staging files (.feather) are not deleted after use
 3. 在 heavy task 後面用 gc 清掉 
