@@ -93,9 +93,12 @@ Scenarios
 <font color="#c3d69b">FIX scenario (close_connection=False)</font>
 - ~60 runs completed
 - observe metrics
-	- fd ≈ 4
+	- FD ≈ 4
 	- threads_connected ≈ 1
 	- RSS almost flat (~215.55 -> ~215.69 MB)
 
 <font color="#c3d69b">BUG scenario (close_connection=False)</font>
-* 
+* Rapidly increasing metrics per run
+* observe metrics 
+	* FD : 14 -> 154
+	* 
