@@ -15,10 +15,10 @@
 ![[Screenshot 2026-04-10 at 11.19.20 AM.png]]
 
 #### Step2. Create table in Redshift
-
-
-
-
+```SQL
+CREATE SCHEMA bi_warehouse.afbet_main_za1;
+CREATE TABLE bi_warehouse.afbet_main_za1.t_order_record (LIKE bi_warehouse.afbet_main_za.t_order_record);
+```
 
 #### Step3. Adjust the backfill DAG
 新增 <font color="#00b0f0">main/afbet_order.t_order_record_shard_backfill.py</font> 跑 backfill 任務
