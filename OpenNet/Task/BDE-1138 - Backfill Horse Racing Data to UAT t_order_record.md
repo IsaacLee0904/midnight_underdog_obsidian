@@ -10,4 +10,4 @@
 
 ## Implement
 
-#### Step1. 
+#### Step1. Grant permission for bi_report
