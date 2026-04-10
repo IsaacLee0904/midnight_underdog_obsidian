@@ -11,4 +11,7 @@
 ## Implement
 
 #### Step1. Grant permission for bi_report
-透過 [dba-application-accounts](https://github.com/opennetltd/dba-application-accounts) 新增權限給 `bi_report`
+透過 [dba-application-accounts](https://github.com/opennetltd/dba-application-accounts) 中的 app_users/bi_report/uat.yaml 新增權限給 `bi_report`
+![[Screenshot 2026-04-10 at 11.19.20 AM.png]]
+
+#### Step2. Adjust the backfill DAG
