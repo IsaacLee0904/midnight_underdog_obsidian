@@ -65,7 +65,7 @@ finally:
 * Is the only db connect function without <font color="#92cddc">close()</font>
 
 <span style="color:rgb(255, 0, 0)"><font color="#c3d69b">3) Additional pipeline cleanup</font></span>
-⚠️ Could be improvement if wanted
+⚠️ Feather files mainly consume disk and memory effect is indirect
 * Intermediate feather files were cleaned after successful combine/insert in : <font color="#92cddc">dags/rejections/operator_functions_01_update_source_tables_2308.py</font>
 * Purpose : reduce worker disk/page-cache pressure
 	
