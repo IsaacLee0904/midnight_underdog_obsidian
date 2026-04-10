@@ -5,5 +5,9 @@
   "colored-text",
   "highlightr-plugin",
   "obsidian-style-settings",
-  "obsidian-importer"
+  "obsidian-importer",
+  "obsidian-timeline",
+  "dataview",
+  "obsidian-icon-folder",
+  "editing-toolbar"
 ]
