@@ -88,7 +88,9 @@ Scenarios
 1. FIX : close connection every query
 2. BUG : no close + leak emulation to mimic long-lived retained resources
 
-<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark Result</mark>
+Result
+
+![/Users/isaaclee/Documents/OpenNet Project/data_analysis/benchmark_output/connection_leak_benchmark_mysql.png](file:///Users/isaaclee/Documents/OpenNet%20Project/data_analysis/benchmark_output/connection_leak_benchmark_mysql.png)
 
 <font color="#c3d69b">FIX scenario (close_connection=False)</font>
 - ~60 runs completed
@@ -101,4 +103,5 @@ Scenarios
 * Rapidly increasing metrics per run
 * observe metrics 
 	* FD : 14 -> 154
-	* 
+	* Threads_connected : 11 -> 151
+	* RSS : 216.23 -> 226.35 MB
