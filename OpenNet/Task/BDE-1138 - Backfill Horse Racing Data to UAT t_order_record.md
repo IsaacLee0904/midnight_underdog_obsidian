@@ -11,3 +11,4 @@
 ## Implement
 
 #### Step1. Grant permission for bi_report
+透過 [dba-application-accounts](https://github.com/opennetltd/dba-application-accounts) 新增權限給 `bi_report`
