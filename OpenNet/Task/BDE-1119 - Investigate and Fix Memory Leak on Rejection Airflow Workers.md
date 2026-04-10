@@ -70,7 +70,7 @@ finally:
 * Purpose : reduce worker disk/page-cache pressure
 	
 <mark style="background:rgba(240, 200, 0, 0.2)">Benchmark (Causal Validation)</mark>
-close vs no-close
+-> close vs no-close
 
 Environment
 * Docker compose with :
@@ -83,3 +83,19 @@ Metics captured at each run-end baseline
 1. Process RSS (MB)
 2. Open FDs
 3. MySQL Threads_connected
+
+Scenarios
+1. FIX : close connection every query
+2. BUG : no close + leak emulation to mimic long-lived retained resources
+
+<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark Result</mark>
+
+<font color="#c3d69b">FIX scenario (close_connection=False)</font>
+- ~60 runs completed
+- observe metrics
+	- fd ≈ 4
+	- threads_connected ≈ 1
+	- RSS almost flat (~215.55 -> ~215.69 MB)
+
+<font color="#c3d69b">BUG scenario (close_connection=False)</font>
+* 
