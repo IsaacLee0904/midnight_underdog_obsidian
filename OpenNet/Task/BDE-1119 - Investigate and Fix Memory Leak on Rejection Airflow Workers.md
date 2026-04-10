@@ -69,7 +69,9 @@ finally:
 * Intermediate feather files were cleaned after successful combine/insert in : <font color="#92cddc">dags/rejections/operator_functions_01_update_source_tables_2308.py</font>
 * Purpose : reduce worker disk/page-cache pressure
 	
-<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark Design (local container)</mark>
+<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark (Causal Validation)</mark>
+close vs no-close
+
 Environment
 * Docker compose with :
 	* airflow container
