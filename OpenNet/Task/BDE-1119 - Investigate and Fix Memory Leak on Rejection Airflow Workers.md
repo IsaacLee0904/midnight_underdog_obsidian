@@ -38,167 +38,35 @@ _conn.close()
 * [gc docs](https://docs.python.org/3/library/gc.html) 
 
 #### Proof of Concept
+
 <mark style="background:rgba(240, 200, 0, 0.2)">Hypothesis</mark>
 In `DatabaseManager.get_dataframe_by_sql_without_sharding_db`, if connection is not closed, long-lived worker processes will accumulate connection-related resources across
-  repeated pipeline runs, causing:
+repeated pipeline runs, causing :
   - increasing process RSS
   - increasing open file descriptors (FD)
   - increasing MySQL connected threads
-  - eventual DB error (`Too many connections`, 1040)
 
+<mark style="background:rgba(240, 200, 0, 0.2)">Code Findings</mark>
 
+<font color="#c3d69b">1) High-risk function</font>
+- File: `dags/general_used_functions/rejection_related.py`
+- Function: `get_dataframe_by_sql_without_sharding_db(...)`
+ * Fix applied
+```python 
+_hook, _conn = DatabaseManager.get_hook_and_conn(connection_id, hook_type)
+try:
+  _df = pd.read_sql_query(sql_script, con=_conn)
+finally:
+  _conn.close()
+```
 
+<span style="color:rgb(255, 0, 0)"><font color="#c3d69b">2) Why this matters</font></span>
+* This function is frequently used by rejection pipeline tasks (especially non-sharded and BI read/write paths).
+* Is the only db connect function without <font color="#92cddc">close()</font>
 
-
-
-# Rejection Airflow Worker Memory Investigation
-
-  ## Context
-  - Issue: Rejection Airflow worker pod memory keeps increasing over time, triggering autoscaling and requiring manual redeploy.
-  - Observed alert example:
-    - `EKS sporty airflow-rejection-worker-... pod RAM above 85%`
-    - Date: 2026-04-02
-  - Suspected cause:
-    - DB connections not properly closed in one hot-path function.
-
-  ---
-
-  ## Hypothesis
-  In `DatabaseManager.get_dataframe_by_sql_without_sharding_db`, if connection is not closed, long-lived worker processes will accumulate connection-related resources across
-  repeated pipeline runs, causing:
-  - increasing process RSS
-  - increasing open file descriptors (FD)
-  - increasing MySQL connected threads
-  - eventual DB error (`Too many connections`, 1040)
-
-  ---
-
-  ## Code Findings
-
-  ### 1) High-risk function
-  - File: `dags/general_used_functions/rejection_related.py`
-  - Function: `get_dataframe_by_sql_without_sharding_db(...)`
-  - Fix applied:
-  ```python
-  _hook, _conn = DatabaseManager.get_hook_and_conn(connection_id, hook_type)
-  try:
-      _df = pd.read_sql_query(sql_script, con=_conn)
-  finally:
-      _conn.close()
-
-  ### 2) Why this matters
-
-  - This function is frequently used by rejection pipeline tasks (especially non-sharded and BI read/write paths).
-  - Without finally: close(), exceptions or repeated usage can leave resources open in long-lived workers.
-
-  ### 3) Additional pipeline cleanup
-
-  - Intermediate feather files were cleaned after successful combine/insert in:
-      - dags/rejections/operator_functions_01_update_source_tables_2308.py
-  - Purpose:
-      - reduce worker disk/page-cache pressure
-      - improve long-running stability
-  - Note:
-      - feather files mainly consume disk; memory effect is indirect (OS cache / I/O pressure).
-
-  ———
-
-  ## Benchmark Design (Local)
-
-  ## Goal
-
-  Simulate real-world “same worker, repeated runs” behavior (not just one run with many queries).
-
-  ## Environment
-
-  - Docker compose with:
-      - airflow container
-      - mysql:8.0 container
-  - Script:
-      - dags/rejections/benchmark_connection_leak.py
-
-  ## Metrics captured at each run-end baseline
-
-  1. Process RSS (MB)
-  2. Open FDs
-  3. MySQL Threads_connected
-
-  ## Scenarios
-
-  4. FIX: close connection every query
-  5. BUG simulation: no close + leak emulation to mimic long-lived retained resources
-
-  ———
-
-  ## Benchmark Result Summary
-
-  ## FIX scenario (close_connection=True)
-
-  - ~60 runs completed
-  - Stable metrics:
-      - fd ≈ 4
-      - threads_connected ≈ 1
-      - RSS almost flat (~215.55 -> ~215.69 MB)
-
-  ## BUG scenario (close_connection=False)
-
-  - Rapidly increasing metrics per run:
-      - FD: 14 -> 154
-      - Threads_connected: 11 -> 151
-      - RSS: 216.23 -> 226.35 MB
-  - Stopped early at run 15 with:
-      - OperationalError(1040): Too many connections
-
-  ## Interpretation
-
-  - This reproduces the production symptom pattern:
-      - baseline memory/resource rises across runs
-      - eventually reaches limits (DB connections / worker memory)
-
-  ———
-
-  ## Key Clarifications
-
-  ## Does DB timeout solve this automatically?
-
-  - Not sufficiently.
-  - DB timeout is a last-resort safety net, often for idle connections and not immediate.
-  - Application-side explicit close() is still required for deterministic resource release.
-
-  ## Is FD itself the RAM usage?
-
-  - Not directly.
-  - FD is a handle count (indicator).
-  - RAM is consumed by resources behind FDs:
-      - socket buffers
-      - driver state
-      - connection/query buffers
-
-  ## Is gc.collect() enough?
-
-  - No.
-  - gc can help short-term object cleanup, but does not reliably/quickly replace explicit close().
-  - For long-running workers, explicit close in finally is the correct fix.
-
-  ———
-
-  ## Action Items
-
-  1. Keep finally: _conn.close() fix in get_dataframe_by_sql_without_sharding_db.
-  2. Keep intermediate-file cleanup for rejection pipeline.
-  3. Monitor after deploy (24–48h):
-      - worker RSS trend (should flatten or become sawtooth, not monotonic up)
-      - DB connected thread trend
-      - worker pod restart frequency / manual redeploy need
-  4. Optional hardening:
-      - set worker_max_tasks_per_child (Celery) to recycle long-lived processes
-      - review concurrency and backfill overlap
-      - avoid intermediate filename collision across normal/backfill/adhoc DAGs (add run_id/dag_id in temp filenames)
-
-  ———
-
-  ## Useful Terms
-
-  - RSS: Resident Set Size, actual process memory shown by OS/Grafana.
-  - FD: File Descriptor count, includes sockets.
-  - Threads_connected: current MySQL active connection threads.
+<span style="color:rgb(255, 0, 0)"><font color="#c3d69b">3) Additional pipeline cleanup</font></span>
+⚠️ Could be improvement if wanted
+* Intermediate feather files were cleaned after successful combine/insert in : <font color="#92cddc">dags/rejections/operator_functions_01_update_source_tables_2308.py</font>
+* Purpose : reduce worker disk/page-cache pressure
+	
+  
