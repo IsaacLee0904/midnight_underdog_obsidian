@@ -11,7 +11,14 @@
 ## Implement
 
 #### Step1. Grant permission for bi_report
-透過 [dba-application-accounts](https://github.com/opennetltd/dba-application-accounts) 中的 app_users/bi_report/uat.yaml 新增權限給 `bi_report`
+透過 [dba-application-accounts](https://github.com/opennetltd/dba-application-accounts) 中的 <font color="#00b0f0">app_users/bi_report/uat.yaml</font> 新增權限給 `bi_report`
 ![[Screenshot 2026-04-10 at 11.19.20 AM.png]]
 
-#### Step2. Adjust the backfill DAG
+#### Step2. Create table in Redshift
+
+
+
+
+
+#### Step3. Adjust the backfill DAG
+新增 <font color="#00b0f0">main/afbet_order.t_order_record_shard_backfill.py</font> 跑 backfill 任務
