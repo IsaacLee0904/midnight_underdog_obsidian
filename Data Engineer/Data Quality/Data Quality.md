@@ -193,5 +193,9 @@ The goal of this pipeline is to answer the following questions:
 * event_hour 會有季節性的變化規律
 * m_total_events 需要大於某一個閾值
 
+## Data Quality Patterns
+
+![[Data Quality Patterns]]
+
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
