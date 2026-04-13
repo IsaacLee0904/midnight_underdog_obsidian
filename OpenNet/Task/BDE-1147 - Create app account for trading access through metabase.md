@@ -20,10 +20,9 @@ env: prod
 team: Trading
 manager: isaac.lee@opennet.tw
 access_rights:
-	- cluster_type: serverless
-	  workgroup: sporty-pub-prod-bi-report-workgroup
-	  use_temp_credentials: false
-	  secret: arn:aws:secretsmanager:eu-central-1:942878658013:secret:redshift!sporty-pub-prod-bi-report-admin-tSK4zz
+	- cluster_id: sporty-pub-prod-bi-warehouse
+	  secret: arn:aws:secretsmanager:eu-central-1:942878658013:secret:redshift!sporty-pub-prod-bi-warehouse-warehouse_admin-2QMALH
+	  port: 5439
 	  permissions:
 		- type: privilege
 		  name: role app_metabase_trading
