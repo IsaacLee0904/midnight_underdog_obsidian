@@ -4,7 +4,7 @@
 ### Redshift Basic Statement 
 ![[Redshift Operation]]
 
-
+### 
 
 ## Redshift Worload Management (WLM)
 
