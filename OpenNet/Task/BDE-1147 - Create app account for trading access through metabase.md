@@ -49,3 +49,15 @@ access_rights:
 		  name: bi_report.bi_realsports.src_realsports_all_orders_v12
 		  privs: read
 ```
+
+**Step4. Raise PR**
+發 PR 請 DBA 的 Paul Approve 然後 merge
+
+**Step5. Execute Github Actions**
+
+* Create user
+![[Screenshot 2026-04-13 at 5.44.37 PM.png]]
+
+* Grant permission
+![[Screenshot 2026-04-13 at 5.46.27 PM.png]]
+
