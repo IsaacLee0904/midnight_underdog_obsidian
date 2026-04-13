@@ -1,6 +1,8 @@
 ## Introduction
+### **Repo** 
+使用 [dba-redshift-privileges](https://github.com/opennetltd/dba-redshift-privileges)  的 repo
 
-* **Repo** : [dba-redshift-privileges](https://github.com/opennetltd/dba-redshift-privileges)  -> The repository manages user and role privileges on the particular Redshift cluster
+-> The repository manages user and role privileges on the particular Redshift cluster
 * How it work ?
 	* 
 
