@@ -12,4 +12,19 @@
 Go go [dba-redshift-privileges](https://github.com/opennetltd/dba-redshift-privileges) on Github
 
 Step2. Create User
-根據需求到
+根據需求到 application_account 底下創建 user 並定義
+```yaml
+type: user
+name: app_metabase_trading
+env: prod
+team: Trading
+manager: isaac.lee@opennet.tw
+access_rights:
+	- cluster_type: serverless
+	  workgroup: sporty-pub-prod-bi-report-workgroup
+	  use_temp_credentials: false
+	  secret: arn:aws:secretsmanager:eu-central-1:942878658013:secret:redshift!sporty-pub-prod-bi-report-admin-tSK4zz
+	  permissions:
+		- type: privilege
+		  name: role app_metabase_trading
+```
