@@ -1,6 +1,9 @@
 ## Introduction
 
-對 UAT / Prod 的 Redshift 創建 user 或給予權限是使用 [dba-redshift-privileges](https://github.com/opennetltd/dba-redshift-privileges)  的 repo
+對 UAT / Prod 的 Redshift 創建 user 或給予權限是使用 [dba-redshift-privileges](https://github.com/opennetltd/dba-redshift-privileges)  的 repo，repo 主要分成 <font color="#ff0000">user_account</font> 與 <font color="#ff0000">role</font> 兩部分需要定義，前者用來定義與創建 Redshift 的 user，後者則是定義要給予各個 user 哪些權限與 table 的許可
+
+### user_account
+在 config/user/ 的 folder 底下創建
 
 運作方式
 
