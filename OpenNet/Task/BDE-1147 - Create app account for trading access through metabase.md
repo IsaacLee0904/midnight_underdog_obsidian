@@ -28,3 +28,5 @@ access_rights:
 		- type: privilege
 		  name: role app_metabase_trading
 ```
+
+Step3. 
