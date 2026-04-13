@@ -1,2 +1,3 @@
+## 
 
-[[Redshift Workload Management (WLM)]]
+![[Redshift Workload Management (WLM)]]

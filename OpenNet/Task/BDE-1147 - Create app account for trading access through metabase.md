@@ -29,4 +29,23 @@ access_rights:
 ```
 
 **Step3. Grant Permission**
-根據需求給予創建的 user 
+根據需求給予上步驟創建的 user table 權限
+```yaml
+type: role
+name: app_metabase_trading
+env: prod
+team: Trading
+manager: isaac.lee@opennet.tw
+access_rights:
+	- cluster_id: sporty-pub-prod-bi-warehouse
+	  secret: arn:aws:secretsmanager:eu-central-1:942878658013:secret:redshift!sporty-pub-prod-bi-warehouse-warehouse_admin-2QMALH
+      port: 5439
+      permissions:
+		- type: object
+		  name: bi_report.bi_main.src_user_profile_patron_user
+		  privs: read
+		  
+		- type: object
+		  name: bi_report.bi_realsports.src_realsports_all_orders_v12
+		  privs: read
+```
