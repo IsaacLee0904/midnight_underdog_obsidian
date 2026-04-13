@@ -29,3 +29,4 @@ access_rights:
 ```
 
 **Step3. Grant Permission**
+根據需求給予創建的 user 
