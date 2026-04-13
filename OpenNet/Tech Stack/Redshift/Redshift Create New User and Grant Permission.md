@@ -11,32 +11,8 @@ user config 裡面的 permissions 欄位要填寫的 role 名稱需要去 refere
 >
 
 ### role
-在 config/role/ 底下建立以目標角色名稱命名的資料夾，命名為 <font color="#548dd4">config/role/{team}_ group</font> 或 <font color="#548dd4">config/role/{application_account_name}</font>
-
-
-  使用者帳號：
-
-  - 在 config/user/ 底下建立以目標帳號名稱命名的資料夾，例如 config/user/<firstname_lastname>/ 或 config/user/<application_account_name>/
-  - 在該資料夾下建立環境設定檔 <env>.yaml，例如 config/user/john_doe/prod.yaml 或 config/user/app_pocket/prod.yaml
-  - 複製 config/user/template.yaml 的內容作為範本。
-  - 依照檔案說明填入所有資訊。
-    - 目標權限角色請參考 config/role/ 底下的角色與權限設定，使用者的目標角色通常為 ROLE <team>_group 或 ROLE <application_account_name>。
-    - 若目標角色尚未存在，請參考下方建立角色的流程，並與 database team 討論。
-  - 發起 pull request 並取得主管 approve。
-  - 將 pull request 分享給 database team。
-  - Merge pull request 後，使用以下 pipeline 套用變更：Run Grants workflow。
-
-  角色（Role）：
-
-  - 在 config/role/ 底下建立以目標角色名稱命名的資料夾，命名規則為：config/role/<team>_group 或 config/role/<application_account_name>。
-  - 在該資料夾下建立環境設定檔 <env>.yaml，例如 config/role/de_group/prod.yaml 或 config/role/app_pocket/prod.yaml
-  - 複製 config/role/template.yaml 的內容作為範本。
-  - 依照檔案說明填入所有資訊。
-  - 發起 pull request 並取得主管 approve。
-  - 將 pull request 分享給 database team。
-  - Merge pull request 後，使用以下 pipeline 套用變更：Run Grants workflow。
-
-  Serverless vs Provisioned
+在 config/role/ 底下建立以目標角色名稱命名的資料夾，命名為 <font color="#548dd4">config/role/{team}_ group</font> 或 <font color="#548dd4">config/role/{application_account_name}</font>，在 folder 下創建各自環境的 yaml file，發 PR 請人 approve
+### Serverless vs Provisioned
 
   Provisioned：
   - cluster_type：provisioned（省略時的預設值）
