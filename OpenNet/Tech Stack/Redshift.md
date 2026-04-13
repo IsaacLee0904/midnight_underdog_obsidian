@@ -6,7 +6,8 @@
 ![[Redshift Operation]]
 
 ### Create New User and Grant Permission 
-![[Redshift Creaw]]
+
+![[Redshift Create New User and Grant Permission]]
 
 ## Redshift Worload Management (WLM)
 
