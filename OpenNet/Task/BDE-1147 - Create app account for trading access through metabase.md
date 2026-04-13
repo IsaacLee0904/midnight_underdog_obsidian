@@ -11,7 +11,7 @@
 **Step1. Clone Repo**
 Go go [dba-redshift-privileges](https://github.com/opennetltd/dba-redshift-privileges) on Github
 
-Step2. Create User
+**Step2. Create User**
 根據需求到 application_account 底下創建 user 並定義
 ```yaml
 type: user
