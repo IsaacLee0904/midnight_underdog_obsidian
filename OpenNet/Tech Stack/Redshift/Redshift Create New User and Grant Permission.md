@@ -30,6 +30,9 @@ user config 裡面的 permissions 欄位要填寫的 role 名稱需要去 refere
   - 只有 redshift-serverless:GetWorkgroup / GetCredentials 會使用假設角色（redshift.py 中的 SERVERLESS_ASSUME_ROLE_ARN 常數）。
   - Secrets Manager 存取一律使用預設的 runner / instance role。 
 
+>[!WARNING] Role 必須先於 User 建立
+> 授予 role 成員資格（role xyz）需要 xyz 這個 role 已存在於目標環境中。請先執行對應的role config
+
 
 ## Example
 ![[BDE-1147 - Create app account for trading access through metabase]]
