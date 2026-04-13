@@ -12,7 +12,7 @@
 Go go [dba-redshift-privileges](https://github.com/opennetltd/dba-redshift-privileges) on Github
 
 **Step2. Create User**
-根據需求到 application_account 底下創建 user 並定義
+根據需求到 application_account 底下創建 user (`app_metabase_trading`) 並定義
 ```yaml
 type: user
 name: app_metabase_trading
@@ -28,4 +28,4 @@ access_rights:
 		  name: role app_metabase_trading
 ```
 
-Step3. 
+**Step3. Grant Permission**
