@@ -13,12 +13,13 @@ user config 裡面的 permissions 欄位要填寫的 role 名稱需要去 refere
 ### role
 在 config/role/ 底下建立以目標角色名稱命名的資料夾，命名為 <font color="#548dd4">config/role/{team}_ group</font> 或 <font color="#548dd4">config/role/{application_account_name}</font>，在 folder 下創建各自環境的 yaml file，發 PR 請人 approve
 ### Serverless vs Provisioned
+由於 OpenNet 的 Redshift 有氛圍自建 (Provisioned) 與託管 (Serverless)，因此需要明確的定義是配置給哪一個 cluster
 
-  Provisioned：
-  - cluster_type：provisioned（省略時的預設值）
-  - 必填欄位：cluster_id、port、secret（admin 使用者的 secret）
+<mark style="background:#affad1">Provisioned</mark>
+- cluster_type : provisioned 
+- 需要填寫 cluster_id、port、secret ( <font color="#ff0000">使用 admin 使用者的 secret</font> ) 欄位
 
-  Serverless：
+<mark style="background:#affad1">Serverless</mark>
   - cluster_type：serverless
   - workgroup：<workgroup_name>
   - database：選填（預設為 dev）
