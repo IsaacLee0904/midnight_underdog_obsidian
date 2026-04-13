@@ -1,10 +1,12 @@
 
-## Redshift 操作
+## Redshift Operation
 
-### Redshift Basic Statement 
+### Basic Statement 
+
 ![[Redshift Operation]]
 
-### 
+### Create New User and Grant Permission 
+![[Redshift Creaw]]
 
 ## Redshift Worload Management (WLM)
 
