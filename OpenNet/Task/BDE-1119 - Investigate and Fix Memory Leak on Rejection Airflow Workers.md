@@ -105,3 +105,12 @@ Result
 	* FD : 14 -> 154
 	* Threads_connected : 11 -> 151
 	* RSS : 216.23 -> 226.35 MB
+
+
+ monitoring
+```bash
+while true; do                                                               
+    docker stats airflow-benchmark --no-stream --format '{{.MemUsage}}'
+    sleep 1                                                                    
+done
+```
