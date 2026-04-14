@@ -37,7 +37,9 @@ _conn.close()
 * 對於這種高頻率、高並發的 pipeline，單純依賴 Python 自動 GC 來回收大型 DataFrame 的記憶體可能不夠及時。在記憶體使用量較高的步驟後加入明確的 gc.collect()呼叫，是一個防禦性的改善措施，有助於降低記憶體的峰值使用量
 * [gc docs](https://docs.python.org/3/library/gc.html) 
 
-4. 
+2. <font color="#ffc000">Large DataFrames not explicitly deleted after use</font>
+  * 
+
 
 #### Proof of Concept
 
