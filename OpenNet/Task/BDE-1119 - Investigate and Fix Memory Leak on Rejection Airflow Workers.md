@@ -28,14 +28,14 @@ _df = pd.read_sql_query(_sql_script, con=_conn)
 _conn.close()
 ```
 這會造成一件事，如果 task 中途失敗，就不會正常切斷 connection
-		  
-2. <span style="color:rgb(255, 192, 0)">Intermediate staging files (.feather) are not deleted after use</span>
- * 每次 DAG 執行時，各國家產生的中間 feather 檔案在 combine 步驟完成後並未被清除，這些檔案會持續累積在 Worker 的 ephemeral storage 上，長期下來可能導致 <span style="color:rgb(255, 0, 0)">disk</span> <span style="color:rgb(255, 0, 0)">空間不足</span>，進而造成 pod 被驅逐 (eviction)
 
-3. <font color="#ffc000">Large DataFrames not explicitly deleted after use</font>
+2. <font color="#ffc000">Large DataFrames not explicitly deleted after use</font>
 * 預防性措施
 * 對於這種高頻率、高並發的 pipeline，單純依賴 Python 自動 GC 來回收大型 DataFrame 的記憶體可能不夠及時。在記憶體使用量較高的步驟後加入明確的 gc.collect()呼叫
 * [gc docs](https://docs.python.org/3/library/gc.html) 
+
+additional issue : <span style="color:rgb(255, 192, 0)">Intermediate staging files (.feather) are not deleted after use</span>
+ * 每次 DAG 執行時，各國家產生的中間 feather 檔案在 combine 步驟完成後並未被清除，這些檔案會持續累積在 Worker 的 ephemeral storage 上，長期下來可能導致 <span style="color:rgb(255, 0, 0)">disk</span> <span style="color:rgb(255, 0, 0)">空間不足</span>，進而造成 pod 被驅逐 (eviction)
 
 #### Proof of Concept
 
@@ -65,11 +65,6 @@ finally:
 <span style="color:rgb(255, 0, 0)"><font color="#c3d69b">2) Why this matters</font></span>
 * This function is frequently used by rejection pipeline tasks (especially non-sharded and BI read/write paths).
 * Is the only db connect function without <font color="#92cddc">close()</font>
-
-<span style="color:rgb(255, 0, 0)"><font color="#c3d69b">3) Additional pipeline cleanup</font></span>
-⚠️ Feather files mainly consume disk and memory effect is indirect
-* Intermediate feather files were cleaned after successful combine/insert in : <font color="#92cddc">dags/rejections/operator_functions_01_update_source_tables_2308.py</font>
-* Purpose : reduce worker disk/page-cache pressure
 	
 <mark style="background:rgba(240, 200, 0, 0.2)">Benchmark (Causal Validation)</mark>
 -> close vs no-close
