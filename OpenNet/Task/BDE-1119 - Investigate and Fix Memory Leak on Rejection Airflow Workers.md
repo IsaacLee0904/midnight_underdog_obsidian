@@ -39,6 +39,8 @@ _conn.close()
 
 #### Proof of Concept
 
+##### Hypothesis 1 : Connection Leak
+
 <mark style="background:rgba(240, 200, 0, 0.2)">Hypothesis</mark>
 In `DatabaseManager.get_dataframe_by_sql_without_sharding_db`, if connection is not closed, long-lived worker processes will accumulate connection-related resources across
 repeated pipeline runs, causing :
