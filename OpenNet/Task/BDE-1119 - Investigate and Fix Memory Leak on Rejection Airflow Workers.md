@@ -32,16 +32,10 @@ _conn.close()
 2. <span style="color:rgb(255, 192, 0)">Intermediate staging files (.feather) are not deleted after use</span>
  * 每次 DAG 執行時，各國家產生的中間 feather 檔案在 combine 步驟完成後並未被清除，這些檔案會持續累積在 Worker 的 ephemeral storage 上，長期下來可能導致 <span style="color:rgb(255, 0, 0)">disk</span> <span style="color:rgb(255, 0, 0)">空間不足</span>，進而造成 pod 被驅逐 (eviction)
 
-3. <span style="color:rgb(255, 192, 0)">No GC trigger between tasks</span>
+3. <font color="#ffc000">Large DataFrames not explicitly deleted after use</font>
 * 預防性措施
-* 對於這種高頻率、高並發的 pipeline，單純依賴 Python 自動 GC 來回收大型 DataFrame 的記憶體可能不夠及時。在記憶體使用量較高的步驟後加入明確的 gc.collect()呼叫，是一個防禦性的改善措施，有助於降低記憶體的峰值使用量
+* 對於這種高頻率、高並發的 pipeline，單純依賴 Python 自動 GC 來回收大型 DataFrame 的記憶體可能不夠及時。在記憶體使用量較高的步驟後加入明確的 gc.collect()呼叫
 * [gc docs](https://docs.python.org/3/library/gc.html) 
-
-4. <font color="#ffc000">Large DataFrames not explicitly deleted after use</font>
-  *  在 pipeline 的各個步驟中，中間產生的大型 DataFrame（例如各國 rejection data、merge 後的結果）在使用完之後沒有明確 del                                                          
-  - 雖然 Python GC 最終會清掉，但在 long-running Celery worker 裡，pymalloc 不會把釋放的記憶體還給 OS                                                                                                                           
-  - del df + gc.collect() 可以減少 peak 用量，但根本解是搭配 worker_max_tasks_per_child 讓 worker 定期重啟，把 pymalloc pool 歸零 
-
 
 #### Proof of Concept
 
