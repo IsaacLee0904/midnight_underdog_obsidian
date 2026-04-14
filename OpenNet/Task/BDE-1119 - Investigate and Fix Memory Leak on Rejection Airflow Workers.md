@@ -38,7 +38,10 @@ _conn.close()
 * [gc docs](https://docs.python.org/3/library/gc.html) 
 
 2. <font color="#ffc000">Large DataFrames not explicitly deleted after use</font>
-  * 
+  *  在 pipeline 的各個步驟中，中間產生的大型 DataFrame（例如各國 rejection data、merge 後的結果）在使用完之後沒有明確 del                                                          
+  - 雖然 Python GC 最終會清掉，但在 long-running Celery worker 裡，pymalloc 不會把釋放的記憶體還給 OS                                                                              
+  - 這才是最可能造成你 Grafana 上 RAM 慢慢漲的主因                                                    
+  - del df + gc.collect() 可以減少 peak 用量，但根本解是搭配 worker_max_tasks_per_child 讓 worker 定期重啟，把 pymalloc pool 歸零 
 
 
 #### Proof of Concept
