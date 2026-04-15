@@ -81,7 +81,8 @@ access_rights:
 	* Path : Admin Settings > People > Groups > Click the group >  Add members
 	 ![[Screenshot 2026-04-15 at 11.46.33 AM.png]]
 
-* 
+* Grant Permission 
+	* Path : Admin Settings > Permissions > Databases > 
 
 
 stanimir marinov
