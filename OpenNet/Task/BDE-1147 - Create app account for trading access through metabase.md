@@ -73,3 +73,7 @@ access_rights:
   * Path : Admin Settings > Database > Add database
 
 **Step8. **
+
+SM
+
+stanimir marinov
