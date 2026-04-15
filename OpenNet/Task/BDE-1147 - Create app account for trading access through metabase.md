@@ -74,6 +74,9 @@ access_rights:
 
 **Step8. Grant Permission for user**
 * Create a group 
+	* Path : Admin Settings > People > Groups > Create a Group 
+	  ![[Screenshot 2026-04-15 at 11.42.35 AM.png]]
+* Add user into group
 
 
 
