@@ -74,15 +74,13 @@ access_rights:
 
 **Step8. Grant Permission for user**
 * **Create a group** 
-	* Path : Admin Settings > People > Groups > Create a Group 
-	  ![[Screenshot 2026-04-15 at 11.42.35 AM.png]]
+	* Path : Admin Settings > People > Groups > Create a Group ![[Screenshot 2026-04-15 at 11.42.35 AM.png]]
 
 * **Add User to the Group**
-	* Path : Admin Settings > People > Groups > Click the group >  Add members
-	 ![[Screenshot 2026-04-15 at 11.46.33 AM.png]]
+	* Path : Admin Settings > People > Groups > Click the group >  Add members![[Screenshot 2026-04-15 at 11.46.33 AM.png]]
 
-* Grant Permission 
-	* Path : Admin Settings > Permissions > Databases > 
+* **Grant Permission** 
+	* Path : Admin Settings > Permissions > Databases > Click the Database > Permissions for {database_name} > Search for the Group
+	  ![[Screenshot 2026-04-15 at 11.55.26 AM.png]]
 
 
-stanimir marinov
