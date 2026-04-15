@@ -86,7 +86,7 @@ access_rights:
 
 ## How to query on Metabase
 
-**Step1. Home page click "+ New"**
-![[Screenshot 2026-04-15 at 1.09.40 PM.png]]
+**Step1. Home page click "+ New" than SQL Query**
+![[Screenshot 2026-04-15 at 1.25.29 PM.png]]
 
-**Step2. **
+**Step2. Select the Database**
