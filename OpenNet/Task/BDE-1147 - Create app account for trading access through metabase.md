@@ -90,3 +90,4 @@ access_rights:
 ![[Screenshot 2026-04-15 at 1.25.29 PM.png]]
 
 **Step2. Select the Database**
+![[Screenshot 2026-04-15 at 1.29.04 PM.png]]
