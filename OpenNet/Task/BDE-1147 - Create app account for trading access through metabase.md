@@ -84,3 +84,9 @@ access_rights:
 	  ![[Screenshot 2026-04-15 at 11.55.26 AM.png]]
 
 
+## How to query on Metabase
+
+**Step1. Home page click "+ New"**
+![[Screenshot 2026-04-15 at 1.09.40 PM.png]]
+
+**Step2. **
