@@ -71,4 +71,5 @@ access_rights:
 	
 * **Setup Connection**
   * Path : Admin Settings > Database > Add database
-  * 
+
+**Step8. **
