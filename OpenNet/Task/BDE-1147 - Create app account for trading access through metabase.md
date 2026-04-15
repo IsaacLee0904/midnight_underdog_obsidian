@@ -63,3 +63,5 @@ access_rights:
 
 **Step6. Ask DBA Share the vault**
 ![[Screenshot 2026-04-13 at 5.56.53 PM.png]]
+
+**Step7. **
