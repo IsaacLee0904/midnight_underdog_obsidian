@@ -51,7 +51,7 @@ access_rights:
 ```
 
 **Step4. Raise PR**
-發 PR 請 DBA 的 Paul Approve 然後 merge
+發 PR 請 DBA Approve 然後 merge
 
 **Step5. Execute Github Actions**
 
@@ -64,4 +64,11 @@ access_rights:
 **Step6. Ask DBA Share the vault**
 ![[Screenshot 2026-04-13 at 5.56.53 PM.png]]
 
-**Step7. **
+**Step7. Setup DB Connection in Metabase**
+* **Go to Metabase**
+	* Prod : https://metabase-ms.on.sportybet2.com/
+	* UAT : http://172.31.79.8:3000/
+	
+* **Setup Connection**
+  * Path : Admin Settings > Database > Add database
+  * 
