@@ -89,20 +89,6 @@ Result
 
 ![/Users/isaaclee/Documents/OpenNet Project/data_analysis/benchmark_output/connection_leak_benchmark_mysql.png](file:///Users/isaaclee/Documents/OpenNet%20Project/data_analysis/benchmark_output/connection_leak_benchmark_mysql.png)
 
-<font color="#c3d69b">FIX scenario (close_connection=False)</font>
-- ~60 runs completed
-- observe metrics
-	- FD ≈ 4
-	- threads_connected ≈ 1
-	- RSS almost flat (~215.55 -> ~215.69 MB)
-
-<font color="#c3d69b">BUG scenario (close_connection=False)</font>
-* Rapidly increasing metrics per run
-* observe metrics 
-	* FD : 14 -> 154
-	* Threads_connected : 11 -> 151
-	* RSS : 216.23 -> 226.35 MB
-
 
  monitoring
 ```bash
