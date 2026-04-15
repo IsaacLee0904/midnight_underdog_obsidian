@@ -72,8 +72,9 @@ access_rights:
 * **Setup Connection**
   * Path : Admin Settings > Database > Add database
 
-**Step8. **
+**Step8. Grant Permission for user**
+* Create a group 
 
-SM
+
 
 stanimir marinov
