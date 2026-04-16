@@ -35,3 +35,19 @@ WHERE brand = 'sporty'
 	AND table_name = 't_patron_user_meta';
 ```
 
+然後因為回跑的時間區間很長並且很急迫所以可以透果調整 DAG 來做
+```python
+backfill_schedule = "*/5 * * * *" # run every 5 mins
+
+start_dt_conf = (
+	datetime.strptime(context["dag_run"].conf.get("start_time"), "%Y-%m-%dT%H:%M:%S")
+	if context.get("dag_run") and context["dag_run"].conf and context["dag_run"].conf.get("start_time")
+	else start_dt
+)
+
+end_dt_conf = (
+	datetime.strptime(context["dag_run"].conf.get("end_time"), "%Y-%m-%dT%H:%M:%S")
+	if context.get("dag_run") and context["dag_run"].conf and context["dag_run"].conf.get("end_time")
+	else (start_dt_conf + timedelta(days=90)) # 調整成 90 天，一次跑 90 天資料
+)
+```
