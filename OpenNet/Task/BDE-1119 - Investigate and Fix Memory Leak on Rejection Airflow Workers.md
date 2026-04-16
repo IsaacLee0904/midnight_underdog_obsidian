@@ -86,8 +86,8 @@ Scenarios
 2. BUG : no close + leak emulation to mimic long-lived retained resources
 
 Result
+![[Pasted image 20260416172604.png]]
 
-![/Users/isaaclee/Documents/OpenNet Project/data_analysis/benchmark_output/connection_leak_benchmark_mysql.png](file:///Users/isaaclee/Documents/OpenNet%20Project/data_analysis/benchmark_output/connection_leak_benchmark_mysql.png)
 
 
  monitoring
