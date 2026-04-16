@@ -3,6 +3,11 @@
 
 Step1. 檢查 stl_load_errors 的紀錄
 ```SQL
-
+SELECT filename, line_number, colname, type, col_length, err_code, err_reason
+FROM stl_load_errors
+ORDER BY starttime DESC
+LIMIT 10;
 ```
+![[Screenshot 2026-04-16 at 1.06.14 PM.png]]
+
 
