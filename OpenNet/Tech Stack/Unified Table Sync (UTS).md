@@ -148,6 +148,8 @@ if start_dt.date() >= datetime.now().date():
 
 在確認都沒問題之後就可以 `merge` 到 main 根據需求的 brand 開啟 Airflow UI 上的 DAG
 
+#### How to manually trigger backfill 
+
 ---
 
 ## UTS-Managed DAG Rules
