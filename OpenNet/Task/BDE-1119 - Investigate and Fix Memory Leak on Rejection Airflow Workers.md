@@ -66,7 +66,7 @@ finally:
 * This function is frequently used by rejection pipeline tasks (especially non-sharded and BI read/write paths).
 * Is the only db connect function without <font color="#92cddc">close()</font>
 	
-<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark (Causal Validation)</mark>
+<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark</mark>
 -> close vs no-close
 
 Environment
@@ -84,12 +84,9 @@ Metics captured at each run-end baseline
 2. Open FDs
 3. MySQL Threads_connected
 
-Scenarios
-1. FIX : close connection every query
-2. BUG : no close + leak emulation to mimic long-lived retained resources
-
 Result
-![[Pasted image 20260416172604.png]]
+![[Pasted image 20260416183023.png]]
+
 
 
 
