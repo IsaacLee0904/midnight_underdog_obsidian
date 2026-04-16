@@ -10,4 +10,13 @@ LIMIT 10;
 ```
 ![[Screenshot 2026-04-16 at 1.06.14 PM.png]]
 
+Step2. 查詢 source table 需要的空間
+```SQL
+SELECT MAX(LENGTH(nickname)), MAX(CHAR_LENGTH(nickname))
+FROM sporty_patron.t_patron_user_meta
+WHERE create_time >= '2020-09-11' AND create_time < '2021-01-10';
+```
+![[Screenshot 2026-04-16 at 1.52.39 PM.png]]
 
+Step3. 去修改 Redshift Table 的 TYPE
+透過 **[dba-redshift-executor-prod](https://github.com/opennetltd/dba-redshift-executor-prod)** 修改

@@ -22,3 +22,5 @@ this means a DAG is delayed or behind. backfill job can trigger this and we can 
 	* If the task runs in time but it queued for too long, might need to check the overall Airflow status (ex. [Airflow EKS](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/adk6avn6n2tc0aee/airflow-eks?var-datasource=P28ADB2B68CA29654&var-airflow_id=airflow-warehouse&orgId=1&from=now-1h&to=now&timezone=utc&var-dag_id=$__all&var-airflow_pod=) for instance resource usage and Airflow metrics)
 	* If the task do have performance issue on query, you can check [Redshift Page](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-bi-warehouse&tab=performance) to see if the cluster is busy. maybe some long running query can be killed to release Redshift resources
 	* If both Airflow and Redshift looks normal and no other DAG having issue, probably means you need to modify the DAG code to improve its performance
+
+![[Redshift byte length overflow]]
