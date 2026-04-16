@@ -51,3 +51,28 @@ end_dt_conf = (
 	else (start_dt_conf + timedelta(days=90)) # 調整成 90 天，一次跑 90 天資料
 )
 ```
+
+另外一個 `t_patron_sso_user_meta` 沒有跑的紀錄，所以在創建完 DAG 之後要去 INSERT 紀錄
+```SQL
+INSERT INTO bi_wh_monitoring.uts_backfill_state
+(brand, env, module, source_schema, table_name, requested_start_date, cursor_start_ts, first_request_id, create_time, update_time)
+VALUES
+('sporty', 'prod', 'sporty_patron', 'sporty_patron', 't_patron_sso_user_meta', '2021-12-01', '2021-12-01 00:00:00', 'manual_init', GETDATE(), GETDATE());
+```
+
+然後因為回跑的時間區間很長並且很急迫所以可以透果調整 DAG 來做
+```python
+backfill_schedule = "*/5 * * * *" # run every 5 mins
+
+start_dt_conf = (
+	datetime.strptime(context["dag_run"].conf.get("start_time"), "%Y-%m-%dT%H:%M:%S")
+	if context.get("dag_run") and context["dag_run"].conf and context["dag_run"].conf.get("start_time")
+	else start_dt
+)
+
+end_dt_conf = (
+	datetime.strptime(context["dag_run"].conf.get("end_time"), "%Y-%m-%dT%H:%M:%S")
+	if context.get("dag_run") and context["dag_run"].conf and context["dag_run"].conf.get("end_time")
+	else (start_dt_conf + timedelta(days=90)) # 調整成 90 天，一次跑 90 天資料
+)
+```
