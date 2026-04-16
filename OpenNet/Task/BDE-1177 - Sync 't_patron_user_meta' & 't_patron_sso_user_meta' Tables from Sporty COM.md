@@ -16,5 +16,22 @@
 - min(create_time) : 2021-12-02 03:06:07.460150
 - row_count : 23964481
 
-其中 ``
+其中 `t_patron_user_meta` 是之前有用 UTS  backfill 過的，做法是去 Redshift 裡面的 `bi_wh_monitoring.uts_backfill_state` UPDATE 那筆紀錄讓他從更久以前開始回跑
+```SQL
+-- Check the exist record
+SELECT * FROM bi_wh_monitoring.uts_backfill_state
+WHERE module = 'sporty_patron'
+AND source_schema = 'sporty_patron'
+AND table_name = 't_patron_sso_user_meta';
+
+-- Update backfill record
+UPDATE bi_wh_monitoring.uts_backfill_state
+SET cursor_start_ts = '2020-09-11T10:02:56', -- will backfill from this time
+update_time = GETDATE()
+WHERE brand = 'sporty'
+	AND env = 'prod'
+	AND module = 'sporty_patron'
+	AND source_schema = 'sporty_patron'
+	AND table_name = 't_patron_user_meta';
+```
 
