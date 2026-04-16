@@ -75,6 +75,9 @@ Environment
 	* mysql:8.0 container
 * Script :
 	* <font color="#92cddc">dags/rejections/benchmark_connection_leak.py</font>
+```bash
+airflow dags test --subdir dags/rejections/rejection_pipeline_test.py rejection_pipeline_connection_leak_test 2026-04-16
+```
 
 Metics captured at each run-end baseline
 1. Process RSS (MB)
