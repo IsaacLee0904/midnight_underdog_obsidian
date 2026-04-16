@@ -167,3 +167,5 @@ UTS_MANAGED_DAG = True
 
 #### Reference
 [Confluence Page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4282351705/Unified+Table+Sync+UTS+Slack+App+Developer+Maintainer+Guide)
+[[UTS - t_promotion_odds_boost_lfb_log]]
+[[BDE-1177 - Sync 't_patron_user_meta' & 't_patron_sso_user_meta' Tables from Sporty COM]]
