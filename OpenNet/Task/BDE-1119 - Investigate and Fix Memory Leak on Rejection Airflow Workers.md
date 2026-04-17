@@ -58,26 +58,14 @@ finally:
 ```
 	
 <mark style="background:rgba(240, 200, 0, 0.2)">Benchmark</mark>
-
-**Experiment**
-* close vs no-close
-
-**Environment**
-* Docker compose with :
-	* airflow container
-	* mysql:8.0 container
-* Script :
-	* <font color="#92cddc">dags/rejections/benchmark_connection_leak.py</font>
+- 5,000 runs × 2 scenarios (with_close vs without_close)
+- Metrics : RSS / Open FD / MySQL Threads_connected
+* Script : <font color="#92cddc">dags/rejections/benchmark_connection_leak.py</font>
 ```bash
 airflow dags test --subdir dags/rejections/rejection_pipeline_test.py rejection_pipeline_connection_leak_test 2026-04-16
 ```
 
-**Metics captured at each run-end baseline**
-1. Process RSS (MB)
-2. Open FDs
-3. MySQL Threads_connected
-
-**Result**
+<mark style="background:rgba(240, 200, 0, 0.2)">Result</mark>
 ![[Pasted image 20260416183023.png]]
 
  
