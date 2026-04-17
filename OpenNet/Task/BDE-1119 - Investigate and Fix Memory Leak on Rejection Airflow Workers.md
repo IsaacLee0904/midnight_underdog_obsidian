@@ -77,8 +77,6 @@ while true; do
 done
 ```
 
-
-
 ##### Hypothesis 2 : Connection Leak
 
 
