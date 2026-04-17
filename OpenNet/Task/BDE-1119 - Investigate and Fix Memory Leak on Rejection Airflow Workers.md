@@ -91,6 +91,29 @@ done
 這兩個設定的核心概念是：**定期回收 worker process，讓 Python allocator 持有的記憶體歸零**，而不是嘗試讓 allocator 自己釋放
 ##### Hypothesis 2 : CPython pymalloc High-Watermark Effect
 
+<mark style="background:rgba(240, 200, 0, 0.2)">Hypothesis</mark>
+CPython's memory allocator (pymalloc) never returns freed memory back to the OS. Each call to `pd.read_sql_query()` allocates a large DataFrame — once freed, the memory stays in Python's internal pool. In a long-lived worker process handling tasks with varying data sizes, the pool's high-watermark keeps getting pushed higher with each larger-than-before allocation, causing RSS to grow continuously without any upper bound.
 
+<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark</mark>
+- 3 phases in a single process : small (LIMIT 500) → large (LIMIT 1000) → small (LIMIT 500)
+- If high-watermark holds : RSS after Phase 3 should NOT drop back to Phase 1 level
+- Metrics : RSS
+* Script : <font color="#92cddc">dags/rejections/pymalloc_watermark_test.py</font>
+```bash
+airflow dags test --subdir dags/rejections/pymalloc_watermark_test.py pymalloc_watermark_test 2026-04-17
+```
 
+<mark style="background:rgba(240, 200, 0, 0.2)">Result</mark>
+![[Pasted image 20260417144201.png]]
 
+| Phase | RSS Start | RSS End |
+| --- | --- | --- |
+| Phase 1 — small (LIMIT 500) / 500 runs | 253.22 MB | 253.35 MB |
+| Phase 2 — large (LIMIT 1000) / 500 runs | 253.40 MB | 253.50 MB |
+| Phase 3 — small (LIMIT 500) / 1000 runs | 253.50 MB | 253.51 MB |
+
+Phase 3 的起點 = Phase 2 的終點，完全沒有降回 Phase 1 的水位。
+RSS does not shrink when DataFrame size decreases — high-watermark confirmed.
+
+<mark style="background:rgba(240, 200, 0, 0.2)">Conclusion</mark>
+pymalloc high-watermark 是 production RSS 持續上升的機制。Worker process 存活越久，處理的 batch 越多樣，pool 的高水位就持續被推高，RSS 只漲不縮。根本解法是設定 `worker_max_tasks_per_child`，定期重啟 worker process，強制歸零 pymalloc pool。
