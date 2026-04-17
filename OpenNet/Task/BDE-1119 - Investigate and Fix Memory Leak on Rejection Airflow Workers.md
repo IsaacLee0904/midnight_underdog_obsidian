@@ -67,7 +67,7 @@ airflow dags test --subdir dags/rejections/rejection_pipeline_test.py rejection_
 
 <mark style="background:rgba(240, 200, 0, 0.2)">Result</mark>
 ![[Pasted image 20260416183023.png]]
-Happy path 下，CPython reference counting 會在 function 結束時立刻釋放 connection，有無 `conn.close()` 並無差異，僅在 exception 發生時，traceback 持有 local variable reference，connection 無法被 GC，會造成真正的 connection lea，但這可以透過 `try` and `fanlly` 
+Happy path 下，CPython reference counting 會在 function 結束時立刻釋放 connection，有無 `conn.close()` 並無差異，僅在 exception 發生時，traceback 持有 local variable reference，connection 無法被 GC，會造成真正的 connection leak，但這可以透過 `try` and `finally` 解決
  
  **Monitoring**
 ```bash
