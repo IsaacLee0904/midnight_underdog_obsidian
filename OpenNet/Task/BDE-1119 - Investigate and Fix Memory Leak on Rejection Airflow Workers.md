@@ -58,7 +58,7 @@ finally:
 ```
 	
 <mark style="background:rgba(240, 200, 0, 0.2)">Benchmark</mark>
-- 5,000 runs × 2 scenarios (with_close vs without_close)
+- 5000 runs × 2 scenarios (with_close vs without_close)
 - Metrics : RSS / Open FD / MySQL Threads_connected
 * Script : <font color="#92cddc">dags/rejections/benchmark_connection_leak.py</font>
 ```bash
