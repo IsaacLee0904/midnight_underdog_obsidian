@@ -77,7 +77,8 @@ while true; do
 done
 ```
 
-##### Hypothesis 2 : Connection Leak
+##### Hypothesis 2 : CPython's pymalloc high-watermark effect
+
 
 
 
