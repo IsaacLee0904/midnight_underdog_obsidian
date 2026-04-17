@@ -78,10 +78,18 @@ done
 ```
 
 ##### Hypothesis 2 : CPython pymalloc High-Watermark Effect
+在排除 connection leak 是主因後，查找網路上的資料，發現 Airflow worker 的記憶體持續成長是一個已知問題
+
+[**GitHub Issue #28740 — airflow workers and scheduler memory leak** ](https://github.com/apache/airflow/issues/28740) 
+有用戶回報在 Airflow 2.x 上，即使沒有 task 在跑，worker 和 scheduler 的記憶體仍然每天持續增加，process 不會在 task 結束後自動釋放記憶體回到 baseline。
+
+[**Medium — What we learned after running Airflow on Kubernetes for 2 years** ](https://medium.com/apache-airflow/what-we-learned-after-running-airflow-on-kubernetes-for-2-years-0537b157acfd) 
+文章中提到他們觀察到 worker 記憶體幾乎持續增加，一度懷疑是 task 之間有 memory leak。最終發現關鍵在於兩個 Celery 設定：
+
+- `worker_max_tasks_per_child` — worker process 執行超過 N 個 task 後自動重啟，防止記憶體跨 task 累積
+- `worker_max_memory_per_child` — worker process 的記憶體用量超過上限時自動重啟
+
+這兩個設定的核心概念是：**定期回收 worker process，讓 Python allocator 持有的記憶體歸零**，而不是嘗試讓 allocator 自己釋放
 
 
 
-
-
-[What we learned after running Airflow on Kubernetes for 2 years](https://medium.com/apache-airflow/what-we-learned-after-running-airflow-on-kubernetes-for-2-years-0537b157acfd)
-[Github issue : airflow workers and scheduler memory leak](https://github.com/apache/airflow/issues/28740)
