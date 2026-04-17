@@ -42,18 +42,13 @@ additional issue : <span style="color:rgb(255, 192, 0)">Intermediate staging fil
 ##### Hypothesis 1 : Connection Leak
 
 <mark style="background:rgba(240, 200, 0, 0.2)">Hypothesis</mark>
-In `DatabaseManager.get_dataframe_by_sql_without_sharding_db`, if connection is not closed, long-lived worker processes will accumulate connection-related resources across
-repeated pipeline runs, causing :
-  - increasing process RSS
-  - increasing open file descriptors (FD)
-  - increasing MySQL connected threads
+In codebase there is a function `DatabaseManager.get_dataframe_by_sql_without_sharding_db` without an explicit `conn.close()`, each call to `get_dataframe_by_sql_without_sharding_db` leaks connection-related resources, causing RSS to grow progressively in long-lived worker processes — increasing process RSS, open file descriptors, and MySQL connected threads.
 
-<mark style="background:rgba(240, 200, 0, 0.2)">Code Findings</mark>
-
-<font color="#c3d69b">1) High-risk function</font>
-- File: `dags/general_used_functions/rejection_related.py`
-- Function: `get_dataframe_by_sql_without_sharding_db(...)`
- * Fix applied
+<mark style="background:rgba(240, 200, 0, 0.2)">Code Fix</mark>
+* File : <font color="#548dd4">dags/general_used_functions/rejection_related.py</font>
+- Function : `get_dataframe_by_sql_without_sharding_db`
+- Was the only DB connection function without explicit `close()`
+- Fix : wrapped with `try/finally` to ensure connection is always closed
 ```python 
 _hook, _conn = DatabaseManager.get_hook_and_conn(connection_id, hook_type)
 try:
@@ -61,10 +56,6 @@ try:
 finally:
   _conn.close()
 ```
-
-<span style="color:rgb(255, 0, 0)"><font color="#c3d69b">2) Why this matters</font></span>
-* This function is frequently used by rejection pipeline tasks (especially non-sharded and BI read/write paths).
-* Is the only db connect function without <font color="#92cddc">close()</font>
 	
 <mark style="background:rgba(240, 200, 0, 0.2)">Benchmark</mark>
 
