@@ -92,7 +92,7 @@ done
 ##### Hypothesis 2 : CPython pymalloc High-Watermark Effect
 
 <mark style="background:rgba(240, 200, 0, 0.2)">Hypothesis</mark>
-CPython's memory allocator (pymalloc) never returns freed memory back to the OS. Each call to `pd.read_sql_query()` allocates a large DataFrame — once freed, the memory stays in Python's internal pool. In a long-lived worker process handling tasks with varying data sizes, the pool's high-watermark keeps getting pushed higher with each larger-than-before allocation, causing RSS to grow continuously without any upper bound.
+After the worker process runs for a long time, RSS keeps growing without returning to baseline. Based on online research, this is a known behavior in long-lived Python processes — CPython's memory allocator may retain freed memory internally rather than returning it to the OS, causing the process RSS floor to rise over time as more tasks are executed.
 
 <mark style="background:rgba(240, 200, 0, 0.2)">Benchmark</mark>
 - 3 phases in a single process : small (LIMIT 500) → large (LIMIT 1000) → small (LIMIT 500)
