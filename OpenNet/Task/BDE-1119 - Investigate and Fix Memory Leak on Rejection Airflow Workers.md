@@ -89,6 +89,7 @@ airflow dags test --subdir dags/rejections/rejection_pipeline_test.py rejection_
 **Result**
 ![[Pasted image 20260416183023.png]]
 
+ 
  **Monitoring**
 ```bash
 while true; do                                                               
