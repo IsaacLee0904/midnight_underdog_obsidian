@@ -14,6 +14,10 @@ Audit the data EX. not null, within expected ranges etc. to make sure that it m
 **Step3. Publish**
 Publish the data by writing it to the place from which consumers downstream read it.
 ![[Pasted image 20260419233948.png]]
+ Publishing data could be something like:
+- Inserting data from a staging table into the main table against which users run their queries
+- Merging a branch of data into the trunk, on platforms that support it (of this, more later!)
+- Flipping a flag in a table so that users querying it now include that data in their results (perhaps using a view to effect this)
 ## Audit → Write → Audit → Publish Pattern (AWAP)
 
 ## Transform → Audit → Publish (TAP)
