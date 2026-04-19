@@ -15,7 +15,7 @@
 **Step3. Publish**
 若測試通過，將資料合併或切換到生產表供下游使用；若失敗，則將資料隔離並發出警告，避免污染生產環境，其中有三種 publish 的方法：
 ![[Pasted image 20260419233948.png]]
- 1. 將資料從 staging table insert 到使用者可以查詢到的 main tabe
+ 1. 將資料從 staging table insert 到使用者可以查詢到的 main table
  2. 利用支援 data branching 的工具 EX. lakeFS 將帶有新資料的 branch merge 進到 main
  3. 透過重新指定 view 的方式讓資料可以被使用者看到
 #### Reference
