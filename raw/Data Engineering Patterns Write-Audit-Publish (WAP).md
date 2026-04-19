@@ -1,13 +1,14 @@
 ---
 title: "Data Engineering Patterns: Write-Audit-Publish (WAP)"
-source: "https://lakefs.io/blog/data-engineering-patterns-write-audit-publish/"
+source: https://lakefs.io/blog/data-engineering-patterns-write-audit-publish/
 author:
   - "[[Robin Moffatt]]"
 published: 2023-05-30
 created: 2026-04-19
-description: "This blog explains the concept of Write-Audit-Publish, which is a pattern in data engineering to enforce data quality in data pipelines."
+description: This blog explains the concept of Write-Audit-Publish, which is a pattern in data engineering to enforce data quality in data pipelines.
 tags:
-  - "clippings"
+  - data-engineering
+  - data-quality-check
 ---
 Write-Audit-Publish (WAP) is a pattern in data engineering that gives teams greater control over data quality. It was popularized by Netflix back in 2017 in [a talk](https://www.youtube.com/watch?v=fXHdeBnpXrg) by Michelle Winters at the DataWorks Summit called “ *Whoops the Numbers are wrong! Scaling Data Quality @ Netflix*.”
 
