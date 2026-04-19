@@ -11,24 +11,6 @@ tags:
 ---
 ### We look at the write-audit-publish software design pattern used in ETL to ensure quality and reliability in data engineering workflows.
 
-![](https://cdn.prod.website-files.com/681399f654933b29e12fb8e4/686618ad4dc156284a0d6128_682c8e94e315ec7432c4dc10_681399f654933b29e12fbdf8_67eac258af8a09978ce5d851_Python-logo-notext.svg)
-
-The following article is part of a series on Python for data engineering aimed at helping data engineers, data scientists, data analysts, Machine Learning engineers, or others who are new to Python master the basics. To date this beginners guide consists of:
-
-- [**Part 1: Python Packages: a Primer for Data People (part 1 of 2)**](https://dagster.io/blog/python-packages-primer-1), explored the basics of Python modules, Python packages and how to import modules into your own projects.
-- [**Part 2: Python Packages: a Primer for Data People (part 2 of 2)**](https://dagster.io/blog/python-packages-primer-2), covered dependency management and virtual environments.
-- [**Part 3: Best Practices in Structuring Python Projects**](https://dagster.io/blog/python-project-best-practices), covered 9 best practices and examples on structuring your projects.
-- [**Part 4: From Python Projects to Dagster Pipelines**](https://dagster.io/blog/data-engineering-in-python), we explore setting up a Dagster project, and the key concept of Data Assets.
-- [**Part 5: Environment Variables in Python**](https://dagster.io/blog/python-environment-variables), we cover the importance of environment variables and how to use them.
-- [**Part 6: Type Hinting**](https://dagster.io/blog/python-type-hinting), or how type hints reduce errors.
-- [**Part 7: Factory Patterns**](https://dagster.io/blog/python-factory-patterns), or learning design patterns, which are reusable solutions to common problems in software design.
-- [**Part 8: Write-Audit-Publish in data pipelines**](https://dagster.io/blog/python-write-audit-publish) a design pattern frequently used in ETL to ensure data quality and reliability.
-- [**Part 9: CI/CD and Data Pipeline Automation (with Git)**](https://dagster.io/blog/python-ci-cd-automation), learn to automate data pipelines and deployments with Git.
-- [**Part 10: High-performance Python for Data Engineering**](https://dagster.io/blog/python-high-performance), learn how to code data pipelines in Python for performance.
-- [**Part 11: Breaking Packages in Python**](https://dagster.io/blog/python-breaking-packages), in which we explore the sharp edges of Python’s system of imports, modules, and packages.
-
-[**Sign up for our newsletter**](https://dagster.io/newsletter-signup) to get all the updates! And if you enjoyed this guide check out our [**data engineering glossary**](https://dagster.io/glossary), complete with Python code examples.
-
 Data engineering is as much about the methodologies and data pipeline design patterns as it is about the tools and technologies. In this series, you've learned about proven development paradigms in data engineering and how to build more robust and scalable software through [factory patterns](https://dagster.io/blog/python-factory-patterns).
 
 Today, we’ll look at **write-audit-publish**, a design pattern used in software engineering when moving data. It addresses the particular problem of data integrity by staging, validating, and then committing data to production in large-scale operations.
