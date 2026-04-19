@@ -9,7 +9,7 @@
 ![[Pasted image 20260419233740.png]]
 
 **Step2. Audit**
-針對暫存區執行品質測試與驗證，EX. 檢查 Null 值、資料範圍、列數是否異常
+針對暫存區執行[[What Does Validate Mean|品質測試與驗證]]，EX. 檢查 Null 值、資料範圍、列數是否異常
 ![[Pasted image 20260419233831.png]]
 
 **Step3. Publish**
