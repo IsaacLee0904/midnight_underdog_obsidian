@@ -172,5 +172,5 @@ Step4. Open DAG
 >[!WARNING] 需要額外創建 Airflow Variables
 
 **Switch Time**
-* gh - 2026-03-27 14:36
-* ng - 2026-03-27 14:36
+* gh - 2026-04-20 18:03
+* ng - 2026-04-20 18:03
