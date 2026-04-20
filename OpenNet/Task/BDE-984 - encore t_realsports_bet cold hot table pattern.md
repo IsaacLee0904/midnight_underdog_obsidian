@@ -1,3 +1,9 @@
+#### Basic Information
+* related DAG
+	*
+- hot table : 40 days
+- related country : ng, gh
+
 
 Step1. Create Empty hot table
 ```sql

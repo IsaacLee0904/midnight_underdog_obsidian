@@ -1,8 +1,10 @@
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_facts.t_facts_sporty_uof_messages</font> : sync data to Warehouse **every 30 mins**
-	- <font color="#548dd4">afbet_facts.t_facts_sporty_uof_messages_odds_change_cold_copy</font> : copy data from hot table to cold table **daily**
-	- <font color="#548dd4">afbet_facts.t_facts_sporty_uof_messages_odds_change_hot_delete</font> : delete old data (older than 20 days) from hot table **daily**
+	* <font color="#548dd4">afbet_realsports.t_realsports_selection_reshard_v2</font> : sync data from MySQL to Redshift **every 10 mins**
+	* <font color="#548dd4">afbet_realsports.t_realsports_selection_cold_copy</font> : copy data from hot table to cold table **hourly**
+	* <font color="#548dd4">afbet_realsports.t_realsports_selection_hot_delete</font> : delete old data (older than 40 days) from hot table **daily**
+- hot table : 40 days
+- related country : ng, gh
 
 Step1. Create Empty hot table
 ```sql
