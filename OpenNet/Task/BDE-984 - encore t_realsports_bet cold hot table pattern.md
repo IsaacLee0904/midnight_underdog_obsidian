@@ -6,6 +6,24 @@
 - hot table : 70 days
 - related country : ng, gh
 
+Step0. Record the original row count
+```SQL
+SELECT
+	DATE(create_time) AS date,
+	COUNT(*) AS row_count
+FROM afbet_realsports_gh.t_realsports_bet
+WHERE create_time >= '2026-02-09T00:00:00' AND create_time < '2026-04-21T00:00:00'
+GROUP BY DATE(create_time)
+ORDER BY date;
+
+SELECT
+	DATE(create_time) AS date,
+	COUNT(*) AS row_count
+FROM afbet_realsports_ng.t_realsports_bet
+WHERE create_time >= '2026-02-09T00:00:00' AND create_time < '2026-04-21T00:00:00'
+GROUP BY DATE(create_time)
+ORDER BY date;
+```
 
 Step1. Create Empty hot table
 ```sql
