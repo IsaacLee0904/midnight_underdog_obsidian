@@ -10,8 +10,10 @@ CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot
 (LIKE afbet_realsports_ng.t_realsports_bet);
 ```
 
-Step2. Insert data to hot table 
-打開 `afbet_realsports.t_realsports_bet_hot_copy`
+Step2. Adjust 
+
+Step3. Insert data to hot table 
+打開 `afbet_realsports.t_realsports_bet_hot_copy.py`
 
 > **Why use `create_time` not `index` ?**
 > 
