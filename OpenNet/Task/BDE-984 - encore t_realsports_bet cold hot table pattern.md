@@ -25,8 +25,9 @@ Step2. Adjust the DAG
 	* 刪掉原本 brand = encore do nothing 的 brand guard 移除
 
 Step3. Add Airflow Variables (country list)
-* country_realsports_hot_copy -> exist
-* 
+* country_realsports_hot_copy -> replace with [ng, gh]
+* country_realsports_cold_copy -> replace with [ng, gh]
+* country_realsports_hot_delete -> replace with [ng, gh]
 
 
 
