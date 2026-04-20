@@ -24,7 +24,9 @@ Step2. Adjust the DAG
 * <font color="#548dd4">afbet_realsports.t_realsports_bet_hot_delete</font>
 	* 刪掉原本 brand = encore do nothing 的 brand guard 移除
 
-Step3. Add Airflow Variables
+Step3. Add Airflow Variables (country list)
+* country_realsports_hot_copy
+* 
 
 
 
