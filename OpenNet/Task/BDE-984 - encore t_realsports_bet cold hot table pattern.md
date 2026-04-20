@@ -17,7 +17,7 @@ CREATE TABLE afbet_realsports_gh.t_realsports_bet_hot
 CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot
 (LIKE afbet_realsports_ng.t_realsports_bet);
 
--- Check the hot table
+-- Check the hot table schema and diskey
 SELECT "schema", "table", diststyle, sortkey1, sortkey1_enc
 FROM svv_table_info
 WHERE "table" IN ('t_realsports_bet_hot', 't_realsports_bet')
@@ -36,11 +36,13 @@ Step3. Add Airflow Variables (country list)
 * country_realsports_cold_copy -> replace with [ng, gh]
 * country_realsports_hot_delete -> replace with [ng, gh]
 
+Step4. Insert data to hot table 
 
-
-
-Step3. Insert data to hot table 
 打開 `afbet_realsports.t_realsports_bet_hot_copy.py`
+並且使用語法
+```SQL
+
+```
 
 > **Why use `create_time` not `index` ?**
 > 
