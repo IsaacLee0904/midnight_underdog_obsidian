@@ -19,8 +19,8 @@ CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot
 ```
 
 Step2. Adjust the DAG
-* <font color="#548dd4">afbet_realsports.t_realsports_bet_reshard</font>
-	* 
+* <font color="#548dd4">afbet_realsports.t_realsports_bet_cold_copy</font>
+* 
 
 
 
