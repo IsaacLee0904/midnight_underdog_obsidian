@@ -16,7 +16,14 @@ CREATE TABLE afbet_realsports_gh.t_realsports_bet_hot
 -- ng
 CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot
 (LIKE afbet_realsports_ng.t_realsports_bet);
+
+-- Check the hot table
+SELECT "schema", "table", diststyle, sortkey1, sortkey1_enc
+FROM svv_table_info
+WHERE "table" IN ('t_realsports_bet_hot', 't_realsports_bet')
+ORDER BY "schema", "table";
 ```
+
 
 Step2. Adjust the DAG
 * <font color="#548dd4">afbet_realsports.t_realsports_bet_cold_copy</font>
