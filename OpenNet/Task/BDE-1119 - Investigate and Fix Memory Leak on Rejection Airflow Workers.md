@@ -70,14 +70,9 @@ airflow dags test --subdir dags/rejections/rejection_pipeline_test.py rejection_
 Happy path 下，CPython reference counting 會在 function 結束時立刻釋放 connection，有無 `conn.close()` 並無差異，僅在 exception 發生時，traceback 持有 local variable reference，connection 無法被 GC，會造成真正的 connection leak，但這可以透過 `try` and `finally` 解決
  
  **Monitoring**
-```bash
-while true; do                                                               
-    docker stats airflow-benchmark --no-stream --format '{{.MemUsage}}'
-    sleep 1                                                                    
-done
-```
 
-在排除 connection leak 是主因後，查找網路上的資料，發現 Airflow worker 的記憶體持續成長是一個已知問題
+
+先把 connection leak 的 fix 推上 Production並經過數天的觀察後發現 memory 持續在增長，因此應該可以排除 connection leak 是主因，查找網路上的資料，發現 Airflow worker 的記憶體持續成長是一個已知問題
 
 [**GitHub Issue #28740 — airflow workers and scheduler memory leak** ](https://github.com/apache/airflow/issues/28740) 
 有用戶回報在 Airflow 2.x 上，即使沒有 task 在跑，worker 和 scheduler 的記憶體仍然每天持續增加，process 不會在 task 結束後自動釋放記憶體回到 baseline
