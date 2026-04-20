@@ -41,7 +41,81 @@ Step4. Insert data to hot table
 打開 `afbet_realsports.t_realsports_bet_hot_copy.py`
 並且使用語法
 ```SQL
+-- gh
+-- Day 61-70 (2/9 - 2/19)
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot                           
+SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
+WHERE create_time >= '2026-02-09T00:00:00'                                       AND create_time < '2026-02-19T00:00:00';
 
+-- Day 51-60 (2/19 - 3/1)                                                        
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
+WHERE create_time >= '2026-02-19T00:00:00'
+AND create_time < '2026-03-01T00:00:00';                                                                                                                          
+-- Day 41-50 (3/1 - 3/11)                                                        
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
+WHERE create_time >= '2026-03-01T00:00:00'
+AND create_time < '2026-03-11T00:00:00';                                                                                                                          
+-- Day 31-40 (3/11 - 3/21)                                                       
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
+WHERE create_time >= '2026-03-11T00:00:00'
+AND create_time < '2026-03-21T00:00:00';                                                                                                                          
+-- Day 21-30 (3/21 - 3/31)
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot                             SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
+WHERE create_time >= '2026-03-21T00:00:00'
+AND create_time < '2026-03-31T00:00:00';                                                                                                                          
+
+-- Day 11-20 (3/31 - 4/10)
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot                             
+SELECT * FROM afbet_realsports_gh.t_realsports_bet
+WHERE create_time >= '2026-03-31T00:00:00'                                       
+AND create_time < '2026-04-10T00:00:00';
+                                                                                 
+-- Day 1-10 (4/10 - 4/20)                                                        
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
+WHERE create_time >= '2026-04-10T00:00:00'
+AND create_time < '2026-04-20T00:00:00';    
+
+-- ng
+-- Day 61-70 (2/9 - 2/19)
+INSERT INTO afbet_realsports_ng.t_realsports_bet_hot                           
+SELECT * FROM afbet_realsports_ng.t_realsports_bet                               
+WHERE create_time >= '2026-02-09T00:00:00'                                       AND create_time < '2026-02-19T00:00:00';
+
+-- Day 51-60 (2/19 - 3/1)                                                        
+INSERT INTO afbet_realsports_ng.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_bet                               
+WHERE create_time >= '2026-02-19T00:00:00'
+AND create_time < '2026-03-01T00:00:00';                                                                                                                          
+-- Day 41-50 (3/1 - 3/11)                                                        
+INSERT INTO afbet_realsports_ng.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_bet                               
+WHERE create_time >= '2026-03-01T00:00:00'
+AND create_time < '2026-03-11T00:00:00';                                                                                                                          
+-- Day 31-40 (3/11 - 3/21)                                                       
+INSERT INTO afbet_realsports_ng.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_bet                               
+WHERE create_time >= '2026-03-11T00:00:00'
+AND create_time < '2026-03-21T00:00:00';                                                                                                                          
+-- Day 21-30 (3/21 - 3/31)
+INSERT INTO afbet_realsports_ng.t_realsports_bet_hot                             SELECT * FROM afbet_realsports_ng.t_realsports_bet                               
+WHERE create_time >= '2026-03-21T00:00:00'
+AND create_time < '2026-03-31T00:00:00';                                                                                                                          
+
+-- Day 11-20 (3/31 - 4/10)
+INSERT INTO afbet_realsports_gh.t_realsports_bet_hot                             
+SELECT * FROM afbet_realsports_gh.t_realsports_bet
+WHERE create_time >= '2026-03-31T00:00:00'                                       
+AND create_time < '2026-04-10T00:00:00';
+                                                                                 
+-- Day 1-10 (4/10 - 4/20)                                                        
+INSERT INTO afbet_realsports_ng.t_realsports_bet_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_bet                               
+WHERE create_time >= '2026-04-10T00:00:00'
+AND create_time < '2026-04-20T00:00:00';    
 ```
 
 > **Why use `create_time` not `index` ?**
