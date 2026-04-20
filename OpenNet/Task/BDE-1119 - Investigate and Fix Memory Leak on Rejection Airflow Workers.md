@@ -72,7 +72,6 @@ Happy path 下，CPython reference counting 會在 function 結束時立刻釋�
  **Monitoring**
 ![[Screenshot 2026-04-20 at 9.49.14 AM.png]]
 
-
 先把 connection leak 的 fix 推上 Production並經過數天的觀察後發現 memory 持續在增長，因此應該可以排除 connection leak 是主因，查找網路上的資料，發現 Airflow worker 的記憶體持續成長是一個已知問題
 
 [**GitHub Issue #28740 — airflow workers and scheduler memory leak** ](https://github.com/apache/airflow/issues/28740) 
