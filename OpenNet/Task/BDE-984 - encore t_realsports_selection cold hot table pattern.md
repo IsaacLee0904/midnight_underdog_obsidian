@@ -1,3 +1,8 @@
+#### Basic Information
+* related DAG
+	* <font color="#548dd4">afbet_facts.t_facts_sporty_uof_messages</font> : sync data to Warehouse **every 30 mins**
+	- <font color="#548dd4">afbet_facts.t_facts_sporty_uof_messages_odds_change_cold_copy</font> : copy data from hot table to cold table **daily**
+	- <font color="#548dd4">afbet_facts.t_facts_sporty_uof_messages_odds_change_hot_delete</font> : delete old data (older than 20 days) from hot table **daily**
 
 Step1. Create Empty hot table
 ```sql

@@ -10,7 +10,9 @@ CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot
 (LIKE afbet_realsports_ng.t_realsports_bet);
 ```
 
-Step2. Adjust 
+Step2. Adjust the DAG
+
+
 
 Step3. Insert data to hot table 
 打開 `afbet_realsports.t_realsports_bet_hot_copy.py`
