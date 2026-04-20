@@ -126,18 +126,6 @@ AND create_time < '2026-04-20T00:00:00';
 >
 > * filter with index ![[Screenshot 2026-03-27 at 5.46.42 PM.png]]
 
-```sql
-EXPLAIN
-SELECT * FROM afbet_realsports_gh.t_realsports_selection
-WHERE create_time >= DATEADD(day, -10, GETDATE())
-AND create_time < GETDATE();
-
-EXPLAIN
-SELECT *
-FROM afbet_realsports_gh.t_realsports_selection
-WHERE id >= CONCAT(TO_CHAR(DATEADD(day, -10, GETDATE()), 'YYMMDDHHMMSS'), '0000000000000');
-```
-
 >[!hint]
 > 需要透過 `ANALYIZE` 來優化
 
@@ -145,12 +133,12 @@ WHERE id >= CONCAT(TO_CHAR(DATEADD(day, -10, GETDATE()), 'YYMMDDHHMMSS'), '00000
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
 ```sql
 -- gh
-ALTER TABLE afbet_realsports_gh.t_realsports_selection RENAME TO t_realsports_selection_cold;
-ALTER TABLE afbet_realsports_gh.t_realsports_selection_hot RENAME TO t_realsports_selection;
+ALTER TABLE afbet_realsports_gh.t_realsports_bet RENAME TO t_realsports_bet_cold;
+ALTER TABLE afbet_realsports_gh.t_realsports_bet_hot RENAME TO t_realsports_bet;
 
 -- ng
-ALTER TABLE afbet_realsports_ng.t_realsports_selection RENAME TO t_realsports_selection_cold;
-ALTER TABLE afbet_realsports_ng.t_realsports_selection_hot RENAME TO t_realsports_selection;
+ALTER TABLE afbet_realsports_ng.t_realsports_bet RENAME TO t_realsports_bet_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_bet_hot RENAME TO t_realsports_bet;
 ```
 
 分兩段  
