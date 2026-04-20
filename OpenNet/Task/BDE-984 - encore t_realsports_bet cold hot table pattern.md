@@ -11,58 +11,7 @@ CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot
 ```
 
 Step2. Insert data to hot table 
-```sql
--- gh
--- Day 1-10
-INSERT INTO afbet_realsports_gh.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_selection
-WHERE create_time >= DATEADD(day, -40, GETDATE())
-  AND create_time < DATEADD(day, -30, GETDATE());
-
--- Day 11-20
-INSERT INTO afbet_realsports_gh.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_selection
-WHERE create_time >= DATEADD(day, -30, GETDATE())
-  AND create_time < DATEADD(day, -20, GETDATE());
-
--- Day 21-30
-INSERT INTO afbet_realsports_gh.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_selection
-WHERE create_time >= DATEADD(day, -20, GETDATE())
-  AND create_time < DATEADD(day, -10, GETDATE());
-
--- Day 31-40
-INSERT INTO afbet_realsports_gh.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_selection
-WHERE create_time >= DATEADD(day, -10, GETDATE())
-  AND create_time < GETDATE();
-
--- ng
--- Day 1-10
-INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_ng.t_realsports_selection
-WHERE create_time >= DATEADD(day, -40, GETDATE())
-  AND create_time < DATEADD(day, -30, GETDATE());
-
--- Day 11-20
-INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_ng.t_realsports_selection
-WHERE create_time >= DATEADD(day, -30, GETDATE())
-  AND create_time < DATEADD(day, -20, GETDATE());
-
--- Day 21-30
-INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_ng.t_realsports_selection
-WHERE create_time >= DATEADD(day, -20, GETDATE())
-  AND create_time < DATEADD(day, -10, GETDATE());
-
--- Day 31-40
-INSERT INTO afbet_realsports_ng.t_realsports_selection_hot
-SELECT * FROM afbet_realsports_ng.t_realsports_selection
-WHERE create_time >= DATEADD(day, -10, GETDATE())
-  AND create_time < GETDATE();
-
-```
+打開 `afbet_realsports.t_realsports_bet_hot_copy`
 
 > **Why use `create_time` not `index` ?**
 > 
