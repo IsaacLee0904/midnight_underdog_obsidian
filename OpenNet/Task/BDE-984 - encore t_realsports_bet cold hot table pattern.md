@@ -20,7 +20,8 @@ CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot
 
 Step2. Adjust the DAG
 * <font color="#548dd4">afbet_realsports.t_realsports_bet_cold_copy</font>
-	* 
+	* 把原本只有針對 sporty cols 處理的邏輯加入 brand 判斷並且加入 encore cols
+* 
 
 
 
