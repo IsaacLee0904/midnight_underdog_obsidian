@@ -8,8 +8,8 @@
 - related country : ng, gh
 
 Step0. Record the original row count
-* ng
-* gh
+* ng : 2664889523
+* gh : 774532368
 ```SQL
 -- ng 
 SELECT
@@ -43,7 +43,7 @@ CREATE TABLE afbet_main_ng.t_order_record_hot
 -- Check the hot table schema and diskey
 SELECT "schema", "table", diststyle, sortkey1, sortkey1_enc
 FROM svv_table_info
-WHERE "table" IN ('t_realsports_bet_hot', 't_realsports_bet')
+WHERE "table" IN ('t_order_record_hot', 't_order_record')
 ORDER BY "schema", "table";
 ```
 
