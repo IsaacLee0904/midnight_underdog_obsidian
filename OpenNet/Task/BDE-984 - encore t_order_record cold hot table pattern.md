@@ -51,6 +51,8 @@ ORDER BY "schema", "table";
 Step2. Adjust the DAG
 * <font color="#548dd4">afbet_main.t_order_record_hot_delete</font>
 	* 刪掉原本 brand = encore do nothing 的 brand guard 移除
+* <font color="#548dd4">afbet_main.t_order_record_hot_copy</font>
+	* 改成每小時執行，並且監控 afbet_main.t_order_record 是否執行完成
 
 Step3. Add Airflow Variables (country list)
 * country_realsports_hot_copy -> replace with [ng, gh]
