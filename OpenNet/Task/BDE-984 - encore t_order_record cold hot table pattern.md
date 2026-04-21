@@ -60,8 +60,6 @@ Step3. Add Airflow Variables (country list)
 * country_realsports_hot_delete -> replace with [ng, gh]
 
 Step4. Insert data to hot table 
-
-打開 `afbet_main_gh.t_order_record_hot_copy.py`
 並且使用語法
 ```SQL
 -- gh
@@ -276,6 +274,8 @@ SELECT * FROM afbet_main_ng.t_order_record
 WHERE create_time >= '2026-04-11T00:00:00'
 AND create_time < '2026-04-21T00:00:00'; 
 ```
+
+打開 `afbet_main_gh.t_order_record_hot_copy.py`
 
 > **Why use `create_time` not `index` ?**
 > 
