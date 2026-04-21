@@ -8,6 +8,8 @@
 - related country : ng, gh
 
 Step0. Record the original row count
+* ng
+* gh
 ```SQL
 SELECT
 	DATE(create_time) AS date,
