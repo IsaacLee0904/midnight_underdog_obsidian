@@ -49,9 +49,7 @@ ORDER BY "schema", "table";
 
 
 Step2. Adjust the DAG
-* <font color="#548dd4">afbet_realsports.t_realsports_bet_cold_copy</font>
-	* 把原本只有針對 sporty cols 處理的邏輯加入 brand 判斷並且加入 encore cols
-* <font color="#548dd4">afbet_realsports.t_realsports_bet_hot_delete</font>
+* <font color="#548dd4">afbet_main.t_order_record_hot_delete</font>
 	* 刪掉原本 brand = encore do nothing 的 brand guard 移除
 
 Step3. Add Airflow Variables (country list)
@@ -65,42 +63,107 @@ Step4. Insert data to hot table
 並且使用語法
 ```SQL
 -- gh
--- Day 61-70 (2/9 - 2/19)
-INSERT INTO afbet_realsports_gh.t_realsports_bet_hot                           
-SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
-WHERE create_time >= '2026-02-09T00:00:00'                                       AND create_time < '2026-02-19T00:00:00';
+-- Day 191-200 (10/3 - 10/13)
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record
+WHERE create_time >= '2025-10-03T00:00:00'
+AND create_time < '2025-10-13T00:00:00';                                         
 
--- Day 51-60 (2/19 - 3/1)                                                        
-INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
-WHERE create_time >= '2026-02-19T00:00:00'
-AND create_time < '2026-03-01T00:00:00';                                                                                                                          
--- Day 41-50 (3/1 - 3/11)                                                        
-INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
-WHERE create_time >= '2026-03-01T00:00:00'
-AND create_time < '2026-03-11T00:00:00';                                                                                                                          
--- Day 31-40 (3/11 - 3/21)                                                       
-INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
-WHERE create_time >= '2026-03-11T00:00:00'
-AND create_time < '2026-03-21T00:00:00';                                                                                                                          
--- Day 21-30 (3/21 - 3/31)
-INSERT INTO afbet_realsports_gh.t_realsports_bet_hot                             SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
-WHERE create_time >= '2026-03-21T00:00:00'
-AND create_time < '2026-03-31T00:00:00';                                                                                                                          
+-- Day 181-190 (10/13 - 10/23)
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record
+WHERE create_time >= '2025-10-13T00:00:00' 
+AND create_time < '2025-10-23T00:00:00';                                         
 
--- Day 11-20 (3/31 - 4/10)
-INSERT INTO afbet_realsports_gh.t_realsports_bet_hot                             
-SELECT * FROM afbet_realsports_gh.t_realsports_bet
-WHERE create_time >= '2026-03-31T00:00:00'                                       
-AND create_time < '2026-04-10T00:00:00';
-                                                                                 
--- Day 1-10 (4/10 - 4/20)                                                        
-INSERT INTO afbet_realsports_gh.t_realsports_bet_hot
-SELECT * FROM afbet_realsports_gh.t_realsports_bet                               
-WHERE create_time >= '2026-04-10T00:00:00'
-AND create_time < '2026-04-20T00:00:00';    
+-- Day 171-180 (10/23 - 11/2) 
+INSERT INTO {schema}.t_order_record_hot 
+SELECT * FROM {schema}.t_order_record
+WHERE create_time >= '2025-10-23T00:00:00'
+AND create_time < '2025-11-02T00:00:00'; 
+
+-- Day 161-170 (11/2 - 11/12)  
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record                                            
+WHERE create_time >= '2025-11-02T00:00:00'                                       
+AND create_time < '2025-11-12T00:00:00';                                                                                                                          
+-- Day 151-160 (11/12 - 11/22)        
+INSERT INTO {schema}.t_order_record_hot   
+SELECT * FROM {schema}.t_order_record               
+WHERE create_time >= '2025-11-12T00:00:00'
+AND create_time < '2025-11-22T00:00:00';                                                                             			 
+-- Day 141-150 (11/22 - 12/2)   
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record 
+WHERE create_time >= '2025-11-22T00:00:00'  
+AND create_time < '2025-12-02T00:00:00';                                                                                                                          
+-- Day 131-140 (12/2 - 12/12)        
+INSERT INTO {schema}.t_order_record_hot      
+SELECT * FROM {schema}.t_order_record    
+WHERE create_time >= '2025-12-02T00:00:00'
+AND create_time < '2025-12-12T00:00:00';                                                                                                                          
+-- Day 121-130 (12/12 - 12/22)          
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record
+WHERE create_time >= '2025-12-12T00:00:00' 
+AND create_time < '2025-12-22T00:00:00';                                                                                                                          
+-- Day 111-120 (12/22 - 1/1)
+INSERT INTO {schema}.t_order_record_hot   
+SELECT * FROM {schema}.t_order_record 
+WHERE create_time >= '2025-12-22T00:00:00'
+AND create_time < '2026-01-01T00:00:00';                                      		 
+-- Day 101-110 (1/1 - 1/11)
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record                
+WHERE create_time >= '2026-01-01T00:00:00'        
+AND create_time < '2026-01-11T00:00:00';                                                                                                                          
+-- Day 91-100 (1/11 - 1/21)          
+INSERT INTO {schema}.t_order_record_hot  
+SELECT * FROM {schema}.t_order_record   
+WHERE create_time >= '2026-01-11T00:00:00'
+AND create_time < '2026-01-21T00:00:00';                                                  
+-- Day 81-90 (1/21 - 1/31)        
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record                                    
+WHERE create_time >= '2026-01-21T00:00:00'   
+AND create_time < '2026-01-31T00:00:00';                                                                                                                          
+-- Day 71-80 (1/31 - 2/10)               
+INSERT INTO {schema}.t_order_record_hot  
+SELECT * FROM {schema}.t_order_record                    
+WHERE create_time >= '2026-01-31T00:00:00'
+AND create_time < '2026-02-10T00:00:00';                                                                                                                          
+-- Day 61-70 (2/10 - 2/20)      
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record                                            
+WHERE create_time >= '2026-02-10T00:00:00'     
+AND create_time < '2026-02-20T00:00:00';                                                                                                                          
+-- Day 51-60 (2/20 - 3/2)      
+INSERT INTO {schema}.t_order_record_hot      
+SELECT * FROM {schema}.t_order_record   
+WHERE create_time >= '2026-02-20T00:00:00'
+AND create_time < '2026-03-02T00:00:00';    
+
+-- Day 41-50 (3/2 - 3/12)       
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record           
+WHERE create_time >= '2026-03-02T00:00:00'        
+AND create_time < '2026-03-12T00:00:00';                                                                             
+-- Day 31-40 (3/12 - 3/22)                       
+INSERT INTO {schema}.t_order_record_hot         
+SELECT * FROM {schema}.t_order_record              
+WHERE create_time >= '2026-03-12T00:00:00'
+AND create_time < '2026-03-22T00:00:00';                                                                                         
+-- Day 21-30 (3/22 - 4/1)
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record
+WHERE create_time >= '2026-03-22T00:00:00'
+AND create_time < '2026-04-01T00:00:00';                                                                                                                        
+-- Day 11-20 (4/1 - 4/11)
+INSERT INTO {schema}.t_order_record_hot                                          SELECT * FROM {schema}.t_order_record                                            WHERE create_time >= '2026-04-01T00:00:00'
+AND create_time < '2026-04-11T00:00:00';                                                     
+-- Day 1-10 (4/11 - 4/21)
+INSERT INTO {schema}.t_order_record_hot
+SELECT * FROM {schema}.t_order_record                                            WHERE create_time >= '2026-04-11T00:00:00'
+AND create_time < '2026-04-21T00:00:00'; 
 
 -- ng
 -- Day 61-70 (2/9 - 2/19)
