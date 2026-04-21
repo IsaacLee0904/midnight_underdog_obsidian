@@ -117,3 +117,41 @@ pymalloc high-watermark 是 production RSS 持續上升的機制，Worker proces
 - 是 Python 小物件（pymalloc 管的）？
 - 是 numpy array（glibc malloc 管的）？
 - 是 glibc heap 碎片化？
+
+### `pd.concat` in a loop（最嚴重）
+
+在 `operator_functions_02_*` 裡有這種 pattern：
+
+```
+_df_for_all = pd.DataFrame()for each_country in countries:    _df = return_df_if_the_feather_file_exists(...)    _df_for_all = pd.concat([_df_for_all, _df], ignore_index=True)
+```
+
+每次 `pd.concat` 都會產生一個**新的完整 DataFrame copy**，前一個 `_df_for_all` 要等 GC 才釋放，在 loop 過程中記憶體是 O(n²) 的。10 個國家跑完，等於在記憶體裡同時存了 1+2+3+...+10 份資料的量。
+
+---
+
+### 2. `temp_df_list = temp_df_list + [_df]`（在多個地方）
+
+```
+temp_df_list = []for each_country in countries:    temp_df_list = temp_df_list + [_df]  # ← 每次產生新的 list
+```
+
+用 `+` 而不是 `.append()`，每次迭代都建立新的 list object，舊的 list（和裡面持有的所有 DataFrame references）要等 GC 回收。應該改成 `temp_df_list.append(_df)`。
+
+---
+
+### 3. DataFrame copy 沒有 `del`
+
+```
+_agg_rejection_for_all_df = agg_rejection_df.copy()  # full copy# ...agg_rejection_df = pd.concat([agg_rejection_df, _agg_rejection_for_all_df], ...)# _agg_rejection_for_all_df 沒有被 del，function return 才釋放
+```
+
+---
+
+### 4. module-level `_CONN_CACHE`（`s3_bucket_related.py`）
+
+```
+_CONN_CACHE: Dict[str, Tuple[float, object]] = {}_DEFAULT_TTL = 3600
+```
+
+Module-level dict 在 worker process 存活期間都存在，entries 只有在被存取時才檢查 TTL 是否過期，不會主動清理。不是大問題，但會慢慢累積。
