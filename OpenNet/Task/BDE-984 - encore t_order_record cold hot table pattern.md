@@ -11,19 +11,29 @@ Step0. Record the original row count
 * ng
 * gh
 ```SQL
+-- ng 
 SELECT
 	DATE(create_time) AS date,
 	COUNT(*) AS row_count
-FROM afbet_realsports_gh.t_realsports_bet
-WHERE create_time >= '2026-02-09T00:00:00' AND create_time < '2026-04-21T00:00:00'
+FROM afbet_main_ng.t_order_record
+WHERE create_time >= '2025-10-03T00:00:00' AND create_time < '2026-04-22T00:00:00'
 GROUP BY DATE(create_time)
 ORDER BY date;
 
 SELECT
 	DATE(create_time) AS date,
 	COUNT(*) AS row_count
-FROM afbet_realsports_ng.t_realsports_bet
-WHERE create_time >= '2026-02-09T00:00:00' AND create_time < '2026-04-21T00:00:00'
+FROM afbet_order_ng.t_order_record_shard
+WHERE create_time >= '2025-10-03T00:00:00' AND create_time < '2026-04-22T00:00:00'
+GROUP BY DATE(create_time)
+ORDER BY date;
+
+-- gh
+SELECT
+	DATE(create_time) AS date,
+	COUNT(*) AS row_count
+FROM afbet_main_gh.t_order_record
+WHERE create_time >= '2025-10-03T00:00:00' AND create_time < '2026-04-22T00:00:00'
 GROUP BY DATE(create_time)
 ORDER BY date;
 ```
