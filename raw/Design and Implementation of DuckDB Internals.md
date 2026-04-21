@@ -10,6 +10,7 @@ tags:
   - data-engineering
   - data-warehouse
   - data-architecture
+  - duckdb
 ---
 This is a DuckDB-based course explaining the Design and Implementation of Database System Internals (“DiDi”). The slides and auxiliary material are available in the [GitHub repository](https://github.com/DBatUTuebingen/DiDi).
 
