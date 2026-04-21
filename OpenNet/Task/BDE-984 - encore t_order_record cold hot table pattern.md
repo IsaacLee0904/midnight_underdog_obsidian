@@ -1,8 +1,9 @@
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_realsports.t_realsports_bet_reshard</font> : sync data from MySQL to Redshift **every 10 mins**
-	* <font color="#548dd4">afbet_realsports.t_realsports_bet_cold_copy</font> : copy data from hot table to cold table **daily**
-	* <font color="#548dd4">afbet_realsports.t_realsports_bet_hot_delete</font> : delete old data (older than 70 days) from hot table **daily**
+	* <font color="#548dd4">afbet_main.t_order_record</font> : sync data to Warehouse **every hour**
+	* <font color="#548dd4">afbet_order.t_order_record_shard</font> : sync shard DB data to Warehouse **every 10 mins**
+	* <font color="#548dd4">afbet_main.t_order_record_cold_copy</font> : copy data from hot table to cold table **daily**
+	* <font color="#548dd4">afbet_main.t_order_record_hot_delete</font> : delete old data (older than 200 days) from hot table **daily**
 - hot table : 200 days
 - related country : ng, gh
 
