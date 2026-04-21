@@ -20,14 +20,6 @@ WHERE create_time >= '2025-10-03T00:00:00' AND create_time < '2026-04-22T00:00:0
 GROUP BY DATE(create_time)
 ORDER BY date;
 
-SELECT
-	DATE(create_time) AS date,
-	COUNT(*) AS row_count
-FROM afbet_order_ng.t_order_record_shard
-WHERE create_time >= '2025-10-03T00:00:00' AND create_time < '2026-04-22T00:00:00'
-GROUP BY DATE(create_time)
-ORDER BY date;
-
 -- gh
 SELECT
 	DATE(create_time) AS date,
