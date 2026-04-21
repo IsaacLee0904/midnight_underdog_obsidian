@@ -25,76 +25,13 @@ Apply below table in Encore to cold / hot tables :
 ![[BDE-984 - encore t_realsports_selection cold hot table pattern]]
 
 ### t_realsports_bet 
+
 ![[BDE-984 - encore t_realsports_bet cold hot table pattern]]
 
-gh
-```sql
--- Step1. 
-CREATE TABLE afbet_realsports_gh.t_realsports_bet_hot AS
-SELECT *
-FROM afbet_realsports_gh.t_realsports_bet
-WHERE created_at >= DATEADD(day, -70, GETDATE());
-
--- Step2.
-ALTER TABLE afbet_realsports_gh.t_realsports_bet RENAME TO t_realsports_bet_cold;
-ALTER TABLE afbet_realsports_gh.t_realsports_bet_hot RENAME TO t_realsports_bet;
-```
-
-ng
-```sql
--- Step1. 
-CREATE TABLE afbet_realsports_ng.t_realsports_bet_hot AS
-SELECT *
-FROM afbet_realsports_ng.t_realsports_bet
-WHERE created_at >= DATEADD(day, -70, GETDATE());
-
--- Step2.
-ALTER TABLE afbet_realsports_ng.t_realsports_bet RENAME TO t_realsports_bet_cold;
-ALTER TABLE afbet_realsports_ng.t_realsports_bet_hot RENAME TO t_realsports_bet;
-```
-
-**Open DAG**
-* afbet_realsports.t_realsports_bet_cold_copy
-* afbet_realsports.t_realsports_bet_hot_delete
-
-**Switch Time**
-* gh
-* ng
-
 ### t_order_record 
-gh
-```sql
--- Step1. 
-CREATE TABLE afbet_main_gh.t_order_record_hot AS
-SELECT *
-FROM afbet_main_gh.t_order_record
-WHERE created_at >= DATEADD(day, -200, GETDATE());
 
--- Step2.
-ALTER TABLE afbet_main_gh.t_order_record RENAME TO t_order_record_cold;
-ALTER TABLE afbet_main_gh.t_order_record_hot RENAME TO t_order_record;
-```
+![[BDE-984 - encore t_order_record cold hot table pattern]]
 
-ng
-```sql
--- Step1. 
-CREATE TABLE afbet_main_ng.t_order_record_hot AS
-SELECT *
-FROM afbet_main_ng.t_order_record
-WHERE created_at >= DATEADD(day, -200, GETDATE());
-
--- Step2.
-ALTER TABLE afbet_main_ng.t_order_record RENAME TO t_order_record_cold;
-ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
-```
-
-**Open DAG**
-* afbet_main.t_order_record_cold_copy
-* afbet_main.t_order_record_hot_delete
-
-**Switch Time**
-* gh
-* ng
 ### t_realsports_selection_source 
 
 gh

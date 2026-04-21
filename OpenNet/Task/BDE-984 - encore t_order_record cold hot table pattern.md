@@ -3,7 +3,7 @@
 	* <font color="#548dd4">afbet_realsports.t_realsports_bet_reshard</font> : sync data from MySQL to Redshift **every 10 mins**
 	* <font color="#548dd4">afbet_realsports.t_realsports_bet_cold_copy</font> : copy data from hot table to cold table **daily**
 	* <font color="#548dd4">afbet_realsports.t_realsports_bet_hot_delete</font> : delete old data (older than 70 days) from hot table **daily**
-- hot table : 70 days
+- hot table : 200 days
 - related country : ng, gh
 
 Step0. Record the original row count
