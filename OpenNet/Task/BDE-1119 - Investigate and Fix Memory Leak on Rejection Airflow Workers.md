@@ -36,6 +36,7 @@ _conn.close()
 
 additional issue : <span style="color:rgb(255, 192, 0)">Intermediate staging files (.feather) are not deleted after use</span>
  * 每次 DAG 執行時，各國家產生的中間 feather 檔案在 combine 步驟完成後並未被清除，這些檔案會持續累積在 Worker 的 ephemeral storage 上，長期下來可能導致 <span style="color:rgb(255, 0, 0)">disk</span> <span style="color:rgb(255, 0, 0)">空間不足</span>，進而造成 pod 被驅逐 (eviction)
+ * 有一個 [platform_clean_files](https://airflow-rejection-pub-prod-bi.on.sportybet2.com/dags/platform_clean_files/grid) 的 DAG 理論上會清理乾淨這些 feather 檔案
 
 #### Proof of Concept
 
