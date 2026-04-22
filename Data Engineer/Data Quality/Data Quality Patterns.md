@@ -13,7 +13,7 @@
 * 根據是先定義好的 schema 來檢查資料結構是否符合預期
 * 利用統計方法做 [[What Is Anomaly Detection|anomaly detection]] 來檢測 outliers 或意外的資料週期
 * 確保沒有 duplicate、NULL 或是格式錯誤的資料
-* 
+* 驗證是否符合業務規則 EX. 產品價格不能是負數、age 不會有很奇怪的年齡 etc. 
 ![[Pasted image 20260419233831.png]]
 
 **Step3. Publish**
