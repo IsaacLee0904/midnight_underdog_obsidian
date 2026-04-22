@@ -306,9 +306,9 @@ ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
 
 
 Step4. Open DAG
-* afbet_realsports.t_realsports_selection_reshard_v2
-* afbet_realsports.t_realsports_selection_cold_copy
-* afbet_realsports.t_realsports_selection_hot_delete
+* afbet_main.t_order_record_shard
+* afbet_main.t_order_record_cold_copy
+* afbet_main.t_order_record_hot_delete
 
 >[!WARNING] 需要額外創建 Airflow Variables
 
