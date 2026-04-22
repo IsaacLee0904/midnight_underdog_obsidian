@@ -37,6 +37,7 @@ source: [Dagster Glossary — Anomaly Detection](https://dagster.io/glossary/ano
 ### IsolationForest
 
 透過隨機切分資料來隔離離群值，需要切分次數越少的資料點，越可能是 anomaly
+![[Pasted image 20260422173926.png]]
 
 ```python
 import numpy as np
