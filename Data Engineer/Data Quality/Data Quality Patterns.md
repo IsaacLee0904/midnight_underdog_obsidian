@@ -9,7 +9,9 @@
 ![[Pasted image 20260419233740.png]]
 
 **Step2. Audit**
-針對暫存區執行[[What Does Validate Mean|品質測試與驗證]]，EX. 檢查 Null 值、資料範圍、列數是否異常
+資料到達 staging 之後，會針對暫存區執行[[What Does Validate Mean|品質測試與驗證]]，EX. 檢查 Null 值、資料範圍、列數是否異常 比較好的做法是用一系列已經預先定義好的規則來確保完整性，data engineer 可能就會透過 python script 做以下檢查：
+* 根據是先定義好的 schema 來檢查資料結構是否符合預期
+* 
 ![[Pasted image 20260419233831.png]]
 
 **Step3. Publish**
