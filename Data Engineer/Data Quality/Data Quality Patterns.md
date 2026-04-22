@@ -27,6 +27,9 @@
 2. 模組化設計讓 Write、Audit、Publish 三個階段可以獨立調整與擴展
 
 <mark style="background:#fff88f">Cons</mark>
+1. 多步驟流程增加了資料延遲
+2. 需要更複雜的 orchestration
+3. 沒有真正的跨表 transaction 保證，若 pipeline 涉及多張表，publish 實際上是 best effort 而非 all-or-nothing
 
 #### Reference
 * [[Data Engineering Patterns Write-Audit-Publish (WAP)]]
