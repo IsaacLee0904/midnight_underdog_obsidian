@@ -20,6 +20,10 @@ Apply below table in Encore to cold / hot tables :
 
 ## Implement
 
+>[!attention]
+> 1. `cold_copy` 跟 `hot_delete` 要設定到前一天避免 Sporty Encore 之間互相影響
+> 2. 完成後到 `bi_announcement` 公告
+
 ### t_realsports_selection
 
 ![[BDE-984 - encore t_realsports_selection cold hot table pattern]]
