@@ -62,216 +62,80 @@ Step4. Insert data to hot table
 並且使用語法
 ```SQL
 -- gh
--- Day 191-200 (10/3 - 10/13)
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record
-WHERE create_time >= '2025-10-03T00:00:00'
-AND create_time < '2025-10-13T00:00:00';                                         
+-- Day 61-70 (2/11 - 2/21)               
+INSERT INTO afbet_realsports_gh.t_realsports_selection_source_hot     
+SELECT * FROM afbet_realsports_gh.t_realsports_selection_source    
+WHERE create_time >= '2026-02-11T00:00:00'          
+AND create_time < '2026-02-21T00:00:00';                                                            
+-- Day 51-60 (2/21 - 3/3)             
+INSERT INTO afbet_realsports_gh.t_realsports_selection_source_hot
+SELECT * FROM afbet_realsports_gh.t_realsports_selection_source   
+WHERE create_time >= '2026-02-21T00:00:00'      
+AND create_time < '2026-03-03T00:00:00';                                          
+-- Day 41-50 (3/3 - 3/13)            
+INSERT INTO afbet_realsports_gh.t_realsports_selection_source_hot  
+SELECT * FROM afbet_realsports_gh.t_realsports_selection_source     
+WHERE create_time >= '2026-03-03T00:00:00'          
+AND create_time < '2026-03-13T00:00:00';                                          
+-- Day 31-40 (3/13 - 3/23)                 
+INSERT INTO afbet_realsports_gh.t_realsports_selection_source_hot  
+SELECT * FROM afbet_realsports_gh.t_realsports_selection_source    
+WHERE create_time >= '2026-03-13T00:00:00'
+AND create_time < '2026-03-23T00:00:00';                                         					
+-- Day 21-30 (3/23 - 4/2)                  
+INSERT INTO afbet_realsports_gh.t_realsports_selection_source_hot    
+SELECT * FROM afbet_realsports_gh.t_realsports_selection_source   
+WHERE create_time >= '2026-03-23T00:00:00'
+AND create_time < '2026-04-02T00:00:00';          																	  
+-- Day 11-20 (4/2 - 4/12)
+INSERT INTO afbet_realsports_gh.t_realsports_selection_source_hot     
+SELECT * FROM afbet_realsports_gh.t_realsports_selection_source   
+WHERE create_time >= '2026-04-02T00:00:00'
+AND create_time < '2026-04-12T00:00:00';                                         	  
+-- Day 1-10 (4/12 - 4/22)
+INSERT INTO afbet_realsports_gh.t_realsports_selection_source_hot     
+SELECT * FROM afbet_realsports_gh.t_realsports_selection_source     
+WHERE create_time >= '2026-04-12T00:00:00'     
+AND create_time < '2026-04-22T00:00:00';
+										  
+-- ng                                     
+-- Day 61-70 (2/11 - 2/21)                   
+INSERT INTO afbet_realsports_ng.t_realsports_selection_source_hot   
+SELECT * FROM afbet_realsports_ng.t_realsports_selection_source
+WHERE create_time >= '2026-02-11T00:00:00'                      
+AND create_time < '2026-02-21T00:00:00';
+										  
+-- Day 51-60 (2/21 - 3/3)                    
+INSERT INTO afbet_realsports_ng.t_realsports_selection_source_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_selection_source 
+WHERE create_time >= '2026-02-21T00:00:00'           
+AND create_time < '2026-03-03T00:00:00';																		  
+-- Day 41-50 (3/3 - 3/13)                     
+INSERT INTO afbet_realsports_ng.t_realsports_selection_source_hot
+SELECT * FROM afbet_realsports_ng.t_realsports_selection_source     
+WHERE create_time >= '2026-03-03T00:00:00'             
+AND create_time < '2026-03-13T00:00:00';                 
 
--- Day 181-190 (10/13 - 10/23)
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record
-WHERE create_time >= '2025-10-13T00:00:00' 
-AND create_time < '2025-10-23T00:00:00';                                         
-
--- Day 171-180 (10/23 - 11/2) 
-INSERT INTO afbet_main_gh.t_order_record_hot 
-SELECT * FROM afbet_main_gh.t_order_record
-WHERE create_time >= '2025-10-23T00:00:00'
-AND create_time < '2025-11-02T00:00:00'; 
-
--- Day 161-170 (11/2 - 11/12)  
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record                                       
-WHERE create_time >= '2025-11-02T00:00:00'                                       
-AND create_time < '2025-11-12T00:00:00';                                                                                                                          
--- Day 151-160 (11/12 - 11/22)        
-INSERT INTO afbet_main_gh.t_order_record_hot   
-SELECT * FROM afbet_main_gh.t_order_record               
-WHERE create_time >= '2025-11-12T00:00:00'
-AND create_time < '2025-11-22T00:00:00';                                                                             			 
--- Day 141-150 (11/22 - 12/2)   
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record 
-WHERE create_time >= '2025-11-22T00:00:00'  
-AND create_time < '2025-12-02T00:00:00';                                                                                                                          
--- Day 131-140 (12/2 - 12/12)        
-INSERT INTO afbet_main_gh.t_order_record_hot      
-SELECT * FROM afbet_main_gh.t_order_record    
-WHERE create_time >= '2025-12-02T00:00:00'
-AND create_time < '2025-12-12T00:00:00';                                                                                                                          
--- Day 121-130 (12/12 - 12/22)          
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record
-WHERE create_time >= '2025-12-12T00:00:00' 
-AND create_time < '2025-12-22T00:00:00';                                                                                                                          
--- Day 111-120 (12/22 - 1/1)
-INSERT INTO afbet_main_gh.t_order_record_hot   
-SELECT * FROM afbet_main_gh.t_order_record 
-WHERE create_time >= '2025-12-22T00:00:00'
-AND create_time < '2026-01-01T00:00:00';                                      		 
--- Day 101-110 (1/1 - 1/11)
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record                
-WHERE create_time >= '2026-01-01T00:00:00'        
-AND create_time < '2026-01-11T00:00:00';                                                                                                                          
--- Day 91-100 (1/11 - 1/21)          
-INSERT INTO afbet_main_gh.t_order_record_hot  
-SELECT * FROM afbet_main_gh.t_order_record   
-WHERE create_time >= '2026-01-11T00:00:00'
-AND create_time < '2026-01-21T00:00:00';                                                  
--- Day 81-90 (1/21 - 1/31)        
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record                                    
-WHERE create_time >= '2026-01-21T00:00:00'   
-AND create_time < '2026-01-31T00:00:00';                                                                                                                          
--- Day 71-80 (1/31 - 2/10)               
-INSERT INTO afbet_main_gh.t_order_record_hot  
-SELECT * FROM afbet_main_gh.t_order_record                    
-WHERE create_time >= '2026-01-31T00:00:00'
-AND create_time < '2026-02-10T00:00:00';                                                                                                                          
--- Day 61-70 (2/10 - 2/20)      
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record 
-WHERE create_time >= '2026-02-10T00:00:00'     
-AND create_time < '2026-02-20T00:00:00';                                                                                                                          
--- Day 51-60 (2/20 - 3/2)      
-INSERT INTO afbet_main_gh.t_order_record_hot      
-SELECT * FROM afbet_main_gh.t_order_record   
-WHERE create_time >= '2026-02-20T00:00:00'
-AND create_time < '2026-03-02T00:00:00';    
-
--- Day 41-50 (3/2 - 3/12)       
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record           
-WHERE create_time >= '2026-03-02T00:00:00'        
-AND create_time < '2026-03-12T00:00:00';                                                                             
--- Day 31-40 (3/12 - 3/22)                       
-INSERT INTO afbet_main_gh.t_order_record_hot         
-SELECT * FROM afbet_main_gh.t_order_record              
-WHERE create_time >= '2026-03-12T00:00:00'
-AND create_time < '2026-03-22T00:00:00';                                                                                         
--- Day 21-30 (3/22 - 4/1)
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record
-WHERE create_time >= '2026-03-22T00:00:00'
-AND create_time < '2026-04-01T00:00:00';                                                                                                                        
--- Day 11-20 (4/1 - 4/11)
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record  
-WHERE create_time >= '2026-04-01T00:00:00'
-AND create_time < '2026-04-11T00:00:00';                                                     
--- Day 1-10 (4/11 - 4/21)
-INSERT INTO afbet_main_gh.t_order_record_hot
-SELECT * FROM afbet_main_gh.t_order_record  
-WHERE create_time >= '2026-04-11T00:00:00'
-AND create_time < '2026-04-21T00:00:00'; 
-
--- ng
--- Day 191-200 (10/3 - 10/13)
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record
-WHERE create_time >= '2025-10-03T00:00:00'
-AND create_time < '2025-10-13T00:00:00';                                         
-
--- Day 181-190 (10/13 - 10/23)
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record
-WHERE create_time >= '2025-10-13T00:00:00' 
-AND create_time < '2025-10-23T00:00:00';                                         
-
--- Day 171-180 (10/23 - 11/2) 
-INSERT INTO afbet_main_ng.t_order_record_hot 
-SELECT * FROM afbet_main_ng.t_order_record
-WHERE create_time >= '2025-10-23T00:00:00'
-AND create_time < '2025-11-02T00:00:00'; 
-
--- Day 161-170 (11/2 - 11/12)  
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record                                       
-WHERE create_time >= '2025-11-02T00:00:00'                                       
-AND create_time < '2025-11-12T00:00:00';                                                                                                                          
--- Day 151-160 (11/12 - 11/22)        
-INSERT INTO afbet_main_ng.t_order_record_hot   
-SELECT * FROM afbet_main_ng.t_order_record               
-WHERE create_time >= '2025-11-12T00:00:00'
-AND create_time < '2025-11-22T00:00:00';                                                                             			 
--- Day 141-150 (11/22 - 12/2)   
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record 
-WHERE create_time >= '2025-11-22T00:00:00'  
-AND create_time < '2025-12-02T00:00:00';                                                                                                                          
--- Day 131-140 (12/2 - 12/12)        
-INSERT INTO afbet_main_ng.t_order_record_hot      
-SELECT * FROM afbet_main_ng.t_order_record    
-WHERE create_time >= '2025-12-02T00:00:00'
-AND create_time < '2025-12-12T00:00:00';                                                                                                                          
--- Day 121-130 (12/12 - 12/22)          
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record
-WHERE create_time >= '2025-12-12T00:00:00' 
-AND create_time < '2025-12-22T00:00:00';                                                                                                                          
--- Day 111-120 (12/22 - 1/1)
-INSERT INTO afbet_main_ng.t_order_record_hot   
-SELECT * FROM afbet_main_ng.t_order_record 
-WHERE create_time >= '2025-12-22T00:00:00'
-AND create_time < '2026-01-01T00:00:00';                                      		 
--- Day 101-110 (1/1 - 1/11)
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record                
-WHERE create_time >= '2026-01-01T00:00:00'        
-AND create_time < '2026-01-11T00:00:00';                                                                                                                          
--- Day 91-100 (1/11 - 1/21)          
-INSERT INTO afbet_main_ng.t_order_record_hot  
-SELECT * FROM afbet_main_ng.t_order_record   
-WHERE create_time >= '2026-01-11T00:00:00'
-AND create_time < '2026-01-21T00:00:00';                                                  
--- Day 81-90 (1/21 - 1/31)        
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record                                    
-WHERE create_time >= '2026-01-21T00:00:00'   
-AND create_time < '2026-01-31T00:00:00';                                                                                                                          
--- Day 71-80 (1/31 - 2/10)               
-INSERT INTO afbet_main_ng.t_order_record_hot  
-SELECT * FROM afbet_main_ng.t_order_record                    
-WHERE create_time >= '2026-01-31T00:00:00'
-AND create_time < '2026-02-10T00:00:00';                                                                                                                          
--- Day 61-70 (2/10 - 2/20)      
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record     
-WHERE create_time >= '2026-02-10T00:00:00'     
-AND create_time < '2026-02-20T00:00:00';                                                                                                                          
--- Day 51-60 (2/20 - 3/2)      
-INSERT INTO afbet_main_ng.t_order_record_hot      
-SELECT * FROM afbet_main_ng.t_order_record   
-WHERE create_time >= '2026-02-20T00:00:00'
-AND create_time < '2026-03-02T00:00:00';    
-
--- Day 41-50 (3/2 - 3/12)       
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record           
-WHERE create_time >= '2026-03-02T00:00:00'        
-AND create_time < '2026-03-12T00:00:00';                                                                             
--- Day 31-40 (3/12 - 3/22)                       
-INSERT INTO afbet_main_ng.t_order_record_hot         
-SELECT * FROM afbet_main_ng.t_order_record              
-WHERE create_time >= '2026-03-12T00:00:00'
-AND create_time < '2026-03-22T00:00:00';                                                                                         
--- Day 21-30 (3/22 - 4/1)
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record
-WHERE create_time >= '2026-03-22T00:00:00'
-AND create_time < '2026-04-01T00:00:00';                                                                                                                        
--- Day 11-20 (4/1 - 4/11)
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record  
-WHERE create_time >= '2026-04-01T00:00:00'
-AND create_time < '2026-04-11T00:00:00';                                                     
--- Day 1-10 (4/11 - 4/21)
-INSERT INTO afbet_main_ng.t_order_record_hot
-SELECT * FROM afbet_main_ng.t_order_record  
-WHERE create_time >= '2026-04-11T00:00:00'
-AND create_time < '2026-04-21T00:00:00'; 
+-- Day 31-40 (3/13 - 3/23)                           
+INSERT INTO afbet_realsports_ng.t_realsports_selection_source_hot    
+SELECT * FROM afbet_realsports_ng.t_realsports_selection_source    
+WHERE create_time >= '2026-03-13T00:00:00'
+AND create_time < '2026-03-23T00:00:00';          																		
+-- Day 21-30 (3/23 - 4/2)                   
+INSERT INTO afbet_realsports_ng.t_realsports_selection_source_hot    
+SELECT * FROM afbet_realsports_ng.t_realsports_selection_source        
+WHERE create_time >= '2026-03-23T00:00:00'
+AND create_time < '2026-04-02T00:00:00';                                                                                        			
+-- Day 11-20 (4/2 - 4/12)
+INSERT INTO afbet_realsports_ng.t_realsports_selection_source_hot     
+SELECT * FROM afbet_realsports_ng.t_realsports_selection_source       
+WHERE create_time >= '2026-04-02T00:00:00'
+AND create_time < '2026-04-12T00:00:00';              																	  
+-- Day 1-10 (4/12 - 4/22)
+INSERT INTO afbet_realsports_ng.t_realsports_selection_source_hot        
+SELECT * FROM afbet_realsports_ng.t_realsports_selection_source    
+WHERE create_time >= '2026-04-12T00:00:00'          
+AND create_time < '2026-04-22T00:00:00';
 ```
 
 打開 `afbet_main_gh.t_order_record_hot_copy.py`
