@@ -7,15 +7,15 @@
 - related country : ng, gh
 
 Step0. Record the original row count
-* ng : 2664889523
-* gh : 774532368
+* ng : 1083973825
+* gh : 5342211183
 ```SQL
 -- ng 
 SELECT
 	DATE(create_time) AS date,
 	COUNT(*) AS row_count
-FROM afbet_main_ng.t_order_record
-WHERE create_time >= '2025-10-03T00:00:00' AND create_time < '2026-04-22T00:00:00'
+FROM afbet_realsports_gh.t_realsports_selection_source
+WHERE create_time >= '2026-02-11T00:00:00' AND create_time < '2026-04-22T00:00:00'
 GROUP BY DATE(create_time)
 ORDER BY date;
 
@@ -23,8 +23,8 @@ ORDER BY date;
 SELECT
 	DATE(create_time) AS date,
 	COUNT(*) AS row_count
-FROM afbet_main_gh.t_order_record
-WHERE create_time >= '2025-10-03T00:00:00' AND create_time < '2026-04-22T00:00:00'
+FROM afbet_realsports_gh.t_realsports_selection_source
+WHERE create_time >= '2026-02-11T00:00:00' AND create_time < '2026-04-22T00:00:00'
 GROUP BY DATE(create_time)
 ORDER BY date;
 ```
