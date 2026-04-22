@@ -5,7 +5,7 @@
 ![[WAP_workflow|800]]
 #### Pattern
 **Step1. Write**
-將處理好的資料寫入下游使用者無法存取的暫存區或資料分支中
+在 write 階段，資料可以從各種來源 extract，也可以透過 Spark、Kafka 等工具將資料進行轉換，將處理好的資料寫入下游使用者無法存取的暫存區或資料分支中
 ![[Pasted image 20260419233740.png]]
 
 **Step2. Audit**
