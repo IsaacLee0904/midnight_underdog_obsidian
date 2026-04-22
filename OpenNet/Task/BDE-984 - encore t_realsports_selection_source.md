@@ -31,13 +31,13 @@ ORDER BY date;
 
 Step1. Create Empty hot table
 ```sql
--- gh 
-CREATE TABLE afbet_main_gh.t_order_record_hot
-(LIKE afbet_main_gh.t_order_record);
+-- gh
+CREATE TABLE afbet_realsports_gh.t_realsports_selection_source_hot
+(LIKE afbet_realsports_gh.t_realsports_selection_source);
 
 -- ng
-CREATE TABLE afbet_main_ng.t_order_record_hot
-(LIKE afbet_main_ng.t_order_record);
+CREATE TABLE afbet_realsports_ng.t_realsports_selection_source_hot
+(LIKE afbet_realsports_ng.t_realsports_selection_source);
 
 -- Check the hot table schema and diskey
 SELECT "schema", "table", diststyle, sortkey1, sortkey1_enc
