@@ -1,10 +1,9 @@
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_main.t_order_record</font> : sync data to Warehouse **every hour**
-	* <font color="#548dd4">afbet_order.t_order_record_shard</font> : sync shard DB data to Warehouse **every 10 mins**
-	* <font color="#548dd4">afbet_main.t_order_record_cold_copy</font> : copy data from hot table to cold table **daily**
-	* <font color="#548dd4">afbet_main.t_order_record_hot_delete</font> : delete old data (older than 200 days) from hot table **daily**
-- hot table : 200 days
+	* <font color="#548dd4">afbet_realsports.t_realsports_selection_source</font> : sync shard DB data to Warehouse **every 10 mins**
+	* <font color="#548dd4">afbet_realsports.t_realsports_selection_source_cold_copy</font> : copy data from hot table to cold table **daily**
+	* <font color="#548dd4">afbet_realsports.t_realsports_selection_source_hot_delete</font> : delete old data (older than 200 days) from hot table **daily**
+- hot table : 70 days
 - related country : ng, gh
 
 Step0. Record the original row count
