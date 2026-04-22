@@ -24,6 +24,9 @@
  2. 利用支援 <font color="#ff0000">data branching 的工具</font> EX. lakeFS 將帶有新資料的 branch merge 進到 main
  3. 透過重新指定 <font color="#ff0000">view</font> 的方式讓資料可以被使用者看到
 
+#### Write-audit-publish in data pipeline design patterns
+
+
 #### Pros and Cons
 
 <mark style="background:#fff88f">Pros</mark>
