@@ -4,7 +4,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 ---
 * How to build high trust in the data sets that you build
 * How to build good data docs
-* Data quality checks and how thet diff between facts and dims 
+* Data quality checks and how the diff between facts and dims 
 ## Data Quality
 
 >Data quality refers to the development and implementation of activities that apply quality management techniques to data in order to ensure the data is fit to serve the specific needs of an organization in a particular context.
