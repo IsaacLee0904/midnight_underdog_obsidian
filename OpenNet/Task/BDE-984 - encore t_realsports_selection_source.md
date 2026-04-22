@@ -140,7 +140,39 @@ AND create_time < '2026-04-22T00:00:00';
 
 打開 `afbet_main_gh.t_realsports_selection_source_hot_copy.py`，確定跟上原本 pipeline 之後，檢查每個小時的紀錄
 ```SQL
+-- gh
+SELECT
+	DATE_TRUNC('hour', create_time) AS hour,
+	COUNT(*) AS row_count
+FROM afbet_realsports_gh.t_realsports_selection_source
+WHERE create_time >= '2026-04-22T00:00:00' AND create_time < '2026-04-23T00:00:00'
+GROUP BY DATE_TRUNC('hour', create_time)
+ORDER BY hour;
 
+SELECT
+	DATE_TRUNC('hour', create_time) AS hour,
+	COUNT(*) AS row_count
+FROM afbet_realsports_gh.t_realsports_selection_source_hot
+WHERE create_time >= '2026-04-22T00:00:00' AND create_time < '2026-04-23T00:00:00'
+GROUP BY DATE_TRUNC('hour', create_time)
+ORDER BY hour;
+
+-- ng
+SELECT
+	DATE_TRUNC('hour', create_time) AS hour,
+	COUNT(*) AS row_count
+FROM afbet_realsports_ng.t_realsports_selection_source
+WHERE create_time >= '2026-04-22T00:00:00' AND create_time < '2026-04-23T00:00:00'
+GROUP BY DATE_TRUNC('hour', create_time)
+ORDER BY hour;
+
+SELECT
+	DATE_TRUNC('hour', create_time) AS hour,
+	COUNT(*) AS row_count
+FROM afbet_realsports_ng.t_realsports_selection_source_hot
+WHERE create_time >= '2026-04-22T00:00:00' AND create_time < '2026-04-23T00:00:00'
+GROUP BY DATE_TRUNC('hour', create_time)
+ORDER BY hour;
 ```
 
 
