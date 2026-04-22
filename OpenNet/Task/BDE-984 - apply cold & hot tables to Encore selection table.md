@@ -23,6 +23,7 @@ Apply below table in Encore to cold / hot tables :
 >[!attention]
 > 1. `cold_copy` 跟 `hot_delete` 要設定到前一天避免 Sporty Encore 之間互相影響
 > 2. 完成後到 `bi_announcement` 公告
+> 3. 去 `table_update_check` 刪除 _ hot 的紀錄，避免一直跳 alarm
 
 ### t_realsports_selection
 
