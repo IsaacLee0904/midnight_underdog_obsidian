@@ -22,9 +22,12 @@
 #### Pros and Cons
 
 <mark style="background:#fff88f">Pros</mark>
-1. 確保下游 consumer 只看到通過驗證的資料，避免壞資料進入生產後才被發現、撤回的信任損失  
+1. Enhanced Data Integrity and Quality (增加資料正確性與品質)：audit 階段會仔細檢查資料的正確性、完整性與是否符合預定標準，適時地修正任何差異與異常狀況
+2. Increased Data Security (增強資料安全性)：透過 WAP 得結構隔離原始資料與審核資料，<font color="#ff0000">保護敏感資料在未經驗證的時候洩漏</font> -> 牽涉的資料合規性
+3. Improved Reliability (可靠性提升)：
+確保下游 consumer 只看到通過驗證的資料，避免壞資料進入生產後才被發現、撤回的信任損失  
 	-> 這很重要因為牽涉到 user 的信任問題
-2. 模組化設計讓 Write、Audit、Publish 三個階段可以獨立調整與擴展
+4. 模組化設計讓 Write、Audit、Publish 三個階段可以獨立調整與擴展
 
 <mark style="background:#fff88f">Cons</mark>
 1. 多步驟流程增加了資料延遲
