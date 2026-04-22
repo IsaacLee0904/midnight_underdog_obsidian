@@ -11,7 +11,8 @@
 **Step2. Audit**
 資料到達 staging 之後，會針對暫存區執行[[What Does Validate Mean|品質測試與驗證]]，EX. 檢查 Null 值、資料範圍、列數是否異常 比較好的做法是用一系列已經預先定義好的規則來確保完整性，data engineer 可能就會透過 python script 做以下檢查：
 * 根據是先定義好的 schema 來檢查資料結構是否符合預期
-* 利用統計方法做 anomaly detection 來檢測 outliers 或意外的資料週期
+* 利用統計方法做 [[What Is Anomaly Detection|anomaly detection]] 來檢測 outliers 或意外的資料週期
+* 
 ![[Pasted image 20260419233831.png]]
 
 **Step3. Publish**
