@@ -138,7 +138,12 @@ WHERE create_time >= '2026-04-12T00:00:00'
 AND create_time < '2026-04-22T00:00:00';
 ```
 
-打開 `afbet_main_gh.t_realsports_selection_source_hot_copy.py`
+打開 `afbet_main_gh.t_realsports_selection_source_hot_copy.py`，確定跟上原本 pipeline 之後，檢查每個小時的紀錄
+```SQL
+
+```
+
+
 
 > **Why use `create_time` not `index` ?**
 > 
