@@ -26,6 +26,50 @@
 
 #### Write-audit-publish in data pipeline design patterns
 
+<mark style="background:#fff88f">Batching pipeline </mark>
+**Write** : 讀取數個 csv file 整合成一個 dataframe
+```python
+import pandas as pd 
+import glob 
+import duckdb 
+
+### Collect all CSV files in the directory 
+files = glob.glob('sales_data_*.csv') 
+
+### Buffer to temporarily store data from each file 
+data_frames = [] 
+
+for file in files: 
+	df = pd.read_csv(file) 
+	data_frames.append(df) 
+	
+### Combine all data into a single DataFrame 
+combined_data = pd.concat(data_frames, ignore_index=True)
+```
+
+**Audit** : 檢查 dataset
+```python
+### Filter out rows with missing 'sales_amount' 
+clean_data = combined_data.dropna(subset=['sales_amount'])
+
+### Filter out rows with negative 'sales_amount' 
+clean_data = clean_data[clean_data['sales_amount'] >= 0]
+```
+
+**Publish** : 將資料儲存到 DuckDB
+```python
+### Connect to DuckDB 
+conn = duckdb.connect(database=':memory:', read_only=False) 
+
+if not clean_data.empty: 
+	clean_data.to_sql('cleaned_sales_data', conn, if_exists='replace', index=False) 
+	print(f"Inserted {len(clean_data)} rows into DuckDB.") 
+	
+else: print("No data passed the audit.")
+```
+
+
+<mark style="background:#fff88f">Streaming pipeline</mark>
 
 #### Pros and Cons
 
