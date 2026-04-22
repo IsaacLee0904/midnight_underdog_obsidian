@@ -70,6 +70,50 @@ else: print("No data passed the audit.")
 
 
 <mark style="background:#fff88f">Streaming pipeline</mark>
+與 batching 的不同，在 streaming pipeline 中如果需要使用 WAP 需要足夠高校，才能近乎即時的處理完資料
+
+**Write** : 這邊的案例先 gen 一些假資料
+```python
+import pandas as pd 
+import duckdb 
+import random f
+rom time import sleep 
+
+### Function to generate random sales data 
+def generate_sales_data(): 
+	return { 'product_id': random.randint(1, 100), 
+			 'sales_amount': random.uniform(10.5, 500.5), 
+			 'timestamp': pd.Timestamp.now() } 
+			 
+### Buffer to temporarily store sales data 
+sales_buffer = [] 
+
+### Simulate streaming by generating data every second 
+for _ in range(100): # Generate 100 data points 
+	sales_data = generate_sales_data() 
+	sales_buffer.append(sales_data) 
+	sleep(1)
+```
+
+**Audit** : 檢查資料是否在合理的範圍內
+```python
+df = pd.DataFrame(sales_buffer) 
+
+### Filter out rows with sales_amount outside the range 
+clean_data = df[(df['sales_amount'] >= 10) & (df['sales_amount'] <= 500)]
+```
+
+Publish : 檢查成功之後將資料放進 DuckDB
+```python
+### Connect to DuckDB 
+conn = duckdb.connect(database=':memory:', read_only=False) 
+
+if not clean_data.empty: 
+	clean_data.to_sql('cleaned_sales_data', conn, if_exists='replace', index=False) 
+	print(f"Inserted {len(clean_data)} rows into DuckDB.") 
+else: 
+	print("No data passed the audit.")
+```
 
 #### Pros and Cons
 
