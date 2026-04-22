@@ -155,12 +155,12 @@ AND create_time < '2026-04-22T00:00:00';
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
 ```sql
 -- gh
-ALTER TABLE afbet_main_gh.t_order_record RENAME TO t_order_record_cold;
-ALTER TABLE afbet_main_gh.t_order_record_hot RENAME TO t_order_record;
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
+ALTER TABLE afbet_realsports_gh.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
 
 -- ng
-ALTER TABLE afbet_main_ng.t_order_record RENAME TO t_order_record_cold;
-ALTER TABLE afbet_main_ng.t_order_record_hot RENAME TO t_order_record;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
+ALTER TABLE afbet_realsports_ng.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
 ```
 
 分兩段  
