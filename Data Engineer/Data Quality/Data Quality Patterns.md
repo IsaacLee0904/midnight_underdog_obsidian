@@ -139,6 +139,9 @@ else:
 
 由 Bartosz Konieczny 在其著作《Data Engineering Design Patterns》中提出，作為 WAP 的優化版
 
+#### Reference
+* [[Data Quality Design Patterns]]
+
 ## Transform → Audit → Publish (TAP)
 
 ## Signal Table Pattern
