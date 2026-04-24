@@ -1,4 +1,4 @@
-所有的以下 data quality solution 都稱為 patterns 是因為如何實現會很取決於採用者的資料架構與使用技術
+所有的以下 data quality solution 都稱為 patterns 是因為如何實現會很取決於採用者的資料架構與使用技術，正因如此沒有絕對「最好的」pattern，如何選擇則是取決於 type of quality issue, use case, data size, platform limitation, SLAs ...，但無論如何目的只有一個「Keep bad data out of production」，盡可能的在影響下游或被使用者使用到之前攔截問題
 ## Write → Audit → Publish Pattern (WAP)
 
 由 Netflix 的 Michelle Ufford 在 2017 年 DataWorks Summit 的演講[《Whoops the Numbers are wrong! Scaling Data Quality @ Netflix》](https://lakefs.io/blog/data-engineering-patterns-write-audit-publish/) 中分享了 Netflix 內部如何做 data quality check，類似於將軟體工程的藍綠部署 (Blue-Green Deployment) 應用於資料工程
