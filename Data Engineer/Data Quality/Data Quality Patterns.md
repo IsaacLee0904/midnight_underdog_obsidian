@@ -137,6 +137,8 @@ else:
 
 ## Audit → Write → Audit → Publish Pattern (AWAP)
 
+
+
 ## Transform → Audit → Publish (TAP)
 
 ## Signal Table Pattern
