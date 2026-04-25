@@ -27,9 +27,12 @@
  3. 透過重新指定 <font color="#ff0000">view</font> 的方式讓資料可以被使用者看到
 #### Two Implementation patterns of WAP
 
-<mark style="background:#fff88f"> Two-Phase WAP </mark>
+<mark style="background:#fff88f"> Two-Phase WAP in batching processing</mark>
 傳統的方法，需要兩個實體的資料副本 table，並經歷 write、audit、publish 的步驟，publish 後清除 staging data，這種方法基本上沒有 infra 的限制，但涉及額外的儲存成本與複製成本
 ![[Pasted image 20260425150107.png]]
+
+<mark style="background:#fff88f"> Two-Phase WAP in streaming processing</mark>
+
 
 
 <mark style="background:#fff88f"> One-Phase WAP (Zero-Copy WAP) </mark>
