@@ -204,7 +204,5 @@ The goal of this pipeline is to answer the following questions:
 常見的 ETL 工具，dbt、Airflow 等都沒有內建的 DQ check 工具，因而使得 data quality check 相對是昂貴的
 * dbt 開始導入了 [data contract semantics](https://docs.getdbt.com/docs/mesh/govern/model-contracts?version=1.10)，主張透過一組是先定義好的 guarantees 來約束 dbt 模型的資料結構，並稱之為 contract，在 modeling 的過程中 dbt 會檢查是否符合 contract 否則失敗
 
-![[Pasted image 20260426004449.png]]
-
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
