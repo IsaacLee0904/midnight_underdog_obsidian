@@ -33,6 +33,7 @@
 
 <mark style="background:#fff88f"> Two-Phase WAP in streaming processing</mark>
 
+![[Pasted image 20260426020405.png]]
 
 
 <mark style="background:#fff88f"> One-Phase WAP (Zero-Copy WAP) </mark>
