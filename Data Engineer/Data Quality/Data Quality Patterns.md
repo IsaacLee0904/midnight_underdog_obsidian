@@ -33,7 +33,7 @@
 
 
 <mark style="background:#fff88f"> One-Phase WAP (Zero-Copy WAP) </mark>
-在 data lakehouse 透過 Iceberg、Hudi 等 table format 技術
+在 data lakehouse 透過 Iceberg、Hudi 等 table format 技術讓 WAP 的過程<font color="#ff0000">不需要真的透過複製</font>來完成，以 Iceberg 為例，只需要透過 `write.wap.enabled` 和 `wap.id` 就能啟用 WAP
 ![[Pasted image 20260425150421.png]]
 #### Write-audit-publish in data pipeline design patterns
 
