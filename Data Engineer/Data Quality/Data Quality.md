@@ -197,5 +197,8 @@ The goal of this pipeline is to answer the following questions:
 
 ![[Data Quality Patterns]]
 
+## Why data quality is expensive
+
+
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
