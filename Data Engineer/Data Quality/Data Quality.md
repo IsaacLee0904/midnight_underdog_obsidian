@@ -199,6 +199,9 @@ The goal of this pipeline is to answer the following questions:
 
 ## Why data quality is expensive
 
+> Data Quality is expensive because almost all the available data tools don’t support data quality as a first-class semantics, which leads to bespoke two-phase WAP pattern implementation.
+
+![[Pasted image 20260426004449.png]]
 
 ## Reference
 [《資料與程式碼的交鋒》Day 24 — 資料需求金字塔](https://shu-ting.medium.com/data-feat-programming-day-24-5f691450323f)
