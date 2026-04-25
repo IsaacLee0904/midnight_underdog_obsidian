@@ -199,7 +199,9 @@ The goal of this pipeline is to answer the following questions:
 
 ## Why data quality is expensive
 
-> Data Quality is expensive because almost all the available data tools don’t support data quality as a first-class semantics, which leads to bespoke two-phase WAP pattern implementation.
+> Data Quality is expensive because <font color="#ff0000">almost all the available data tools don’t support data quality</font> as a first-class semantics, which leads to bespoke two-phase WAP pattern implementation.
+
+常見的 ETL 工具，dbt、Airflow 等都沒有內建的 DQ check 工具，因而使得 data quality check 相對是昂貴的，dbt 開始導入了 [data contract semantics](https://docs.getdbt.com/docs/mesh/govern/model-contracts?version=1.10)，
 
 ![[Pasted image 20260426004449.png]]
 
