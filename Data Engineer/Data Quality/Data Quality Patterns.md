@@ -25,7 +25,16 @@
  1. 將資料從 <font color="#ff0000">staging table</font> insert 到使用者可以查詢到的 main table
  2. 利用支援 <font color="#ff0000">data branching 的工具</font> EX. lakeFS 將帶有新資料的 branch merge 進到 main
  3. 透過重新指定 <font color="#ff0000">view</font> 的方式讓資料可以被使用者看到
+#### Two Implementation patterns of WAP
 
+<mark style="background:#fff88f"> Two-Phase WAP </mark>
+傳統的方法，需要兩個實體的資料副本 table，並經歷 write、audit、publish 的步驟，publish 後清除 staging data，這種方法基本上沒有 infra 的限制，但涉及額外的儲存成本與複製成本
+![[Pasted image 20260425150107.png]]
+
+
+<mark style="background:#fff88f"> One-Phase WAP (Zero-Copy WAP) </mark>
+在 data lakehouse 透過 Iceberg、Hudi 等 table format 技術
+![[Pasted image 20260425150421.png]]
 #### Write-audit-publish in data pipeline design patterns
 
 <mark style="background:#fff88f">Batching pipeline </mark>
