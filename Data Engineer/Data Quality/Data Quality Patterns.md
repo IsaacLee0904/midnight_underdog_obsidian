@@ -32,6 +32,10 @@
 ![[Pasted image 20260425150107.png]]
 
 <mark style="background:#fff88f"> Two-Phase WAP in streaming processing</mark>
+在 streaming data 中 WAP 依循前置佇列 (fronting queue) 模試，又稱為<font color="#ff0000"> Fronting Kafka pattern</font>，採用雙叢集 (two-cluster) 架構：
+1. 類似 staging 環境負責接收 fronting Kafka 所有 event，不進行驗證
+2. streaming consumer 通常是 Flink 或 Spark 的 streaming 處理框架實作從 fronting Kafka 消化 event 並執行 data contract 的驗證
+EX. Netflix 的 [data mesh](https://netflixtechblog.com/data-mesh-a-data-movement-and-processing-platform-netflix-1288bcab2873)
 
 ![[Pasted image 20260426020405.png]]
 
