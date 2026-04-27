@@ -81,7 +81,15 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 
 **Audit**
 * 針對 clone 的資料執行 dbt test 或 snowflake 的 DQ check
+* 在 test 全部通過之前不會有任何資料留到 Prod
 
+**Publish**
+* 若驗證通過，使用 zero-copy clone 將 Staging 資料表提升至 Prod Schema
+* 由於是指改動了 metadata pointer，因此變換幾乎是即時完成的
+
+種方式確保 Production 資料在驗證過程中不會遭到污染，提供了一個可使用完整資料集安全測試 Pipeline 的環境，同時也允許在發布變更前進行人工調整與重新測試。
+
+然而，此方法仍有幾項缺點：需要維護客製化的調度程式碼來管理克隆與驗證流程、為 Pipeline 增加了一定的複雜度（雖然低於自行實作的記憶體內解決方案），且在執行轉換與測試時，仍會消耗額外的運算與儲存資源
 #### Pros and Cons
 
 <mark style="background:#fff88f">Pros</mark>
