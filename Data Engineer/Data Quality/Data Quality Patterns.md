@@ -95,6 +95,18 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 
 在 Iceberg 中使用了一種 分支機制 (branching mechanism)，類似於對 data 使用了 git，使得 WAP 實作
 
+**Write**
+* 將所有資料 load 到 dev 或 staging schema EX.`RAW_WAP`
+* 在此 sandbox schema 中執行 dbt model 載入資料
+
+**Audit**
+* 針對 clone 的資料執行 dbt test 或 snowflake 的 DQ check
+* 在 test 全部通過之前不會有任何資料留到 Prod
+
+**Publish**
+* 若驗證通過，使用 zero-copy clone 將 Staging 資料表提升至 Prod Schema
+* 由於是指改動了 metadata pointer，因此變換幾乎是即時完成的
+
 #### Pros and Cons
 
 <mark style="background:#fff88f">Pros</mark>
