@@ -7,8 +7,7 @@
 - related country : ng, gh
 
 Step0. Record the original row count
-* ng : 1083973825
-* gh : 5342211183
+* row_count : 6445574610
 ```SQL
 -- ng 
 SELECT
