@@ -100,13 +100,8 @@ WHERE stat_date >= '2026-04-22' AND stat_date < '2026-04-27';
 
 Step3. Use <mark style="background: #FFB86CA6;">dba-redshift-executor</mark> rename tables  
 ```sql
--- gh
-ALTER TABLE afbet_realsports_gh.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
-ALTER TABLE afbet_realsports_gh.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
-
--- ng
-ALTER TABLE afbet_realsports_ng.t_realsports_selection_source RENAME TO t_realsports_selection_source_cold;
-ALTER TABLE afbet_realsports_ng.t_realsports_selection_source_hot RENAME TO t_realsports_selection_source;
+ALTER TABLE bi_report.bi_realsports.src_realsports_all_orders_v12 RENAME TO src_realsports_all_orders_v12_cold;
+ALTER TABLE bi_report.bi_realsports.src_realsports_all_orders_v12_hot RENAME TO src_realsports_all_orders_v12;    
 ```
 
 分兩段  
@@ -122,5 +117,4 @@ Step4. Open DAG
 >[!WARNING] 需要額外創建 Airflow Variables
 
 **Switch Time**
-* gh - 2026-04-22 07:04 UTC
-* ng - 2026-04-22 07:04 UTC
+* 2026-04-22 07:04 UTC
