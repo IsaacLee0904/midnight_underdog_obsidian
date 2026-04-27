@@ -51,7 +51,8 @@ Step2. `Set spark.wap.id=<UUID>` in the <font color="#ff0000">Spark job </font>
 <mark style="background:#fff88f"> One-Phase WAP in streaming processing (Zero-Copy WAP) </mark>
 Streaming pipeline 中的 One-Phase WAP 減少了對中介佇列的需球，採用[訊息路由模式 (message router pattern)](https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageRouter.html) 的事件路由模式 (event router pattern)，這種做法有幾種特徵：
 1. event router 能夠將相同的事件從一個源廣播到多個目的地 (one-to-many)
-2. 
+2. event router 通常不會修改事件的內容 (payload)
+3. event router 可以在事件的信封 (envelope) 上附加額外的 metadata
 
 ![[Pasted image 20260427161721.png]]
 
