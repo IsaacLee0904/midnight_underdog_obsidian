@@ -43,8 +43,8 @@ EX. Netflix 的 [data mesh](https://netflixtechblog.com/data-mesh-a-data-movemen
 <mark style="background:#fff88f"> One-Phase WAP in batching processing (Zero-Copy WAP) </mark>
 在 data lakehouse 透過 Iceberg、Hudi 等 table format 技術讓 WAP 的過程<font color="#ff0000">不需要真的透過複製</font>來完成，以 Iceberg 為例，只需要透過 `write.wap.enabled` 和 `wap.id` 就能啟用 WAP，在 write 與 audit 階段在隔離的 branch 跟 snapshot 執行，publish 階段就只需要提交 metadata，Iceberg 的步驟如下：
 
-Step1. Set write.wap.enabled=true in the table
-Step2. Set spark.wap.id=UUID in the Spark job 
+Step1. Set `write.wap.enabled=true` in the <font color="#ff0000">table</font>
+Step2. `Set spark.wap.id=<UUID>` in the <font color="#ff0000">Spark job </font>
 
 ![[Pasted image 20260425150421.png]]
 
