@@ -20,18 +20,14 @@ ORDER BY date;
 
 Step1. Create Empty hot table
 ```sql
--- gh
-CREATE TABLE afbet_realsports_gh.t_realsports_selection_source_hot
-(LIKE afbet_realsports_gh.t_realsports_selection_source);
-
--- ng
-CREATE TABLE afbet_realsports_ng.t_realsports_selection_source_hot
-(LIKE afbet_realsports_ng.t_realsports_selection_source);
+-- SQL statement createe hot table
+CREATE TABLE bi_realsports.src_realsports_all_orders_v12_hot
+(LIKE bi_realsports.src_realsports_all_orders_v12);
 
 -- Check the hot table schema and diskey
 SELECT "schema", "table", diststyle, sortkey1, sortkey1_enc
 FROM svv_table_info
-WHERE "table" IN ('t_order_record_hot', 't_order_record')
+WHERE "table" IN ('src_realsports_all_orders_v12_hot', 'src_realsports_all_orders_v12')
 ORDER BY "schema", "table";
 ```
 
