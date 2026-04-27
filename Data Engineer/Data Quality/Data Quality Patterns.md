@@ -76,7 +76,11 @@ Streaming pipeline 中的 One-Phase WAP 減少了對中介佇列的需球，採�
 Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時建立 table 或 schema 的完整副本，因此無需複製儲存資料
 
 **Write**
+* 將所有資料 load 到 dev 或 staging schema EX.`RAW_WAP`
+* 在此 sandbox schema 中執行 dbt model 載入資料
 
+**Audit**
+* 針對 clone 的資料執行 dbt test 或 snowflake 的 DQ check
 
 #### Pros and Cons
 
