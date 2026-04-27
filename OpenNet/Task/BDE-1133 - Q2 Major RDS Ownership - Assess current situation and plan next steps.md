@@ -9,10 +9,13 @@
 
 ### Prod Sport
 
-| Alias                     | Endpoint                | Engine       | Instance Type   | Storage | Multi-AZ | Notes                       | AWS console                                                                                                                          |
-| :------------------------ | ----------------------- | ------------ | --------------- | ------- | -------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| bi-report-o1 / bigdata-o1 | sporty-pub-prod-bi-main | Aurora MySQL | db.r6g.12xlarge |         | ✅        | Writer CPU 34%, 18 sessions | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true) |
-|                           |                         |              |                 |         |          |                             |                                                                                                                                      |
+| Alias                     | Endpoint                   | Engine          | Instance Type   | Storage | Multi-AZ | Notes                            | AWS console                                                                                                                                         |
+| :------------------------ | -------------------------- | --------------- | --------------- | ------- | -------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bi-report-o1 / bigdata-o1 | sporty-pub-prod-bi-main    | Aurora MySQL    | db.r6g.12xlarge |         | ✅        | Writer CPU 34%, 18 sessions      | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                |
+| bi-bigdata-o1             | sporty-pub-prod-bi-bigdata | MySQL Community | db.r6g.xlarge   |         | ✅        | Primary CPU 1.6%, Replica lag 0s | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) |
+|                           |                            |                 |                 |         |          |                                  |                                                                                                                                                     |
+|                           |                            |                 |                 |         |          |                                  |                                                                                                                                                     |
+|                           |                            |                 |                 |         |          |                                  |                                                                                                                                                     |
 
 
 ### Prod Encore
