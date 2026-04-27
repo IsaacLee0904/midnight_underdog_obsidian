@@ -70,6 +70,7 @@ Streaming pipeline 中的 One-Phase WAP 減少了對中介佇列的需球，採�
 **Publish**
 ![[Pasted image 20260427164957.png]]
 
+<mark style="background:#fff88f">Snowflake zero-copy clones with dbt </mark>
 
 #### Pros and Cons
 
