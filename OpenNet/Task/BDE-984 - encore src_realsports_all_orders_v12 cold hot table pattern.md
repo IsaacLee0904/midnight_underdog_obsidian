@@ -39,10 +39,52 @@ Step2. Adjust the DAG
 Step3. Insert data to hot table 
 並且使用語法
 ```SQL
+-- Day 91-95 (1/22 - 2/1)
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot            
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12
+WHERE stat_date >= '2026-01-22' AND stat_date < '2026-02-01';                                                                                                     
+-- Day 81-90 (2/1 - 2/11)                                                           
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot            
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12              
+WHERE stat_date >= '2026-02-01' AND stat_date < '2026-02-11';                                                                                                     
+-- Day 71-80 (2/11 - 2/21)                                                       
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot   
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12        
+WHERE stat_date >= '2026-02-11' AND stat_date < '2026-02-21';
+																			
+-- Day 61-70 (2/21 - 3/3)     
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot  
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12   
+WHERE stat_date >= '2026-02-21' AND stat_date < '2026-03-03';
+																			
+-- Day 51-60 (3/3 - 3/13)      
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot 
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12  
+WHERE stat_date >= '2026-03-03' AND stat_date < '2026-03-13';	
+			
+-- Day 41-50 (3/13 - 3/23)                                    
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12     
+WHERE stat_date >= '2026-03-13' AND stat_date < '2026-03-23';                                                                                        
+-- Day 31-40 (3/23 - 4/2)                                     
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot       
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12     
+WHERE stat_date >= '2026-03-23' AND stat_date < '2026-04-02';                                                                                 
+-- Day 21-30 (4/2 - 4/12)                                     
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot 
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12      
+WHERE stat_date >= '2026-04-02' AND stat_date < '2026-04-12';
 
+-- Day 11-20 (4/12 - 4/22)                             
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot     
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12    
+WHERE stat_date >= '2026-04-12' AND stat_date < '2026-04-22';
+			
+-- Day 1-10 (4/22 - 4/27)                              
+INSERT INTO bi_report.bi_realsports.src_realsports_all_orders_v12_hot       
+SELECT * FROM bi_report.bi_realsports.src_realsports_all_orders_v12     
+WHERE stat_date >= '2026-04-22' AND stat_date < '2026-04-27';
 ```
-
-
 
 > **Why use `create_time` not `index` ?**
 > 
