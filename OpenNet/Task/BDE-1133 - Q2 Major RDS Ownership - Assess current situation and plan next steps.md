@@ -7,4 +7,17 @@
 
 # Instance Inventory
 
-## 
+### Prod Sport
+
+| Alias | Endpoint | Engine | Instance Type | Storage | Multi-AZ | Notes |
+| ----- | -------- | ------ | ------------- | ------- | -------- | ----- |
+|       |          |        |               |         |          |       |
+
+
+### Prod Encore
+
+### UAT Sport
+
+### UAT Encore
+
+# Performance & Cost
