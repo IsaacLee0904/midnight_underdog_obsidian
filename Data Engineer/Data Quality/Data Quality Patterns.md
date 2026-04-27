@@ -59,6 +59,16 @@ Streaming pipeline 中的 One-Phase WAP 減少了對中介佇列的需球，採�
 #### Write-audit-publish Implementation
 
 <mark style="background:#fff88f">DIY Approach Using Pandas </mark>
+這種方式是最彈性最客製化的方案，基本上相容於各種 compute engine，並且能對驗證邏輯有完全的掌控，透過 panda、spark 等 DataFrame 框架能夠實現靈活的記憶體內檢查，然而缺點就是資料需要兩次的寫入 (staging、prod)，因此增加了運算與儲存成本，在處理大型資料的時候可能有 OOM 風險，同時如果要對多張 table 發布時會缺少交易性保證 (transactional guarantees)
+
+**Write**
+![[Pasted image 20260427164901.png]]
+
+**Audit**
+![[Pasted image 20260427164908.png]]
+
+**Publish**
+![[Pasted image 20260427164957.png]]
 
 
 #### Pros and Cons
