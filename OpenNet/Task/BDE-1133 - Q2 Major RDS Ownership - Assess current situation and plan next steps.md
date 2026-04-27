@@ -9,10 +9,10 @@
 
 ### Prod Sport
 
-| Alias                     | Endpoint                | Engine       | Instance Type   | Storage | Multi-AZ | Notes                       | AWS console                                                                                                                          |
-|:------------------------- | ----------------------- | ------------ | --------------- | ------- | -------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| bi-report-o1 / bigdata-o1 | sporty-pub-prod-bi-main | Aurora MySQL | db.r6g.12xlarge |         | ✅       | Writer CPU 34%, 18 sessions | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true) |
-|                           |                         |              |                 |         |          |                             |                                                                                                                                      |
+```dataview
+TABLE alias, engine, instance_type, cpu_writer, multi_az, environment FROM "BDE-1133" SORT environment ASC
+```
+
 
 
 ### Prod Encore
