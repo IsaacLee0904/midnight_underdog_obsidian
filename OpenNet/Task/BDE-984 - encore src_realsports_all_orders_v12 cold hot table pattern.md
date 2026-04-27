@@ -2,7 +2,7 @@
 * related DAG
 	* <font color="#548dd4">src_realsports_bet_breakdown_v12_p123</font> & <font color="#548dd4">src_realsports_bet_breakdown_v12_p4</font> : DAG for sync data to encore `bi_report`in DA Airflow
 	* <font color="#548dd4">bi_realsports.src_realsports_all_orders_v12_cold_copy</font> : copy data from hot table to cold table **daily** (move data 85 days ago to cold table)
-	* <font color="#548dd4">bi_realsports.src_realsports_all_orders_v12_hot_copy</font> : delete old data (older than 95 days) from hot table **daily**
+	* <font color="#548dd4">bi_realsports.src_realsports_all_orders_v12_hot_delete</font> : delete old data (older than 95 days) from hot table **daily**
 - hot table : 90 days
 - related country : ng, gh
 
