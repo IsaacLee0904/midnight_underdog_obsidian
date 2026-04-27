@@ -9,23 +9,13 @@
 Step0. Record the original row count
 * row_count : 6445574610
 ```SQL
--- ng 
 SELECT
-	DATE(create_time) AS date,
-	COUNT(*) AS row_count
-FROM afbet_realsports_gh.t_realsports_selection_source
-WHERE create_time >= '2026-02-11T00:00:00' AND create_time < '2026-04-22T00:00:00'
-GROUP BY DATE(create_time)
-ORDER BY date;
-
--- gh
-SELECT
-	DATE(create_time) AS date,
-	COUNT(*) AS row_count
-FROM afbet_realsports_gh.t_realsports_selection_source
-WHERE create_time >= '2026-02-11T00:00:00' AND create_time < '2026-04-22T00:00:00'
-GROUP BY DATE(create_time)
-ORDER BY date;
+  stat_date AS date,                                                             
+  COUNT(*) AS row_count
+FROM bi_realsports.src_realsports_all_orders_v12                        
+WHERE stat_date >= '2026-01-27' AND stat_date < '2026-04-27'                     
+GROUP BY stat_date
+ORDER BY date;   
 ```
 
 Step1. Create Empty hot table
