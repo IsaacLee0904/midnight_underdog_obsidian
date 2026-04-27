@@ -90,6 +90,11 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 這種方式確保 Prod 的資料在驗證過程中不會遭到污染，提供了一個可使用完整資料集安全測試pipeline 的環境，同時也允許在發布變更前進行人工調整與重新測試
 
 然而，此方法仍有幾項缺點：<font color="#ff0000">需要維護客製化的調度程式碼來管理 clone 與 test 流程</font>、<font color="#ff0000">增加 pipeline 的複雜度</font>，且在執行轉換與測試時，仍會消耗額外的運算與儲存資源
+
+<mark style="background:#fff88f">Apache Iceberg</mark>
+
+在 Iceberg 中使用了一種 分支機制 (branching mechanism)，類似於對 data 使用了 git，使得 WAP 實作
+
 #### Pros and Cons
 
 <mark style="background:#fff88f">Pros</mark>
