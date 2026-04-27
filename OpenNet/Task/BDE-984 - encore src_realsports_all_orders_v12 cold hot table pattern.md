@@ -1,5 +1,4 @@
 #### Basic Information
-#### Basic Information
 * related DAG
 	* <font color="#548dd4">afbet_realsports.t_realsports_selection_source</font> : sync shard DB data to Warehouse **every 10 mins**
 	* <font color="#548dd4">afbet_realsports.t_realsports_selection_source_cold_copy</font> : copy data from hot table to cold table **daily**
