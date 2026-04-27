@@ -9,13 +9,13 @@
 
 ### Prod Sport
 
-| Alias                     | Endpoint                   | Engine          | Instance Type               | Storage | Multi-AZ | AWS console                                                                                                                                         |
-| :------------------------ | -------------------------- | --------------- | --------------------------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| bi-report-o1 / bigdata-o1 | sporty-pub-prod-bi-main    | Aurora MySQL    | db.r6g.12xlarge             | ~64 TB  | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                |
-| bi-bigdata-o1             | sporty-pub-prod-bi-bigdata | MySQL Community | db.r6g.xlarge               |         | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) |
-| bigdata-ticket-o1         | bigdata-ticket-prod        | Aurora MySQL    | Serverless v2 (40-100 ACUs) |         | ❌        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)               |
-| metabase-rds              |                            |                 |                             |         |          |                                                                                                                                                     |
-| bet-bi-o1                 | sporty-global-prod-bet-bi  | Aurora MySQL    | erverless v2 (2-40 ACUs)    |         | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)              |
+| Alias                     | Endpoint                   | Engine          | Instance Type               | Storage           | Multi-AZ | AWS console                                                                                                                                         |
+| :------------------------ | -------------------------- | --------------- | --------------------------- | ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bi-report-o1 / bigdata-o1 | sporty-pub-prod-bi-main    | Aurora MySQL    | db.r6g.12xlarge             | ~64 TB            | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                |
+| bi-bigdata-o1             | sporty-pub-prod-bi-bigdata | MySQL Community | db.r6g.xlarge               | gp3 ( 11,518 GB ) | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) |
+| bigdata-ticket-o1         | bigdata-ticket-prod        | Aurora MySQL    | Serverless v2 (40-100 ACUs) |                   | ❌        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)               |
+| metabase-rds              |                            |                 |                             |                   |          |                                                                                                                                                     |
+| bet-bi-o1                 | sporty-global-prod-bet-bi  | Aurora MySQL    | erverless v2 (2-40 ACUs)    |                   | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)              |
 
 
 ### Prod Encore
