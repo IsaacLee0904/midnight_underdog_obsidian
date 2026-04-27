@@ -96,17 +96,25 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 在 Iceberg 中使用了一種 分支機制 (branching mechanism)，類似於對 data 使用了 git，使得 WAP 實作
 
 **Write**
-* 將所有資料 load 到 dev 或 staging schema EX.`RAW_WAP`
-* 在此 sandbox schema 中執行 dbt model 載入資料
+* 從主 table 建立一個 branch：`CREATE BRANCH feature_run_123 FROM main` 
+* 直接在該 branch 上執行轉換，而不是在主資料集上操作
 
 **Audit**
-* 針對 clone 的資料執行 dbt test 或 snowflake 的 DQ check
-* 在 test 全部通過之前不會有任何資料留到 Prod
+* 在 branch 上執行資料品質測試、檢查或人工審查
+* 該 branch 反應了資料的 versioned snapshot
 
 **Publish**
-* 若驗證通過，使用 zero-copy clone 將 Staging 資料表提升至 Prod Schema
-* 由於是指改動了 metadata pointer，因此變換幾乎是即時完成的
+* 所有檢查均通過，將 branch 快進合併 (fast-forward) 至 `main`，此操作是原子性的 (atomic)，並在所有相關資料表之間保持一致性
+- 若測試失敗，直接刪除該分支，重新開始即可
 
+<mark style="background:#fff88f">Others</mark>
+* [dlt](https://dlthub.com/blog/write-audit-publish-wap)：資料首先被 extract 並 load 到 staging，接著載入 DataFrame 進行稽核，最終在驗證通過後再次寫入目的地 ([Introduction to data load tool (dlt): A Python Library for Simple Data Ingestion](https://pipeline2insights.substack.com/p/introduction-to-data-load-tool-dlt))
+* [Airflow](https://ghostinthedata.info/posts/2025/2025-05-18-wap-data-pipelines/#:~:text=Enter%20the%20Write%2DAudit%2DPublish,of%20troubleshooting%20and%20emergency%20fixes.)： WAP 在 DAG 層級處理，Airflow 負責管理條件邏輯與控制量程，進而實際的資料讀取與稽核寫入都是由 storage & compute 進行
+* [dbt](https://www.getdbt.com/blog/testing-is-not-enough-transforming-data-quality-with-write-audit-publish)：使用 `sdf build` 指令可以將完整的 WAP 工作流程抽象畫
+	* 為所有轉換建立 `_draft` 資料表
+	* 針對 Staging 資料執行 dbt 測試與驗證
+	* 將通過驗證的資料發布至 Production，無需重新執行轉換
+	* 增量模型 (incremental models) 與快照 (snapshots) 能高效運作，不會損失效能
 #### Pros and Cons
 
 <mark style="background:#fff88f">Pros</mark>
