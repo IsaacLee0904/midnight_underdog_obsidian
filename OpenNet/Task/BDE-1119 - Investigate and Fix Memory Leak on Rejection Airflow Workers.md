@@ -136,9 +136,42 @@ for each_country in countries:
     _df = return_df_if_the_feather_file_exists(...)
     _df_for_all = pd.concat([_df_for_all, _df], ignore_index=True)
 ```
-每次 `pd.concat` 都會產生一個新的完整 DataFrame copy，前一個 `_df_for_all` 要等 GC 才釋放，在 loop 過程中記憶體是 O(n²) 的。10 個國家跑完，等於在記憶體裡同時存了 1+2+3+...+10 份資料的量
+	每次 `pd.concat` 都會產生一個新的完整 DataFrame copy，前一個 `_df_for_all` 要等 GC 
+	才釋放，在 loop 過程中記憶體是 O(n²) 的。10 個國家跑完，等於在記憶體裡同時存了 
+	1+2+3+...+10 份資料的量
 
+<font color="#ff0000">Fix：collect-then-concat</font>
+```python
+temp_df_list = []
+for each_country in countries:
+    _df = return_df_if_the_feather_file_exists(...)
+    temp_df_list.append(_df)
+_df_for_all = pd.concat(temp_df_list, ignore_index=True)
+```
 
-`temp_df_list = temp_df_list + [_df]`
-1. DataFrame copy 沒有 `del`
-2. Module-level `_CONN_CACHE`
+2. `temp_df_list = temp_df_list + [_df]`
+	在 `operator_functions_01_*` 和 `operator_functions_02_*` 多處出現：
+```python
+temp_df_list = []
+for each_country in countries:
+    temp_df_list = temp_df_list + [_df]  # 每次產生新的 list
+```
+	用 `+` 而不是 `.append()`，每次迭代都建立新的 list object，舊的 list 要等 GC 回收。
+
+<font color="#ff0000">Fix：`temp_df_list.append(_df)`</font>
+
+3. DataFrame copy 沒有 `del`
+```python
+_agg_rejection_for_all_df = agg_rejection_df.copy()  # full copy
+# ...
+agg_rejection_df = pd.concat([agg_rejection_df, _agg_rejection_for_all_df], ...)
+# _agg_rejection_for_all_df 沒有被 del，function return 才釋放
+```
+中間產生的 full copy 在不需要的時候應該主動 `del`，不要等 function scope 結束
+
+4. Module-level `_CONN_CACHE`
+```python
+_CONN_CACHE: Dict[str, Tuple[float, object]] = {}
+_DEFAULT_TTL = 3600
+```
+Module-level dict 在 worker process 存活期間都存在，entries 只在被存取時才檢查 TTL 是否過期，不會主動清理。不是大問題，但在長時間存活的 worker 裡會慢慢累積 stale entries。可以考慮加定期掃描或用 `cachetools.TTLCache`
