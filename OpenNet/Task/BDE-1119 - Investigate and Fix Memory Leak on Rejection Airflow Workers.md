@@ -103,9 +103,9 @@ airflow dags test --subdir dags/rejections/pymalloc_watermark_test.py pymalloc_w
 <mark style="background:rgba(240, 200, 0, 0.2)">Result</mark>
 ![[Pasted image 20260417144201.png]]
 
-| Phase | RSS Start | RSS End |
-| --- | --- | --- |
-| Phase 1 — small (LIMIT 500) / 500 runs | 253.22 MB | 253.35 MB |
+| Phase                                   | RSS Start | RSS End   |
+| --------------------------------------- | --------- | --------- |
+| Phase 1 — small (LIMIT 500) / 500 runs  | 253.22 MB | 253.35 MB |
 | Phase 2 — large (LIMIT 1000) / 500 runs | 253.40 MB | 253.50 MB |
 | Phase 3 — small (LIMIT 500) / 1000 runs | 253.50 MB | 253.51 MB |
 
