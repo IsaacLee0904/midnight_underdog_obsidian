@@ -120,9 +120,7 @@ pymalloc high-watermark 是 production RSS 持續上升的機制，Worker proces
 
 ![[Pasted image 20260421161802.png|800]]
 
-- 是 Python 小物件（pymalloc 管的）？
-- 是 numpy array（glibc malloc 管的）？
-- 是 glibc heap 碎片化？
+![[Screenshot 2026-04-28 at 11.21.51 AM.png]]？
 
 ### Future Improvements
 
