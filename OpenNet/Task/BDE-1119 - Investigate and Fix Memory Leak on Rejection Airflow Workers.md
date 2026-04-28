@@ -113,9 +113,7 @@ Phase 3 的起點 = Phase 2 的終點，完全沒有降回 Phase 1 的水位
 
 <mark style="background:rgba(240, 200, 0, 0.2)">Conclusion</mark>
 pymalloc high-watermark 是 production RSS 持續上升的機制，Worker process 存活越久，處理的 batch 越多樣，pool 的高水位就持續被推高，RSS 只漲不縮，根本解法是設定 `worker_max_tasks_per_child`，定期重啟 worker process，強制歸零 pymalloc pool
-
-
-
+##### Hypothesis 3 : Why Only Rejection Pipeline
 
 
 
