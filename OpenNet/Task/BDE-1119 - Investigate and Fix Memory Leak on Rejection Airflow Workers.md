@@ -126,9 +126,13 @@ pymalloc high-watermark 是 production RSS 持續上升的機制，Worker proces
 <mark style="background:rgba(240, 200, 0, 0.2)">Result</mark>
 ![[Screenshot 2026-04-28 at 11.21.51 AM.png]]
 
-
+Prod 大小的 DataFrame (200 次執行中 `delta_free = 0`並且 `hblks` 一直無變化) 代表沒有觸發 mmap 路徑，而對照組顯示在同一台機器 mmap 是可以正常運作的，因此基本可<font color="#ff0000">以證明 rejection pipeline 的三有記憶體配置都走 brk heap，因而沒有還給 OS</font>
 
 ![[result.png]]
+
+#### Redeploy with config
+
+
 ### Future Improvements
 
 以下是在調查 BDE-1119 過程中發現的 code-level 改善空間。這些不是記憶體問題的根本原因，但會加速 brk heap 碎片化、拉高 pymalloc 高水位線上升速度。目前 on hold，等 `worker_max_tasks_per_child` config 推上去確認效果後再評估是否處理
