@@ -115,10 +115,19 @@ Phase 3 的起點 = Phase 2 的終點，完全沒有降回 Phase 1 的水位
 pymalloc high-watermark 是 production RSS 持續上升的機制，Worker process 存活越久，處理的 batch 越多樣，pool 的高水位就持續被推高，RSS 只漲不縮，根本解法是設定 `worker_max_tasks_per_child`，定期重啟 worker process，強制歸零 pymalloc pool
 ##### Hypothesis 3 : Why Only Rejection Pipeline
 
+<mark style="background:rgba(240, 200, 0, 0.2)">Hypothesis</mark>
+所有的 Celery worker 都是一樣的設定，並沒有設定 `worker_max_tasks_per_child` 或 `worker_max_memory_per_child`，代表所有 worker 都不會主動重啟 child process，但只有 rejection worker 出現了明顯地增的 RSS，假設是因為其他 worker 處理的 DataFrame 足夠大會觸發 `glibc` 的 <font color="#ff0000">mmap</font> 路徑，讓部分記憶體在操作完後自然歸還給 OS，因次成長速度比較緩和，然而 rejection pipeline 每次處理的是按國家拆分的小型 DataFrame，大小低於 `mmap` 的門檻，導致所有記憶體會走 <font color="#ff0000">brk heap</font> 自然沒有回收機制
 
+<mark style="background:rgba(240, 200, 0, 0.2)">Benchmark</mark>
+使用從 S3 下載的 prod row count 來生成 feather file，接著執行 `operator_functions_02` 羅輯 (按照國家讀取 feather -> 收集 -> pd.concat -> .copy() -> .groupby() )，同時額外執行一次 `contrast_large` 階段作為對照主，確認 mmap 路徑在同一台機器上確實可以正常觸發，如果假設成立，應該會
+* pipeline 個階段 -> `delta_free = 0` 、`hblks` 無變化
+* contrast large -> `delta_free < 0`、`hblks` 在第一次執行時有變化
 
-
+<mark style="background:rgba(240, 200, 0, 0.2)">Result</mark>
 ![[Screenshot 2026-04-28 at 11.21.51 AM.png]]
+
+
+
 ![[result.png]]
 ### Future Improvements
 
