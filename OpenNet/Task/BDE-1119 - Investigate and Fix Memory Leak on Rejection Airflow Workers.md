@@ -131,7 +131,9 @@ Prod 大小的 DataFrame (200 次執行中 `delta_free = 0`並且 `hblks` 一直
 ![[result.png]]
 
 #### Redeploy with config
+選擇以記憶體為基準的重啟機制 (`WORKER_MAX_MEMORY_PER_CHILD`)，而非以 task 數量為基準(`WORKER_MAX_TASKS_PER_CHILD`)，原因是前者更直接對應 RSS 持續成長的根本問題
 
+門檻設定為 8GB，是因為 HPA 的 scale-out 觸發點約在 9.1GB (worker request 13GB × 70%)，在記憶體到達該觸發點之前，worker child process 會先自動重啟並重置 allocator 狀態，避免不必要的 pod 擴展
 
 ### Future Improvements
 
