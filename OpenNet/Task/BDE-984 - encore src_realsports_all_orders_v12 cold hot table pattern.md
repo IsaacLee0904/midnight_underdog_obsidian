@@ -117,4 +117,4 @@ Step4. Open DAG
 >[!WARNING] 需要額外創建 Airflow Variables
 
 **Switch Time**
-* 2026-04-22 07:04 UTC
+* 2026-04-28 10:36 UTC
