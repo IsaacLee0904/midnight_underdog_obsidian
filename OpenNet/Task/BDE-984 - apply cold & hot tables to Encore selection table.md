@@ -42,8 +42,7 @@ Apply below table in Encore to cold / hot tables :
 ![[BDE-984 - encore t_realsports_selection_source cold hot table pattern]]
 
 ### src_realsports_all_orders_v12 
-
-
+![[BDE-984 - encore src_realsports_all_orders_v12 cold hot table pattern]]
 
 
 ### t_facts_sporty_uof_messages_odds_change 
