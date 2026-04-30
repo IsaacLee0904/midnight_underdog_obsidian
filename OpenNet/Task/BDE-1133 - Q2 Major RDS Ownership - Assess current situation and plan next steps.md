@@ -31,7 +31,7 @@ This assessment covers BI RDS instances only, excluding service backends such as
 | ------------------------------------- | ------------------------- | ------------------------------------ | --------------- | ------------------------------ | ------------- | ------------ |
 | sporty-pub-prod-bi-main               | bi-report-o1 / bigdata-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.12xlarge | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD          |
 | sporty-pub-prod-bi-bigdata-instance-1 | bi-bigdata-o1             | MySQL Community 8.0.40               | db.r6g.xlarge   | gp3 / 11,518 GiB / 12,000 IOPS | Yes           | TBD          |
-| bigdata-ticket-prod                   | bigdata-ticket-o1         | Aurora MySQL (Serverless)            | —               | TBD                            | —             | TBD          |
+| bigdata-ticket-prod                   | bigdata-ticket-o1         | Aurora MySQL 3.08.0                  | Serverless v2 (40–100 ACUs) | Aurora Standard (auto-scaling) | No | TBD |
 | sporty-global-prod-bet-bi             | bet-bi-o1                 | MySQL                                | TBD             | TBD                            | TBD           | TBD          |
 
 **Notes**
@@ -39,6 +39,9 @@ This assessment covers BI RDS instances only, excluding service backends such as
 - `sporty-pub-prod-bi-bigdata-instance-1`: Storage at 11,518 / 12,784 GiB (~90% full) → risk of hitting limit
 - `sporty-pub-prod-bi-bigdata-instance-1`: Performance Insights disabled → monitoring gap
 - `sporty-pub-prod-bi-bigdata-instance-1`: Enhanced Monitoring disabled → monitoring gap
+- `bigdata-ticket-prod`: Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
+- `bigdata-ticket-prod`: Recurring HLL (History List Length) issues — root cause under investigation
+- `bigdata-ticket-prod`: `src_realsports_order_breakdown_v2_p1` table at ~10.8 TB (index: 6.9 TB, data: 3.9 TB) → candidate for cleanup / archiving
 
 ### 2.2 Sporty UAT
 
