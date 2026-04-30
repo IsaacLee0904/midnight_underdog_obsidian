@@ -149,7 +149,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Very low connection count (avg 1–2) — worth confirming who is connecting to this instance
 - Storage at 11,518 / 12,784 GiB (~90% full) → urgent, needs attention
 
-**instance-2 (Replica)**
+[**instance-2 (Replica)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-2)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -167,6 +167,8 @@ TBD — High-level summary to be written after all instance metrics are collecte
 #### bigdata-ticket-prod
 
 > Serverless v2 (40–100 ACUs), currently under Blue/Green migration to provisioned r8g.8xlarge (DBA-7596). Metrics below reflect Blue (current production) side.
+
+**instance-1 (Writer)**
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
