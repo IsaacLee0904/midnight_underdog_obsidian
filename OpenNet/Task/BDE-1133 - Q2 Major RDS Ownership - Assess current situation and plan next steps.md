@@ -3,7 +3,7 @@
 
 BI RDS instances have historically been managed by the DBA team, with ad-hoc support from the DA and DE teams when issues arise. As the data infrastructure grows, this arrangement has created gaps in ownership — particularly around proactive monitoring, cost visibility, and scalability planning.
 
-To address this, the DE team is taking formal ownership of these RDS instances going forward.
+To address this, the [DE team is taking formal ownership of these RDS instances](https://opennetltd.atlassian.net/browse/BDE-1133?atlOrigin=eyJpIjoiZTcxMTJjMjliYmFhNDIyNGE1Y2RiMzljOWRmMGU3YzciLCJwIjoiaiJ9) going forward.
 
 ### Objective
 
@@ -17,36 +17,43 @@ This document aims to：
 
 ### Scope
 
+This assessment covers BI RDS instances only, excluding service backends such as Airflow and Metabase RDS.
 
-- 任務背景、目的 
-- Related Jira or Confluence Link :
-	- [Jira Ticket](https://opennetltd.atlassian.net/browse/BDE-1133?atlOrigin=eyJpIjoiYmY0NGE4NDAwNmFkNDBjOGJmZDcxZWZiZjAxNDkzYWYiLCJwIjoiaiJ9)
-- Timeline
-![[Screenshot 2026-04-30 at 11.05.48 AM.png]]
-# Instance Inventory
+![[Screenshot 2026-04-30 at 11.15.56 AM.png]]
 
-### Prod Sport
+### Backlog
+```txt
+1. Overview
+   - 背景與目標
 
-| Alias                     | Endpoint                   | Engine          | Instance Type               | Storage           | Multi-AZ | AWS console                                                                                                                                         |
-| :------------------------ | -------------------------- | --------------- | --------------------------- | ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| bi-report-o1 / bigdata-o1 | sporty-pub-prod-bi-main    | Aurora MySQL    | db.r6g.12xlarge             | ~64 TB            | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                |
-| bi-bigdata-o1             | sporty-pub-prod-bi-bigdata | MySQL Community | db.r6g.xlarge               | gp3 ( 11,518 GB ) | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) |
-| bigdata-ticket-o1         | bigdata-ticket-prod        | Aurora MySQL    | Serverless v2 (40-100 ACUs) |                   | ❌        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)               |
-| metabase-rds              |                            |                 |                             |                   |          |                                                                                                                                                     |
-| bet-bi-o1                 | sporty-global-prod-bet-bi  | Aurora MySQL    | erverless v2 (2-40 ACUs)    |                   | ✅        | [Link](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)              |
+2. Instance Inventory
+   - 2.1 Prod Sporty
+   - 2.2 Prod Encore
+   - 2.3 UAT Sporty
+   - 2.4 UAT Encore
+   （每個 instance 用相同欄位模板）
+
+3. Performance & Cost Assessment
+   - 3.1 CPU / Memory / IOPS / Connections
+   - 3.2 Monthly Cost (Cost Explorer)
+   - 3.3 Benchmark vs. Threshold
+
+4. DAG Review
+   - 4.1 DAG ↔ Instance Dependency Map
+   - 4.2 Read/Write Patterns & Schedules
+   - 4.3 Known Issues
+
+5. Monitoring Review
+   - 5.1 CloudWatch Alarm Coverage
+   - 5.2 Alert Notification Setup
+   - 5.3 Gaps & Blind Spots
+
+6. Issues & Risks Summary
+   （集中整理所有發現的問題）
+
+7. Action Plan
+   - P0 / P1 / P2 分級
+   - Owner & Timeline
+```
 
 
-### Prod Encore
-
-### UAT Sport
-
-### UAT Encore
-
-# Performance & Cost
-
-### 每個 instance 的 CPU / Memory / IOPS / connection count
-
-# DAG Review
-有哪些 DAG 在寫入或讀取 RDS 的資料？頻率為何？估量每一次的資料量？
-
-# Monitoring Review
