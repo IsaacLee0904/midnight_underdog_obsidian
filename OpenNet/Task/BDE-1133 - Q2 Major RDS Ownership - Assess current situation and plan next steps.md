@@ -32,7 +32,7 @@ This assessment covers BI RDS instances only, excluding service backends such as
 | sporty-pub-prod-bi-main               | bi-report-o1 / bigdata-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.12xlarge | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD          |
 | sporty-pub-prod-bi-bigdata-instance-1 | bi-bigdata-o1             | MySQL Community 8.0.40               | db.r6g.xlarge   | gp3 / 11,518 GiB / 12,000 IOPS | Yes           | TBD          |
 | bigdata-ticket-prod                   | bigdata-ticket-o1         | Aurora MySQL 3.08.0                  | Serverless v2 (40–100 ACUs) | Aurora Standard (auto-scaling) | No | TBD |
-| sporty-global-prod-bet-bi             | bet-bi-o1                 | MySQL                                | TBD             | TBD                            | TBD           | TBD          |
+| sporty-global-prod-bet-bi             | bet-bi-o1                 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | Serverless v2 (2–40 ACUs) | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD |
 
 **Notes**
 - `sporty-pub-prod-bi-main`: RDS Extended Support enabled → incurring additional cost
@@ -41,6 +41,8 @@ This assessment covers BI RDS instances only, excluding service backends such as
 - `sporty-pub-prod-bi-bigdata-instance-1`: Enhanced Monitoring disabled → monitoring gap
 - `bigdata-ticket-prod`: Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
 - `bigdata-ticket-prod`: Recurring HLL (History List Length) issues — root cause under investigation
+- `sporty-global-prod-bet-bi`: RDS Extended Support enabled → incurring additional cost
+- `sporty-global-prod-bet-bi`: Enhanced Monitoring disabled → monitoring gap
 
 
 ### 2.2 Sporty UAT
