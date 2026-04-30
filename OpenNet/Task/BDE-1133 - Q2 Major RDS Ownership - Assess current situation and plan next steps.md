@@ -103,7 +103,9 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### sporty-pub-prod-bi-main
 
-> Role: **Reader instance** — WriteIOPS ~0 confirms this cluster serves read-only traffic.
+> Cluster has Read / Write separation : instance-1 (Reader) handles queries; instance-2 (Writer) handles all write traffic.
+
+[**instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -113,10 +115,20 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Read IOPS | ~1–2K | ~15.4K | Low |
 | Write IOPS | ~0 | ~0 | — |
 
+[**instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-2)
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~20–30% | ~41.7% | Low |
+| DB Connections | ~8–16 | ~49 | Low |
+| Freeable Memory | ~128–132 GB | min ~114 GB | Low |
+| Read IOPS | ~1–2K | ~13.88K | Low |
+| Write IOPS | ~15–25K | ~63.81K | Medium |
+
 **Notes**
-- Memory utilization peaks at ~82% (384 GB total, min freeable ~70.73 GB) — periodic spikes correlate with pipeline runs
-- ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
-- Instance has been active since ~mid-April only <mark style="background:#fff88f">{need to check} !!!!</mark>
+- Reader memory peaks at ~82% (min freeable ~70.73 GB / 384 GB total) — periodic spikes correlate with pipeline runs
+- Reader ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
+- Writer WriteIOPS peak at 63.81K — heavy write load, worth monitoring for sustained spikes
 
 #### sporty-pub-prod-bi-bigdata-instance-1
 TBD
