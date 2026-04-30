@@ -220,7 +220,19 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 **instance-2 (Writer)**
 
-TBD
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~0–5% (daily spike ~32–40%) | ~63% | Medium |
+| DB Connections | ~0–1 | ~4 | Low |
+| Freeable Memory | ~70–77 GB | min ~33.32 GB | Medium |
+| Read IOPS | ~400–800 (during batch) | ~1.65K | Low |
+| Write IOPS | ~0 (daily spike ~1.8–2.1K) | ~3.61K | Low |
+
+**Notes**
+- 非常明顯的每日規律性尖峰（每天一次），符合 daily batch pipeline 模式
+- DB Connections 極低（平均 0–1）→ 純 batch 存取，沒有互動式查詢
+- 4/20 有一次異常事件：CPU 達 63%、Memory 掉到 ~33 GB、WriteIOPS 達 3.61K → 需調查當天是否有非常規 pipeline 執行
+- instance-1 (Reader) 的 DB Connections (~600–1,000) 與 instance-2 (Writer) 的超低連線數形成強烈對比 → 需確認 Reader 的連線來源
 
 ### 3.2 Sporty UAT
 TBD
