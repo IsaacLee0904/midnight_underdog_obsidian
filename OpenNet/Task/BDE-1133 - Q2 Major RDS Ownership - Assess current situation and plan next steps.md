@@ -25,6 +25,8 @@ This assessment covers BI RDS instances only, excluding service backends such as
 
 # 2. Instance Inventory
 
+This section documents all BI RDS instances across Sporty and Encore environments (Prod and UAT). For each instance, capture the <font color="#ff0000">engine version</font>, i<font color="#ff0000">nstance type</font>, <font color="#ff0000">storage configuration</font>,  <font color="#ff0000">Multi-AZ setup</font>, and monthly cost. Known issues and observations are noted inline under each sub-section and will be consolidated in Section 6 ( Issues & Risks Summary ). 
+
 ### 2.1 Sporty PROD
 
 | Cluster                                                                                                                                                                              | Internal DNS              | Engine                               | Instance Type               | Storage                        | Multi-AZ      | Monthly Cost |
