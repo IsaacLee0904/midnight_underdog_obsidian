@@ -103,7 +103,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### sporty-pub-prod-bi-main
 
-> Role: **Reader instance** — WriteIOPS ~0 confirms this cluster serves read-only traffic (BI reporting queries).
+> Role: **Reader instance** — WriteIOPS ~0 confirms this cluster serves read-only traffic.
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
