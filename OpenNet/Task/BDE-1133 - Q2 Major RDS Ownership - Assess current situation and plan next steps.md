@@ -65,15 +65,31 @@ This assessment covers BI RDS instances only, excluding service backends such as
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
 |---|---|---|---|---|---|---|
-| encore-pub-prod-bi-main-v5-cluster | bi-main-o1 | MySQL | TBD | TBD | TBD | TBD |
-| encore-global-prod-bet-bi | bet-bi-o1 | MySQL | TBD | TBD | TBD | TBD |
+| encore-pub-prod-bi-main-v5-cluster | bi-main-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.2xlarge | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD |
+| encore-global-prod-bet-bi | bet-bi-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD |
+
+**Notes**
+- `encore-pub-prod-bi-main-v5-cluster`: RDS Extended Support enabled → incurring additional cost
+- `encore-pub-prod-bi-main-v5-cluster`: Enhanced Monitoring disabled → monitoring gap
+- `encore-global-prod-bet-bi`: RDS Extended Support enabled → incurring additional cost
+- `encore-global-prod-bet-bi`: Enhanced Monitoring disabled → monitoring gap
 
 ### 2.4 Encore UAT
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
 |---|---|---|---|---|---|---|
-| encore-pub-uat-bi-main | bi-main-t1 | MySQL | TBD | TBD | TBD | TBD |
-| encore-global-uat-bet-bi | bet-bi-t1 | MySQL | TBD | TBD | TBD | TBD |
+| encore-pub-uat-bi-main | bi-main-t1 | Aurora MySQL 8.0.mysql_aurora.3.04.3 | db.t4g.medium | Aurora Standard (auto-scaling) | No | TBD |
+| encore-global-uat-bet-bi | bet-bi-t1 | Aurora MySQL 8.0.mysql_aurora.3.04.3 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | No | TBD |
+
+**Notes**
+- `encore-pub-uat-bi-main`: Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
+- `encore-pub-uat-bi-main`: RDS Extended Support enabled → incurring additional cost
+- `encore-pub-uat-bi-main`: No Multi-AZ, single Writer only
+- `encore-pub-uat-bi-main`: Enhanced Monitoring disabled → monitoring gap
+- `encore-global-uat-bet-bi`: Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
+- `encore-global-uat-bet-bi`: RDS Extended Support enabled → incurring additional cost
+- `encore-global-uat-bet-bi`: No Multi-AZ, single Writer only
+- `encore-global-uat-bet-bi`: Enhanced Monitoring disabled → monitoring gap
 
 ---
 
