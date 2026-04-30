@@ -183,6 +183,21 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Memory deep dips (~44.85 GB freeable) correlate with high write load periods
 - Migration to provisioned r8g.8xlarge in progress — expected to improve stability and cost
 
+**instance-2 (Reader)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~5–15% | ~60.2% | Medium |
+| DB Connections | N/A | N/A | — |
+| Freeable Memory | ~88–136 GB | min ~23.86 GB | **High** |
+| Read IOPS | ~0–2K (bursty) | ~16.54K | Medium |
+| Write IOPS | ~0 | ~0 | — |
+
+**Notes**
+- Memory dips to ~23.86 GB freeable during read bursts — more severe than Writer
+- Read pattern is highly bursty (spikes to 16.54K then drops to 0) — correlates with batch pipeline reads
+- CPU peaks at 60.2% during heavy read periods
+
 #### sporty-global-prod-bet-bi
 TBD
 
