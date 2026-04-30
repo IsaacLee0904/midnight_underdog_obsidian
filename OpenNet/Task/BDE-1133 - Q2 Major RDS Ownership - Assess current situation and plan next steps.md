@@ -150,7 +150,19 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Storage at 11,518 / 12,784 GiB (~90% full) → urgent, needs attention
 
 **instance-2 (Replica)**
-TBD
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~2–4% | ~18.9% | Low |
+| DB Connections | ~0 | ~2 | — |
+| Freeable Memory | ~4.2–4.4 GB (↓ trending) | min ~4.19 GB | **High** |
+| Read IOPS | ~0 | ~525 | Low |
+| Write IOPS | ~300–600 | ~3.78K | Low |
+
+**Notes**
+- Replica has near-zero connections and read IOPS — appears to be unused for actual read traffic
+- Freeable Memory on a clear downward trend (4.41 GB → 4.19 GB over 2 weeks) → potential slow memory leak, risk of OOM if not addressed
+- Worth investigating whether this Replica is still needed
 
 #### bigdata-ticket-prod
 TBD
