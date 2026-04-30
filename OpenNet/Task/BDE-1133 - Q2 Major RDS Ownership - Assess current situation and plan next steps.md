@@ -1,4 +1,21 @@
 # Overview
+### Background
+
+BI RDS instances have historically been managed by the DBA team, with ad-hoc support from the DA and DE teams when issues arise. As the data infrastructure grows, this arrangement has created gaps in ownership — particularly around proactive monitoring, cost visibility, and scalability planning.
+
+To address this, the DE team is taking formal ownership of these RDS instances going forward.
+
+### Objective
+
+This document aims to：
+- Establish a clear inventory of all BI RDS instances (Prod and UAT)
+- Assess the current performance and cost of each instance
+- Identify existing issues and risks that require immediate or near-term action
+- Review the DAGs connected to these instances and understand their dependencies
+- Evaluate the current monitoring and alerting coverage
+- Deliver a prioritized action plan for the DE team to act on
+
+### Scope
 
 
 - 任務背景、目的 
