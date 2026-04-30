@@ -41,7 +41,7 @@ This assessment covers BI RDS instances only, excluding service backends such as
 - `sporty-pub-prod-bi-bigdata-instance-1`: Enhanced Monitoring disabled → monitoring gap
 - `bigdata-ticket-prod`: Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
 - `bigdata-ticket-prod`: Recurring HLL (History List Length) issues — root cause under investigation
-- `bigdata-ticket-prod`: `src_realsports_order_breakdown_v2_p1` table at ~10.8 TB (index: 6.9 TB, data: 3.9 TB) → candidate for cleanup / archiving
+
 
 ### 2.2 Sporty UAT
 
