@@ -201,6 +201,25 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - CPU peaks at 60.2% during heavy read periods
 
 #### sporty-global-prod-bet-bi
+
+> Aurora Serverless v2 (2–40 ACUs) cluster with Reader + Writer separation.
+
+**instance-1 (Reader)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~2–4% | ~8.99% | Low |
+| DB Connections | ~600–1,000 | ~1.44K | Medium |
+| Freeable Memory | ~70–75 GB | min ~33.43 GB | Medium |
+| Read IOPS | ~50–200 | ~742 | Low |
+| Write IOPS | ~0 | ~0 | — |
+
+**Notes**
+- Connection count (~600–1,000 avg) is notably high for a Serverless 2–40 ACU instance — worth investigating which services are connecting
+- Memory dips to ~33.43 GB freeable periodically — correlates with connection/read spikes
+
+**instance-2 (Writer)**
+
 TBD
 
 ### 3.2 Sporty UAT
