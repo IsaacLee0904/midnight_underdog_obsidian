@@ -168,7 +168,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Serverless v2 (40–100 ACUs), currently under Blue/Green migration to provisioned r8g.8xlarge (DBA-7596). Metrics below reflect Blue (current production) side.
 
-**instance-1 (Writer)**
+[**instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20sporty-global-prod-bet-bi-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
