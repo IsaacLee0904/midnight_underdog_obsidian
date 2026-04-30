@@ -116,7 +116,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 **Notes**
 - Memory utilization peaks at ~82% (384 GB total, min freeable ~70.73 GB) — periodic spikes correlate with pipeline runs
 - ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
-- Instance has been active since ~mid-April only
+- Instance has been active since ~mid-April only <mark style="background:#fff88f">{need to check} !!!!</mark>
 
 #### sporty-pub-prod-bi-bigdata-instance-1
 TBD
