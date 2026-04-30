@@ -1,11 +1,11 @@
-# Overview
-### Background
+# 1. Overview
+### 1.1 Background
 
 BI RDS instances have historically been managed by the DBA team, with ad-hoc support from the DA and DE teams when issues arise. As the data infrastructure grows, this arrangement has created gaps in ownership — particularly around proactive monitoring, cost visibility, and scalability planning.
 
 To address this, the [DE team is taking formal ownership of these RDS instances](https://opennetltd.atlassian.net/browse/BDE-1133?atlOrigin=eyJpIjoiZTcxMTJjMjliYmFhNDIyNGE1Y2RiMzljOWRmMGU3YzciLCJwIjoiaiJ9) going forward.
 
-### Objective
+### 1.2 Objective
 
 This document aims to：
 - Establish a clear inventory of all BI RDS instances (Prod and UAT)
@@ -15,11 +15,47 @@ This document aims to：
 - Evaluate the current monitoring and alerting coverage
 - Deliver a prioritized action plan for the DE team to act on
 
-### Scope
+### 1.3 Scope
 
 This assessment covers BI RDS instances only, excluding service backends such as Airflow and Metabase RDS.
 
 ![[Screenshot 2026-04-30 at 11.15.56 AM.png]]
+
+---
+
+# 2. Instance Inventory
+
+## 2.1 Sporty PROD
+
+| Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
+|---|---|---|---|---|---|---|
+| sporty-pub-prod-bi-main | bi-report-o1 / bigdata-o1 | MySQL | TBD | TBD | TBD | TBD |
+| sporty-pub-prod-bi-bigdata-instance-1 | bi-bigdata-o1 | MySQL Community | TBD | TBD | TBD | TBD |
+| bigdata-ticket-prod | bigdata-ticket-o1 | MySQL (Serverless) | — | TBD | — | TBD |
+| sporty-global-prod-bet-bi | bet-bi-o1 | MySQL | TBD | TBD | TBD | TBD |
+
+## 2.2 Sporty UAT
+
+| Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
+|---|---|---|---|---|---|---|
+| sporty-pub-uat-bi-main2 | bi-main2-t1 | MySQL | TBD | TBD | TBD | TBD |
+| sporty-global-uat-bet-bi | bet-bi-t1 | MySQL | TBD | TBD | TBD | TBD |
+
+## 2.3 Encore PROD
+
+| Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
+|---|---|---|---|---|---|---|
+| encore-pub-prod-bi-main-v5-cluster | bi-main-o1 | MySQL | TBD | TBD | TBD | TBD |
+| encore-global-prod-bet-bi | bet-bi-o1 | MySQL | TBD | TBD | TBD | TBD |
+
+## 2.4 Encore UAT
+
+| Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
+|---|---|---|---|---|---|---|
+| encore-pub-uat-bi-main | bi-main-t1 | MySQL | TBD | TBD | TBD | TBD |
+| encore-global-uat-bet-bi | bet-bi-t1 | MySQL | TBD | TBD | TBD | TBD |
+
+---
 
 ### Backlog
 ```txt
@@ -55,5 +91,4 @@ This assessment covers BI RDS instances only, excluding service backends such as
    - P0 / P1 / P2 分級
    - Owner & Timeline
 ```
-
 
