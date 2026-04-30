@@ -183,7 +183,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Memory deep dips (~44.85 GB freeable) correlate with high write load periods
 - Migration to provisioned r8g.8xlarge in progress — expected to improve stability and cost
 
-**instance-2 (Reader)**
+[**instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20bigdata-ticket-prod-instance-2)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
