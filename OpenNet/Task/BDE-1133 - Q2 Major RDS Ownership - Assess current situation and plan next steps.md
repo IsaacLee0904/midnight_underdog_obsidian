@@ -34,6 +34,12 @@ This assessment covers BI RDS instances only, excluding service backends such as
 | bigdata-ticket-prod | bigdata-ticket-o1 | Aurora MySQL (Serverless) | — | TBD | — | TBD |
 | sporty-global-prod-bet-bi | bet-bi-o1 | MySQL | TBD | TBD | TBD | TBD |
 
+**Notes**
+- `sporty-pub-prod-bi-main`: RDS Extended Support enabled → incurring additional cost
+- `sporty-pub-prod-bi-bigdata-instance-1`: Storage at 11,518 / 12,784 GiB (~90% full) → risk of hitting limit
+- `sporty-pub-prod-bi-bigdata-instance-1`: Performance Insights disabled → monitoring gap
+- `sporty-pub-prod-bi-bigdata-instance-1`: Enhanced Monitoring disabled → monitoring gap
+
 ### 2.2 Sporty UAT
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
