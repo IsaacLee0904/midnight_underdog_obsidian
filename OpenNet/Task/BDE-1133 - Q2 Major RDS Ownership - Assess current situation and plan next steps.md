@@ -29,9 +29,9 @@ This assessment covers BI RDS instances only, excluding service backends such as
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
 |---|---|---|---|---|---|---|
-| sporty-pub-prod-bi-main | bi-report-o1 / bigdata-o1 | MySQL | TBD | TBD | TBD | TBD |
-| sporty-pub-prod-bi-bigdata-instance-1 | bi-bigdata-o1 | MySQL Community | TBD | TBD | TBD | TBD |
-| bigdata-ticket-prod | bigdata-ticket-o1 | MySQL (Serverless) | — | TBD | — | TBD |
+| sporty-pub-prod-bi-main | bi-report-o1 / bigdata-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.12xlarge | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD |
+| sporty-pub-prod-bi-bigdata-instance-1 | bi-bigdata-o1 | MySQL Community 8.0.40 | db.r6g.xlarge | gp3 / 11,518 GiB / 12,000 IOPS | Yes | TBD |
+| bigdata-ticket-prod | bigdata-ticket-o1 | Aurora MySQL (Serverless) | — | TBD | — | TBD |
 | sporty-global-prod-bet-bi | bet-bi-o1 | MySQL | TBD | TBD | TBD | TBD |
 
 ### 2.2 Sporty UAT
