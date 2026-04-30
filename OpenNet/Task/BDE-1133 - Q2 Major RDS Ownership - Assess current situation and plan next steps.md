@@ -95,6 +95,49 @@ This section documents all BI RDS instances across Sporty and Encore environment
 
 ---
 
+# 3. Performance Assessment
+
+TBD — High-level summary to be written after all instance metrics are collected.
+
+### 3.1 Sporty PROD
+
+#### sporty-pub-prod-bi-main
+
+> Role: **Reader instance** — WriteIOPS ~0 confirms this cluster serves read-only traffic (BI reporting queries).
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~5–10% | ~39.5% | Low |
+| DB Connections | ~30–50 | ~105 | Low |
+| Freeable Memory | ~120–141 GB | min ~70.73 GB | Medium |
+| Read IOPS | ~1–2K | ~15.4K | Low |
+| Write IOPS | ~0 | ~0 | — |
+
+**Notes**
+- Memory utilization peaks at ~82% (384 GB total, min freeable ~70.73 GB) — periodic spikes correlate with pipeline runs
+- ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
+- Instance has been active since ~mid-April only
+
+#### sporty-pub-prod-bi-bigdata-instance-1
+TBD
+
+#### bigdata-ticket-prod
+TBD
+
+#### sporty-global-prod-bet-bi
+TBD
+
+### 3.2 Sporty UAT
+TBD
+
+### 3.3 Encore PROD
+TBD
+
+### 3.4 Encore UAT
+TBD
+
+---
+
 ### Backlog
 ```txt
 1. Overview
