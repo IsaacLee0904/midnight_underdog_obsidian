@@ -25,7 +25,7 @@ This assessment covers BI RDS instances only, excluding service backends such as
 
 # 2. Instance Inventory
 
-## 2.1 Sporty PROD
+### 2.1 Sporty PROD
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
 |---|---|---|---|---|---|---|
@@ -34,21 +34,21 @@ This assessment covers BI RDS instances only, excluding service backends such as
 | bigdata-ticket-prod | bigdata-ticket-o1 | MySQL (Serverless) | — | TBD | — | TBD |
 | sporty-global-prod-bet-bi | bet-bi-o1 | MySQL | TBD | TBD | TBD | TBD |
 
-## 2.2 Sporty UAT
+### 2.2 Sporty UAT
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
 |---|---|---|---|---|---|---|
 | sporty-pub-uat-bi-main2 | bi-main2-t1 | MySQL | TBD | TBD | TBD | TBD |
 | sporty-global-uat-bet-bi | bet-bi-t1 | MySQL | TBD | TBD | TBD | TBD |
 
-## 2.3 Encore PROD
+### 2.3 Encore PROD
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
 |---|---|---|---|---|---|---|
 | encore-pub-prod-bi-main-v5-cluster | bi-main-o1 | MySQL | TBD | TBD | TBD | TBD |
 | encore-global-prod-bet-bi | bet-bi-o1 | MySQL | TBD | TBD | TBD | TBD |
 
-## 2.4 Encore UAT
+### 2.4 Encore UAT
 
 | Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
 |---|---|---|---|---|---|---|
