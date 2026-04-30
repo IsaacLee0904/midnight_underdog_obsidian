@@ -165,7 +165,23 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Worth investigating whether this Replica is still needed
 
 #### bigdata-ticket-prod
-TBD
+
+> Serverless v2 (40–100 ACUs), currently under Blue/Green migration to provisioned r8g.8xlarge (DBA-7596). Metrics below reflect Blue (current production) side.
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~40–60% | ~82.8% | **High** |
+| DB Connections | ~40–80 | ~117 | Medium |
+| Freeable Memory | ~88–132 GB | min ~44.85 GB | Medium |
+| Read IOPS | ~300–800 | ~15.29K | Low |
+| Write IOPS | ~10–20K | ~32.79K | **High** |
+
+**Notes**
+- CPU avg 40–60% with peaks at 82.8% — likely approaching Serverless 100 ACU ceiling, explains recurring instability
+- Write IOPS consistently 10–20K is the primary driver of HLL (History List Length) issues
+- ReadIOPS spike to 15.29K around 4/29–30 likely related to Blue/Green switchover activities
+- Memory deep dips (~44.85 GB freeable) correlate with high write load periods
+- Migration to provisioned r8g.8xlarge in progress — expected to improve stability and cost
 
 #### sporty-global-prod-bet-bi
 TBD
