@@ -131,6 +131,25 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Writer WriteIOPS peak at 63.81K — heavy write load, worth monitoring for sustained spikes
 
 #### sporty-pub-prod-bi-bigdata-instance-1
+
+> MySQL Community instance with Primary + Replica setup. Storage at ~90% capacity.
+
+**instance-1 (Primary)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~20–25% | ~32.8% | Low |
+| DB Connections | ~1–2 | ~21 | Low |
+| Freeable Memory | ~4.5 GB | min ~4.39 GB | **High** |
+| Read IOPS | ~800–1K | ~4.73K | Low |
+| Write IOPS | ~3–4K | ~6.25K | Low |
+
+**Notes**
+- Memory utilization ~86% (32 GB total, freeable consistently ~4.4 GB) → risk of OOM under additional load
+- Very low connection count (avg 1–2) — worth confirming who is connecting to this instance
+- Storage at 11,518 / 12,784 GiB (~90% full) → urgent, needs attention
+
+**instance-2 (Replica)**
 TBD
 
 #### bigdata-ticket-prod
