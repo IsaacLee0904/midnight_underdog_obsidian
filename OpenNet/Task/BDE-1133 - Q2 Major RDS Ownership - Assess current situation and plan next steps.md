@@ -47,15 +47,19 @@ This assessment covers BI RDS instances only, excluding service backends such as
 
 ### 2.2 Sporty UAT
 
-| Cluster | Internal DNS | Engine | Instance Type | Storage | Multi-AZ | Monthly Cost |
-|---|---|---|---|---|---|---|
-| sporty-pub-uat-bi-main2 | bi-main2-t1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.t4g.medium | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD |
-| sporty-global-uat-bet-bi | bet-bi-t1 | MySQL | TBD | TBD | TBD | TBD |
+| Cluster                  | Internal DNS | Engine                               | Instance Type               | Storage                        | Multi-AZ      | Monthly Cost |
+| ------------------------ | ------------ | ------------------------------------ | --------------------------- | ------------------------------ | ------------- | ------------ |
+| sporty-pub-uat-bi-main2  | bi-main2-t1  | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.t4g.medium               | Aurora Standard (auto-scaling) | Yes (2 Zones) | TBD          |
+| sporty-global-uat-bet-bi | bet-bi-t1    | Aurora MySQL 8.0.mysql_aurora.3.04.3 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | No            | TBD          |
 
 **Notes**
 - `sporty-pub-uat-bi-main2`: RDS Extended Support enabled → incurring additional cost
 - `sporty-pub-uat-bi-main2`: Enhanced Monitoring disabled → monitoring gap
 - `sporty-pub-uat-bi-main2`: Writer CPU at 30.27% on db.t4g.medium (burstable instance) → may hit CPU credit limits under load
+- `sporty-global-uat-bet-bi`: Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
+- `sporty-global-uat-bet-bi`: RDS Extended Support enabled → incurring additional cost
+- `sporty-global-uat-bet-bi`: Deletion protection disabled
+- `sporty-global-uat-bet-bi`: Enhanced Monitoring disabled → monitoring gap
 
 ### 2.3 Encore PROD
 
