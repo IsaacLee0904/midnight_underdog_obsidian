@@ -159,8 +159,9 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 3. aggregate metrics：distinct count, sum, avg
 目的是確保轉換後的資料符合 prod 的標準與業務預期
 
-**Step4. Write / Transform**
-
+**Step4. Publish (Promote to Production)**
+只有在兩次 audit 都通過之後才會將驗證過的資料移到 prod 環境，並且可以選擇性的先暫時備份原本的 prod table 確保安全
+![[Pasted image 20260502173046.png]]
 
 
 
