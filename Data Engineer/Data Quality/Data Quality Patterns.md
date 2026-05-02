@@ -149,7 +149,17 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 目的是在這時候把可能造成 prod 運算成本的問題提前發現並攔截 EX. 欄位缺失、檔案損毀
 
 **Step2. Write / Transform**
+1. 將資料套用轉換邏輯，並將其寫入 staging 或 intermediate location
+2. 類似 WAP 中的 write 階段，目的是與 prod 環境隔離
 
+**Step3. Second Audit (Output Validation)**
+1.將轉換的資料進行驗證，確保轉換過程中沒有新的錯誤發生，包含：
+1. row-level validations：no NULL etc
+2. business rules：totals, ratios, unique constraints
+3. aggregate metrics：distinct count, sum, avg
+目的是確保轉換後的資料符合 prod 的標準與業務預期
+
+**Step4. Write / Transform**
 
 
 
