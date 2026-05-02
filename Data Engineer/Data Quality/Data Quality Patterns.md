@@ -137,7 +137,7 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 
 ## Audit → Write → Audit → Publish Pattern (AWAP)
 
-由 Bartosz Konieczny 在其著作《Data Engineering Design Patterns》中提出，作為 WAP 的優化版，最主要的差異是分成了 input validation 跟 output validation 兩階段的 audit
+由 Bartosz Konieczny 在其著作《Data Engineering Design Patterns》中提出，作為 WAP 的優化版，最主要的差異是分成了 input validation 跟 output validation 兩階段的 audit，在輸入資料上增加了一道檢查機制
 
 ![[Pasted image 20260502143322.png]]
 #### Pattern
