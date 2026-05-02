@@ -162,13 +162,24 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 **Step4. Publish (Promote to Production)**
 只有在兩次 audit 都通過之後才會將驗證過的資料移到 prod 環境，並且可以選擇性的先暫時備份原本的 prod table 確保安全
 ![[Pasted image 20260502173046.png]]
+#### Pros and Cons
 
+<mark style="background:#fff88f">Pros</mark>
+1. 對 input 跟 output 都做了驗證，能確保資料品質
+2. 能捕抓到 data source 或 transform 過程中出現的資料問題
+3. 將 unit test 的概念延伸到資料本身
 
-
+<mark style="background:#fff88f">Cons</mark>
+1. 更高的運算和儲存成本
+2. pipeline 的複雜度提升
+3. 潛在的重複驗證
+4. streaming 情境下會延遲更久
 #### Reference
 * [[Data Quality Design Patterns]]
 
 ## Transform → Audit → Publish (TAP)
+
+![[Pasted image 20260502173602.png]]
 
 ## Signal Table Pattern
 
