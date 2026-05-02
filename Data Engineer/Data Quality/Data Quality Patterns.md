@@ -146,7 +146,10 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 1. 檔案格式的驗證 EX. CSV, JSON, Parquet ...
 2. Schema 驗證：看欄位是不是存在、資料型別有沒有錯誤
 3. 基本指標：row count, file size
-目的是在這時候把可能造成 prod 運算成本的問題提前發現並攔截
+目的是在這時候把可能造成 prod 運算成本的問題提前發現並攔截 EX. 欄位缺失、檔案損毀
+
+**Step2. Write / Transform**
+
 
 
 
