@@ -209,3 +209,5 @@ Zach Wilson 在文章[《Writing Data to Production Is a Contract That Isn't Fre
 2. 一旦違反 data contract，事後修復的成本會很高
 
 ## Dead-Letter Queue (DLQ) Pattern
+
+概念來自分散式處理的 data queue EX. AWS SQS, RabbitMQ，引入 data engineering 的 pipeline 設計中，AWS 在[官方 blog](https://aws.amazon.com/blogs/big-data/build-write-audit-publish-pattern-with-apache-iceberg-branching-and-aws-glue-data-quality/) 中介紹了 DLQ 作為 Iceberg 的 DQ check 方案之一，在 streaming pipeline 中，無法被正常處理的 message 不會直接被丟棄，而是被放到 DLQ 中，再由獨立的 job 處理這些資料，用於 auditing 跟 recovery
