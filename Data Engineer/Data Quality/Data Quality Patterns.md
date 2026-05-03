@@ -192,5 +192,11 @@ Daniel Beach 在 [Introduction to Write-Audit-Publish Pattern](https://dataengin
 1. 沒有實體 staging table 可以 rollback 或查核
 ## Signal Table Pattern
 
+Zach Wilson 在文章[《Writing Data to Production Is a Contract That Isn't Free!》](https://blog.dataexpert.io/p/writing-data-to-production-is-a-contract)中分享了自己在 Facebook 的工作經驗，提到 Facebook 是少數不是使用 WAP 來做 DQ check 的公司，他們採用 signal table pattern
+
+![[Pasted image 20260503194446.png]]
+
+#### Pattern
+資料值些寫入 prod 的 table，並在 prod table 上進行 DQ check，
 
 ## Dead-Letter Queue (DLQ) Pattern
