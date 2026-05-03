@@ -179,9 +179,18 @@ Snowflake 透過 zero-copy clones 支援 WAP 模式，讓 pipeline 能夠即時�
 
 ## Transform → Audit → Publish (TAP)
 
-![[Pasted image 20260502173602.png]]
+Daniel Beach 在 [Introduction to Write-Audit-Publish Pattern](https://dataengineeringcentral.substack.com/p/introduction-to-write-audit-publish) 中指出，WAP 雖然是相當有效的方式，但他需要經過多次的讀寫操作，在雲端環境尤其是面對 TB 量級的資料時，搭配使用 S3 等儲存物件或 Delta, Iceberg 這類的 table format (data lakehouse 架構下)，這些額外的 I/O 操作會造成相當可觀的費用，因此其實有更簡單、更符合成本效益的替代方案 TAP，透過在轉換過程中直接<font color="#ff0000">在記憶體中進行 DQ check</font> 來減化 WAP 的步驟，驗證通過後直接寫入 Prod
 
+![[Pasted image 20260502173602.png]]
+#### Pros and Cons
+
+<mark style="background:#fff88f">Pros</mark>
+1. 比 WAP 更快
+2. 比 WAP 更便宜
+
+<mark style="background:#fff88f">Cons</mark>
+1. 沒有實體 staging table 可以 rollback 或查核
 ## Signal Table Pattern
 
-## Two-Phase WAP / Fronting Kafka Pattern
+
 ## Dead-Letter Queue (DLQ) Pattern
