@@ -197,6 +197,15 @@ Zach Wilson 在文章[《Writing Data to Production Is a Contract That Isn't Fre
 ![[Pasted image 20260503194446.png]]
 
 #### Pattern
-資料值些寫入 prod 的 table，並在 prod table 上進行 DQ check，
+資料直接寫入 prod 的 table，並在一個 `table_name_signal` 的 signal table 寫入一個空的 partition，在 prod table 上進行 DQ check，當驗證完成後寫入那個 partition 然後當下游 pipeline 等到那個 partition 之後才開始執行
+#### Pros and Cons
+
+<mark style="background:#fff88f">Pros</mark>
+1. 實作簡單，不需要 staging table
+2. 資料可以更快使用，滿足 SLA
+
+<mark style="background:#fff88f">Cons</mark>
+1. 如果下游任務忽略 signal table 直接查詢，會導致使用到壞掉的資料
+2. 一旦違反 data contract，事後修復的成本會很高
 
 ## Dead-Letter Queue (DLQ) Pattern
