@@ -170,13 +170,13 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 [**instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20sporty-global-prod-bet-bi-instance-1)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~40–60% | ~82.8% | **High** |
-| DB Connections | ~40–80 | ~117 | Medium |
-| Freeable Memory | ~88–132 GB | min ~44.85 GB | Medium |
-| Read IOPS | ~300–800 | ~15.29K | Low |
-| Write IOPS | ~10–20K | ~32.79K | **High** |
+| Metric          | Avg        | Peak          | Risk     |
+| --------------- | ---------- | ------------- | -------- |
+| CPU Utilization | ~40–60%    | ~82.8%        | **High** |
+| DB Connections  | ~40–80     | ~117          | Medium   |
+| Freeable Memory | ~88–132 GB | min ~44.85 GB | Medium   |
+| Read IOPS       | ~300–800   | ~15.29K       | Low      |
+| Write IOPS      | ~10–20K    | ~32.79K       | **High** |
 
 **Notes**
 - CPU avg 40–60% with peaks at 82.8% — likely approaching Serverless 100 ACU ceiling, explains recurring instability
