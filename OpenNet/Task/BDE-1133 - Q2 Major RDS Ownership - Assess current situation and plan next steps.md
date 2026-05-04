@@ -291,7 +291,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation.
 
-**encore-pub-prod-bi-main-v5 (Reader)**
+[**encore-pub-prod-bi-main-v5 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20encore-pub-prod-bi-main-v5)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
