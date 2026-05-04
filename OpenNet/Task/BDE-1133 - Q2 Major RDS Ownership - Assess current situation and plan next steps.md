@@ -268,7 +268,22 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### sporty-global-uat-bet-bi
 
-TBD
+> Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
+
+[**instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~2.9% | ~4.63% | Low |
+| DB Connections | ~140–170 | ~183 | **High** |
+| Freeable Memory | ~36–38 GB | min ~30.18 GB | Low |
+| Read IOPS | ~0 | ~0.03 | — |
+| Write IOPS | ~3.79 | ~8.4 | Low |
+
+**Notes**
+- DB Connections (~140–170) is unexpectedly high for a UAT Serverless instance with near-zero read/write activity — likely idle connections held by a connection pool that is not releasing properly
+- ReadIOPS essentially zero despite high connection count — connections are sleeping/idle, no actual queries being executed
+- Memory dips correlate with connection spikes but remain at acceptable levels overall
 
 ### 3.3 Encore PROD
 TBD
