@@ -319,6 +319,20 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### encore-global-prod-bet-bi
 
+> Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation.
+
+**instance-1 (Reader)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~2.21% | ~5.8% | Low |
+| DB Connections | ~38–40 (baseline) | ~90 | Medium |
+| Freeable Memory | ~39 GB | min ~28.29 GB | Low |
+| Read IOPS | ~0 | ~8.76 | — |
+| Write IOPS | ~0 | ~0 | — |
+
+**instance-2 (Writer)**
+
 TBD
 
 ### 3.4 Encore UAT
