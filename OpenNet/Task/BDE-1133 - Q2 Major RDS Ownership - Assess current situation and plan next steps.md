@@ -303,6 +303,22 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 **encore-pub-prod-bi-main-v5-instance-2 (Writer)**
 
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~30–50% | ~82.3% | **High** |
+| DB Connections | ~4–8 | ~25 | Low |
+| Freeable Memory | ~25.87–26.67 GB | min ~23.39 GB | Low |
+| Read IOPS | ~200–500 | ~2.86K | Low |
+| Write IOPS | ~2–4K | ~11.23K | **High** |
+
+**Notes**
+- Writer CPU consistently at 30–50% with peak at 82.3% — concerning for a db.r6g.2xlarge; CPU trend appears to be increasing from 5/02 onwards
+- Writer WriteIOPS sustained at 2–4K around the clock — heavy continuous write load, peak 11.23K
+- Reader CPU peaks at 71% with sustained ReadIOPS 4–6K — both instances under significant pressure
+- Cluster-wide concern: both instances are heavily utilized; may need instance type upgrade (consider db.r6g.4xlarge or larger)
+
+#### encore-global-prod-bet-bi
+
 TBD
 
 ### 3.4 Encore UAT
