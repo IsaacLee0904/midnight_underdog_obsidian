@@ -333,7 +333,19 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 **instance-2 (Writer)**
 
-TBD
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~2.38% (daily spike ~18–21%) | ~21.6% | Low |
+| DB Connections | ~0 | ~2 | — |
+| Freeable Memory | ~39 GB | min ~27.88 GB | Low |
+| Read IOPS | ~0 (daily spike) | ~816.56 | Low |
+| Write IOPS | ~0 (daily spike) | ~705.16 | Low |
+
+**Notes**
+- Clear daily batch pipeline pattern — both CPU and IOPS spike once per day then return to baseline
+- DB Connections near-zero on Writer (0–2, brief) — batch job connects, runs, disconnects cleanly
+- Instance-1 (Reader) maintains ~38–40 persistent idle connections with near-zero ReadIOPS — likely a connection pool holding connections without active queries; investigate which service is connecting
+- Serverless ACU scaling visible in memory: daily dips to ~28 GB as ACUs scale up during batch run then release
 
 ### 3.4 Encore UAT
 TBD
