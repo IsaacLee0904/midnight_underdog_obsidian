@@ -286,6 +286,23 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Memory dips correlate with connection spikes but remain at acceptable levels overall
 
 ### 3.3 Encore PROD
+
+#### encore-pub-prod-bi-main-v5-cluster
+
+> Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation.
+
+**encore-pub-prod-bi-main-v5 (Reader)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~25–40% | ~71% | **High** |
+| DB Connections | ~8–17 | ~51 | Low |
+| Freeable Memory | ~29 GB | min ~25.59 GB | Low |
+| Read IOPS | ~4–6K | ~10.54K | Medium |
+| Write IOPS | ~0 | ~0 | — |
+
+**encore-pub-prod-bi-main-v5-instance-2 (Writer)**
+
 TBD
 
 ### 3.4 Encore UAT
