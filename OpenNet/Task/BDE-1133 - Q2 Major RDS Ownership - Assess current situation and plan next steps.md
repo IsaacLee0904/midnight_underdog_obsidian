@@ -235,6 +235,23 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Strong contrast between instance-1 Reader (~600–1,000 connections) and instance-2 Writer (~0) — need to identify what is holding persistent connections to the Reader
 
 ### 3.2 Sporty UAT
+
+#### sporty-pub-uat-bi-main2
+
+> Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB RAM). Metrics show two distinct phases: active (4/19–4/22) and near-idle (4/23 onwards).
+
+**instance-1 (Writer)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~25–30% (active) / ~10–13% (post 4/22) | ~64.9% | Medium |
+| DB Connections | ~6–9 (active) / ~0 (post 4/22) | ~18 | Low |
+| Freeable Memory | ~741 MB–1.1 GB (active) / ~1.35 GB (post 4/22) | min ~741 MB | **High** |
+| Read IOPS | ~0 (between spikes) | ~3.51K | Low |
+| Write IOPS | ~40–70 (active) / ~0 (post 4/22) | ~131.92 | Low |
+
+**instance-2 (Reader)**
+
 TBD
 
 ### 3.3 Encore PROD
