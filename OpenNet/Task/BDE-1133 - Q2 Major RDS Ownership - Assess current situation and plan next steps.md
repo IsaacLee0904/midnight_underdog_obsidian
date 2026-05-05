@@ -371,7 +371,23 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### encore-global-uat-bet-bi
 
-TBD
+> Aurora Serverless v2 (0.5–20 ACUs), single instance.
+
+**instance-1 (Writer)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~2.64–2.84% | ~3.03% | Low |
+| DB Connections | ~0 | ~1 | — |
+| Freeable Memory | ~38.19–38.83 GB (cyclical) | min ~38.19 GB | Low |
+| Read IOPS | N/A (not captured) | — | — |
+| Write IOPS | ~3.37–3.61 (background) | ~3.98 | Low |
+
+**Notes**
+- Instance is essentially idle — near-zero connections throughout the observation period (only 2 brief spikes to 1 connection on 4/22–4/25, none after)
+- WriteIOPS (~3.37–3.61) represents Aurora background storage maintenance, not actual user writes
+- FreeableMemory shows a regular ~5–7 day sawtooth cycle — consistent with Serverless ACU scale-up/scale-down behaviour; no risk
+- Recommend reviewing whether this UAT instance is still needed given it has had no active usage
 
 ---
 
