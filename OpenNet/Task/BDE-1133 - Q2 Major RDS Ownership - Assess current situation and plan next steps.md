@@ -103,9 +103,9 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### sporty-pub-prod-bi-main
 
-> Cluster has Read / Write separation : instance-1 (Reader) handles queries; instance-2 (Writer) handles all write traffic.
+> Cluster has Read / Write separation : sporty-pub-prod-bi-main-instance-1 handles queries; instance-2 (Writer) handles all write traffic.
 
-[**instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
+[**sporty-pub-prod-bi-main-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
