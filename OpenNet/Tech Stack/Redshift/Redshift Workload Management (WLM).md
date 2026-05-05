@@ -69,6 +69,7 @@ Link : [Workload Management Page](https://eu-central-1.console.aws.amazon.com/re
 3. **Concurrency on main** : Auto
 4. **User role** : bi_report
 5. **Query monitoring rules** : abort_long_running_queries (Query execution time (seconds) > 1200)
+![[Ad hoc - long query canceled by WLM]]
 
 #### DS queue
 
