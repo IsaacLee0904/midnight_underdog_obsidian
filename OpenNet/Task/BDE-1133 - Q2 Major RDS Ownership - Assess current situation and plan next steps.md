@@ -134,7 +134,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > MySQL Community instance with Primary + Replica setup. Storage at ~90% capacity.
 
-[**sporty-pub-prod-bi-bigdata-instance-2 (Primary)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-1)
+[**sporty-pub-prod-bi-bigdata-instance-1 (Primary)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -149,7 +149,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Very low connection count (avg 1–2) — worth confirming who is connecting to this instance
 - Storage at 11,518 / 12,784 GiB (~90% full) → urgent, needs attention
 
-[**instance-2 (Replica)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-2)
+[**sporty-pub-prod-bi-bigdata-instance-2 (Replica)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-2)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
