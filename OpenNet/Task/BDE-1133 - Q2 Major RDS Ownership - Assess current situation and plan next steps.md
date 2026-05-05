@@ -252,13 +252,13 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 [**sporty-pub-uat-bi-main2-instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-2)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~20–30% | ~64% | Medium |
-| DB Connections | ~5–8 | ~21 | Low |
+| Metric          | Avg                             | Peak        | Risk     |
+| --------------- | ------------------------------- | ----------- | -------- |
+| CPU Utilization | ~20–30%                         | ~64%        | Medium   |
+| DB Connections  | ~5–8                            | ~21         | Low      |
 | Freeable Memory | ~880 MB–1.08 GB (↑ trending up) | min ~779 MB | **High** |
-| Read IOPS | ~0 (daily spike) | ~4.11K | Low |
-| Write IOPS | ~20–50 (replication) | ~435.22 | Low |
+| Read IOPS       | ~0 (daily spike)                | ~4.11K      | Low      |
+| Write IOPS      | ~20–50 (replication)            | ~435.22     | Low      |
 
 **Notes**
 - Memory utilization ~80% (min freeable ~779 MB on 4 GB total) — high for a UAT instance
@@ -268,7 +268,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### sporty-global-uat-bet-bi
 
-> Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader / Writer split).
+> Aurora Serverless v2 (0.5–20 ACUs) with single instance.
 
 [**sporty-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
 
