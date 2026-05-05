@@ -321,7 +321,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation.
 
-**instance-1 (Reader)**
+[**encore-global-prod-bet-bi-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-prod-bet-bi-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -331,7 +331,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Read IOPS | ~0 | ~8.76 | — |
 | Write IOPS | ~0 | ~0 | — |
 
-**instance-2 (Writer)**
+[**encore-global-prod-bet-bi-instance-2(Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-prod-bet-bi-instance-2)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
