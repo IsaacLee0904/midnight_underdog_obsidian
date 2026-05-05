@@ -168,7 +168,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Serverless v2 (40–100 ACUs)
 
-[**bigdata-ticket-prod-instance-1(Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20sporty-global-prod-bet-bi-instance-1)
+[**bigdata-ticket-prod-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20sporty-global-prod-bet-bi-instance-1)
 
 | Metric          | Avg        | Peak          | Risk     |
 | --------------- | ---------- | ------------- | -------- |
@@ -204,7 +204,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Aurora Serverless v2 (2–40 ACUs) cluster with Reader + Writer separation.
 
-[**instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-1)
+[**sporty-global-prod-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -218,7 +218,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Connection count (~600–1,000 avg) is notably high for a Serverless 2–40 ACU instance — worth investigating which services are connecting
 - Memory dips to ~33.43 GB freeable periodically — correlates with connection/read spikes
 
-[**instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-2)
+[**sporty-global-prod-bet-bi-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-2)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -240,7 +240,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB RAM). Metrics show two distinct phases: active (4/19–4/22) and near-idle (4/23 onwards).
 
-[**instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-1)
+[**sporty-pub-uat-bi-main2-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -250,7 +250,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Read IOPS | ~0 (between spikes) | ~3.51K | Low |
 | Write IOPS | ~40–70 (active) / ~0 (post 4/22) | ~131.92 | Low |
 
-[**instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-2)
+[**sporty-pub-uat-bi-main2-instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-2)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -268,9 +268,9 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### sporty-global-uat-bet-bi
 
-> Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
+> Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader / Writer split).
 
-[**instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
+[**sporty-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
