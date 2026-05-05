@@ -348,6 +348,29 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Serverless ACU scaling visible in memory: daily dips to ~28 GB as ACUs scale up during batch run then release
 
 ### 3.4 Encore UAT
+
+#### encore-pub-uat-bi-main
+
+> Aurora cluster (db.t4g.medium, 4 GB RAM, burstable), single instance.
+
+**instance-1 (Writer)**
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~10–13% (continuous) | ~19.1% | Medium |
+| DB Connections | ~0 | ~3 | — |
+| Freeable Memory | ~885–925 MB | min ~867 MB | **High** |
+| Read IOPS | ~0 | ~0.15 | — |
+| Write IOPS | ~4–12 (continuous) | ~26.95 | Low |
+
+**Notes**
+- Sustained CPU at 10–13% with near-zero connections and zero ReadIOPS is anomalous — likely a background process; needs investigation
+- Notable behaviour change on 4/21: WriteIOPS spiked to 26.95 then settled at a new sustained baseline of ~9–12 IOPS through 4/27 before dropping back — investigate what changed
+- Memory utilization ~78% (freeable ~867–925 MB on 4 GB) — high for a UAT instance with minimal active connections
+- db.t4g.medium is a burstable instance; sustained CPU at 10–13% will drain CPU credits over time, risking CPU throttling
+
+#### encore-global-uat-bet-bi
+
 TBD
 
 ---
