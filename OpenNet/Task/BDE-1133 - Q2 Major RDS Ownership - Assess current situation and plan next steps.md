@@ -512,3 +512,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
    - Owner & Timeline
 ```
 
+RDS 歷史故事
+
+Step1. 一開始只有 `bi-report-o1.mysql.pub.s.sportybet` 一排是類似現在 warehouse 的功能
+Step2. 新增了 `bigdata-o1.mysql.pub.s.sportybet`
