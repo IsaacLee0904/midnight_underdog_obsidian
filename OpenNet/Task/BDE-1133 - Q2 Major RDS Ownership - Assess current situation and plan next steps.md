@@ -331,7 +331,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Read IOPS | ~0 | ~8.76 | — |
 | Write IOPS | ~0 | ~0 | — |
 
-[**encore-global-prod-bet-bi-instance-2(Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-prod-bet-bi-instance-2)
+[**encore-global-prod-bet-bi-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-prod-bet-bi-instance-2)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -353,7 +353,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Aurora cluster (db.t4g.medium, 4 GB RAM, burstable), single instance.
 
-**instance-1 (Writer)**
+[**encore-pub-uat-bi-main-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-pub-uat-bi-main-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -373,7 +373,7 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 > Aurora Serverless v2 (0.5–20 ACUs), single instance.
 
-**instance-1 (Writer)**
+[**encore-global-uat-bet-bi-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-uat-bet-bi-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
