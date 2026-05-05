@@ -13,3 +13,6 @@ For most DAG queries, they run in first queue by default and should finish in 20
 only if DAG has `high_importance` tag, queries will be running in the second queue with 60 mins timeout.  
   
 we don't want people frequently run long queries without optimization and increase cluster loading.
+
+the reason why we highly recommend to **break one complex CTE query to multiple smaller queries with temp or staging table** is that Redshift internal optimizer could rewrite the query and execute the same CTE part multiple times in parallel, it makes the whole query run much slower and we can't help with it.  
+extract heavy CTE parts to multiple smaller queries can make sure they only run once and in order, which is usually faster.
