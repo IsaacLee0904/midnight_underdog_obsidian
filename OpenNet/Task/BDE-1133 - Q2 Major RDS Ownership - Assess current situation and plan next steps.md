@@ -48,31 +48,33 @@ Service RDS → BI RDS (direct)
 
 ---
 
-# 2. Instance Inventory
+# 2. Instance Inventory & Performance Assessment
 
-This section documents all BI RDS instances across Sporty and Encore environments (Prod and UAT). For each instance, capture the <font color="#ff0000">engine version</font>, <font color="#ff0000">instance type</font>, <font color="#ff0000">storage configuration</font>, <font color="#ff0000">Multi-AZ setup</font>, and monthly cost. Known issues and observations are noted inline under each sub-section and will be consolidated in Section 6 ( Issues & Risks Summary ). 
+This section documents all BI RDS instances across Sporty and Encore environments (Prod and UAT), including configuration details and CloudWatch performance metrics observed over the past 90 days. Known issues are noted inline and will be consolidated in Section 5 (Issues & Risks Summary).
 
 ### 2.1 Sporty PROD
 
 #### [sporty-pub-prod-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)
 
-Cluster has Read / Write separation sporty-pub-prod-bi-main-instance-1 handles queries; instance-2 (Writer) handles all write traffic. And used to serve as data warehouse (like the Redshift now). Provided for DA write data directorly from service RDS our from Redshift and query by metabase
+Cluster has Read / Write separation — instance-1 handles read queries, instance-2 (Writer) handles all write traffic. Serves as the primary BI warehouse for the Sporty pub environment, receiving data from Airflow pipelines and queried by the DA team and Metabase.
 
-1. **Endpoint** : 
-	*  bi-report-o1.mysql.pub.s.sportybet
-	*  bigdata-o1.mysql.pub.s.sportybet
-2. Engine：Aurora MySQL 8.0.mysql_aurora.3.10.1
-3. Instance Type：db.r6g.12xlarge
+1. **Endpoint**：
+   - bi-report-o1.mysql.pub.s.sportybet
+   - bigdata-o1.mysql.pub.s.sportybet
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：db.r6g.12xlarge
+4. **Storage**：Aurora Standard ( auto-scaling )
+5. **Multi-AZ**：Yes ( 2 Zones )
 
 [**sporty-pub-prod-bi-main-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
 
-| Metric          | Avg         | Peak          | Risk   |
-| --------------- | ----------- | ------------- | ------ |
-| CPU Utilization | ~5–10%      | ~39.5%        | Low    |
-| DB Connections  | ~30–50      | ~105          | Low    |
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~5–10% | ~39.5% | Low |
+| DB Connections | ~30–50 | ~105 | Low |
 | Freeable Memory | ~120–141 GB | min ~70.73 GB | Medium |
-| Read IOPS       | ~1–2K       | ~15.4K        | Low    |
-| Write IOPS      | ~0          | ~0            | —      |
+| Read IOPS | ~1–2K | ~15.4K | Low |
+| Write IOPS | ~0 | ~0 | — |
 
 [**sporty-pub-prod-bi-main-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-2)
 
@@ -84,92 +86,23 @@ Cluster has Read / Write separation sporty-pub-prod-bi-main-instance-1 handles q
 | Read IOPS | ~1–2K | ~13.88K | Low |
 | Write IOPS | ~15–25K | ~63.81K | Medium |
 
-
-1. Storage：Aurora Standard (auto-scaling)
-2. Multi-AZ：Yes
-
-#### [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false)
-
-
-
-
-| Cluster                                                                                                                                              | Endpoint                  | Engine                 | Instance Type               | Storage                        | Multi-AZ      |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | --------------------------- | ------------------------------ | ------------- |
-|                                                                                                                                                      | bi-report-o1 / bigdata-o1 |                        | db.r6g.12xlarge             | Aurora Standard (auto-scaling) | Yes (2 Zones) |
-|                                                                                                                                                      | bi-bigdata-o1             | MySQL Community 8.0.40 | db.r6g.xlarge               | gp3 / 11,518 GiB / 12,000 IOPS | Yes           |
-| [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true) | bigdata-ticket-o1         | Aurora MySQL 3.08.0    | Serverless v2 (40–100 ACUs) | Aurora Standard (auto-scaling) | No            |
-
 **Notes**
-- `sporty-pub-prod-bi-main`: RDS Extended Support enabled → incurring additional cost
-- `sporty-pub-prod-bi-bigdata-instance-1`: Storage at 11,518 / 12,784 GiB (~90% full) → risk of hitting limit
-- `sporty-pub-prod-bi-bigdata-instance-1`: Performance Insights disabled → monitoring gap
-- `sporty-pub-prod-bi-bigdata-instance-1`: Enhanced Monitoring disabled → monitoring gap
-- `bigdata-ticket-prod`: Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
-- `bigdata-ticket-prod`: Recurring HLL (History List Length) issues — root cause under investigation
-
-### 2.2 Sporty UAT
-
-| Cluster                                                                                                                                                   | Endpoint | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------ | --------------------------- | ------------------------------ | ------------- |
-| [sporty-pub-uat-bi-main2](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-uat-bi-main2;is-cluster=true)   | bi-main2-t1  | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.t4g.medium               | Aurora Standard (auto-scaling) | Yes (2 Zones) |
-| [sporty-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-uat-bet-bi;is-cluster=true) | bet-bi-t1    | Aurora MySQL 8.0.mysql_aurora.3.04.3 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | No            |
-
-**Notes**
-- `sporty-pub-uat-bi-main2`: RDS Extended Support enabled → incurring additional cost
-- `sporty-pub-uat-bi-main2`: Enhanced Monitoring disabled → monitoring gap
-- `sporty-pub-uat-bi-main2`: Writer CPU at 30.27% on db.t4g.medium (burstable instance) → may hit CPU credit limits under load
-- `sporty-global-uat-bet-bi`: Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
-- `sporty-global-uat-bet-bi`: RDS Extended Support enabled → incurring additional cost
-- `sporty-global-uat-bet-bi`: Deletion protection disabled
-- `sporty-global-uat-bet-bi`: Enhanced Monitoring disabled → monitoring gap
-
-### 2.3 Encore PROD
-
-| Cluster                                                                                                                                                                       | Endpoint | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------ | --------------------------- | ------------------------------ | ------------- |
-| [encore-pub-prod-bi-main-v5-cluster](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-pub-prod-bi-main-v5-cluster;is-cluster=true) | bi-main-o1   | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.2xlarge              | Aurora Standard (auto-scaling) | Yes (2 Zones) |
-| [encore-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-global-prod-bet-bi;is-cluster=true)                   | bet-bi-o1    | Aurora MySQL 8.0.mysql_aurora.3.10.1 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | Yes (2 Zones) |
-
-**Notes**
-- `encore-pub-prod-bi-main-v5-cluster`: RDS Extended Support enabled → incurring additional cost
-- `encore-pub-prod-bi-main-v5-cluster`: Enhanced Monitoring disabled → monitoring gap
-- `encore-global-prod-bet-bi`: RDS Extended Support enabled → incurring additional cost
-- `encore-global-prod-bet-bi`: Enhanced Monitoring disabled → monitoring gap
-
-### 2.4 Encore UAT
-
-| Cluster                                                                                                                                                   | Endpoint | Engine                               | Instance Type               | Storage                        | Multi-AZ |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------ | --------------------------- | ------------------------------ | -------- |
-| [encore-pub-uat-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-pub-uat-bi-main;is-cluster=true)     | bi-main-t1   | Aurora MySQL 8.0.mysql_aurora.3.04.3 | db.t4g.medium               | Aurora Standard (auto-scaling) | No       |
-| [encore-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-global-uat-bet-bi;is-cluster=true) | bet-bi-t1    | Aurora MySQL 8.0.mysql_aurora.3.04.3 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | No       |
-
-**Notes**
-- `encore-pub-uat-bi-main`: Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
-- `encore-pub-uat-bi-main`: RDS Extended Support enabled → incurring additional cost
-- `encore-pub-uat-bi-main`: No Multi-AZ, single Writer only
-- `encore-pub-uat-bi-main`: Enhanced Monitoring disabled → monitoring gap
-- `encore-global-uat-bet-bi`: Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
-- `encore-global-uat-bet-bi`: RDS Extended Support enabled → incurring additional cost
-- `encore-global-uat-bet-bi`: No Multi-AZ, single Writer only
-- `encore-global-uat-bet-bi`: Enhanced Monitoring disabled → monitoring gap
+- RDS Extended Support enabled → incurring additional cost
+- Reader memory peaks at ~82% (min freeable ~70.73 GB / 384 GB total) — periodic spikes correlate with pipeline runs
+- Reader ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
+- Writer WriteIOPS peak at 63.81K — heavy write load, worth monitoring for sustained spikes
 
 ---
 
-# 3. Performance & Cost Assessment
+#### [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false)
 
-TBD — High-level summary to be written after all instance metrics are collected.
+MySQL Community instance with Primary + Replica setup. Originally created to offload workload from bi-report-o1, but is largely unused now — only a few specific pipelines remain on this instance.
 
-### 3.1 Sporty PROD
-
-#### sporty-pub-prod-bi-main
-
-> 
-
-
-
-#### sporty-pub-prod-bi-bigdata-instance-1
-
-> MySQL Community instance with Primary + Replica setup. Storage at ~90% capacity.
+1. **Endpoint**：bi-bigdata-o1.mysql.pub.s.sportybet
+2. **Engine**：MySQL Community 8.0.40
+3. **Instance Type**：db.r6g.xlarge
+4. **Storage**：gp3 / 11,518 GiB / 12,000 IOPS
+5. **Multi-AZ**：Yes
 
 [**sporty-pub-prod-bi-bigdata-instance-1 (Primary)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-1)
 
@@ -180,11 +113,6 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Freeable Memory | ~4.5 GB | min ~4.39 GB | **High** |
 | Read IOPS | ~800–1K | ~4.73K | Low |
 | Write IOPS | ~3–4K | ~6.25K | Low |
-
-**Notes**
-- Memory utilization ~86% (32 GB total, freeable consistently ~4.4 GB) → risk of OOM under additional load
-- Very low connection count (avg 1–2) — worth confirming who is connecting to this instance
-- Storage at 11,518 / 12,784 GiB (~90% full) → urgent, needs attention
 
 [**sporty-pub-prod-bi-bigdata-instance-2 (Replica)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-2)
 
@@ -197,30 +125,36 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Write IOPS | ~300–600 | ~3.78K | Low |
 
 **Notes**
+- Storage at 11,518 / 12,784 GiB (~90% full) → urgent, needs attention
+- Performance Insights disabled → monitoring gap
+- Enhanced Monitoring disabled → monitoring gap
+- Memory utilization ~86% (32 GB total, freeable consistently ~4.4 GB) → risk of OOM under additional load
+- Very low connection count (avg 1–2) — instance is largely unused; confirm which pipelines are still connected
 - Replica has near-zero connections and read IOPS — appears to be unused for actual read traffic
 - Freeable Memory on a clear downward trend (4.41 GB → 4.19 GB over 2 weeks) → potential slow memory leak, risk of OOM if not addressed
-- Worth investigating whether this Replica is still needed
+- Worth evaluating whether this instance and its Replica are still needed
 
-#### bigdata-ticket-prod
+---
 
-> Serverless v2 (40–100 ACUs)
+#### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)
+
+Aurora Serverless v2 (40–100 ACUs) cluster for Trading team data with 15-minute sync cadence. Currently under Blue/Green migration to provisioned r8g.8xlarge (DBA-7596). Metrics below reflect the Blue (current production) side.
+
+1. **Endpoint**：bigdata-ticket-o1.mysql.pub.s.sportybet
+2. **Engine**：Aurora MySQL 3.08.0
+3. **Instance Type**：Serverless v2 (40–100 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：No
 
 [**bigdata-ticket-prod-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20sporty-global-prod-bet-bi-instance-1)
 
-| Metric          | Avg        | Peak          | Risk     |
-| --------------- | ---------- | ------------- | -------- |
-| CPU Utilization | ~40–60%    | ~82.8%        | **High** |
-| DB Connections  | ~40–80     | ~117          | Medium   |
-| Freeable Memory | ~88–132 GB | min ~44.85 GB | Medium   |
-| Read IOPS       | ~300–800   | ~15.29K       | Low      |
-| Write IOPS      | ~10–20K    | ~32.79K       | **High** |
-
-**Notes**
-- CPU avg 40–60% with peaks at 82.8% — likely approaching Serverless 100 ACU ceiling, explains recurring instability
-- Write IOPS consistently 10–20K is the primary driver of HLL (History List Length) issues
-- ReadIOPS spike to 15.29K around 4/29–30 likely related to Blue/Green switchover activities
-- Memory deep dips (~44.85 GB freeable) correlate with high write load periods
-- Migration to provisioned r8g.8xlarge in progress — expected to improve stability and cost
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~40–60% | ~82.8% | **High** |
+| DB Connections | ~40–80 | ~117 | Medium |
+| Freeable Memory | ~88–132 GB | min ~44.85 GB | Medium |
+| Read IOPS | ~300–800 | ~15.29K | Low |
+| Write IOPS | ~10–20K | ~32.79K | **High** |
 
 [**bigdata-ticket-prod-instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20bigdata-ticket-prod-instance-2)
 
@@ -233,15 +167,70 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Write IOPS | ~0 | ~0 | — |
 
 **Notes**
-- Memory dips to ~23.86 GB freeable during read bursts — more severe than Writer
-- Read pattern is highly bursty (spikes to 16.54K then drops to 0) — correlates with batch pipeline reads
-- CPU peaks at 60.2% during heavy read periods
+- Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
+- Recurring HLL (History List Length) issues — root cause under investigation
+- CPU avg 40–60% with peaks at 82.8% — likely approaching Serverless 100 ACU ceiling, explains recurring instability
+- Write IOPS consistently 10–20K is the primary driver of HLL issues; 15-minute sync cadence means writes never stop
+- ReadIOPS spike to 15.29K around 4/29–30 likely related to Blue/Green switchover activities
+- Memory deep dips (~44.85 GB freeable) correlate with high write load periods
+- Reader memory dips to ~23.86 GB during read bursts — more severe than Writer
+- Migration to provisioned r8g.8xlarge in progress — expected to improve stability and cost
 
-### 3.2 Sporty UAT
+---
 
-#### sporty-pub-uat-bi-main2
+#### [sporty-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)
 
-> Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB RAM). Metrics show two distinct phases: active (4/19–4/22) and near-idle (4/23 onwards).
+Aurora Serverless v2 (2–40 ACUs) cluster with Reader + Writer separation. Serves global Sporty bet data.
+
+1. **Endpoint**：bet-bi-o1
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：Serverless v2 (2–40 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：Yes (2 Zones)
+
+[**sporty-global-prod-bet-bi-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-1)
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~2–4% | ~8.99% | Low |
+| DB Connections | ~600–1,000 | ~1.44K | Medium |
+| Freeable Memory | ~70–75 GB | min ~33.43 GB | Medium |
+| Read IOPS | ~50–200 | ~742 | Low |
+| Write IOPS | ~0 | ~0 | — |
+
+[**sporty-global-prod-bet-bi-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-2)
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~0–5% (daily spike ~32–40%) | ~63% | Medium |
+| DB Connections | ~0–1 | ~4 | Low |
+| Freeable Memory | ~70–77 GB | min ~33.32 GB | Medium |
+| Read IOPS | ~400–800 (during batch) | ~1.65K | Low |
+| Write IOPS | ~0 (daily spike ~1.8–2.1K) | ~3.61K | Low |
+
+**Notes**
+- RDS Extended Support enabled → incurring additional cost
+- Enhanced Monitoring disabled → monitoring gap
+- Connection count (~600–1,000 avg) is notably high for a Serverless 2–40 ACU Reader — worth investigating which services are connecting
+- Memory dips to ~33.43 GB freeable periodically — correlates with connection/read spikes
+- Clear daily spike pattern on Writer CPU/WriteIOPS — consistent with a scheduled batch pipeline running once per day
+- DB Connections extremely low on Writer (avg 0–1) — batch-only access, no interactive queries
+- Anomalous event on 4/20: CPU peaked at 63%, Memory dipped to ~33 GB, WriteIOPS hit 3.61K — investigate whether a non-routine pipeline ran that day
+- Strong contrast: Reader (~600–1,000 connections) vs Writer (~0) — need to identify what is holding persistent connections to the Reader
+
+---
+
+### 2.2 Sporty UAT
+
+#### [sporty-pub-uat-bi-main2](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-uat-bi-main2;is-cluster=true)
+
+Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB RAM). Metrics show two distinct phases: active (4/19–4/22) and near-idle (4/23 onwards).
+
+1. **Endpoint**：bi-main2-t1
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：db.t4g.medium
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：Yes (2 Zones)
 
 [**sporty-pub-uat-bi-main2-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-1)
 
@@ -255,25 +244,36 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 [**sporty-pub-uat-bi-main2-instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-2)
 
-| Metric          | Avg                             | Peak        | Risk     |
-| --------------- | ------------------------------- | ----------- | -------- |
-| CPU Utilization | ~20–30%                         | ~64%        | Medium   |
-| DB Connections  | ~5–8                            | ~21         | Low      |
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~20–30% | ~64% | Medium |
+| DB Connections | ~5–8 | ~21 | Low |
 | Freeable Memory | ~880 MB–1.08 GB (↑ trending up) | min ~779 MB | **High** |
-| Read IOPS       | ~0 (daily spike)                | ~4.11K      | Low      |
-| Write IOPS      | ~20–50 (replication)            | ~435.22     | Low      |
+| Read IOPS | ~0 (daily spike) | ~4.11K | Low |
+| Write IOPS | ~20–50 (replication) | ~435.22 | Low |
 
 **Notes**
+- RDS Extended Support enabled → incurring additional cost
+- Enhanced Monitoring disabled → monitoring gap
+- Writer CPU at 30.27% on db.t4g.medium (burstable instance) → may hit CPU credit limits under load
 - Memory utilization ~80% (min freeable ~779 MB on 4 GB total) — high for a UAT instance
 - Daily ReadIOPS spikes (~4.11K) indicate a batch read pipeline routing reads to this Reader consistently
 - Anomalous WriteIOPS spike on 4/28 (~435.22) — significantly above baseline replication writes, needs investigation
 - Notable contrast: instance-1 (Writer) went near-idle after 4/22 while this Reader remains consistently active — UAT writes have stopped but something continues reading from this cluster
 
-#### sporty-global-uat-bet-bi
+---
 
-> Aurora Serverless v2 (0.5–20 ACUs) with single instance.
+#### [sporty-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-uat-bet-bi;is-cluster=true)
 
-[**sporty-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
+Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
+
+1. **Endpoint**：bet-bi-t1
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.04.3
+3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：No
+
+[**sporty-global-uat-bet-bi-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -284,15 +284,26 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Write IOPS | ~3.79 | ~8.4 | Low |
 
 **Notes**
+- Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
+- RDS Extended Support enabled → incurring additional cost
+- Deletion protection disabled
+- Enhanced Monitoring disabled → monitoring gap
 - DB Connections (~140–170) is unexpectedly high for a UAT Serverless instance with near-zero read/write activity — likely idle connections held by a connection pool that is not releasing properly
 - ReadIOPS essentially zero despite high connection count — connections are sleeping/idle, no actual queries being executed
-- Memory dips correlate with connection spikes but remain at acceptable levels overall
 
-### 3.3 Encore PROD
+---
 
-#### encore-pub-prod-bi-main-v5-cluster
+### 2.3 Encore PROD
 
-> Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation.
+#### [encore-pub-prod-bi-main-v5-cluster](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-pub-prod-bi-main-v5-cluster;is-cluster=true)
+
+Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation. Serves as the primary BI warehouse for the Encore pub environment.
+
+1. **Endpoint**：bi-main-o1
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：db.r6g.2xlarge
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：Yes (2 Zones)
 
 [**encore-pub-prod-bi-main-v5 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20encore-pub-prod-bi-main-v5)
 
@@ -315,14 +326,24 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Write IOPS | ~2–4K | ~11.23K | **High** |
 
 **Notes**
+- RDS Extended Support enabled → incurring additional cost
+- Enhanced Monitoring disabled → monitoring gap
 - Writer CPU consistently at 30–50% with peak at 82.3% — concerning for a db.r6g.2xlarge; CPU trend appears to be increasing from 5/02 onwards
 - Writer WriteIOPS sustained at 2–4K around the clock — heavy continuous write load, peak 11.23K
 - Reader CPU peaks at 71% with sustained ReadIOPS 4–6K — both instances under significant pressure
 - Cluster-wide concern: both instances are heavily utilized; may need instance type upgrade (consider db.r6g.4xlarge or larger)
 
-#### encore-global-prod-bet-bi
+---
 
-> Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation.
+#### [encore-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-global-prod-bet-bi;is-cluster=true)
+
+Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation. Serves global Encore bet data.
+
+1. **Endpoint**：bet-bi-o1
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：Yes (2 Zones)
 
 [**encore-global-prod-bet-bi-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-prod-bet-bi-instance-1)
 
@@ -345,16 +366,26 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Write IOPS | ~0 (daily spike) | ~705.16 | Low |
 
 **Notes**
+- RDS Extended Support enabled → incurring additional cost
+- Enhanced Monitoring disabled → monitoring gap
 - Clear daily batch pipeline pattern — both CPU and IOPS spike once per day then return to baseline
 - DB Connections near-zero on Writer (0–2, brief) — batch job connects, runs, disconnects cleanly
 - Instance-1 (Reader) maintains ~38–40 persistent idle connections with near-zero ReadIOPS — likely a connection pool holding connections without active queries; investigate which service is connecting
 - Serverless ACU scaling visible in memory: daily dips to ~28 GB as ACUs scale up during batch run then release
 
-### 3.4 Encore UAT
+---
 
-#### encore-pub-uat-bi-main
+### 2.4 Encore UAT
 
-> Aurora cluster (db.t4g.medium, 4 GB RAM, burstable), single instance.
+#### [encore-pub-uat-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-pub-uat-bi-main;is-cluster=true)
+
+Aurora cluster (db.t4g.medium, 4 GB RAM, burstable), single Writer instance.
+
+1. **Endpoint**：bi-main-t1
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.04.3
+3. **Instance Type**：db.t4g.medium
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：No
 
 [**encore-pub-uat-bi-main-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-pub-uat-bi-main-instance-1)
 
@@ -367,14 +398,26 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Write IOPS | ~4–12 (continuous) | ~26.95 | Low |
 
 **Notes**
+- Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
+- RDS Extended Support enabled → incurring additional cost
+- No Multi-AZ, single Writer only
+- Enhanced Monitoring disabled → monitoring gap
 - Sustained CPU at 10–13% with near-zero connections and zero ReadIOPS is anomalous — likely a background process; needs investigation
 - Notable behaviour change on 4/21: WriteIOPS spiked to 26.95 then settled at a new sustained baseline of ~9–12 IOPS through 4/27 before dropping back — investigate what changed
 - Memory utilization ~78% (freeable ~867–925 MB on 4 GB) — high for a UAT instance with minimal active connections
 - db.t4g.medium is a burstable instance; sustained CPU at 10–13% will drain CPU credits over time, risking CPU throttling
 
-#### encore-global-uat-bet-bi
+---
 
-> Aurora Serverless v2 (0.5–20 ACUs), single instance.
+#### [encore-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-global-uat-bet-bi;is-cluster=true)
+
+Aurora Serverless v2 (0.5–20 ACUs), single instance.
+
+1. **Endpoint**：bet-bi-t1
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.04.3
+3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：No
 
 [**encore-global-uat-bet-bi-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-uat-bet-bi-instance-1)
 
@@ -387,6 +430,10 @@ TBD — High-level summary to be written after all instance metrics are collecte
 | Write IOPS | ~3.37–3.61 (background) | ~3.98 | Low |
 
 **Notes**
+- Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
+- RDS Extended Support enabled → incurring additional cost
+- No Multi-AZ, single Writer only
+- Enhanced Monitoring disabled → monitoring gap
 - Instance is essentially idle — near-zero connections throughout the observation period (only 2 brief spikes to 1 connection on 4/22–4/25, none after)
 - WriteIOPS (~3.37–3.61) represents Aurora background storage maintenance, not actual user writes
 - FreeableMemory shows a regular ~5–7 day sawtooth cycle — consistent with Serverless ACU scale-up/scale-down behaviour; no risk
@@ -485,32 +532,26 @@ TBD — High-level summary to be written after all instance metrics are collecte
 1. Overview
    - 背景與目標
 
-2. Instance Inventory
-   - 2.1 Prod Sporty
-   - 2.2 Prod Encore
-   - 2.3 UAT Sporty
-   - 2.4 UAT Encore
-   （每個 instance 用相同欄位模板）
+2. Instance Inventory & Performance Assessment
+   - 2.1 Sporty PROD
+   - 2.2 Sporty UAT
+   - 2.3 Encore PROD
+   - 2.4 Encore UAT
 
-3. Performance & Cost Assessment
-   - 3.1 CPU / Memory / IOPS / Connections
-   - 3.2 Monthly Cost (Cost Explorer)
-   - 3.3 Benchmark vs. Threshold
+3. DAG Review
+   - 3.1 DAG ↔ Instance Dependency Map
+   - 3.2 Read/Write Patterns & Schedules
+   - 3.3 Known Issues
 
-4. DAG Review
-   - 4.1 DAG ↔ Instance Dependency Map
-   - 4.2 Read/Write Patterns & Schedules
-   - 4.3 Known Issues
+4. Monitoring Review
+   - 4.1 CloudWatch Alarm Coverage
+   - 4.2 Alert Notification Setup
+   - 4.3 Gaps & Blind Spots
 
-5. Monitoring Review
-   - 5.1 CloudWatch Alarm Coverage
-   - 5.2 Alert Notification Setup
-   - 5.3 Gaps & Blind Spots
-
-6. Issues & Risks Summary
+5. Issues & Risks Summary
    （集中整理所有發現的問題）
 
-7. Action Plan
+6. Action Plan
    - P0 / P1 / P2 分級
    - Owner & Timeline
 ```
