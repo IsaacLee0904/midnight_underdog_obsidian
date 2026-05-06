@@ -54,7 +54,7 @@ This section documents all BI RDS instances across Sporty and Encore environment
 
 ### 2.1 Sporty PROD
 
-| Cluster                                                                                                                                                                              | Endpoint              | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
+| Cluster                                                                                                                                                                              | Endpoint                  | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- | ------------------------------------ | --------------------------- | ------------------------------ | ------------- |
 | [sporty-pub-prod-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                              | bi-report-o1 / bigdata-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.12xlarge             | Aurora Standard (auto-scaling) | Yes (2 Zones) |
 | [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) | bi-bigdata-o1             | MySQL Community 8.0.40               | db.r6g.xlarge               | gp3 / 11,518 GiB / 12,000 IOPS | Yes           |
