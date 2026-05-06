@@ -514,5 +514,5 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 RDS 歷史故事
 
-Step1. 一開始只有 `bi-report-o1.mysql.pub.s.sportybet` 一排是類似現在 warehouse 的功能
+Step1. 一開始只有 `bi-report-o1.mysql.pub.s.sportybet` 一台，類似現在 Redshift 的warehouse 功能，會直接從服務的 RDS 透過 cron job 將資料同步到這裡
 Step2. 新增了 `bigdata-o1.mysql.pub.s.sportybet`
