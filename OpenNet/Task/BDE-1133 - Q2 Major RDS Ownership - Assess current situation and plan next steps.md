@@ -21,6 +21,31 @@ This assessment covers BI RDS instances only, excluding service backends such as
 
 ![[Screenshot 2026-04-30 at 11.15.56 AM.png]]
 
+### 1.4 Instance History
+
+The current BI RDS footprint evolved over multiple phases:
+
+1. **bi-report-o1** : The original BI database, functioning as a Redshift data warehouse currently. Data was synchronized from service-side RDS instances via cron jobs.
+2. **bigdata-o1** : Added to serve serverless use cases (15-minute sync cadence), primarily used by the Trading team.
+3. **Airflow migration** : Most pipeline work migrated from cron jobs to Airflow, with DAGs primarily maintained in the [data_analysis](https://github.com/opennetltd/data_analysis) repository.
+4. **bigdata-ticket-o1** : Created to offload workload from bi-report-o1 as data volume grew.
+
+Other environments (Encore, UAT) followed a similar evolution. As of this assessment, the majority of pipeline work has been migrated to Airflow.
+
+**Current Data Flow**
+
+The primary data flow today is:
+
+```
+Service RDS → Redshift → BI RDS → Metabase (dashboard)
+```
+
+A secondary flow still exists for certain use cases:
+
+```
+Service RDS → BI RDS (direct)
+```
+
 ---
 
 # 2. Instance Inventory
