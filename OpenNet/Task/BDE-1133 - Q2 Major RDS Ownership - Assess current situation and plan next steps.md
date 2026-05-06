@@ -54,7 +54,7 @@ This section documents all BI RDS instances across Sporty and Encore environment
 
 ### 2.1 Sporty PROD
 
-| Cluster                                                                                                                                                                              | Internal DNS              | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
+| Cluster                                                                                                                                                                              | Endpoint              | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- | ------------------------------------ | --------------------------- | ------------------------------ | ------------- |
 | [sporty-pub-prod-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                              | bi-report-o1 / bigdata-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.12xlarge             | Aurora Standard (auto-scaling) | Yes (2 Zones) |
 | [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) | bi-bigdata-o1             | MySQL Community 8.0.40               | db.r6g.xlarge               | gp3 / 11,518 GiB / 12,000 IOPS | Yes           |
@@ -70,7 +70,7 @@ This section documents all BI RDS instances across Sporty and Encore environment
 
 ### 2.2 Sporty UAT
 
-| Cluster                                                                                                                                                   | Internal DNS | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
+| Cluster                                                                                                                                                   | Endpoint | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------ | --------------------------- | ------------------------------ | ------------- |
 | [sporty-pub-uat-bi-main2](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-uat-bi-main2;is-cluster=true)   | bi-main2-t1  | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.t4g.medium               | Aurora Standard (auto-scaling) | Yes (2 Zones) |
 | [sporty-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-uat-bet-bi;is-cluster=true) | bet-bi-t1    | Aurora MySQL 8.0.mysql_aurora.3.04.3 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | No            |
@@ -86,7 +86,7 @@ This section documents all BI RDS instances across Sporty and Encore environment
 
 ### 2.3 Encore PROD
 
-| Cluster                                                                                                                                                                       | Internal DNS | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
+| Cluster                                                                                                                                                                       | Endpoint | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------ | --------------------------- | ------------------------------ | ------------- |
 | [encore-pub-prod-bi-main-v5-cluster](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-pub-prod-bi-main-v5-cluster;is-cluster=true) | bi-main-o1   | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.2xlarge              | Aurora Standard (auto-scaling) | Yes (2 Zones) |
 | [encore-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-global-prod-bet-bi;is-cluster=true)                   | bet-bi-o1    | Aurora MySQL 8.0.mysql_aurora.3.10.1 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | Yes (2 Zones) |
@@ -99,7 +99,7 @@ This section documents all BI RDS instances across Sporty and Encore environment
 
 ### 2.4 Encore UAT
 
-| Cluster                                                                                                                                                   | Internal DNS | Engine                               | Instance Type               | Storage                        | Multi-AZ |
+| Cluster                                                                                                                                                   | Endpoint | Engine                               | Instance Type               | Storage                        | Multi-AZ |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------ | --------------------------- | ------------------------------ | -------- |
 | [encore-pub-uat-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-pub-uat-bi-main;is-cluster=true)     | bi-main-t1   | Aurora MySQL 8.0.mysql_aurora.3.04.3 | db.t4g.medium               | Aurora Standard (auto-scaling) | No       |
 | [encore-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=encore-global-uat-bet-bi;is-cluster=true) | bet-bi-t1    | Aurora MySQL 8.0.mysql_aurora.3.04.3 | Serverless v2 (0.5–20 ACUs) | Aurora Standard (auto-scaling) | No       |
