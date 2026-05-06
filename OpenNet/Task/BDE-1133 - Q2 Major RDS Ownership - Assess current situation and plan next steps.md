@@ -221,40 +221,6 @@ TBD — High-level summary to be written after all instance metrics are collecte
 - Read pattern is highly bursty (spikes to 16.54K then drops to 0) — correlates with batch pipeline reads
 - CPU peaks at 60.2% during heavy read periods
 
-#### sporty-global-prod-bet-bi
-
-> Aurora Serverless v2 (2–40 ACUs) cluster with Reader + Writer separation.
-
-[**sporty-global-prod-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-1)
-
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~2–4% | ~8.99% | Low |
-| DB Connections | ~600–1,000 | ~1.44K | Medium |
-| Freeable Memory | ~70–75 GB | min ~33.43 GB | Medium |
-| Read IOPS | ~50–200 | ~742 | Low |
-| Write IOPS | ~0 | ~0 | — |
-
-**Notes**
-- Connection count (~600–1,000 avg) is notably high for a Serverless 2–40 ACU instance — worth investigating which services are connecting
-- Memory dips to ~33.43 GB freeable periodically — correlates with connection/read spikes
-
-[**sporty-global-prod-bet-bi-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-2)
-
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~0–5% (daily spike ~32–40%) | ~63% | Medium |
-| DB Connections | ~0–1 | ~4 | Low |
-| Freeable Memory | ~70–77 GB | min ~33.32 GB | Medium |
-| Read IOPS | ~400–800 (during batch) | ~1.65K | Low |
-| Write IOPS | ~0 (daily spike ~1.8–2.1K) | ~3.61K | Low |
-
-**Notes**
-- Clear daily spike pattern on CPU/WriteIOPS — consistent with a scheduled batch pipeline running once per day
-- DB Connections extremely low (avg 0–1) — batch-only access, no interactive queries on Writer
-- Anomalous event on 4/20: CPU peaked at 63%, Memory dipped to ~33 GB, WriteIOPS hit 3.61K — investigate whether a non-routine pipeline ran that day
-- Strong contrast between instance-1 Reader (~600–1,000 connections) and instance-2 Writer (~0) — need to identify what is holding persistent connections to the Reader
-
 ### 3.2 Sporty UAT
 
 #### sporty-pub-uat-bi-main2
