@@ -50,15 +50,57 @@ Service RDS → BI RDS (direct)
 
 # 2. Instance Inventory
 
-This section documents all BI RDS instances across Sporty and Encore environments (Prod and UAT). For each instance, capture the <font color="#ff0000">engine version</font>, i<font color="#ff0000">nstance type</font>, <font color="#ff0000">storage configuration</font>, <font color="#ff0000">Multi-AZ setup</font>, and monthly cost. Known issues and observations are noted inline under each sub-section and will be consolidated in Section 6 ( Issues & Risks Summary ). 
+This section documents all BI RDS instances across Sporty and Encore environments (Prod and UAT). For each instance, capture the <font color="#ff0000">engine version</font>, <font color="#ff0000">instance type</font>, <font color="#ff0000">storage configuration</font>, <font color="#ff0000">Multi-AZ setup</font>, and monthly cost. Known issues and observations are noted inline under each sub-section and will be consolidated in Section 6 ( Issues & Risks Summary ). 
 
 ### 2.1 Sporty PROD
 
-| Cluster                                                                                                                                                                              | Endpoint                  | Engine                               | Instance Type               | Storage                        | Multi-AZ      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- | ------------------------------------ | --------------------------- | ------------------------------ | ------------- |
-| [sporty-pub-prod-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                              | bi-report-o1 / bigdata-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.12xlarge             | Aurora Standard (auto-scaling) | Yes (2 Zones) |
-| [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) | bi-bigdata-o1             | MySQL Community 8.0.40               | db.r6g.xlarge               | gp3 / 11,518 GiB / 12,000 IOPS | Yes           |
-| [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)                                 | bigdata-ticket-o1         | Aurora MySQL 3.08.0                  | Serverless v2 (40–100 ACUs) | Aurora Standard (auto-scaling) | No            |
+#### [sporty-pub-prod-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)
+
+Cluster has Read / Write separation sporty-pub-prod-bi-main-instance-1 handles queries; instance-2 (Writer) handles all write traffic. And used to serve as data warehouse (like the Redshift now). Provided for DA write data directorly from service RDS our from Redshift and query by metabase
+
+1. **Endpoint** : 
+	*  bi-report-o1.mysql.pub.s.sportybet
+	*  bigdata-o1.mysql.pub.s.sportybet
+2. Engine：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. Instance Type：db.r6g.12xlarge
+
+[**sporty-pub-prod-bi-main-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
+
+| Metric          | Avg         | Peak          | Risk   |
+| --------------- | ----------- | ------------- | ------ |
+| CPU Utilization | ~5–10%      | ~39.5%        | Low    |
+| DB Connections  | ~30–50      | ~105          | Low    |
+| Freeable Memory | ~120–141 GB | min ~70.73 GB | Medium |
+| Read IOPS       | ~1–2K       | ~15.4K        | Low    |
+| Write IOPS      | ~0          | ~0            | —      |
+
+[**sporty-pub-prod-bi-main-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-2)
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~20–30% | ~41.7% | Low |
+| DB Connections | ~8–16 | ~49 | Low |
+| Freeable Memory | ~128–132 GB | min ~114 GB | Low |
+| Read IOPS | ~1–2K | ~13.88K | Low |
+| Write IOPS | ~15–25K | ~63.81K | Medium |
+
+**Notes**
+- Reader memory peaks at ~82% (min freeable ~70.73 GB / 384 GB total) — periodic spikes correlate with pipeline runs
+- Reader ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
+- Writer WriteIOPS peak at 63.81K — heavy write load, worth monitoring for sustained spikes
+1. Storage：Aurora Standard (auto-scaling)
+2. Multi-AZ：Yes
+
+#### [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false)
+
+
+
+
+| Cluster                                                                                                                                              | Endpoint                  | Engine                 | Instance Type               | Storage                        | Multi-AZ      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | --------------------------- | ------------------------------ | ------------- |
+|                                                                                                                                                      | bi-report-o1 / bigdata-o1 |                        | db.r6g.12xlarge             | Aurora Standard (auto-scaling) | Yes (2 Zones) |
+|                                                                                                                                                      | bi-bigdata-o1             | MySQL Community 8.0.40 | db.r6g.xlarge               | gp3 / 11,518 GiB / 12,000 IOPS | Yes           |
+| [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true) | bigdata-ticket-o1         | Aurora MySQL 3.08.0    | Serverless v2 (40–100 ACUs) | Aurora Standard (auto-scaling) | No            |
 
 **Notes**
 - `sporty-pub-prod-bi-main`: RDS Extended Support enabled → incurring additional cost
@@ -124,32 +166,9 @@ TBD — High-level summary to be written after all instance metrics are collecte
 
 #### sporty-pub-prod-bi-main
 
-> Cluster has Read / Write separation : sporty-pub-prod-bi-main-instance-1 handles queries; instance-2 (Writer) handles all write traffic.
+> 
 
-[**sporty-pub-prod-bi-main-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~5–10% | ~39.5% | Low |
-| DB Connections | ~30–50 | ~105 | Low |
-| Freeable Memory | ~120–141 GB | min ~70.73 GB | Medium |
-| Read IOPS | ~1–2K | ~15.4K | Low |
-| Write IOPS | ~0 | ~0 | — |
-
-[**sporty-pub-prod-bi-main-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-2)
-
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~20–30% | ~41.7% | Low |
-| DB Connections | ~8–16 | ~49 | Low |
-| Freeable Memory | ~128–132 GB | min ~114 GB | Low |
-| Read IOPS | ~1–2K | ~13.88K | Low |
-| Write IOPS | ~15–25K | ~63.81K | Medium |
-
-**Notes**
-- Reader memory peaks at ~82% (min freeable ~70.73 GB / 384 GB total) — periodic spikes correlate with pipeline runs
-- Reader ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
-- Writer WriteIOPS peak at 63.81K — heavy write load, worth monitoring for sustained spikes
 
 #### sporty-pub-prod-bi-bigdata-instance-1
 
