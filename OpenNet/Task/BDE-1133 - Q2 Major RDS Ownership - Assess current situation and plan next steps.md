@@ -84,10 +84,7 @@ Cluster has Read / Write separation sporty-pub-prod-bi-main-instance-1 handles q
 | Read IOPS | ~1–2K | ~13.88K | Low |
 | Write IOPS | ~15–25K | ~63.81K | Medium |
 
-**Notes**
-- Reader memory peaks at ~82% (min freeable ~70.73 GB / 384 GB total) — periodic spikes correlate with pipeline runs
-- Reader ReadIOPS spike to 15.4K on 4/23 — investigate which pipeline caused this
-- Writer WriteIOPS peak at 63.81K — heavy write load, worth monitoring for sustained spikes
+
 1. Storage：Aurora Standard (auto-scaling)
 2. Multi-AZ：Yes
 
