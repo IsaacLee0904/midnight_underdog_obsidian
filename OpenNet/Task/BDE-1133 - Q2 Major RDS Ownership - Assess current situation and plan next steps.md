@@ -78,13 +78,13 @@ Cluster has Read / Write separation — instance-1 handles read queries, instanc
 
 [**sporty-pub-prod-bi-main-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-2)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~20–30% | ~41.7% | Low |
-| DB Connections | ~8–16 | ~49 | Low |
-| Freeable Memory | ~128–132 GB | min ~114 GB | Low |
-| Read IOPS | ~1–2K | ~13.88K | Low |
-| Write IOPS | ~15–25K | ~63.81K | Medium |
+| Metric          | Avg         | Peak        | Risk   |
+| --------------- | ----------- | ----------- | ------ |
+| CPU Utilization | ~20–30%     | ~41.7%      | Low    |
+| DB Connections  | ~8–16       | ~49         | Low    |
+| Freeable Memory | ~128–132 GB | min ~114 GB | Low    |
+| Read IOPS       | ~1–2K       | ~13.88K     | Low    |
+| Write IOPS      | ~15–25K     | ~63.81K     | Medium |
 
 **Notes**
 - RDS Extended Support enabled → incurring additional cost
@@ -556,11 +556,4 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance.
    - Owner & Timeline
 ```
 
-RDS 歷史故事
 
-Step1. 一開始只有 `bi-report-o1.mysql.pub.s.sportybet` 一台，類似現在 Redshift 的warehouse 功能，會直接從服務的 RDS 透過 cron job 將資料同步到這裡
-Step2. 新增了 `bigdata-o1.mysql.pub.s.sportybet` 作為 serverless 的使用情境，每 15 分鐘會將資料同步過來，主要是給 Trading team 使用的
-Step3. 大部分的工作從 cron job 遷移到 Airflow 上主要 pipeline 在 [data_analysis](https://github.com/opennetltd/data_analysis) 的 repo 裡面
-Step4. 新開了一個 `bigdata-ticket-o1.mysql.pub.s.sportybet` 分擔 `bi-report-o1.mysql.pub.s.sportybet` 的 workload 
-
-其他環境也都類似情境，現在大部分的工作應該都遷移到 Airflow 上了
