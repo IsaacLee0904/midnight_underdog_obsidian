@@ -59,7 +59,6 @@ This section documents all BI RDS instances across Sporty and Encore environment
 | [sporty-pub-prod-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)                              | bi-report-o1 / bigdata-o1 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | db.r6g.12xlarge             | Aurora Standard (auto-scaling) | Yes (2 Zones) |
 | [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false) | bi-bigdata-o1             | MySQL Community 8.0.40               | db.r6g.xlarge               | gp3 / 11,518 GiB / 12,000 IOPS | Yes           |
 | [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)                                 | bigdata-ticket-o1         | Aurora MySQL 3.08.0                  | Serverless v2 (40–100 ACUs) | Aurora Standard (auto-scaling) | No            |
-| [sporty-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)                          | bet-bi-o1                 | Aurora MySQL 8.0.mysql_aurora.3.10.1 | Serverless v2 (2–40 ACUs)   | Aurora Standard (auto-scaling) | Yes (2 Zones) |
 
 **Notes**
 - `sporty-pub-prod-bi-main`: RDS Extended Support enabled → incurring additional cost
@@ -68,9 +67,6 @@ This section documents all BI RDS instances across Sporty and Encore environment
 - `sporty-pub-prod-bi-bigdata-instance-1`: Enhanced Monitoring disabled → monitoring gap
 - `bigdata-ticket-prod`: Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
 - `bigdata-ticket-prod`: Recurring HLL (History List Length) issues — root cause under investigation
-- `sporty-global-prod-bet-bi`: RDS Extended Support enabled → incurring additional cost
-- `sporty-global-prod-bet-bi`: Enhanced Monitoring disabled → monitoring gap
-
 
 ### 2.2 Sporty UAT
 
