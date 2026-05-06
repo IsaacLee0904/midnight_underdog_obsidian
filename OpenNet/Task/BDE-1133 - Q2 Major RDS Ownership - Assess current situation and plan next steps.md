@@ -515,4 +515,5 @@ TBD — High-level summary to be written after all instance metrics are collecte
 RDS 歷史故事
 
 Step1. 一開始只有 `bi-report-o1.mysql.pub.s.sportybet` 一台，類似現在 Redshift 的warehouse 功能，會直接從服務的 RDS 透過 cron job 將資料同步到這裡
-Step2. 新增了 `bigdata-o1.mysql.pub.s.sportybet`
+Step2. 新增了 `bigdata-o1.mysql.pub.s.sportybet` 作為 serverless 的使用情境，每 15 分鐘會將資料同步過來，主要是給 Trading team 使用的
+Step3. 大部分的工作從 cron job 遷移到 Airflow 上主要 pipeline 在
