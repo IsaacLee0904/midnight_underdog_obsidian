@@ -106,13 +106,13 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 
 [**sporty-pub-prod-bi-bigdata-instance-1 (Primary)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-1)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~20–25% | ~32.8% | Low |
-| DB Connections | ~1–2 | ~21 | Low |
+| Metric          | Avg     | Peak         | Risk     |
+| --------------- | ------- | ------------ | -------- |
+| CPU Utilization | ~20–25% | ~32.8%       | Low      |
+| DB Connections  | ~1–2    | ~21          | Low      |
 | Freeable Memory | ~4.5 GB | min ~4.39 GB | **High** |
-| Read IOPS | ~800–1K | ~4.73K | Low |
-| Write IOPS | ~3–4K | ~6.25K | Low |
+| Read IOPS       | ~800–1K | ~4.73K       | Low      |
+| Write IOPS      | ~3–4K   | ~6.25K       | Low      |
 
 [**sporty-pub-prod-bi-bigdata-instance-2 (Replica)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-2)
 
