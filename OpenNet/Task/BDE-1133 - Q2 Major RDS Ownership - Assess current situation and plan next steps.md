@@ -138,7 +138,7 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 
 #### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)
 
-Aurora Serverless v2 (40–100 ACUs) cluster for Trading team data with 15-minute sync cadence. Currently under Blue/Green migration to provisioned r8g.8xlarge (DBA-7596). Metrics below reflect the Blue (current production) side.
+Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
 
 1. **Endpoint**：bigdata-ticket-o1.mysql.pub.s.sportybet
 2. **Engine**：Aurora MySQL 3.08.0
