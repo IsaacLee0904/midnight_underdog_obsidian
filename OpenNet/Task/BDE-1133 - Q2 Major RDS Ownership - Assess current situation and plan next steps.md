@@ -178,48 +178,6 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 ---
 
-#### [sporty-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)
-
-Aurora Serverless v2 (2–40 ACUs) cluster with Reader + Writer separation. Serves global Sporty bet data.
-
-1. **Endpoint**：bet-bi-o1
-2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
-3. **Instance Type**：Serverless v2 (2–40 ACUs)
-4. **Storage**：Aurora Standard (auto-scaling)
-5. **Multi-AZ**：Yes (2 Zones)
-
-[**sporty-global-prod-bet-bi-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-1)
-
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~2–4% | ~8.99% | Low |
-| DB Connections | ~600–1,000 | ~1.44K | Medium |
-| Freeable Memory | ~70–75 GB | min ~33.43 GB | Medium |
-| Read IOPS | ~50–200 | ~742 | Low |
-| Write IOPS | ~0 | ~0 | — |
-
-[**sporty-global-prod-bet-bi-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-2)
-
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~0–5% (daily spike ~32–40%) | ~63% | Medium |
-| DB Connections | ~0–1 | ~4 | Low |
-| Freeable Memory | ~70–77 GB | min ~33.32 GB | Medium |
-| Read IOPS | ~400–800 (during batch) | ~1.65K | Low |
-| Write IOPS | ~0 (daily spike ~1.8–2.1K) | ~3.61K | Low |
-
-**Notes**
-- RDS Extended Support enabled → incurring additional cost
-- Enhanced Monitoring disabled → monitoring gap
-- Connection count (~600–1,000 avg) is notably high for a Serverless 2–40 ACU Reader — worth investigating which services are connecting
-- Memory dips to ~33.43 GB freeable periodically — correlates with connection/read spikes
-- Clear daily spike pattern on Writer CPU/WriteIOPS — consistent with a scheduled batch pipeline running once per day
-- DB Connections extremely low on Writer (avg 0–1) — batch-only access, no interactive queries
-- Anomalous event on 4/20: CPU peaked at 63%, Memory dipped to ~33 GB, WriteIOPS hit 3.61K — investigate whether a non-routine pipeline ran that day
-- Strong contrast: Reader (~600–1,000 connections) vs Writer (~0) — need to identify what is holding persistent connections to the Reader
-
----
-
 ### 2.2 Sporty UAT
 
 #### [sporty-pub-uat-bi-main2](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-uat-bi-main2;is-cluster=true)
