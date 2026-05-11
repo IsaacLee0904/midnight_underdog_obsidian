@@ -1,8 +1,8 @@
 ## Information
 
-* **Jira Ticket** : [Link]([https://opennetltd.atlassian.net/jira/software/projects/BDE/boards/117?jql=assignee%20%3D%20712020%3A4caf52e7-1e32-4e9b-ade5-8c262db7c7f0&selectedIssue=BDE-984](https://opennetltd.atlassian.net/jira/software/projects/BDE/boards/117?jql=assignee%20%3D%20712020%3A993acc76-02e5-4173-9e2b-61373ff1764c&selectedIssue=BDE-1117))
-* **Branch** : <span style="color:rgb(8, 186, 118)">feature/BDE-1117_backfill_monitoring_action_entry</span>
+* **Jira Ticket** : [Link](https://opennetltd.atlassian.net/browse/BDE-1259?atlOrigin=eyJpIjoiOWQ3Y2E5MGM2ODU1NGQ5Y2EzNWJkMzcyNTFmNDFjZWQiLCJwIjoiaiJ9)
+* **Branch** : <span style="color:rgb(8, 186, 118)">feature/BDE-1259-sync_blog_rewrites_v2_to_be_rds</span>
 
-![[Screenshot 2026-04-02 at 1.57.54 PM.png]]
+![[Screenshot 2026-05-11 at 2.20.57 PM.png]]
 
 
