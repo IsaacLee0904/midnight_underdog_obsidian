@@ -1,7 +1,7 @@
 # Pyspark
 
-tags: #pyspark #spark #big-data #data-engineering
-source: [[Isaac's Note]]
+tags : #pyspark #spark #big-data #data-engineering
+source : Notion
 
 ---
 
