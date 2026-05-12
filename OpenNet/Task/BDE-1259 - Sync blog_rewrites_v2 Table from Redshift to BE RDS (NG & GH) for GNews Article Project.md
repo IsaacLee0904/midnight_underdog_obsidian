@@ -20,6 +20,8 @@ And create a Jira ticket for DBA following the format in [CREATE New Table Struc
 
 After create ticket will need the related Backend to approve this ticket let BDA move on to next step.
 
+reference : [Help create table blog_rewrites_v2 in encore](https://opennetltd.atlassian.net/browse/DBA-11492?focusedCommentId=289392)
+
 ### Step2. Grant Permission for Airflow user
 
 After DBA help create those tables, need to grant permission to the app_airflow user which we running our Airflow DAG please follow the [Confluence page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection) and ask <font color="#548dd4">Ken</font> for help. The exist airflow users are list in 1Password vault <font color="#ffc000">Airflow-connections</font>
