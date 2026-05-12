@@ -56,11 +56,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 #### Backfill a small amount of data 
 在建立新的 pipeline 時，先 backfill 小範圍的數據 (~ 1 month)，然後進行驗證與檢查，看看 NULL、duplicate、enum 和 time series、row count 等東西ㄍ
 #### Have someone else check all your assumptions
-
-#### Produce a validation report
-
-
-
+應該由其他人檢查，不然很容易落入某種誤區
 
 ### Three Type of Quality Check
 
