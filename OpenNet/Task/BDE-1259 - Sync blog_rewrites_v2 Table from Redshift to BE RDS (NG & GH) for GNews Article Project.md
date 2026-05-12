@@ -20,4 +20,5 @@ And create a Jira ticket for DBA following the format in [CREATE New Table Struc
 
 After create ticket will need the related Backend to approve this ticket let BDA move on to next step.
 
-### Step2. Grant Permission 
+### Step2. Grant Permission for Airflow user
+
