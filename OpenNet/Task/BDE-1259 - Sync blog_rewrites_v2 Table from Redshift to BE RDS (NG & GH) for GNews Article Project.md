@@ -10,10 +10,14 @@ Sometimes we would need to
 ### Step1. Create Ticket for DBA
 
 Usually ask Kennth for help would need to provide original Jira ticket for them.
-And create a Jira ticket for DBA according to [CREATE New Table Structure (Simplified version) (SOP)](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4252532749/CREATE+New+Table+Structure+Simplified+version+SOP) format include information below :
+And create a Jira ticket for DBA following the format in [CREATE New Table Structure (Simplified version) (SOP)](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4252532749/CREATE+New+Table+Structure+Simplified+version+SOP) include information below :
 
 1. Scope Information
 2. Archive Rule
 3. Table Definition 
 4. Capacity Assessment
 5. Query Usage Examples
+
+After create ticket will need the related Backend to approve this ticket let BDA move on to next step.
+
+### Step2. Grant Permission 
