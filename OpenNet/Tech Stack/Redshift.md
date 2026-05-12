@@ -1,4 +1,5 @@
-
+tags : #OpenNet #database #infra
+source : OpenNet
 ## Redshift Operation
 
 ### Basic Statement 
