@@ -22,4 +22,6 @@ After create ticket will need the related Backend to approve this ticket let BDA
 
 ### Step2. Grant Permission for Airflow user
 
-While DBA help create those tables, need to grant permission to the app_airflow user which we running our Airflow DAG
+While DBA help create those tables, need to grant permission to the app_airflow user which we running our Airflow DAG please follow the [Confluence page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection) and ask <font color="#548dd4">Ken</font> for help
+
+
