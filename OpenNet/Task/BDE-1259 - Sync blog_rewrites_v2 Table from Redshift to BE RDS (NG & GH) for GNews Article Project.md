@@ -9,7 +9,7 @@
 Sometimes we would need to 
 ### Step1. Create Ticket for DBA
 
-Usually ask Kennth for help would need to provide original Jira ticket for them.
+Usually ask <font color="#548dd4">Kennth</font> for help would need to provide original Jira ticket for them.
 And create a Jira ticket for DBA following the format in [CREATE New Table Structure (Simplified version) (SOP)](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4252532749/CREATE+New+Table+Structure+Simplified+version+SOP) include information below :
 
 1. Scope Information
@@ -22,3 +22,4 @@ After create ticket will need the related Backend to approve this ticket let BDA
 
 ### Step2. Grant Permission for Airflow user
 
+While DBA help create those tables, need to grant permission to the app_airflow user which we running our Airflow DAG
