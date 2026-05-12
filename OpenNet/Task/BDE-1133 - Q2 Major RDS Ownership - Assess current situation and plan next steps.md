@@ -429,16 +429,6 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance.
 	- 讀取模式極度突發（尖峰至 16.54K 後驟降至 0）——與 batch pipeline 讀取時間相關
 	- CPU 在重度讀取期間峰值達 60.2%
 
-**sporty-global-prod-bet-bi**
-- instance-1 (Reader)
-	- 連線數（平均 ~600–1,000）對一台 Serverless 2–40 ACU instance 來說異常偏高——值得調查是哪些服務在連線
-	- 記憶體週期性下降至 ~33.43 GB——與連線及讀取尖峰時間相關
-- instance-2 (Writer)
-	- CPU / WriteIOPS 呈明顯的每日一次規律性尖峰——符合每日排程 batch pipeline 的特徵
-	- Writer 連線數極低（平均 0–1）——僅有 batch 存取，無互動式查詢
-	- 4/20 異常事件：CPU 達 63%、記憶體降至 ~33 GB、WriteIOPS 達 3.61K——需調查當天是否有非常規 pipeline 執行
-	- instance-1 Reader（~600–1,000 連線）與 instance-2 Writer（~0）之間的強烈對比——需確認是什麼在持續佔用 Reader 的連線
-
 **sporty-pub-uat-bi-main2**
 - instance-1 (Writer)
 	- active 期間（4/19–4/22）記憶體使用率約 82%（4 GB 總量，最低可用 ~741 MB）——對 UAT instance 來說偏高
