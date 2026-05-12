@@ -35,6 +35,22 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 > 資料品質 = 資料信任 (data trust) + 資料影響力
 
+### What Cause Bad Data ?
+
+- **日誌錯誤 (Logging Errors) :** 工程師修改了日誌結構，導致與下游表結構不符；或前端按鈕未禁用，導致用戶連點產生重複紀錄 -> 更多時候造成 fact data 的錯誤
+
+- **快照錯誤 (Snapshotting Errors) :** 維度數據快照時缺失維度或用戶資訊 -> 更多時候造成 dim data 的錯誤
+    
+- **生產端品質問題 :** application database 的 data 本身就有誤
+    
+- **結構演變 (Schema Evolution) :** 生產端表結構變更，但數據湖 (Data Lake) 的表未同步更新
+    
+- **管道失誤 (Pipeline Mistakes) :** Join 邏輯錯誤、Case When 條件漏寫，或非冪等 ( Non-idempotent ) 管道導致的回填錯誤
+    
+- **驗證不足：** 發布前沒有讓分析師或數據科學家協助驗證
+    
+- **第三方 API：** 像 Salesforce 或 Stripe 修改了 API 合約，而你無法控制
+
 ### Three Type of Quality Check
 
 #### Basic checks
