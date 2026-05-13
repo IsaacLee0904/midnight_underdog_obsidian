@@ -53,7 +53,10 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ### What Happens when Contracts are Violated (Bad Data to Prod)
 
-如果 data contract 不被遵守，就會發生 bad data propagation，
+如果 data contract 不被遵守，就會發生 bad data propagation (壞資料的擴散)，如果沒有太多 downstream 的 pipeline 或 dashboard 那可能還好，但如果是核心的 table 會很麻煩
+
+* **級聯效應：** 如果一個核心表 EX. Facebook 的 `dim_all_users` 出錯，下游可能有數萬個管道會跟著出錯
+* **高昂成本：** 修復這種大規模污染可能需要回填整個 data warehouse 一整天的數據，成本極高 (甚至高達百萬美元) 且會嚴重耽誤開發進度
 
 ### Validation Best Practices
 
