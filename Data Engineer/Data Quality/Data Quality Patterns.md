@@ -201,11 +201,12 @@ Zach Wilson 在文章[《Writing Data to Production Is a Contract That Isn't Fre
 #### Pros and Cons
 
 <mark style="background:#fff88f">Pros</mark>
-1. 實作簡單，不需要 staging table
-2. 資料可以更快使用，滿足 SLA
+1. 實作簡單而且快速，不需要 staging table
+2. 計算成本較低
+3. 資料可以更快使用，滿足 SLA
 
 <mark style="background:#fff88f">Cons</mark>
-1. 如果下游任務忽略 signal table 直接查詢，會導致使用到壞掉的資料
+1. user 如果因為 ad-hoc 直接去查詢正式 table 可能會查到號的資料
 2. 一旦違反 data contract，事後修復的成本會很高
 
 ## Dead-Letter Queue (DLQ) Pattern
