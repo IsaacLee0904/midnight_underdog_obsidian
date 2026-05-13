@@ -54,10 +54,10 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 ### Validation Best Practices
 
 #### Backfill a small amount of data 
-在建立新的 pipeline 時，先 backfill 小範圍的數據 (~ 1 month)，然後進行驗證與檢查，看看 NULL、duplicate、enum 和 time series、row count 等東西
+在建立新的 pipeline 時，先 backfill 小範圍的數據 (~ 1 month)，然後進行驗證與檢查，看看 NULL, duplicate, enum 和 time series, row count 等東西
 
 > [!attention] Write Data to Prod Data Lake
-> Data lake 沒有像 relation database 那樣的唯一值或 not null 限制，你必須自己確保 data contract，包含了 Schema, Quality checks 以及資料如何出現在 prod
+> Data lake 沒有像 relation database 那樣的唯一值或 not null 限制，你必須自己確保 data contract，包含了 Schema, Quality checks EX. null count, row count etc. 以及資料如何出現在 prod
 #### Have someone else check all your assumptions
 應該由其他人檢查，不然很容易落入某種誤區
 
