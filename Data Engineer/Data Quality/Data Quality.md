@@ -58,6 +58,8 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * **級聯效應：** 如果一個核心表 EX. Facebook 的 `dim_all_users` 出錯，下游可能有數萬個管道會跟著出錯
 * **高昂成本：** 修復這種大規模污染可能需要回填整個 data warehouse 一整天的數據，成本極高 (甚至高達百萬美元) 且會嚴重耽誤開發進度
 
+除此之外 bad metric definitions 也會造成 bad data，應該要避免過度細分的指標 EX.某個節日使用七年前舊 iphone 的某國籍兒童，資料會變的非常不穩定 (noisy) 並且失去常態性，導致 DQ checkt alarm 虛報告警，所以指標應該保持適當的尺度
+
 ### Validation Best Practices
 
 #### Backfill a small amount of data 
