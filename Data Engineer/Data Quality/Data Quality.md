@@ -51,6 +51,10 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
     
 - **第三方 API：** 像 Salesforce 或 Stripe 修改了 API 合約，而你無法控制
 
+### What Happens when Contracts are Violated (Bad Data to Prod)
+
+如果 data contract 不被遵守，就會發生 bad data propagation，
+
 ### Validation Best Practices
 
 #### Backfill a small amount of data 
