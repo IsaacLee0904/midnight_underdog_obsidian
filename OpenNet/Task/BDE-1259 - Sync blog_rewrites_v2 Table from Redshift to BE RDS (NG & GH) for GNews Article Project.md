@@ -36,5 +36,5 @@ After DBA help create those tables, need to grant permission to the db user ( fo
 
 
 Step2-1. Grant permission to the user
-Grant permission for the right database user with this repo
+Grant permission for the right database user with this [repo](https://github.com/opennetltd/dba-application-accounts)
 
