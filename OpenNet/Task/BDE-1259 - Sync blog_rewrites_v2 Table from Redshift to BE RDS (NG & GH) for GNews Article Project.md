@@ -25,9 +25,13 @@ Reach out <font color="#548dd4">Kenneth</font> for assistance. Jira ticket must 
 Refere to [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9) as an example. Note that approval from the Backend team who owns the database is required before proceeding.
 ![[Screenshot 2026-05-14 at 4.45.18 PM.png]]
 
-### Step3. Create Airflow Connection 
+### Step3. Create Airflow Connection or Grant Permission
 
-After DBA help create those tables, need to grant permission to the db user ( for all the MySQL account please see the table below ) which we running our Airflow DAG please follow the [Confluence page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection) or ask <font color="#548dd4">Ken</font> for help. The exist airflow users are list in 1Password vault <font color="#ffc000">Airflow-connections</font>
+After the tables are created, grant the necessary permissions to the DB users used by our Airflow DAGs. Existing Airflow MySQL accounts are stored in the 1Password vault <font color="#ffc000">Airflow-connections</font>.
+
+![[Screenshot 2026-05-14 at 6.00.07 PM.png]]
+
+For the full list of MySQL accounts, refer to the table below : 
 
 | account name         | note                                                                                         |
 | -------------------- | -------------------------------------------------------------------------------------------- |
@@ -37,11 +41,13 @@ After DBA help create those tables, need to grant permission to the db user ( fo
 | app_de_airflow_rw    | CRUD. Use for DE writes (sporty_rm schema).                                                  |
 | app_games_airflow_rw | CRUD. Use for Games writes (afbet_lobby, afbet_sporty_hero schemas).                         |
 
-
-Step3-1. Grant permission to the user
-Grant permission for the right database user with this [repo](https://github.com/opennetltd/dba-application-accounts) . Edit the yaml file in <font color="#548dd4">/app_users/{account_name}</font> and ask DBA to approve the PR. Then could run the workflow.
+**Step3-1. Grant Permission to the User**
+To grant permissions, edit the yaml file in <font color="#548dd4">/app_users/{account_name}</font> within this [repo](https://github.com/opennetltd/dba-application-accounts) then open a PR and request DBA (<font color="#548dd4">Kenneth</font>) approval, the workflow can be trigged.
 
 ![[Screenshot 2026-05-14 at 5.37.09 PM.png]]
 
-Step2-2. 
+**Step3-2. Create a New Airflow Connection**
+If the connection doesn't exist in the vault, a new one will need to be created. Follow [Airflow MySQL Connections – AWS Secrets Manager Guide](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection), or reach out to <font color="#548dd4">Ken</font> for assistance. The DevOps naming in 1Password is the connection ID that should be used in the DAG. See the screenshot below for reference:
 
+![[Screenshot 2026-05-14 at 6.09.24 PM.png]]
+![[Screenshot 2026-05-14 at 6.07.13 PM.png]]
