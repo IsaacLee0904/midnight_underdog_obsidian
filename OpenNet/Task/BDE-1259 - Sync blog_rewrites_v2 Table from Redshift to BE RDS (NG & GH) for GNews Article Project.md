@@ -20,7 +20,7 @@ And create a Jira ticket for DBA following the format in [CREATE New Table Struc
 ref : [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9)
 
 In this step, would also need discuss and get approval from Backend who own the database 
-
+![[Screenshot 2026-05-14 at 4.45.18 PM.png]]
 After create ticket will need the related Backend to approve this ticket let BDA move on to next step.
 
 reference : [Help create table blog_rewrites_v2 in encore](https://opennetltd.atlassian.net/browse/DBA-11492?focusedCommentId=289392)
