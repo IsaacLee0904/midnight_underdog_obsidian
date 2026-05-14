@@ -8,7 +8,7 @@
 
 ### Step1. Create DAG
 
-For this kind of reverse ETL we refer to  [data_analysis](https://github.com/opennetltd/data_analysis) repo. Could reference [t_pocket_user_lifetime_bet](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/t_pocket_user_lifetime_bet/grid) and we used to occur a High DML Latency alert caused by loading too many S3 files data into RDS trigger by reverse ETL. Make sure using l`oad_into_rds_from_s3_batch` function in the DAG
+For this kind of reverse ETL we refer to  [data_analysis](https://github.com/opennetltd/data_analysis) repo.  Use `load_into_rds_from_s3_batch` in the DAG to avoid High DML Latency alaert caused by loading S3 files [t_pocket_user_lifetime_bet](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/t_pocket_user_lifetime_bet/grid)
 
 ![[Screenshot 2026-05-14 at 5.44.36 PM.png]]
 ### Step2. Create Application Database
