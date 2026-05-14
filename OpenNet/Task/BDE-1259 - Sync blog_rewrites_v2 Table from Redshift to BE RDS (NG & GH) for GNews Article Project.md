@@ -36,5 +36,7 @@ After DBA help create those tables, need to grant permission to the db user ( fo
 
 
 Step2-1. Grant permission to the user
-Grant permission for the right database user with this [repo](https://github.com/opennetltd/dba-application-accounts)
+Grant permission for the right database user with this [repo](https://github.com/opennetltd/dba-application-accounts) . Edit the yaml file in <font color="#548dd4">/app_users/{account_name}</font> and ask DBA to approve the PR. Then could run the workflow.
+
+Step2-2. 
 
