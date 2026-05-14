@@ -21,7 +21,7 @@ ref : [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=ey
 
 In this step, would also need discuss and get approval from Backend who own the database 
 ![[Screenshot 2026-05-14 at 4.45.18 PM.png]]
-reference : [Help create table blog_rewrites_v2 in encore](https://opennetltd.atlassian.net/browse/DBA-11492?focusedCommentId=289392)
+ref : [Help create table blog_rewrites_v2 in encore](https://opennetltd.atlassian.net/browse/DBA-11492?focusedCommentId=289392)
 
 ### Step2. Grant Permission to MySQL Account
 
