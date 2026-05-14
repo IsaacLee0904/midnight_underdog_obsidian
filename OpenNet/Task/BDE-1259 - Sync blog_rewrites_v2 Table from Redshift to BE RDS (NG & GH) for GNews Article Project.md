@@ -22,9 +22,7 @@ Reach out <font color="#548dd4">Kenneth</font> for assistance. Jira ticket must 
 4. Capacity Assessment
 5. Query Usage Examples
 
-ref : [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9)
-
-In this step, would also need discuss and get approval from Backend who own the database 
+Refere to [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9) as an example. Note that approval from the Backend team who owns the database is required before proceeding.
 ![[Screenshot 2026-05-14 at 4.45.18 PM.png]]
 
 ### Step3. Grant Permission to MySQL Account
