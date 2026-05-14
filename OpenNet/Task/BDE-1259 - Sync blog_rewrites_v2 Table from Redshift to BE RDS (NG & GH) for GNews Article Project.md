@@ -25,7 +25,7 @@ Reach out <font color="#548dd4">Kenneth</font> for assistance. Jira ticket must 
 Refere to [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9) as an example. Note that approval from the Backend team who owns the database is required before proceeding.
 ![[Screenshot 2026-05-14 at 4.45.18 PM.png]]
 
-### Step3. Grant Permission to MySQL Account
+### Step3. Create Airflow Connection 
 
 After DBA help create those tables, need to grant permission to the db user ( for all the MySQL account please see the table below ) which we running our Airflow DAG please follow the [Confluence page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection) or ask <font color="#548dd4">Ken</font> for help. The exist airflow users are list in 1Password vault <font color="#ffc000">Airflow-connections</font>
 
