@@ -6,7 +6,6 @@
 
 ![[Screenshot 2026-05-11 at 2.20.57 PM.png]]
 
-Sometimes we would need to 
 ### Step1. Create Ticket for DBA
 
 Usually ask <font color="#548dd4">Kennth</font> for help would need to provide original Jira ticket for them.
@@ -18,11 +17,15 @@ And create a Jira ticket for DBA following the format in [CREATE New Table Struc
 4. Capacity Assessment
 5. Query Usage Examples
 
+ref : [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9)
+
+In this step, would also need discuss and get approval from Backend who own the database 
+
 After create ticket will need the related Backend to approve this ticket let BDA move on to next step.
 
 reference : [Help create table blog_rewrites_v2 in encore](https://opennetltd.atlassian.net/browse/DBA-11492?focusedCommentId=289392)
 
-### Step2. Grant Permission for Airflow user
+### Step2. Grant Permission to MySQL Account
 
 After DBA help create those tables, need to grant permission to the db user ( for all the MySQL account please see the table below ) which we running our Airflow DAG please follow the [Confluence page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection) or ask <font color="#548dd4">Ken</font> for help. The exist airflow users are list in 1Password vault <font color="#ffc000">Airflow-connections</font>
 
