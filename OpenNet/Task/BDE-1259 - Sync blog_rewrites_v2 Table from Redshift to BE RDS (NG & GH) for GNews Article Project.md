@@ -24,7 +24,16 @@ reference : [Help create table blog_rewrites_v2 in encore](https://opennetltd.at
 
 ### Step2. Grant Permission for Airflow user
 
-After DBA help create those tables, need to grant permission to the db user which we running our Airflow DAG please follow the [Confluence page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection) or ask <font color="#548dd4">Ken</font> for help. The exist airflow users are list in 1Password vault <font color="#ffc000">Airflow-connections</font>
+After DBA help create those tables, need to grant permission to the db user ( for all the MySQL account please see the table below ) which we running our Airflow DAG please follow the [Confluence page](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection) or ask <font color="#548dd4">Ken</font> for help. The exist airflow users are list in 1Password vault <font color="#ffc000">Airflow-connections</font>
+
+| account name         | note                                                                                         |
+| -------------------- | -------------------------------------------------------------------------------------------- |
+| app_airflow_ro       | SELECT only. Use for reading any source DB (primaries, replicas, games, risk, recomm, etc.). |
+| app_airflow_rw       | CRUD. Use for BI/ETL destination schema writes to Sporty/Encore primaries.                   |
+| app_da_airflow_rw    | CRUD. Use for DA writes (afbet_bi, afbet_recap, sporty_rm_bi, afbet_realsports table-level). |
+| app_de_airflow_rw    | CRUD. Use for DE writes (sporty_rm schema).                                                  |
+| app_games_airflow_rw | CRUD. Use for Games writes (afbet_lobby, afbet_sporty_hero schemas).                         |
+
 
 Step2-1. Grant permission to the user
 Grant permission for the right database user with this repo
