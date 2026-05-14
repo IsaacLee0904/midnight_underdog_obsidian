@@ -13,8 +13,8 @@ For this kind of reverse ETL we refer to  [data_analysis](https://github.com/ope
 ![[Screenshot 2026-05-14 at 5.44.36 PM.png]]
 ### Step2. Create Application Database
 
-Could ask <font color="#548dd4">Kennth</font> for help and need to provide original Jira ticket for them.
-Create a Jira ticket for DBA following the format in [CREATE New Table Structure (Simplified version) (SOP)](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4252532749/CREATE+New+Table+Structure+Simplified+version+SOP) include information below :
+Reach out <font color="#548dd4">Kenneth</font> for assistance. Jira ticket must be submitted to the DBA team following the
+ [CREATE New Table Structure (Simplified version) (SOP)](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4252532749/CREATE+New+Table+Structure+Simplified+version+SOP) including : 
 
 1. Scope Information
 2. Archive Rule
