@@ -50,3 +50,5 @@ To grant permissions, edit the yaml file in <font color="#548dd4">/app_users/{ac
 If the connection doesn't exist in the vault, a new one will need to be created. Follow [Airflow MySQL Connections – AWS Secrets Manager Guide](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4463263787/Airflow+MySQL+Connections+AWS+Secrets+Manager+Guide?atlOrigin=eyJpIjoiY2RjNjQ0NDkyMGY1NGUyMmE0OTRlNTQzZmQwNDM0YTEiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ#Requesting-a-New-Connection), or reach out to <font color="#548dd4">Ken</font> for assistance. The DevOps naming in 1Password is the connection ID that should be used in the DAG. See the screenshot below for reference:
 ![[Screenshot 2026-05-14 at 6.09.24 PM.png]]
 ![[Screenshot 2026-05-14 at 6.07.13 PM.png]]
+
+### Step4. 
