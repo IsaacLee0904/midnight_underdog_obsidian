@@ -53,8 +53,16 @@ If the connection doesn't exist in the vault, a new one will need to be created.
 
 ### Step4. Associate IAM Role with Redshift Cluster
 
-When running the DAG, you may encounter the error :
+When running the DAG, you may encounter some error
+
+#### 1. Redshift missing IAM role to dump data to S3
 
 ![[Pasted image 20260515112014.png]]
 
-This occurs when the Redshift cluster does not have the required IAM role attached, which is needed to allow Redshift to dump data to S3. In this case, please open a ticket and reach out to DevOps (<font color="#548dd4">Robin</font>) to associate the IAM role with the corresponding Redshift cluster.
+This occurs when the Redshift cluster does not have the required IAM role attached, which is needed to allow Redshift to dump data to S3. In this case, please open a ticket and reach out to DevOps (<font color="#548dd4">Robin</font>) to associate the IAM role.
+
+#### 2. RDS missing IAM role to load data from S3
+
+![[Pasted image 20260519114534.png]]
+
+This occurs when the RDS cluster does not have the required IAM role attached, which is needed to allow load data from S3. In this case, please open a ticket and reach out to DBA to associate the IAM role.
