@@ -65,4 +65,5 @@ This occurs when the Redshift cluster does not have the required IAM role attach
 
 ![[Pasted image 20260519114534.png]]
 
-This occurs when the RDS cluster does not have the required IAM role attached, which is needed to allow load data from S3. In this case, please open a ticket and reach out to DBA to associate the IAM role.
+This occurs when the RDS cluster does not have the required IAM role attached, which is needed to allow load data from S3. In this case, please ask the DBA who own the database to associate the IAM role.
+![[Screenshot 2026-05-19 at 1.50.58 PM.png]]
