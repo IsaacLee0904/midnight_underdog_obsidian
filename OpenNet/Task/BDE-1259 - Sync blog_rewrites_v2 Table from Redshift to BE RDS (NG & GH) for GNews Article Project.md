@@ -8,10 +8,10 @@
 
 ### Step1. Create DAG
 
-For this kind of reverse ETL we refer to  [data_analysis](https://github.com/opennetltd/data_analysis) repo.  Use `load_into_rds_from_s3_batch` in the DAG to avoid High DML Latency alaert caused by loading S3 files to RDS. See [t_pocket_user_lifetime_bet](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/t_pocket_user_lifetime_bet/grid) as a reference.
+For this kind of reverse ETL we refer to  [data_analysis](https://github.com/opennetltd/data_analysis) repo.  Use `load_into_rds_from_s3_batch` in the DAG to avoid High DML Latency alert caused by loading S3 files to RDS. See [t_pocket_user_lifetime_bet](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/t_pocket_user_lifetime_bet/grid) as a reference.
 
 ![[Screenshot 2026-05-14 at 5.44.36 PM.png]]
-### Step2. Create Application Database
+### Step2. Create Table in Application Database
 
 Reach out <font color="#548dd4">Kenneth</font> for assistance. Jira ticket must be submitted to the DBA team following the
  [CREATE New Table Structure (Simplified version) (SOP)](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4252532749/CREATE+New+Table+Structure+Simplified+version+SOP) including : 
@@ -22,7 +22,7 @@ Reach out <font color="#548dd4">Kenneth</font> for assistance. Jira ticket must 
 4. Capacity Assessment
 5. Query Usage Examples
 
-Refere to [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9) as an example. Note that approval from the Backend team who owns the database is required before proceeding.
+Refer to [DBA-11492](https://opennetltd.atlassian.net/browse/DBA-11492?atlOrigin=eyJpIjoiNWZmYzJhZTQxMDRmNGE2NjkxZGEwYmQ2YWE3ZjRhYTMiLCJwIjoiaiJ9) as an example. Note that approval from the Backend team who owns the database is required before proceeding.
 ![[Screenshot 2026-05-14 at 4.45.18 PM.png]]
 
 ### Step3. Create Airflow Connection or Grant Permission
