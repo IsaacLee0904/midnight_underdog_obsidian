@@ -51,7 +51,7 @@ If the connection doesn't exist in the vault, a new one will need to be created.
 ![[Screenshot 2026-05-14 at 6.09.24 PM.png]]
 ![[Screenshot 2026-05-14 at 6.07.13 PM.png]]
 
-### Step4. Associate IAM Role with Redshift Cluster
+### Step4. Trouble Shooting
 
 When running the DAG, you may encounter some error
 
