@@ -263,13 +263,13 @@ Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation. Serv
 
 [**encore-pub-prod-bi-main-v5 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20encore-pub-prod-bi-main-v5)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~25–40% | ~71% | **High** |
-| DB Connections | ~8–17 | ~51 | Low |
-| Freeable Memory | ~29 GB | min ~25.59 GB | Low |
-| Read IOPS | ~4–6K | ~10.54K | Medium |
-| Write IOPS | ~0 | ~0 | — |
+| Metric          | Avg     | Peak          | Risk     |
+| --------------- | ------- | ------------- | -------- |
+| CPU Utilization | ~25–40% | ~71%          | **High** |
+| DB Connections  | ~8–17   | ~51           | Low      |
+| Freeable Memory | ~29 GB  | min ~25.59 GB | Low      |
+| Read IOPS       | ~4–6K   | ~10.54K       | Medium   |
+| Write IOPS      | ~0      | ~0            | —        |
 
 [**encore-pub-prod-bi-main-v5-instance-2 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-pub-prod-bi-main-v5-instance-2)
 
