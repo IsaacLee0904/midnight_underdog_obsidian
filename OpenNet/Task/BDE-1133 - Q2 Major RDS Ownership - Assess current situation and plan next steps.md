@@ -180,6 +180,34 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 ### 2.2 Sporty UAT
 
+#### [sporty-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-uat-bet-bi;is-cluster=true)
+
+Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
+
+1. **Endpoint**：bet-bi-t1.mysql.global.s.sportybet
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.04.3
+3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：No
+
+[**sporty-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
+
+| Metric          | Avg       | Peak          | Risk     |
+| --------------- | --------- | ------------- | -------- |
+| CPU Utilization | ~2.9%     | ~4.63%        | Low      |
+| DB Connections  | ~140–170  | ~183          | **High** |
+| Freeable Memory | ~36–38 GB | min ~30.18 GB | Low      |
+| Read IOPS       | ~0        | ~0.03         | —        |
+| Write IOPS      | ~3.79     | ~8.4          | Low      |
+
+**Notes**
+- Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
+- RDS Extended Support enabled → incurring additional cost
+- Deletion protection disabled
+- Enhanced Monitoring disabled → monitoring gap
+- DB Connections (~140–170) is unexpectedly high for a UAT Serverless instance with near-zero read/write activity — likely idle connections held by a connection pool that is not releasing properly
+- ReadIOPS essentially zero despite high connection count — connections are sleeping/idle, no actual queries being executed
+---
 #### [sporty-pub-uat-bi-main2](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-uat-bi-main2;is-cluster=true)
 
 Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB RAM). Metrics show two distinct phases: active (4/19–4/22) and near-idle (4/23 onwards).
@@ -218,36 +246,6 @@ Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB R
 - Daily ReadIOPS spikes (~4.11K) indicate a batch read pipeline routing reads to this Reader consistently
 - Anomalous WriteIOPS spike on 4/28 (~435.22) — significantly above baseline replication writes, needs investigation
 - Notable contrast: instance-1 (Writer) went near-idle after 4/22 while this Reader remains consistently active — UAT writes have stopped but something continues reading from this cluster
-
----
-
-#### [sporty-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-uat-bet-bi;is-cluster=true)
-
-Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
-
-1. **Endpoint**：bet-bi-t1.mysql.global.s.sportybet
-2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.04.3
-3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
-4. **Storage**：Aurora Standard (auto-scaling)
-5. **Multi-AZ**：No
-
-[**sporty-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
-
-| Metric          | Avg       | Peak          | Risk     |
-| --------------- | --------- | ------------- | -------- |
-| CPU Utilization | ~2.9%     | ~4.63%        | Low      |
-| DB Connections  | ~140–170  | ~183          | **High** |
-| Freeable Memory | ~36–38 GB | min ~30.18 GB | Low      |
-| Read IOPS       | ~0        | ~0.03         | —        |
-| Write IOPS      | ~3.79     | ~8.4          | Low      |
-
-**Notes**
-- Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
-- RDS Extended Support enabled → incurring additional cost
-- Deletion protection disabled
-- Enhanced Monitoring disabled → monitoring gap
-- DB Connections (~140–170) is unexpectedly high for a UAT Serverless instance with near-zero read/write activity — likely idle connections held by a connection pool that is not releasing properly
-- ReadIOPS essentially zero despite high connection count — connections are sleeping/idle, no actual queries being executed
 
 ---
 
