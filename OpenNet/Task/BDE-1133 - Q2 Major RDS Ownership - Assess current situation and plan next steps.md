@@ -184,7 +184,7 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB RAM). Metrics show two distinct phases: active (4/19–4/22) and near-idle (4/23 onwards).
 
-1. **Endpoint**：bet-bi-t1.mysql.global.s.sportybet
+1. **Endpoint**：bi-main2-t1.mysql.pub.s.sportybet
 2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
 3. **Instance Type**：db.t4g.medium
 4. **Storage**：Aurora Standard (auto-scaling)
@@ -225,13 +225,13 @@ Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB R
 
 Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
 
-1. **Endpoint**：bet-bi-t1
+1. **Endpoint**：bet-bi-t1.mysql.global.s.sportybet
 2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.04.3
 3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
 
-[**sporty-global-uat-bet-bi-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
+[**sporty-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
