@@ -188,8 +188,8 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
 
 1. **Endpoint**：
-	* `bigdata-ticket-o1.mysql.pub.s.sportybet` (writer, Airflow Conn)
-	* `bigdata-ticket-o1.mysql.ro.pub.s.sportybet` (reader)
+	* `bet-bi-o1.mysql.global.s.sportybet` (writer, Airflow Conn)
+	* 
 2. **Engine**：Aurora MySQL 3.08.0
 3. **Instance Type**：Serverless v2 (40–100 ACUs)
 4. **Storage**：Aurora Standard (auto-scaling)
