@@ -202,13 +202,13 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 [sporty-global-prod-bet-bi-instance-2](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-2)
 
-| Metric          | Avg         | Peak       | Risk                                                    |
-| --------------- | ----------- | ---------- | ------------------------------------------------------- |
-| CPU Utilization | ~5–15%      | ~39%       | Low                                                     |
-| DB Connections  | ~700–1,400  | ~1.4K      | Dropped to ~40 after 05/19                              |
-| Freeable Memory | ~67–77 GB   | min ~38 GB | Low                                                     |
-| Read IOPS       | ~100–400 /s | ~1.54K     | Low                                                     |
-| Write IOPS      | ~0          | ~2K        | Sudden spike on 05/20, near-zero for preceding 3 months |
+| Metric          | Avg                                                        | Peak       | Risk                                        |
+| --------------- | ---------------------------------------------------------- | ---------- | ------------------------------------------- |
+| CPU Utilization | ~0 (burst spike daily) → ~5–15% after 05/19                | ~56.2%     | Low                                         |
+| DB Connections  | ~0 before 05/19 → ~455–910 after 05/19                     | ~910       | Jumped from near-zero to active after 05/19 |
+| Freeable Memory | ~67–77 GB                                                  | min ~38 GB | Low                                         |
+| Read IOPS       | ~0 (burst spike daily) → continuous ~100–200/s after 05/19 | ~1.58K     | Low                                         |
+| Write IOPS      | Daily burst spikes up to ~3.38K before 05/19 → ~0 after    | ~3.38K     | —                                           |
 
 ---
 ### 2.2 Sporty UAT
