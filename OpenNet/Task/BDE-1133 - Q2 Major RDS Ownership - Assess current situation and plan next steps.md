@@ -136,7 +136,7 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 
 ---
 
-#### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bgd-3kfqd9devzhkx5tb;is-maintenance=true)
+#### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bigdata-ticket-prod;is-cluster=true)
 
 Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
 
