@@ -343,7 +343,7 @@ Aurora cluster (db.t4g.medium, 4 GB RAM, burstable), single Writer instance.
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
 
-[**encore-pub-uat-bi-main-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-pub-uat-bi-main-instance-1)
+[**encore-pub-uat-bi-main-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-pub-uat-bi-main-instance-1)
 
 | Metric | Avg | Peak | Risk |
 |---|---|---|---|
@@ -375,15 +375,15 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance.
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
 
-[**encore-global-uat-bet-bi-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-uat-bet-bi-instance-1)
+[**encore-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-uat-bet-bi-instance-1)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~2.64–2.84% | ~3.03% | Low |
-| DB Connections | ~0 | ~1 | — |
-| Freeable Memory | ~38.19–38.83 GB (cyclical) | min ~38.19 GB | Low |
-| Read IOPS | N/A (not captured) | — | — |
-| Write IOPS | ~3.37–3.61 (background) | ~3.98 | Low |
+| Metric          | Avg                        | Peak          | Risk |
+| --------------- | -------------------------- | ------------- | ---- |
+| CPU Utilization | ~2.64–2.84%                | ~3.03%        | Low  |
+| DB Connections  | ~0                         | ~1            | —    |
+| Freeable Memory | ~38.19–38.83 GB (cyclical) | min ~38.19 GB | Low  |
+| Read IOPS       | N/A (not captured)         | —             | —    |
+| Write IOPS      | ~3.37–3.61 (background)    | ~3.98         | Low  |
 
 **Notes**
 - Engine version 3.04.3 — significantly behind other instances (3.10.1) → upgrade needed
