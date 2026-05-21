@@ -210,6 +210,8 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 | Read IOPS       | ~0 (burst spike daily) → continuous ~100–200/s after 05/19 | ~1.58K     | Low                                         |
 | Write IOPS      | Daily burst spikes up to ~3.38K before 05/19 → ~0 after    | ~3.38K     | —                                           |
 
+⚠️ Connections appear to have been redirected from instance-1 to instance-2 around 05/19. Needs further investigation.
+
 ---
 ### 2.2 Sporty UAT
 
