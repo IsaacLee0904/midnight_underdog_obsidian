@@ -161,13 +161,13 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 [**bigdata-ticket-prod-instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20bigdata-ticket-prod-instance-2)
 
-| Metric | Avg | Peak | Risk |
-|---|---|---|---|
-| CPU Utilization | ~5–15% | ~60.2% | Medium |
-| DB Connections | N/A | N/A | — |
-| Freeable Memory | ~88–136 GB | min ~23.86 GB | **High** |
-| Read IOPS | ~0–2K (bursty) | ~16.54K | Medium |
-| Write IOPS | ~0 | ~0 | — |
+| Metric          | Avg            | Peak          | Risk     |
+| --------------- | -------------- | ------------- | -------- |
+| CPU Utilization | ~5–15%         | ~60.2%        | Medium   |
+| DB Connections  | N/A            | N/A           | —        |
+| Freeable Memory | ~88–136 GB     | min ~23.86 GB | **High** |
+| Read IOPS       | ~0–2K (bursty) | ~16.54K       | Medium   |
+| Write IOPS      | ~0             | ~0            | —        |
 
 **Notes**
 - Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
@@ -193,6 +193,14 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 5. **Multi-AZ**：No
 
 sporty-global-prod-bet-bi-instance-1
+
+| Metric          | Avg            | Peak          | Risk     |
+| --------------- | -------------- | ------------- | -------- |
+| CPU Utilization | ~5–15%         | ~60.2%        | Medium   |
+| DB Connections  | N/A            | N/A           | —        |
+| Freeable Memory | ~88–136 GB     | min ~23.86 GB | **High** |
+| Read IOPS       | ~0–2K (bursty) | ~16.54K       | Medium   |
+| Write IOPS      | ~0             | ~0            | —        |
 
 sporty-global-prod-bet-bi-instance-2
 
