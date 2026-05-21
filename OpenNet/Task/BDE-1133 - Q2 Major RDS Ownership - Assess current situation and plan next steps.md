@@ -182,11 +182,9 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 ---
 #### [sporty-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)
 
-Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
-
 1. **Endpoint**：`bet-bi-o1.mysql.global.s.sportybet` (writer, Airflow Conn)
-2. **Engine**：Aurora MySQL 3.08.0
-3. **Instance Type**：Serverless v2 (40–100 ACUs)
+2. **Engine**：8.0.mysql_aurora.3.10.1
+3. **Instance Type**：Serverless v2 (2–40 ACUs)
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：2 Zones
 
