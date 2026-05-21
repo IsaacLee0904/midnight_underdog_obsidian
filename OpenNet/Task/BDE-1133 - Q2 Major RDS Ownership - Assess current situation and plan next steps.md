@@ -59,8 +59,8 @@ This section documents all BI RDS instances across Sporty and Encore environment
 Cluster has Read / Write separation — instance-1 handles read queries, instance-2 (Writer) handles all write traffic. Serves as the primary BI warehouse for the Sporty pub environment, receiving data from Airflow pipelines and queried by the DA team and Metabase.
 
 1. **Endpoint**：
-   - bi-report-o1.mysql.pub.s.sportybet
-   - bigdata-o1.mysql.pub.s.sportybet
+   - `bi-report-o1.mysql.pub.s.sportybet`
+   - `bigdata-o1.mysql.pub.s.sportybet`
 2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
 3. **Instance Type**：db.r6g.12xlarge
 4. **Storage**：Aurora Standard ( auto-scaling )
