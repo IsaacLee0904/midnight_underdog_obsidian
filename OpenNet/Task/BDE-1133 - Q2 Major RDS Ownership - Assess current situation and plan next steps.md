@@ -194,13 +194,13 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 sporty-global-prod-bet-bi-instance-1
 
-| Metric          | Avg            | Peak          | Risk     |
-| --------------- | -------------- | ------------- | -------- |
-| CPU Utilization | ~5–15%         | ~60.2%        | Medium   |
-| DB Connections  | N/A            | N/A           | —        |
-| Freeable Memory | ~88–136 GB     | min ~23.86 GB | **High** |
-| Read IOPS       | ~0–2K (bursty) | ~16.54K       | Medium   |
-| Write IOPS      | ~0             | ~0            | —        |
+| Metric          | Avg         | Peak       | Risk                                                    |
+| --------------- | ----------- | ---------- | ------------------------------------------------------- |
+| CPU Utilization | ~5–15%      | ~39%       | Low                                                     |
+| DB Connections  | ~700–1,400  | ~1.4K      | Dropped to ~40 after 05/19                              |
+| Freeable Memory | ~67–77 GB   | min ~38 GB | Low                                                     |
+| Read IOPS       | ~100–400 /s | ~1.54K     | Low                                                     |
+| Write IOPS      | ~0          | ~2K        | Sudden spike on 05/20, near-zero for preceding 3 months |
 
 sporty-global-prod-bet-bi-instance-2
 
