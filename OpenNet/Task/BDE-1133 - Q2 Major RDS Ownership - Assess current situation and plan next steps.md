@@ -101,7 +101,7 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 
 1. **Endpoint**：
 	* `bi-bigdata-o1.mysql.pub.s.sportybet`
-	* `replica-bi-bigdata-o1.mysql.pub.s.sportybet`
+	* `replica-bi-bigdata-o1.mysql.pub.s.sportybet` (Primary, Airflow Conn)
 2. **Engine**：MySQL Community 8.0.40
 3. **Instance Type**：db.r6g.xlarge
 4. **Storage**：gp3 / 11,518 GiB / 12,000 IOPS
