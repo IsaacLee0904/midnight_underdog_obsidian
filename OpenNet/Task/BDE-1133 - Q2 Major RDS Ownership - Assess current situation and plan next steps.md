@@ -183,6 +183,51 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 ---
 
+
+#### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bigdata-ticket-prod;is-cluster=true)
+
+Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
+
+1. **Endpoint**：
+	* `bigdata-ticket-o1.mysql.pub.s.sportybet` (writer, Airflow Conn)
+	* `bigdata-ticket-o1.mysql.ro.pub.s.sportybet` (reader)
+2. **Engine**：Aurora MySQL 3.08.0
+3. **Instance Type**：Serverless v2 (40–100 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：No
+
+[**bigdata-ticket-prod-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20sporty-global-prod-bet-bi-instance-1)
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~40–60% | ~82.8% | **High** |
+| DB Connections | ~40–80 | ~117 | Medium |
+| Freeable Memory | ~88–132 GB | min ~44.85 GB | Medium |
+| Read IOPS | ~300–800 | ~15.29K | Low |
+| Write IOPS | ~10–20K | ~32.79K | **High** |
+
+[**bigdata-ticket-prod-instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20bigdata-ticket-prod-instance-2)
+
+| Metric | Avg | Peak | Risk |
+|---|---|---|---|
+| CPU Utilization | ~5–15% | ~60.2% | Medium |
+| DB Connections | N/A | N/A | — |
+| Freeable Memory | ~88–136 GB | min ~23.86 GB | **High** |
+| Read IOPS | ~0–2K (bursty) | ~16.54K | Medium |
+| Write IOPS | ~0 | ~0 | — |
+
+**Notes**
+- Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
+- Recurring HLL (History List Length) issues — root cause under investigation
+- CPU avg 40–60% with peaks at 82.8% — likely approaching Serverless 100 ACU ceiling, explains recurring instability
+- Write IOPS consistently 10–20K is the primary driver of HLL issues; 15-minute sync cadence means writes never stop
+- ReadIOPS spike to 15.29K around 4/29–30 likely related to Blue/Green switchover activities
+- Memory deep dips (~44.85 GB freeable) correlate with high write load periods
+- Reader memory dips to ~23.86 GB during read bursts — more severe than Writer
+- Migration to provisioned r8g.8xlarge in progress — expected to improve stability and cost
+
+
+---
 ### 2.2 Sporty UAT
 
 #### [sporty-global-uat-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-uat-bet-bi;is-cluster=true)
