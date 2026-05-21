@@ -184,7 +184,7 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 ---
 
 
-#### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bigdata-ticket-prod;is-cluster=true)
+#### [sporty-global-prod-bet-bi]()
 
 Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
 
