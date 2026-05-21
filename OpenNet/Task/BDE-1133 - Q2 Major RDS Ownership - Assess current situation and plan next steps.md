@@ -94,7 +94,6 @@ Cluster has Read / Write separation — instance-1 handles read queries, instanc
 - Writer WriteIOPS peak at 63.81K — heavy write load, worth monitoring for sustained spikes
 
 ---
-
 #### [sporty-pub-prod-bi-bigdata-instance-1](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-bigdata-instance-1;is-cluster=false)
 
 MySQL Community instance with Primary + Replica setup. Originally created to offload workload from bi-report-o1, but is largely unused now — only a few specific pipelines remain on this instance.
@@ -138,7 +137,6 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 - Worth evaluating whether this instance and its Replica are still needed
 
 ---
-
 #### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bigdata-ticket-prod;is-cluster=true)
 
 Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
@@ -182,7 +180,6 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 - Migration to provisioned r8g.8xlarge in progress — expected to improve stability and cost
 
 ---
-
 #### [sporty-global-prod-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-prod-bet-bi;is-cluster=true)
 
 Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
@@ -195,6 +192,9 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
 
+sporty-global-prod-bet-bi-instance-1
+
+sporty-global-prod-bet-bi-instance-2
 
 
 ---
