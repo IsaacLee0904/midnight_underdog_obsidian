@@ -143,7 +143,9 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 
 Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
 
-1. **Endpoint**：bigdata-ticket-o1.mysql.pub.s.sportybet
+1. **Endpoint**：
+	* `bigdata-ticket-o1.mysql.pub.s.sportybet`
+	* 
 2. **Engine**：Aurora MySQL 3.08.0
 3. **Instance Type**：Serverless v2 (40–100 ACUs)
 4. **Storage**：Aurora Standard (auto-scaling)
