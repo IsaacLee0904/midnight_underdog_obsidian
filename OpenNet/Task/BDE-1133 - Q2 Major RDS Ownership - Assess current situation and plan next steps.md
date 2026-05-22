@@ -334,11 +334,13 @@ Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation. Serv
 
 Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation. Serves global Encore bet data.
 
-1. **Endpoint**：bet-bi-o1
-2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
-3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
-4. **Storage**：Aurora Standard (auto-scaling)
-5. **Multi-AZ**：Yes (2 Zones)
+1. **Endpoint**：
+   * `bet-bi-o1.mysql.global.s.encore` (writer, Airflow Conn)
+   * `encore-global-prod-bet-bi.cluster-ro-cvdgobmslfew.eu-central-1.rds.amazonaws.com` (reader, )
+1. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+2. **Instance Type**：Serverless v2 (0.5–20 ACUs)
+3. **Storage**：Aurora Standard (auto-scaling)
+4. **Multi-AZ**：Yes (2 Zones)
 
 [**encore-global-prod-bet-bi-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-prod-bet-bi-instance-1)
 
