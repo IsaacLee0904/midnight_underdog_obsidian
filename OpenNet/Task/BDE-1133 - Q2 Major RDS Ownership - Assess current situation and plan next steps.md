@@ -50,7 +50,7 @@ Service RDS → BI RDS (direct)
 
 # 2. Instance Inventory & Performance Assessment
 
-This section documents all BI RDS instances across Sporty and Encore environments (Prod and UAT), including configuration details and CloudWatch performance metrics observed over the past 90 days. Known issues are noted inline and will be consolidated in Section 5 (Issues & Risks Summary).
+This section documents all BI RDS instances across Sporty and Encore environments (Prod and UAT), including configuration details and performance metrics collected via CloudWatch. Endpoints are documented as Route53 aliases where available, otherwise the raw AWS endpoint is listed. Known issues are noted inline and will be consolidated in Section 5 (Issues & Risks Summary).
 
 ### 2.1 Sporty PROD
 
