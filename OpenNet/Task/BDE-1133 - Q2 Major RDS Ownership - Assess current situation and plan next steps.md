@@ -379,7 +379,8 @@ Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation. Se
 Aurora cluster (db.t4g.medium, 4 GB RAM, burstable), single Writer instance.
 
 1. **Endpoint**：
-   * 
+   * `bi-main-t1.mysql.pub.s.encore` (writer)
+   * `encore-pub-uat-bi-main.cluster-ro-cvdgobmslfew.eu-central-1.rds.amazonaws.com` (reader)
 1. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.04.3
 2. **Instance Type**：db.t4g.medium
 3. **Storage**：Aurora Standard (auto-scaling)
