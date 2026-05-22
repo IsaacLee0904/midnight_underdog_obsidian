@@ -247,7 +247,9 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
 
 Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB RAM). Metrics show two distinct phases: active (4/19–4/22) and near-idle (4/23 onwards).
 
-1. **Endpoint**：bi-main2-t1.mysql.pub.s.sportybet
+1. **Endpoint**：
+	* `bi-main2-t1.mysql.pub.s.sportybet` (writer, Airflow Conn)
+	* `sporty-pub-uat-bi-main2.cluster-ro-cvdgobmslfew.eu-central-1.rds.amazonaws.com`
 2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
 3. **Instance Type**：db.t4g.medium
 4. **Storage**：Aurora Standard (auto-scaling)
@@ -290,8 +292,10 @@ Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB R
 
 Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation. Serves as the primary BI warehouse for the Encore pub environment.
 
-1. **Endpoint**：bi-main-o1
-2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+1. **Endpoint**：
+   * `bi-main-o1.mysql.pub.s.encore`
+   * `bi-main-o1.mysql.ro.pub.s.encore`
+2. *Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
 3. **Instance Type**：db.r6g.2xlarge
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：Yes (2 Zones)
