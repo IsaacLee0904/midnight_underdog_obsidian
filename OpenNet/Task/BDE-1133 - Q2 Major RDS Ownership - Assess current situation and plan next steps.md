@@ -336,7 +336,7 @@ Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation. Se
 
 1. **Endpoint**：
    * `bet-bi-o1.mysql.global.s.encore` (writer, Airflow Conn)
-   * `encore-global-prod-bet-bi.cluster-ro-cvdgobmslfew.eu-central-1.rds.amazonaws.com` (reader, )
+   * `encore-global-prod-bet-bi.cluster-ro-cvdgobmslfew.eu-central-1.rds.amazonaws.com` (reader)
 1. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
 2. **Instance Type**：Serverless v2 (0.5–20 ACUs)
 3. **Storage**：Aurora Standard (auto-scaling)
