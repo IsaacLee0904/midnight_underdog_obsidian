@@ -293,12 +293,12 @@ Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB R
 Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation. Serves as the primary BI warehouse for the Encore pub environment.
 
 1. **Endpoint**：
-   * `bi-main-o1.mysql.pub.s.encore`
-   * `bi-main-o1.mysql.ro.pub.s.encore`
-2. *Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
-3. **Instance Type**：db.r6g.2xlarge
-4. **Storage**：Aurora Standard (auto-scaling)
-5. **Multi-AZ**：Yes (2 Zones)
+   * `bi-main-o1.mysql.pub.s.encore` (writer, Airflow Conn)
+   * `bi-main-o1.mysql.ro.pub.s.encore` (reader)
+1. *Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+2. **Instance Type**：db.r6g.2xlarge
+3. **Storage**：Aurora Standard (auto-scaling)
+4. **Multi-AZ**：Yes (2 Zones)
 
 [**encore-pub-prod-bi-main-v5 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20encore-pub-prod-bi-main-v5)
 
