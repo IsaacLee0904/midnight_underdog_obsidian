@@ -2,5 +2,5 @@
 [[Development Setup]]
 [[Idea]]
 [[Pipeline]]
-[[Project]]
+[[OpenNet Project]]
 [[Tech Stack]]
