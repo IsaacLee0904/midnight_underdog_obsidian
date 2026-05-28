@@ -450,8 +450,20 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance.
 
 ### 3.2 DAG Overview
 
+There are three typical data flow pattern to read or write those BI related RDS :
 
+- Direct RDS read / write : Majority of DAGs read with bi_report_rds_conn_ro and write back via bi_report_rds_conn.
+- Redshift → S3 → RDS : Used by some reporting pipelines such as GGR, user segmentation etc.
+- Application DB → RDS : Some pipeline read from per-country application DB directorly and write to RDS without passing by S3.
+    
 For the full list of all Airflow DAGs please refer to [DAG List tab](https://docs.google.com/spreadsheets/d/13ZaFzEW6pqTMLzs2TqH2AdGH-1C8XTWIssnm2s2Tl7Y/edit?usp=sharing) in the GoogleSheet.
+
+### 3.3 Know Issues
+
+1. **Credential Storage Inconsistency** : bigdata_ticket_prod (Sporty DA Prod), bi_bigdata_ro, and bigdata_ticket_prod_ro (Encore DA Prod) are stored in AWS Secrets Manager rather than the Airflow Connection UI. To reduce confusion, should migrate all connections to a unified storage approach.
+2. **Partial Migration to** app_airflow **Account** : A planned migration to all BI RDS connections to use the app_airflow account is in progress. The bi-bigdata connections on Sporty Airflow have been completed.  
+    ref : [https://opennetltd.atlassian.net/browse/BDE-1121?atlOrigin=eyJpIjoiNzVkZWIyNjczYWY3NGZmM2I1YTczNWYwOTIyZjc2MjgiLCJwIjoiaiJ9](https://opennetltd.atlassian.net/browse/BDE-1121?atlOrigin=eyJpIjoiNzVkZWIyNjczYWY3NGZmM2I1YTczNWYwOTIyZjc2MjgiLCJwIjoiaiJ9)
+3. **RW Connections Used for Read-Only Tasks** : Some DAGs doing read-only operations through write-capable connections. This does not follow the intended connection type and would adds unnecessary load on write endpoints.
 
 
 ### 中文備註彙整
