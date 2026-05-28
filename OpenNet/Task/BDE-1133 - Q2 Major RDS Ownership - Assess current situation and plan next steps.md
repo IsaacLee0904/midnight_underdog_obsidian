@@ -442,10 +442,16 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance.
 
 ---
 
+# 3. DAG Review
+
+### 3.1 Airflow Connection
+
+[Google Sheet - Airflow Connection List](https://docs.google.com/spreadsheets/d/13ZaFzEW6pqTMLzs2TqH2AdGH-1C8XTWIssnm2s2Tl7Y/edit?gid=0#gid=0)
+
+### 3.2 DAG Overview
 
 
-
-
+For the full list of all Airflow DAGs please refer to [DAG List tab](https://docs.google.com/spreadsheets/d/13ZaFzEW6pqTMLzs2TqH2AdGH-1C8XTWIssnm2s2Tl7Y/edit?usp=sharing) in the GoogleSheet.
 
 
 ### 中文備註彙整
