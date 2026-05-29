@@ -15,6 +15,8 @@ Rejection pipeline 跑的 Airflow Worker 會在 `de_alert4933` 的 channel 中�
 
 ![[Rejection pipeline Memory Alert#Solution 定期重啟 Worker]]
 
+#### 
+
 #### Improvement Solution
 
 ##### What can improve ?
