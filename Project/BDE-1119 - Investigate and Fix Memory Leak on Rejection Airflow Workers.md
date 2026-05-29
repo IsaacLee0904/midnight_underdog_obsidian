@@ -36,7 +36,7 @@ Our Rejection Airflow workers experienced continuous memory leak issue, eventual
 
 **Result** : Fix did not address production memory leak issue but still necessary since could impact the DB workload.
 
-### Phase 2 : Python High-Watermark Effect (Child Heap)
+#### Phase 2 : Python High-Watermark Effect (Child Heap)
 
 **Hypothesis** : CPython's memory allocator retains freed memory internally rather than returning it to the OS, causing RSS floor to rise.
 
@@ -50,7 +50,26 @@ Our Rejection Airflow workers experienced continuous memory leak issue, eventual
 **Result** : Child process RSS stays flat at ~195 MB via ps aux over few days. Which means the memory leak was not from application heap.
 ![[Screenshot 2026-05-29 at 3.25.36 PM.png]]
 
-### Phase 3 : Kernel-Level Investigation
+#### Phase 3 : Kernel-Level Investigation
 **Hypothesis** : According to the result from phase 2, the memory growth might from kernel-level.
 
 **Test** : After few data of observation, discovered that memory growth is not visible at Python process level (ps aut) but at cgroup / pod level (/sys/fs/cgroup/memory.stat).
+![[Screenshot 2026-05-29 at 3.28.16 PM.png]]
+
+**Result** : Confirmed via /proc/slabinfo, dentry from 2.9M to 4.2M and nfs_inode_cache from 78K to 254K. Both directly point to NFS/EFS filesystem as the source. And DevOps also confirm this suspicion.
+
+## Root Cause and Solution
+
+The pipeline runs every minute with heavy EFS read/write of feather files. Each operation causes the Linux kernel to accumulate of cache (file cache & slab_reclaimable) inside the pod.
+
+Due to the root cause, as a short-term solution added a Kubernetes CronJob to automatically rolling restart the workers (now is every Friday at 9:00 UTC).
+
+Pull Request : [[feat] Add scheduled rolling restart for rejection Airflow workers](https://github.com/opennetltd/data_service_deployment/pull/358)
+
+Deployment :
+![[Screenshot 2026-05-29 at 3.00.34 PM.png]]
+
+## Future Improvements
+
+**Using S3 replace EFS**
+EFS behaves like a POSIX filesystem (NFS), so Linux kernel maintains filesystem metadata caches inside the pod memory. S3 is different because it is object storage, not a mounted filesystem. It typically works through API operations such as upload_file()or download_file() which using HTTP API calls instead of Linux filesystem operations.
