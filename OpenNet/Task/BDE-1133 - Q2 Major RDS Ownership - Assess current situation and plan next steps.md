@@ -218,6 +218,16 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 4. **Storage** : Aurora Standard (auto-scaling)
 5. **Multi-AZ** : No
 
+[sporty-global-stg-bet-bi-instance-1](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~\(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60\)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-stg-bet-bi-instance-1)
+
+| Metric          | Avg             | Peak          | Risk |
+| --------------- | --------------- | ------------- | ---- |
+| CPU Utilization | ~2.5%           | ~5.49%        | Low  |
+| DB Connections  | ~21             | ~41           | Low  |
+| Freeable Memory | ~38 GB          | min ~26.47 GB | Low  |
+| Read IOPS       | ~0              | ~0.1          | —    |
+| Write IOPS      | ~3 (continuous) | ~8.08         | Low  |
+
 ---
 ### 2.2 Sporty UAT
 
