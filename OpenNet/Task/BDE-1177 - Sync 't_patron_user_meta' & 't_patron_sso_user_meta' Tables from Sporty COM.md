@@ -33,6 +33,9 @@ WHERE brand = 'sporty'
 	AND module = 'sporty_patron'
 	AND source_schema = 'sporty_patron'
 	AND table_name = 't_patron_user_meta';
+	
+INSERT INTO bi_wh_monitoring.uts_backfill_state 
+VALUES ('encore', 'uat', 'realsports', 'afbet_realsports', 't_realsports_bet_selection', '2026-03-23', '2026-03-26T00:00:00', NULL, NULL, GETDATE(), GETDATE()); 
 ```
 
 然後因為回跑的時間區間很長並且很急迫所以可以透果調整 DAG 來做
