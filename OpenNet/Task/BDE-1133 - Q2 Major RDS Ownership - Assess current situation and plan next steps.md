@@ -139,17 +139,17 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 ---
 #### [bigdata-ticket-prod](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=bigdata-ticket-prod;is-cluster=true)
 
-Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, primarily serving the Trading team.
+Aurora cluster that syncs data every 15 minutes, primarily serving the Trading team.
 
 1. **Endpoint**：
-	* `bigdata-ticket-o1.mysql.pub.s.sportybet` (writer, Airflow Conn)
-	* `bigdata-ticket-o1.mysql.ro.pub.s.sportybet` (reader)
-2. **Engine**：Aurora MySQL 3.08.0
-3. **Instance Type**：Serverless v2 (40–100 ACUs)
+    - `bigdata-ticket-o1.mysql.pub.s.sportybet` (writer, Airflow Conn)
+    - `bigdata-ticket-o1.mysql.ro.pub.s.sportybet` (reader)
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：db.r8g.8xlarge (provisioned)
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
 
-[**bigdata-ticket-prod-instance-1(Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(metrics~(~(~'AWS*2fRDS~'DatabaseConnections~'DBInstanceIdentifier~'sporty-global-prod-bet-bi-instance-1~(id~'m1~visible~false)))~view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20bigdata-ticket-prod-instance-1)
+[**bigdata-ticket-prod-instance-1(Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(metrics~(~(~'AWS*2fRDS~'DatabaseConnections~'DBInstanceIdentifier~'sporty-global-prod-bet-bi-instance-1~(id~'m1~visible~false))
 
 | Metric          | Avg             | Peak         | Risk     |
 | --------------- | --------------- | ------------ | -------- |
@@ -161,13 +161,13 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 [**bigdata-ticket-prod-instance-2 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20bigdata-ticket-prod-instance-2)
 
-| Metric          | Avg            | Peak          | Risk     |
-| --------------- | -------------- | ------------- | -------- |
-| CPU Utilization | ~5–15%         | ~60.2%        | Medium   |
-| DB Connections  | N/A            | N/A           | —        |
-| Freeable Memory | ~88–136 GB     | min ~23.86 GB | **High** |
-| Read IOPS       | ~0–2K (bursty) | ~16.54K       | Medium   |
-| Write IOPS      | ~0             | ~0            | —        |
+| Metric          | Avg    | Peak          | Risk   |
+| --------------- | ------ | ------------- | ------ |
+| CPU Utilization | ~5–10% | ~37.5%        | Low    |
+| DB Connections  | ~9–10  | ~19           | Low    |
+| Freeable Memory | ~28 GB | min ~16.48 GB | Medium |
+| Read IOPS       | N/A    | N/A           | -      |
+| Write IOPS      | ~0     | ~0            | -      |
 
 **Notes**
 - Migration from Serverless to provisioned (r8g.8xlarge) in progress — DBA-7596
