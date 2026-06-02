@@ -212,21 +212,7 @@ Aurora Serverless v2 (40–100 ACUs) cluster that syncs data every 15 minutes, p
 
 #### [sporty-global-stg-bet-bi](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-global-stg-bet-bi;is-cluster=true)
 
-1. **Endpoint** : `bet-bi-s1.mysql.global.s.sportybet` (writer, Airflow Conn)
-2. **Engine** : Aurora MySQL 8.0.mysql_aurora.3.04.3
-3. **Instance Type** : Serverless v2 (0.5–20 ACUs)
-4. **Storage** : Aurora Standard (auto-scaling)
-5. **Multi-AZ** : No
-
-[sporty-global-stg-bet-bi-instance-1](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~\(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60\)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-stg-bet-bi-instance-1)
-
-| Metric          | Avg             | Peak          | Risk |
-| --------------- | --------------- | ------------- | ---- |
-| CPU Utilization | ~2.5%           | ~5.49%        | Low  |
-| DB Connections  | ~21             | ~41           | Low  |
-| Freeable Memory | ~38 GB          | min ~26.47 GB | Low  |
-| Read IOPS       | ~0              | ~0.1          | —    |
-| Write IOPS      | ~3 (continuous) | ~8.08         | Low  |
+Reverse ETL target. BI Airflow pipelines write processed data to this cluster for backend application consumption. Instance management is not owned BI.
 
 ---
 ### 2.2 Sporty UAT
