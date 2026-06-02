@@ -1,4 +1,4 @@
-# 1. Overview
+## Overview
 ### 1.1 Background
 
 BI RDS instances have historically been managed by the DBA team, with ad-hoc support from the DA and DE teams when issues arise. As the data infrastructure grows, this arrangement has created gaps in ownership — particularly around proactive monitoring, cost visibility, and scalability planning.
