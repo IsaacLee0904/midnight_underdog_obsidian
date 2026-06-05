@@ -8,7 +8,9 @@ As our data platform grows, the number of ETL pipelines and downstream dependenc
 
 This proposal introduces a lightweight **data contract** framework, inspired by [Airbnb's Metis platform](https://medium.com/airbnb-engineering/metis-building-airbnbs-next-generation-data-management-platform-d2c5219edf19), to address this gap. By ensuring every object (table & dashboard) has a registered owner in OpenMetadata, we can trigger an automated workflow to notify downstream owners whenever an upstream table is modified.
 
-## 
+## Data Contract
+
+
 
 Repo needed to include
 * DAGs in [warehouse_engineer](https://github.com/opennetltd/warehouse_engineer)
