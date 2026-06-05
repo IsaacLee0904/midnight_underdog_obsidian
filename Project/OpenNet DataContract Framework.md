@@ -27,6 +27,11 @@ Repo needed to include
 
 
 
+## Open Questions
+
+- Slack notification target: DM to downstream owners vs. dedicated alert channel (which channel)?
+- Notification content: PR link, affected table, downstream impact scope?
+- Ownership coverage: what is the current coverage rate in OpenMetadata, and how do we handle tables without a registered owner?
 
 ## Road Map
 
