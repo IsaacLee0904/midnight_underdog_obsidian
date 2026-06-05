@@ -8,8 +8,24 @@ As our data platform grows, the number of ETL pipelines and downstream dependenc
 
 We already have the foundational infrastructure in place: OpenMetadata tracks lineage and ownership across our tables and dashboards, and GitHub Actions runs on every PR merge. The missing piece is connecting these into an automated notification loop.
 
-This proposal introduces a lightweight **data contract** framework — inspired by [Airbnb's Metis platform](https://medium.com/airbnb-engineering/metis-building-airbnbs-next-generation-data-management-platform-d2c5219edf19) — starting with proactive ownership notification at the table level, with the flexibility to evolve toward data quality enforcement and column-level contracts as the system matures.
+This proposal introduces a lightweight **data contract** framework — inspired by [Airbnb's Metis platform](https://medium.com/airbnb-engineering/metis-building-airbnbs-next-generation-data-management-platform-d2c5219edf19). A data contract defines the agreement between data producers and consumers around ownership, schema, and quality expectations. Rather than adopting a heavyweight implementation, we leverage our existing stack: when a DAG change is merged, GitHub Actions calls the OpenMetadata API to identify downstream owners, and automatically sends a Slack notification — ensuring consumers are informed before issues propagate.
 
+
+
+
+
+
+
+
+
+
+
+
+## Road Map
+
+- **Phase 1 :** Impact notification for data warehouse DAGs and data analysis DAGs
+- **Phase 2 :** Extend coverage upstream to backend application data sources
+- **Phase 3 (Nice to have) :** Column-level change detection and data quality enforcement
 
 
 
