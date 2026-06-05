@@ -12,6 +12,7 @@ This proposal introduces a lightweight **data contract** framework, inspired b
 
 The proposal architecture :
 
+![[Datacontract.excalidraw|1500]]
 
 
 Repo needed to include
