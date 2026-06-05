@@ -32,4 +32,3 @@ This proposal is inspired by [Airbnb's Metis platform](https://medium.com/airbn
 ### Reference
 * https://soda.io/blog/guide-to-data-contracts
 * https://medium.com/airbnb-engineering/metis-building-airbnbs-next-generation-data-management-platform-d2c5219edf19
-* 
