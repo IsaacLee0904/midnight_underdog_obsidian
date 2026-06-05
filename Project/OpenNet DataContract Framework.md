@@ -4,7 +4,7 @@ tags: #OpenNet  #data-engineering #data-contract #data-quality-check
 ---
 ## Background
 
-As our data platform grows, the number of ETL pipelines and downstream dependencies continues to increase — some pipeline are even serve for application data sources. Today, when a DAG is modified — whether it's a transform logic change, a `distkey` adjustment, a column addition, or a data type alteration — there is no automated mechanism to notify downstream owners that their tables or dashboards may be affected. Issues are typically only discovered when a consumer notices something unusual, or worse, when a business stakeholder raises the alarm first — both of which damage the credibility and trust of the BI team.
+As our data platform grows, the number of ETL pipelines and downstream dependencies continues to increase, some pipelines even serve as application data sources. Today, when a DAG is modified — whether it's a transform logic change, a `distkey` adjustment, a column addition, or a data type alteration — there is no automated mechanism to notify downstream owners. Issues are typically only discovered when a consumer notices something unusual, or worse, when a business stakeholder raises the alarm first, damaging the credibility of the BI team.
 
 To address this, the propose introducing a lightweight **data contract** framework. A data contract is an agreement between data producers and consumers that defines ownership, schema expectations, and quality standards. Rather than adopting a heavyweight implementation, we take an incremental approach — starting with proactive ownership notification at the table level, with the flexibility to evolve toward data quality enforcement and column-level contracts as the system matures.
 
