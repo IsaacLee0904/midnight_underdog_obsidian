@@ -10,6 +10,8 @@ This proposal introduces a lightweight **data contract** framework, inspired b
 
 ## Data Contract
 
+The proposal architecture :
+
 
 
 Repo needed to include
