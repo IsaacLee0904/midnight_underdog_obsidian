@@ -15,6 +15,8 @@ The proposal architecture :
 ![[Datacontract.excalidraw|1500]]
 
 
+
+
 Repo needed to include
 * DAGs in [warehouse_engineer](https://github.com/opennetltd/warehouse_engineer)
 * DAGs in [data_analysis](https://github.com/opennetltd/data_analysis)

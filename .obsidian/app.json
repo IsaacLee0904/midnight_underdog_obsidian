@@ -4,5 +4,6 @@
   "attachmentFolderPath": "Image",
   "spellcheckDictionary": [
     "mysql"
-  ]
+  ],
+  "readableLineLength": false
 }
