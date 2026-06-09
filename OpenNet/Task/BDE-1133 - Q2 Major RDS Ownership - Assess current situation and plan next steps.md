@@ -262,6 +262,7 @@ Aurora cluster with Writer + Reader separation. db.t4g.medium (burstable, 4 GB R
 3. **Instance Type**：db.t4g.medium
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：Yes (2 Zones)
+6. **Cost (Q1 2026)**：Jan $74.35 / Feb $65.95 / Mar $100.28（avg ~$80/mo）
 
 [**sporty-pub-uat-bi-main2-instance-1 (Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-uat-bi-main2-instance-1)
 
