@@ -308,7 +308,7 @@ Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation. Serv
 2. **Instance Type**：db.r6g.2xlarge
 3. **Storage**：Aurora Standard (auto-scaling)
 4. **Multi-AZ**：Yes (2 Zones)
-5. 
+5. **Cost (Q1 2026)**：Jan $4,098.08 / Feb $3,534.69 / Mar $5,072.35（avg ~$4,235/mo）
 
 [**encore-pub-prod-bi-main-v5 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20encore-pub-prod-bi-main-v5)
 
@@ -347,10 +347,11 @@ Aurora Serverless v2 (0.5–20 ACUs) cluster with Reader + Writer separation. Se
 1. **Endpoint**：
    * `bet-bi-o1.mysql.global.s.encore` (writer, Airflow Conn)
    * `encore-global-prod-bet-bi.cluster-ro-cvdgobmslfew.eu-central-1.rds.amazonaws.com` (reader)
-1. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
-2. **Instance Type**：Serverless v2 (0.5–20 ACUs)
-3. **Storage**：Aurora Standard (auto-scaling)
-4. **Multi-AZ**：Yes (2 Zones)
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
+4. **Storage**：Aurora Standard (auto-scaling)
+5. **Multi-AZ**：Yes (2 Zones)
+6. 
 
 [**encore-global-prod-bet-bi-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-prod-bet-bi-instance-1)
 
