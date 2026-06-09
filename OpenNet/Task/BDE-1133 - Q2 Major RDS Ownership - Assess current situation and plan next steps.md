@@ -308,6 +308,7 @@ Aurora cluster (db.r6g.2xlarge, 64 GB RAM) with Reader + Writer separation. Serv
 2. **Instance Type**：db.r6g.2xlarge
 3. **Storage**：Aurora Standard (auto-scaling)
 4. **Multi-AZ**：Yes (2 Zones)
+5. 
 
 [**encore-pub-prod-bi-main-v5 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20*20encore-pub-prod-bi-main-v5)
 
