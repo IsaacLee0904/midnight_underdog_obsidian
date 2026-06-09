@@ -189,6 +189,7 @@ Aurora cluster that syncs data every 15 minutes, primarily serving the Trading t
 3. **Instance Type**：Serverless v2 (2–40 ACUs)
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：2 Zones
+6. **Cost (Q1 2026)**：Jan $806.28 / Feb $796.46 / Mar $824.78（avg ~$809/mo）
 
 [sporty-global-prod-bet-bi-instance-1](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-prod-bet-bi-instance-1)
 
@@ -230,6 +231,7 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance (no Reader/Writer split).
 3. **Instance Type**：Serverless v2 (0.5–20 ACUs)
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
+6. 
 
 [**sporty-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-global-uat-bet-bi-instance-1)
 
