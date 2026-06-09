@@ -62,10 +62,11 @@ Cluster has Read / Write separation — instance-1 handles read queries, instanc
    - `bi-report-o1.mysql.pub.s.sportybet` (writer)
    - `bigdata-o1.mysql.pub.s.sportybet` (writer)
    - `replica-bigdata-o1` (reader / DA Airflow)
-1. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
-2. **Instance Type**：db.r6g.12xlarge
-3. **Storage**：Aurora Standard ( auto-scaling )
-4. **Multi-AZ**：Yes ( 2 Zones )
+2. **Engine**：Aurora MySQL 8.0.mysql_aurora.3.10.1
+3. **Instance Type**：db.r6g.12xlarge
+4. **Storage**：Aurora Standard ( auto-scaling )
+5. **Multi-AZ**：Yes ( 2 Zones )
+6. **Cost (Q1 2026)**：Jan $29,196 / Feb $24,266 / Mar $26,477 （avg ~$26,646/mo）
 
 [**sporty-pub-prod-bi-main-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
 
