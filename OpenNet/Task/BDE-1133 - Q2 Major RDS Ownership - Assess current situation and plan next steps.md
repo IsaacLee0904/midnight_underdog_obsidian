@@ -431,6 +431,7 @@ Aurora Serverless v2 (0.5–20 ACUs), single instance.
 2. **Instance Type**：Serverless v2 (0.5–20 ACUs)
 3. **Storage**：Aurora Standard (auto-scaling)
 4. **Multi-AZ**：No
+5. **Cost (Q1 2026)**：Jan $46.74 / Feb $42.25 / Mar $58.71（avg ~$49/mo）
 
 [**encore-global-uat-bet-bi-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-global-uat-bet-bi-instance-1)
 
