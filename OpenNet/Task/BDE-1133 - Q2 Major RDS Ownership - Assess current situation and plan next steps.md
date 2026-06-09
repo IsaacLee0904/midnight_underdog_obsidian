@@ -396,7 +396,7 @@ Aurora cluster (db.t4g.medium, 4 GB RAM, burstable), single Writer instance.
 3. **Instance Type**：db.t4g.medium
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
-6. 
+6. **Cost (Q1 2026)**：Jan $36.06 / Feb $32.59 / Mar $36.27（avg ~$35/mo）
 
 [**encore-pub-uat-bi-main-instance-1**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D~stat~'Average~period~60)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20encore-pub-uat-bi-main-instance-1)
 
