@@ -67,25 +67,16 @@ For DA DAGs, lineage is parsed from SQL and pushed to OpenMetadata via a general
 For DE DAGs, lineage is extracted by parsing the DAG files directly to identify the tables they maintain.
 
 ### Components
-
-1. **OpenMetadata**
-    
-
+<mark style="background:#fff88f">OpenMetadata</mark>
 OpenMetadata is the central metadata layer. It keeps track of table and dashboard ownership, traces lineage across pipelines, and exposes a REST API so external systems (like GitHub Actions) can query downstream dependencies.
 
-2. **GitHub Actions**
-    
-
+<mark style="background:#fff88f">GitHub Actions</mark>
 GitHub Actions as the contract gateway — triggered on every PR merge to main. This follows common industry practice, where PR workflows are a natural place to enforce contract validation and send change notifications. It handles the full flow : parsing changed files, calling the OpenMetadata API, and sending Slack notifications.
 
-3. **Metabase**
-    
-
+<mark style="background:#fff88f">Metabase</mark>
 Metabase is the source of dashboard ownership. During the initial setup, we use the [Metabase API](https://www.metabase.com/docs/latest/api#tag/apidashboard "https://www.metabase.com/docs/latest/api#tag/apidashboard") to fetch dashboard creators and register them as owners in OpenMetadata.
 
-4. **Slack**
-    
-
+<mark style="background:#fff88f">Slack</mark>
 Slack handles the notifications.
 
 ### Workflow
@@ -93,34 +84,72 @@ Slack handles the notifications.
 When a pull request is merged to main in any of the three monitored repositories — `warehouse_engineer`, `data_analysis`, or `dba-redshift-executor-prod` — a GitHub Actions workflow is triggered automatically.
 
 **Step 1. Parse Changed Files**
-
 The workflow analyzes the PR diff to identify which tables are affected by the change.
-
 - For `warehouse_engineer` and `data_analysis`, the changed DAG files are identified and the affected table names are extracted by parsing the DAG content.
-    
 - For `dba-redshift-executor-prod`, the affected table names are extracted directly from the DDL statements in the changed SQL files.
     
-
 In parallel, the existing Copilot PR summary is collected to provide a human-readable description of what changed and why.
 
 **Step 2. Query OpenMetadata**
-
 For each affected table, the workflow calls the [OpenMetadata Lineage API](https://docs.open-metadata.org/v1.12.x/api-reference/main-concepts/metadata-standard/apis "https://docs.open-metadata.org/v1.12.x/api-reference/main-concepts/metadata-standard/apis") to retrieve all downstream tables and dashboards, then resolves the owner of each downstream asset.
 
 **Step 3. Send Slack Notification**
-
 A Slack notification is sent to each identified downstream owners, including :
-
 - The PR link
-    
 - A summary of what changed (according to Github Copilot)
 
+## Roadmap
 
+### Phase 0 : Foundation Setup
 
-Repo needed to include
-* DAGs in [warehouse_engineer](https://github.com/opennetltd/warehouse_engineer)
-* DAGs in [data_analysis](https://github.com/opennetltd/data_analysis)
-* DDL statement in [dba-redshift-executor-prod](https://github.com/opennetltd/dba-redshift-executor-prod)
+Before the notification workflow can operate, the following prerequisites must be done first.
+
+**Ownership Registration**
+
+All tables and dashboards in OpenMetadata must have a registered owner. For tables, ownership is derived from Airflow DAG owners via the Airflow API, mapped to email addresses, and registered in OpenMetadata. For dashboards, ownership is extracted directly from the Metabase API using the dashboard creator's email.
+
+**Lineage Registration**
+
+All pipelines must have table-level lineage established in OpenMetadata. For DA DAGs, all pipelines are required to adopt the standard general function to ensure consistent lineage coverage. For DE DAGs, lineage is extracted by parsing DAG files directly.
+
+### Phase 1 : Automated Impact Notification
+
+**Goal:** Trigger automated Slack notifications to downstream owners when a pipeline change is merged.
+
+**Scope:**
+- `warehouse_engineer` — data warehouse DAGs
+- `data_analysis` — data analysis DAGs
+- `dba-redshift-executor-prod` — DDL statements
+
+**Pros:**
+- Proactively notifies downstream owners before issues propagate
+- Leverages existing infrastructure with no new tooling required
+    
+**Cons:**
+- Notification quality depends on the completeness of ownership and lineage coverage established in Phase 0
+    
+### Phase 2 : Extend to Application Data Sources
+
+**Goal:** Extend coverage to backend application data sources that feed into the data platform.
+
+**Pros:**
+- Broader coverage across the full data supply chain
+### Phase 3 : Column-level & Data Quality Enforcement (Nice to have)
+
+**Goal:** Evolve from table-level notification to column-level change detection and data quality contract enforcement.
+
+**Pros:**
+- More precise impact assessment — only notify owners whose downstream assets use the affected column
+- Moves toward a fully enforceable data contract
+
+**Cons:**
+- Requires column-level lineage to be established in OpenMetadata
+- Significantly higher implementation complexity
+## Open Question
+
+- Slack notification target : DM to downstream owners vs. dedicated alert channel (which channel)?
+- Notification content : PR link, affected table, downstream impact scope (Copilot Summary)?
+- Ownership coverage : How to using OpenMetadata to coverage all the owner and how do we handle tables without a registered owner (edge case)?
 
 
 
