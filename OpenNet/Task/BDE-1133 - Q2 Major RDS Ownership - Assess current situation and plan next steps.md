@@ -106,6 +106,7 @@ MySQL Community instance with Primary + Replica setup. Originally created to off
 3. **Instance Type**：db.r6g.xlarge
 4. **Storage**：gp3 / 11,518 GiB / 12,000 IOPS
 5. **Multi-AZ**：Yes
+6. **Cost (Q1 2026)**：Jan $5,952 / Feb $5,916 / Mar $6,090 （avg ~$5,986/mo）
 
 [**sporty-pub-prod-bi-bigdata-instance-1 (Primary)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-bigdata-instance-1)
 
