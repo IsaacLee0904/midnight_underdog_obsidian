@@ -56,7 +56,7 @@ This section documents all BI RDS instances across Sporty and Encore environment
 
 #### [sporty-pub-prod-bi-main](https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#database:id=sporty-pub-prod-bi-main;is-cluster=true)
 
-Cluster has Read / Write separation — instance-1 handles read queries, instance-2 (Writer) handles all write traffic. Serves as the primary BI warehouse for the Sporty pub environment, receiving data from Airflow pipelines and queried by the DA team and Metabase.
+Cluster has Read / Write separation — instance-1 handles read queries, instance-2 (Writer) handles all write traffic. Originally served as the primary BI data warehouse; now functions as a data mart, receiving transformed data from upstream Airflow pipelines and serving read queries from the DA team and Metabase.
 
 1. **Endpoint**：
    - `bi-report-o1.mysql.pub.s.sportybet` (writer)
