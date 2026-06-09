@@ -149,6 +149,7 @@ Aurora cluster that syncs data every 15 minutes, primarily serving the Trading t
 3. **Instance Type**：db.r8g.8xlarge (provisioned)
 4. **Storage**：Aurora Standard (auto-scaling)
 5. **Multi-AZ**：No
+6. **Cost (Q1 2026)**：Jan $18,129.94 / Feb $16,689.96 / Mar $19,215.20 （avg ~$18,012/mo）
 
 [**bigdata-ticket-prod-instance-1(Writer)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(metrics~(~(~'AWS*2fRDS~'DatabaseConnections~'DBInstanceIdentifier~'sporty-global-prod-bet-bi-instance-1~(id~'m1~visible~false))
 
