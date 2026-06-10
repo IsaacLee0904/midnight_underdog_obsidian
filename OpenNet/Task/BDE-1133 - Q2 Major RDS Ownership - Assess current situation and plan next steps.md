@@ -67,6 +67,11 @@ Cluster has Read / Write separation — instance-1 handles read queries, instanc
 4. **Storage**：Aurora Standard ( auto-scaling )
 5. **Multi-AZ**：Yes ( 2 Zones )
 6. **Cost (Q1 2026)**：Jan $29,196 / Feb $24,266 / Mar $26,477 （avg ~$26,646/mo）
+7. **CloudWatch Monitoring**
+	* sporty-pub-prod-bi-main-instance-1
+		* Performance Insights：Enabled（7 days retention）
+		* Enhanced Monitoring：Enabled（60s）
+	* sporty-pub-prod-bi-main-instance-2
 
 [**sporty-pub-prod-bi-main-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
 
