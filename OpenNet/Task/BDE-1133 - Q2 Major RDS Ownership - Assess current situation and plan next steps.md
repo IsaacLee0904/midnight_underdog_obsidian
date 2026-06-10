@@ -72,6 +72,8 @@ Cluster has Read / Write separation — instance-1 handles read queries, instanc
 		* Performance Insights：Enabled（7 days retention）
 		* Enhanced Monitoring：Enabled（60s）
 	* sporty-pub-prod-bi-main-instance-2
+		*  Performance Insights：Enabled（7 days retention）
+		* Enhanced Monitoring：Enabled（60s）
 
 [**sporty-pub-prod-bi-main-instance-1 (Reader)**](https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#metricsV2?graph=~(view~'timeSeries~stacked~false~region~'eu-central-1~start~'-PT2160H~end~'P0D)&query=~'*7bAWS*2fRDS*2cDBInstanceIdentifier*7d*20sporty-pub-prod-bi-main-instance-1)
 
