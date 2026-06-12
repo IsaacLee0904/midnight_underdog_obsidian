@@ -8,4 +8,14 @@
 ![[Screenshot 2026-06-12 at 11.10.56 AM.png]]
 
 1. 要怎麼分級 >> 待討論
-2. 
+2. Labeling Workflow 
+```
+OM API（拉 metadata） 
+        ↓ 
+LLM（建議 tag + 理由） 
+	    ↓ 
+Review UI / CLI（人工確認） 
+        ↓ 
+OM API（寫回 tag）
+```
+* limitation : no table and cols description LLM could only using naming to review not good enough
