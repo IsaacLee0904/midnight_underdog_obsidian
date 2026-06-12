@@ -1,1 +1,2 @@
-有時候會有有非 BI-users 想要取得 BI 的資料查詢權限，這樣才可以自己解決一些 Ad-hoc，目前的做法是透過 metabase 讓他們查詢
+有時候會有有非 BI-users 想要取得 BI 的資料查詢權限，這樣才可以自己解決一些 Ad-hoc，目前的做法是透過 metabase 讓他們查詢 ([docs](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4473421881/Granting+Restricted+Database+Access+to+Non-BI+Users+via+Metabase))，但隨著這樣的需求增加，我們開始意識到到底哪些資料可以被 non-BI users 查詢哪些不行 ([thread](https://opennetltd.slack.com/archives/C07347VTBB2/p1781089134543059))![[Screenshot 2026-06-12 at 10.26.46 AM.png|546]]![[Screenshot 2026-06-12 at 10.27.14 AM.png|543]]
+針對這個原因 我覺得我有點想將 DAMA 的框架導入
