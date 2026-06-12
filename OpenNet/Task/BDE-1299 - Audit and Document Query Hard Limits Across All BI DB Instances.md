@@ -52,3 +52,94 @@
 ![confluence](https://opennetltd.atlassian.net/gateway/api/assist/rovo/v1/resources/icon/confluence)
 
 2 Sources
+
+
+---
+
+
+根據我交叉比對了所有相關文件，以下是完整的盤點結果：
+
+---
+
+## 所有 BI RDS 實例清單
+
+根據 [BI related RDS list](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4432626286)Preview 和你自己寫的 [BI RDS Inventory and Current State (2026)](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4496195776)Preview，共 11 個 BI data instance：
+
+**Sporty Prod (4)**
+
+|   |   |   |   |
+|---|---|---|---|
+|#|Cluster|Engine|Instance Type|
+|1|`sporty-pub-prod-bi-main`|Aurora MySQL 3.10.1|db.r6g.12xlarge|
+|2|`sporty-pub-prod-bi-bigdata`|MySQL Community 8.0.40|db.r6g.xlarge|
+|3|`bigdata-ticket-prod`|Aurora MySQL 3.10.1|db.r8g.8xlarge|
+|4|`sporty-global-prod-bet-bi`|Aurora MySQL 3.10.1|Serverless v2|
+
+**Sporty UAT (2)**  
+| 5 | `sporty-global-uat-bet-bi` | Aurora MySQL 3.10.1 | Serverless v2 |  
+| 6 | `sporty-pub-uat-bi-main2` | Aurora MySQL 3.10.1 | db.t4g.medium |
+
+**Encore Prod (2)**  
+| 7 | `encore-pub-prod-bi-main-v5-cluster` | Aurora MySQL 3.10.1 | db.r6g.2xlarge |  
+| 8 | `encore-global-prod-bet-bi` | Aurora MySQL 3.10.1 | Serverless v2 |
+
+**Encore UAT (2)**  
+| 9 | `encore-pub-uat-bi-main` | Aurora MySQL 3.04.3 | db.t4g.medium |  
+| 10 | `encore-global-uat-bet-bi` | Aurora MySQL 3.04.3 | Serverless v2 |
+
+另外還有 `metabase-rds`（Metabase metadata backend），不算 data instance。
+
+---
+
+## Query Hard Limit 盤點結果
+
+**結論：所有 BI RDS 實例都沒有任何 query execution time hard limit。**
+
+|   |   |   |   |
+|---|---|---|---|
+|機制|當前設定|作用範圍|是否會 Kill Query|
+|`max_execution_time`|**0（無限制）** — 全部實例|僅 SELECT|❌ 未啟用|
+|`wait_timeout`|28800（8小時）|閒置連線|❌ 只斷開 idle session|
+|`interactive_timeout`|28800（8小時）|互動式 idle|❌ 只斷開 idle session|
+|`long_query_time`|5 秒|所有 query|❌ 只記 slow log，不 kill|
+|`aurora_oom_response`|`print,tune`（預設）|記憶體壓力|⚠️ 只有 OOM 時才觸發|
+|Metabase Monitor DAG|有自定閾值|僅 Metabase user|✅ 但只限 Metabase 來源|
+
+來源：[Default parameter for new created RDS](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/2702540842)Preview、[RDS Parameter Group Configuration in Terraform](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4493377563)Preview
+
+---
+
+## 為什麼 DBA-11781 事件沒被擋下來
+
+[![](https://opennetltd.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318)DBA-11781: p0-dba-alert / AuroraMySQLRollbackSegmentHistoryListLength (sporty-pub-prod-bi-main-instance-2)Done](https://opennetltd.atlassian.net/browse/DBA-11781)Preview 的 root cause 是 DA 透過 **TablePlus** 直接連 `sporty-pub-prod-bi-main-instance-2` 跑了一個 1 年期的 heavy query（`st_sporty_games_daily_user_pl_eur` 全表 GROUP BY），跑了 10+ 小時造成 HLL 飆高。這個場景：
+
+- `max_execution_time = 0` → 不會自動 kill
+    
+- Metabase Monitor → 不涵蓋 TablePlus 連線
+    
+- `aurora_oom_response` → 沒觸發 OOM 所以不會 kill
+    
+- `wait_timeout` → query 是 active 狀態不算 idle
+    
+
+**完全沒有任何機制可以攔截。**
+
+---
+
+## 覆蓋缺口
+
+|   |   |   |
+|---|---|---|
+|查詢來源|是否有限制|缺口|
+|Metabase（dashboard/探索）|✅ Airflow DAG 監控|無|
+|Airflow DAG（ETL pipeline）|❌|無 timeout 設定|
+|DA 個人工具（TablePlus/DBeaver）|❌|**這次事件的缺口**|
+|Application account（app_airflow）|❌|無 timeout 設定|
+
+---
+
+要我直接把這個盤點結果寫入你正在編輯的 [Aurora MySQL Monitor System Architecture](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4169170997)Preview 頁面嗎？或者你想先調整內容再加？
+
+![jira](https://opennetltd.atlassian.net/gateway/api/assist/rovo/v1/resources/icon/jira)
+
+3 Sources
