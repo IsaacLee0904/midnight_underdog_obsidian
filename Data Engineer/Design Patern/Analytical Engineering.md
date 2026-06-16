@@ -43,3 +43,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 	* 高基數維度 EX. 國家、日期 可能會導致組合爆炸(超多類)，可以改成更粗顆粒度的資料 EX. day > week / month
 	* 看百分比變化的指標一定要搭配絕對數量看，避免 1 變 0 但 100 % 下跌的誤判
 
+#### Accumulation-based (累積模式)
+
+與聚合模式的本質差異在於，「沒有資料」也是一種資料，也因此需要 `FULL OUTER JOIN`
+
