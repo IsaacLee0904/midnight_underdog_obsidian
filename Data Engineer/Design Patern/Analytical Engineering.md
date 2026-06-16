@@ -23,7 +23,11 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 除此之外，還有一種富化模式 (enrichment pattern)，也就是做一個 `JOIN`，把其他欄位引入，但這屬於在 master data layer 上游進行的 pattern
 
 #### Aggregation-based (聚合模式)
-* concept
+
+核心概念是將事物進行分組與計算，通常會引入一些維度
+* Concept
 	* 語法：`SUM`, `AVG`, `COUNT`, `MEDIAN`, `PERCENTILE`
 	* 應用：root cause analysis (RCA)、維度拆解、A/B testing metics
+* Best practice
+	* 
 
