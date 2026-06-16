@@ -47,3 +47,18 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 與聚合模式的本質差異在於，「沒有資料」也是一種資料，也因此需要 `FULL OUTER JOIN`，這個模式建立在累積表設計 (cumulative table design) 基礎之上
 
+<mark style="background:#fff88f">Growth Accounting (狀態轉換追蹤)</mark>
+
+![[Screenshot 2026-06-16 at 3.37.22 PM.png]]
+
+| status      | yesterday | today    |
+| ----------- | --------- | -------- |
+| New         | NULL      | Active   |
+| Retained    | Active    | Active   |
+| Churned     | Active    | Inactive |
+| Resurrected | Inactive  | Active   |
+| Stale       | Inactive  | Inactive |
+| Deleted     | any       | NULL     |
+
+* 增長公式 : **Net Growth = New + Resurrected - Churned**
+* 這樣的 pattern 不只可以用在 user growth，也可以用在虛假帳號追蹤 (New/Reclassified/Declassified)、MLOps 模型健康程度追蹤 (分類器輸出狀態流動)、Airbnb 高風險房東追蹤
