@@ -112,4 +112,27 @@ FULL OUTER JOIN yesterday y ON t.user_id = y.user_id;
 > 以二戰轟炸機的例子來看，我們看到的都是「活著回來」的飛機，反而彈孔最少的地方才是需要加強的地方 (因為這些地方被擊中就沒回來了)，所以在分析的時候應該要先反問「我的樣本是倖存者還是全體？」
 
 ![[Screenshot 2026-06-16 at 3.51.12 PM.png]]
-留存率、J 曲線 (J-Curves) 或各領域的存活指標，基本上就是存活，可以看到事務基本上會有三種走向
+留存率、J 曲線 (J-Curves) 或各領域的存活指標，基本上就是存活，由<font color="#ff0000">曲線 (curve)</font>、<font color="#ff0000">狀態檢查 (state check)</font> 與<font color="#ff0000">基準日期 (reference date)</font> 組成，可以看到事務基本上會有三種走向 (如上圖)，所有 user 都會從 100% (註冊那天開始)，隨著時間推移，狀態會發生變化，有些 user 留下來，有些則離開，這就是所謂的<font color="#ff0000">同群 (cohort) 分析</font>或稱為<font color="#ff0000">基準日期 (reference date) 分析</font> 
+
+
+```SQL
+-- 單一同期群的 J 曲線
+SELECT
+    date,
+    COUNT(CASE WHEN daily_active_state IN ('New','Retained','Resurrected')
+               THEN 1 END)::REAL / COUNT(1) as percent_active
+FROM users_growth_accounting
+WHERE first_active_date = '2023-03-01'
+GROUP BY date
+ORDER BY date;
+
+-- 全同期群留存矩陣（Survivor Analysis Matrix）
+SELECT
+    first_active_date,
+    date - first_active_date as days_since_first_active,
+    COUNT(CASE WHEN daily_active_state IN ('New','Retained','Resurrected')
+               THEN 1 END)::REAL / COUNT(1) as percent_active
+FROM users_growth_accounting
+GROUP BY 1, 2
+ORDER BY 2;
+```
