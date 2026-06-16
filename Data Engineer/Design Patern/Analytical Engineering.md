@@ -109,5 +109,5 @@ FULL OUTER JOIN yesterday y ON t.user_id = y.user_id;
 <mark style="background:#fff88f">Survivor Analysis (存活分析)</mark>
 
 > [!attention] **倖存者偏差 (Survivorship Bias)**
-> 以二戰轟炸機的例子來看，我們看到的都是「活著回來」的飛機，反而彈孔最少的地方才是需要加強的地方 (因為這些地方被擊中就沒回來了)
+> 以二戰轟炸機的例子來看，我們看到的都是「活著回來」的飛機，反而彈孔最少的地方才是需要加強的地方 (因為這些地方被擊中就沒回來了)，所以在分析的時候應該要先反問「我的樣本是倖存者還是全體？」
 
