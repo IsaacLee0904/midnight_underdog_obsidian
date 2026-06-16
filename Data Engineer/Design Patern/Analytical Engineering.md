@@ -111,3 +111,5 @@ FULL OUTER JOIN yesterday y ON t.user_id = y.user_id;
 > [!attention] **倖存者偏差 (Survivorship Bias)**
 > 以二戰轟炸機的例子來看，我們看到的都是「活著回來」的飛機，反而彈孔最少的地方才是需要加強的地方 (因為這些地方被擊中就沒回來了)，所以在分析的時候應該要先反問「我的樣本是倖存者還是全體？」
 
+![[Screenshot 2026-06-16 at 3.51.12 PM.png]]
+留存率、J 曲線 (J-Curves) 或各領域的存活指標，基本上就是存活，可以看到事務基本上會有三種走向
