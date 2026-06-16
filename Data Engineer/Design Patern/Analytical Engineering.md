@@ -136,3 +136,6 @@ FROM users_growth_accounting
 GROUP BY 1, 2
 ORDER BY 2;
 ```
+
+
+#### Window-based Pattern (時間視窗模式)
