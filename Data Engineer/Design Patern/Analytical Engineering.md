@@ -139,3 +139,19 @@ ORDER BY 2;
 
 
 #### Window-based Pattern (時間視窗模式)
+
+我們常常使用 window-based pattern 來處理同環比類型的東西 EX. DoDs, MoMs, YoYs ...，基本上就是一段時間內的變動率 (rate of change)，然而當然反過來做滾動加總 (rolling sum) 也是可以的
+
+|                       | 數學概念 | SQL 效果 | 圖表特性     |
+| --------------------- | ---- | ------ | -------- |
+| DoD / WoW / MoM / YoY | 微分   | 變動率    | 更陡峭、更多雜訊 |
+| Rolling Sum / Average | 積分   | 累積趨勢   | 更平滑、降低雜訊 |
+
+Rolling 滾動式窗模板
+```SQL
+SUM(metric) OVER (
+    PARTITION BY dimension 
+    ORDER BY date 
+    ROWS BETWEEN N PRECEDING AND CURRENT ROW
+)
+```
