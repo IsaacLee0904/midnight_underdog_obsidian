@@ -3,9 +3,15 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ---
 
-##
+## Analytical Engineering Pattern
 
-可重複的分析的抽象成會節省很多很多時間，因此 data engineer 不應該只停留在寫 SQL (SELECT, GROUP BY) 的層次，應該更高階的思考抽象層，減少認知負荷讓分析更有影響力，同時間避免未來 AI 能寫 SQL 的時代，工程師的價值應該在理解並應用這些高階的分析模式，並善用聚合模式 (aggregation-based)、累積模式 (accumulation-based)、窗口模式 (window-based) 等各種 pattern
+### Why we need Analytical Engineering
+
+> [!attention] 核心價值：降低認知負荷，讓 data engineer 可以用更高維度去思考
+
+與其每次都從 SQL 的 `GROUP BY` 層面思考，不如識別高階模式，讓 code 自然水到渠成，這在 LLM 時代尤其重要，他讓生產 SQL code 變得更容易，因此懂高階模式的人才能用 AI 工具發揮天文數字的效率
+
+### Three Common Analytical Engineering Pattern
 
 ## Growth Accounting 
 
