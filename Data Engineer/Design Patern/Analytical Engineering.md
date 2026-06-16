@@ -62,3 +62,52 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 * 增長公式 : **Net Growth = New (新用戶) + Resurrected (回流用戶) - Churned (流失用戶)**
 * 這樣的 pattern 不只可以用在 user growth，也可以用在虛假帳號追蹤 (New/Reclassified/Declassified)、MLOps 模型健康程度追蹤 (分類器輸出狀態流動)、Airbnb 高風險房東追蹤
+* DDL
+```sql
+CREATE TABLE users_growth_accounting (
+    user_id           TEXT,
+    first_active_date DATE,
+    last_active_date  DATE,
+    daily_active_state  TEXT,   -- New/Retained/Churned/Resurrected/Stale
+    weekly_active_state TEXT,
+    dates_active      DATE[],
+    date              DATE,
+    PRIMARY KEY (user_id, date)
+);
+
+-- 每日累積查詢核心邏輯
+WITH yesterday AS (
+    SELECT * FROM users_growth_accounting
+    WHERE date = '2023-02-28'
+),
+today AS (
+    SELECT user_id,
+           DATE_TRUNC('day', event_time::TIMESTAMP)::DATE as today_date
+    FROM events
+    WHERE DATE_TRUNC('day', event_time::TIMESTAMP)::DATE = '2023-03-01'
+      AND user_id IS NOT NULL
+    GROUP BY user_id, 2
+)
+SELECT
+    COALESCE(t.user_id, y.user_id) as user_id,
+    COALESCE(y.first_active_date, t.today_date) as first_active_date,  -- 有昨天取昨天，否則取今天
+    COALESCE(t.today_date, y.last_active_date) as last_active_date,    -- 有今天取今天，否則保留昨天
+    CASE
+        WHEN y.user_id IS NULL AND t.user_id IS NOT NULL               THEN 'New'
+        WHEN t.user_id IS NOT NULL
+             AND y.last_active_date = t.today_date - INTERVAL '1 day'  THEN 'Retained'
+        WHEN t.user_id IS NOT NULL
+             AND y.last_active_date < t.today_date - INTERVAL '1 day'  THEN 'Resurrected'
+        WHEN t.user_id IS NULL
+             AND y.last_active_date = y.date                           THEN 'Churned'
+        ELSE 'Stale'
+    END as daily_active_state
+FROM today t
+FULL OUTER JOIN yesterday y ON t.user_id = y.user_id;
+```
+
+<mark style="background:#fff88f">Survivor Analysis (存活分析)</mark>
+
+> [!attention] **倖存者偏差 (Survivorship Bias)**
+> 以二戰轟炸機的例子來看，我們看到的都是「活著回來」的飛機，反而彈孔最少的地方才是需要加強的地方 (因為這些地方被擊中就沒回來了)
+
