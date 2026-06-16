@@ -37,7 +37,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 * Best practice
 	* 不要直接聚合 fact table，應該先建立聚合中間層 (daily grain)，再透過 `user_id` 將其他維度引入
-	* `JOIN` 會變成單純的一對一，效能更好，且天然支援 A/B testing
+	* `JOIN` 會變成單純的一對一，效能更好，且天然支援 A/B testing (可以很容易的把 user 分配到不同的實驗組)
 * Gothas
 	* 維度過多會回到 user grain，喪失聚合的意義
 	* 高基數維度 EX. 國家、日期 可能會導致組合爆炸(超多類)，可以改成更粗顆粒度的資料 EX. day > week / month
