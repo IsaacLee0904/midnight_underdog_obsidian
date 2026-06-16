@@ -60,5 +60,5 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 | Stale       | Inactive  | Inactive |
 | Deleted     | any       | NULL     |
 
-* 增長公式 : **Net Growth = New + Resurrected - Churned**
+* 增長公式 : **Net Growth = New (新用戶) + Resurrected (回流用戶) - Churned (流失用戶)**
 * 這樣的 pattern 不只可以用在 user growth，也可以用在虛假帳號追蹤 (New/Reclassified/Declassified)、MLOps 模型健康程度追蹤 (分類器輸出狀態流動)、Airbnb 高風險房東追蹤
