@@ -22,7 +22,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 | Window-based       | `OVER (PARTITION BY ... ORDER BY ...)` | 時間視窗內的變動率與趨勢  |
 除此之外，還有一種富化模式 (enrichment pattern)，也就是做一個 `JOIN`，把其他欄位引入，但這屬於在 master data layer 上游進行的 pattern
 
-#### Aggregation-based (聚合模式)
+#### Aggregation-based Pattern (聚合模式)
 
 核心概念是將事物進行分組與計算，通常會引入一些維度
 * Concept
@@ -43,7 +43,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 	* 高基數維度 EX. 國家、日期 可能會導致組合爆炸(超多類)，可以改成更粗顆粒度的資料 EX. day > week / month
 	* 看百分比變化的指標一定要搭配絕對數量看，避免 1 變 0 但 100 % 下跌的誤判
 
-#### Accumulation-based (累積模式)
+#### Accumulation-based Pattern (累積模式)
 
-與聚合模式的本質差異在於，「沒有資料」也是一種資料，也因此需要 `FULL OUTER JOIN`
+與聚合模式的本質差異在於，「沒有資料」也是一種資料，也因此需要 `FULL OUTER JOIN`，這個模式建立在累積表設計 (cumulative table design) 基礎之上
 
