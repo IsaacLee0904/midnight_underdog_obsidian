@@ -30,7 +30,8 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 	* 應用：root cause analysis (RCA)、維度拆解、A/B testing metics
 
 > [!attention] Root Cause Analysis (RCA)
-> Facebook 透過 RCA framework，可以插入任何 metrics，然後解釋他的變動 
+> Facebook 透過 RCA framework，可以插入任何 metrics，然後解釋他的變動，透過引入各種變數，可以得出造成這個趨勢的原因
+> 
 > EX. 有一個 week-over-week (WoW) 的變化，該指標週同比變化是增加 100 萬，這個框架會拆解這個變化，並得出原因「總共是增加 100 萬，但實際上他在美國是增加 150 萬，因為在印度是減少 50 萬 
 > -> 某一個指標總體資料是正向的，或者朝某一個方向移動，並不意味著個體資料的維度切片 (dim cut) 也是朝同一個方向
 
