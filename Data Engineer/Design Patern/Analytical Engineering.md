@@ -28,6 +28,14 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 * Concept
 	* 語法：`SUM`, `AVG`, `COUNT`, `MEDIAN`, `PERCENTILE`
 	* 應用：root cause analysis (RCA)、維度拆解、A/B testing metics
+
+> [!attention] Root Cause Analysis (RCA)
+> Facebook 透過 RCA framework，可以插入任何 metrics，然後解釋他的變動 
+> EX. 有一個 week-over-week (WoW) 的變化，該指標週同比變化是增加 100 萬，這個框架會拆解這個變化，並得出原因「總共是增加 100 萬，但實際上他在美國是增加 150 萬，因為在印度是減少 50 萬 
+> -> 某一個指標總體資料是正向的，或者朝某一個方向移動，並不意味著個體資料的維度切片 (dim cut) 也是朝同一個方向
+
+
 * Best practice
-	* 
+	* 不要直接聚合 fact table，應該先建立聚合中間層 (daily grain)，再透過 `user_id` 將其他維度引入
+	* `JOIN` 會變成單純的一對一，效能更好，且天然支援 A/B testing
 
