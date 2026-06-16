@@ -13,14 +13,17 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ### Common Analytical Engineering Patterns
 
-大部分 Data Engineer 會用到的 analytical pattern 都可以歸類成三種
+在主資料層 (master data layer)，大部分 Data Engineer 會用到的 analytical pattern 都可以歸類成三種
 
 | Pattern            | SQL statement                          | Note          |
 | ------------------ | -------------------------------------- | ------------- |
 | Aggregation-based  | `GROUP BY`                             | 維度切片、計數       |
 | Accumulation-based | `FULL OUTER JOIN`                      | 今天 vs 昨天的狀態變化 |
 | Window-based       | `OVER (PARTITION BY ... ORDER BY ...)` | 時間視窗內的變動率與趨勢  |
+除此之外，還有一種富化模式 (enrichment pattern)，也就是做一個 `JOIN`，把其他欄位引入，但這屬於在 master data layer 上游進行的 pattern
 
-
-
+#### Aggregation-based (聚合模式)
+* concept
+	* 語法：`SUM`, `AVG`, `COUNT`, `MEDIAN`, `PERCENTILE`
+	* 應用：root cause analysis (RCA)、維度拆解、A/B testing metics
 
