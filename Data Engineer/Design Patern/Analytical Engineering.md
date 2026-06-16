@@ -13,6 +13,8 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 
 ### Common Analytical Engineering Patterns
 
+大部分 Data Engineer 會用到的 analytical pattern 都可以歸類成三種
+
 | Pattern            | SQL statement                          | Note          |
 | ------------------ | -------------------------------------- | ------------- |
 | Aggregation-based  | `GROUP BY`                             | 維度切片、計數       |
