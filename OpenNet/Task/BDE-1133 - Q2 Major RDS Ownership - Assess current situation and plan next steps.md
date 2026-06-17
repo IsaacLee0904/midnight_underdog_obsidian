@@ -489,4 +489,5 @@ For the full list of all Airflow DAGs please refer to [DAG List tab](https://doc
 # 4. Monitoring Review
 
 
+![[Pasted image 20260617152902.png]]
 
