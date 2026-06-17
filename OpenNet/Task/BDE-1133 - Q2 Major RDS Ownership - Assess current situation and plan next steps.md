@@ -491,3 +491,12 @@ RDS monitoring is centralized through a [DBA-managed Grafana stack](https://open
 
 ![[Pasted image 20260617152902.png]]
 
+### 4.1 Monitoring Coverage
+
+TBD
+
+### 4.2 Alerting Coverage
+
+RDS alerting rules are defined in the [dba-alert-rules](https://github.com/opennetltd/dba-alert-rules/tree/main/aurora-mysql) repo, as documented in [MySQL Alerting rules system](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/3286728768/MySQL+Alerting+rules+system).
+
+![[Screenshot 2026-06-17 at 6.06.49 PM.png|639]]
