@@ -487,7 +487,7 @@ For the full list of all Airflow DAGs please refer to [DAG List tab](https://doc
 3. **RW Connections Used for Read-Only Tasks** : Some DAGs doing read-only operations through write-capable connections. This does not follow the intended connection type and would adds unnecessary load on write endpoints.
 
 # 4. Monitoring Review
-
+RDS monitoring is centralized through a [DBA-managed Grafana stack](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4169170997/Aurora+MySQL+Monitor+System+Architecture), with metrics sourced from CloudWatch Streams and direct MySQL exporters. Alerts are delivered to Slack.
 
 ![[Pasted image 20260617152902.png]]
 
