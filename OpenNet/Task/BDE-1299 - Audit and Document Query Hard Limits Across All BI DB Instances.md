@@ -1,145 +1,165 @@
-根據搜尋結果，你們組織內已經有幾個相關機制，分層級整理如下：
+# Background
 
-## 1. Aurora 內建：`aurora_oom_response` 參數
+BI RDS and Redshift sometimes run into long-running queries. [A recent example](https://opennetltd.slack.com/archives/C065GNMGECU/p1779245375502009 "https://opennetltd.slack.com/archives/C065GNMGECU/p1779245375502009"), on May 20, 2026, a query ran for 10+ hours on Aurora MySQL, pushing HLL to 1.1M and slowing down SELECT performance across the board. Without hard limits in place, this kind of query can drag down DB performance and affect downstream services. This document goes through the existing query execution limits across all instances and flags where no hard limit is set.
+![[Pasted image 20260617150147.png]]
 
-當記憶體不足時，Aurora 可以自動 kill 佔用最多記憶體的 query。你們的 parameter group 文件中有詳細的設定建議，例如：
+# Query Hard Limits Inventory
 
-- OLTP 場景建議：`print, decline, kill_connect, tune_buffer_pool`
-    
-- Analytics 場景建議：`print, kill_query, tune_buffer_pool`
-    
+## Redshift
+![[Pasted image 20260617150200.png]]
 
-但這是 **記憶體壓力觸發**，不是單純基於 query 執行時間。[AWS Aurora RDS MySQL Parameter](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/3648782379/AWS+Aurora+RDS+MySQL+Parameter)Preview
+For Redshift, we run both Provisioned and Serverless clusters. Heavy DA jobs run on the Provisioned cluster, most of lighter DA jobs use the `bi-report` serverless workgroup, DS jobs use `data-science`, and warehouse sync jobs — except frequent syncs (< 15 min interval) which run on Provisioned — use `data-quality`. For query limits, Provisioned clusters use WLM queue rules, Serverless workgroups enforce limits via the Maximum Query Execution Time configuration.
 
-## 2. MySQL 參數：`max_execution_time`
+### Redshift Provisioned
 
-在 AHI Lock Contention 的 case study 中有提到可以設定：
+Redshift uses [Workload Management (WLM)](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-bi-warehouse "https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-bi-warehouse") to manage query resources — queries get routed to different queues based on DB user or query group. Each queue can set an `abort_long_running_queries` rule to automatically kill queries that run too long.
 
-`SET GLOBAL max_execution_time = 60000; -- 60s per query`
+![[Pasted image 20260617150214.png]]
 
-這會自動終止超過指定時間的 **SELECT** query（注意：只對 read-only SELECT 有效，不影響 DML）。[Case Study: Aurora MySQL AHI Lock Contention — sportybet-ng-prod-instant-win (2025-03-17)](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4425777210)Preview
-
-## 3. 自建 Airflow DAG：Metabase Long Running Queries Monitor
-
-這是你們 DET 團隊針對 Metabase 建的自動化機制，透過 Airflow DAG：
-
-1. 查詢 `INFORMATION_SCHEMA.PROCESSLIST`
-    
-2. 篩選出 Metabase 來源的 query
-    
-3. 超過閾值就自動 `KILL`
-    
-4. 發 Slack 通知到 `#bi_job`
-    
-
-[Metabase Long Running Queries Monitor](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/3241115649/Metabase+Long+Running+Queries+Monitor)Preview
-
-## 4. 其他相關參數
-
-在 [RDS Parameter Group Configuration in Terraform](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4493377563)Preview 中也有記錄：
-
-- `long_query_time`：slow query log 的閾值（預設 10 秒），但這只是 **記錄** 不會 kill
-    
-- `interactive_timeout` / `wait_timeout`：閒置連線超時，不直接處理 long-running query
-    
-
----
-
-總結來說，目前 **沒有一個通用的、針對所有 user 的 auto-kill long-running query 機制**。`max_execution_time` 最接近你要的功能，但只對 SELECT 有效。如果要更全面的覆蓋，可能需要類似 Metabase monitor 那樣自建 DAG，或者在 parameter group 層級設定 `max_execution_time`。
-
-需要我幫你把這些機制整理到你正在編輯的 Aurora MySQL Monitor System Architecture 頁面嗎？
-
-![confluence](https://opennetltd.atlassian.net/gateway/api/assist/rovo/v1/resources/icon/confluence)
-
-2 Sources
-
-
----
-
-
-根據我交叉比對了所有相關文件，以下是完整的盤點結果：
-
----
-
-## 所有 BI RDS 實例清單
-
-根據 [BI related RDS list](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4432626286)Preview 和你自己寫的 [BI RDS Inventory and Current State (2026)](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4496195776)Preview，共 11 個 BI data instance：
-
-**Sporty Prod (4)**
-
-|   |   |   |   |
-|---|---|---|---|
-|#|Cluster|Engine|Instance Type|
-|1|`sporty-pub-prod-bi-main`|Aurora MySQL 3.10.1|db.r6g.12xlarge|
-|2|`sporty-pub-prod-bi-bigdata`|MySQL Community 8.0.40|db.r6g.xlarge|
-|3|`bigdata-ticket-prod`|Aurora MySQL 3.10.1|db.r8g.8xlarge|
-|4|`sporty-global-prod-bet-bi`|Aurora MySQL 3.10.1|Serverless v2|
-
-**Sporty UAT (2)**  
-| 5 | `sporty-global-uat-bet-bi` | Aurora MySQL 3.10.1 | Serverless v2 |  
-| 6 | `sporty-pub-uat-bi-main2` | Aurora MySQL 3.10.1 | db.t4g.medium |
-
-**Encore Prod (2)**  
-| 7 | `encore-pub-prod-bi-main-v5-cluster` | Aurora MySQL 3.10.1 | db.r6g.2xlarge |  
-| 8 | `encore-global-prod-bet-bi` | Aurora MySQL 3.10.1 | Serverless v2 |
-
-**Encore UAT (2)**  
-| 9 | `encore-pub-uat-bi-main` | Aurora MySQL 3.04.3 | db.t4g.medium |  
-| 10 | `encore-global-uat-bet-bi` | Aurora MySQL 3.04.3 | Serverless v2 |
-
-另外還有 `metabase-rds`（Metabase metadata backend），不算 data instance。
-
----
-
-## Query Hard Limit 盤點結果
-
-**結論：所有 BI RDS 實例都沒有任何 query execution time hard limit。**
-
-|   |   |   |   |
-|---|---|---|---|
-|機制|當前設定|作用範圍|是否會 Kill Query|
-|`max_execution_time`|**0（無限制）** — 全部實例|僅 SELECT|❌ 未啟用|
-|`wait_timeout`|28800（8小時）|閒置連線|❌ 只斷開 idle session|
-|`interactive_timeout`|28800（8小時）|互動式 idle|❌ 只斷開 idle session|
-|`long_query_time`|5 秒|所有 query|❌ 只記 slow log，不 kill|
-|`aurora_oom_response`|`print,tune`（預設）|記憶體壓力|⚠️ 只有 OOM 時才觸發|
-|Metabase Monitor DAG|有自定閾值|僅 Metabase user|✅ 但只限 Metabase 來源|
-
-來源：[Default parameter for new created RDS](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/2702540842)Preview、[RDS Parameter Group Configuration in Terraform](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4493377563)Preview
-
----
-
-## 為什麼 DBA-11781 事件沒被擋下來
-
-[![](https://opennetltd.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318)DBA-11781: p0-dba-alert / AuroraMySQLRollbackSegmentHistoryListLength (sporty-pub-prod-bi-main-instance-2)Done](https://opennetltd.atlassian.net/browse/DBA-11781)Preview 的 root cause 是 DA 透過 **TablePlus** 直接連 `sporty-pub-prod-bi-main-instance-2` 跑了一個 1 年期的 heavy query（`st_sporty_games_daily_user_pl_eur` 全表 GROUP BY），跑了 10+ 小時造成 HLL 飆高。這個場景：
-
-- `max_execution_time = 0` → 不會自動 kill
-    
-- Metabase Monitor → 不涵蓋 TablePlus 連線
-    
-- `aurora_oom_response` → 沒觸發 OOM 所以不會 kill
-    
-- `wait_timeout` → query 是 active 狀態不算 idle
-    
-
-**完全沒有任何機制可以攔截。**
-
----
-
-## 覆蓋缺口
+#### [Sporty Prod bi_warehouse](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-bi-warehouse "https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-bi-warehouse")
 
 |   |   |   |
 |---|---|---|
-|查詢來源|是否有限制|缺口|
-|Metabase（dashboard/探索）|✅ Airflow DAG 監控|無|
-|Airflow DAG（ETL pipeline）|❌|無 timeout 設定|
-|DA 個人工具（TablePlus/DBeaver）|❌|**這次事件的缺口**|
-|Application account（app_airflow）|❌|無 timeout 設定|
+|**Queue**|**User Role / Query Group**|**Hard Limit**|
+|Monitor Queue|`app_redshift_exporter` (integrate Grafana metrics)|None|
+|OpenMetadata Queue|`app_openmetadata` (OM Usage)|None|
+|Human user queries|`ds_group`, `da_group`, `de_group`, `de_select`, `trading_group` (personal account)|300s|
+|Metabase queries|`metabase` (Metabase query)|100s|
+|BI DAG long queries|query group: `bi_dag_long_queries` (DA Airflow)|3600s|
+|BI DAG queries|`bi_report` (DA Airflow)|1200s|
+|DS queue|`app_ai` (DS Airflow)|None|
+|Default queue|all others (DE Airflow)|None|
 
----
+#### [Sporty Prod bi_report](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-data-analysis "https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-data-analysis")
 
-要我直接把這個盤點結果寫入你正在編輯的 [Aurora MySQL Monitor System Architecture](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/4169170997)Preview 頁面嗎？或者你想先調整內容再加？
+|   |   |   |
+|---|---|---|
+|**Queue**|**User Role / Query Group**|**Hard Limit**|
+|Human user queries|`ds_group`, `da_group`, `de_group`, `de_select` (personal account)|300s|
+|Metabase queries|`metabase` (Metabase query)|100s|
+|BI DAG queries|`bi_report` (DA Airflow)|5400s|
+|Default queue|all others (DE Airflow)|None|
 
-![jira](https://opennetltd.atlassian.net/gateway/api/assist/rovo/v1/resources/icon/jira)
+#### [Sporty UAT bi_warehouse / bi_report](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-uat-bi-warehouse "https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-uat-bi-warehouse")
 
-3 Sources
+|   |   |   |
+|---|---|---|
+|**Queue**|**User Role / Query Group**|**Hard Limit**|
+|Monitor Queue|`app_redshift_exporter` (integrate Grafana metrics)|None|
+|OpenMetadata Queue|`app_openmetadata` (OM Usage)|None|
+|DS queue|`app_ai` (DS Airflow)|None|
+|BI DAG long queries|query group: `bi_dag_long_queries` (DA Airflow)|None|
+|Default queue|all others|None|
+
+#### [Encore Prod bi_warehouse / bi_report](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=encore-pub-prod-bi-warehouse "https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=encore-pub-prod-bi-warehouse")
+
+|   |   |   |
+|---|---|---|
+|**Queue**|**User Role / Query Group**|**Hard Limit**|
+|Monitor Queue|`app_redshift_exporter` (integrate Grafana metrics)|None|
+|OpenMetadata Queue|`app_openmetadata` (OM Usage)|None|
+|Metabase queries|`metabase` (Metabase query)|200s|
+|Default queue|all others|None|
+
+#### Encore UAT bi_warehouse / bi_report
+
+|   |   |   |
+|---|---|---|
+|**Queue**|**User Role / Query Group**|**Hard Limit**|
+|Monitor Queue|`app_redshift_exporter` (integrate Grafana metrics)|None|
+|OpenMetadata Queue|`app_openmetadata` (OM Usage)|None|
+|Metabase queries|`metabase` (Metabase query)|100s|
+|Default queue|all others|None|
+
+### Redshift Serverless
+
+For Serverless workgroups, query execution limits are configured at the workgroup level via the `Maximum Query Execution Time` setting. Queries exceeding this limit are automatically terminated.
+
+|   |   |   |
+|---|---|---|
+|**Serverless Workgroup**|**Usage**|**Max Query Execution Time**|
+|sporty-pub-prod-bi-data-quality-workgroup|Sporty Prod Warehouse Airflow (non-frequent sync)|14400s|
+|sporty-pub-prod-bi-report-workgroup|Sporty Prod DA Airflow (lighter jobs)|3600s|
+|sporty-pub-prod-bi-data-science-workgroup|Sporty Prod DS Airflow|14400s|
+|sporty-pub-uat-bi-data-quality-workgroup|Sporty UAT Warehouse Airflow (non-frequent sync)|14400s|
+|sporty-pub-uat-bi-report-workgroup|Sporty UAT DA Airflow (lighter jobs)|600s|
+|sporty-pub-uat-bi-data-science-workgroup|Sporty UAT DS Airflow|14400s|
+
+### Airflow-level Mechanisms
+
+#### Auto-kill
+
+1. `dagrun_timeout`
+    - When a DAG run times out, running tasks are forcibly stopped and marked as `skipped`, and the DAG run is marked as `failed`.
+    - ⚠️ This only kills the Airflow task but the Redshift query is not terminated and may continue running as a zombie.
+    - Reference : [Airflow monitoring DAGs | check_and_kill_accidental_queries](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/3938025503/Airflow+monitoring+DAGs#check_and_kill_accidental_queries)
+        
+2. `check_and_kill_accidental_queries`
+    - Detects queries running longer than 5 minutes where the query starts with `SELECT *` and contains `ORDER BY` + `LIMIT` ( typical TablePlus table preview behavior). Matching queries are automatically killed and a Slack alert is sent.
+        
+
+## RDS
+
+### Database Configuration
+
+Aurora MySQL enforces a hard limit on `SELECT` query execution time via the `max_execution_time` variable. Queries exceeding the limit are automatically terminated. Note that this setting does not apply to DML operations (`INSERT`, `UPDATE`, `DELETE`).
+
+![[Pasted image 20260617150238.png]]
+Reference : [Aurora MySQL Configuration Parameter](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Reference.ParameterGroups.html "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Reference.ParameterGroups.html")
+
+|**Instance**|**Env**|**max_execution_time**|
+|---|---|---|
+|sporty-pub-prod-bi-main|Sporty Prod|7200000ms (2hr)|
+|sporty-pub-prod-bi-bigdata-instance-1|Sporty Prod|7200000ms (2hr)|
+|bigdata-ticket-prod|Sporty Prod|7200000ms (2hr)|
+|sporty-global-prod-bet-bi|Sporty Prod|7200000ms (2hr)|
+|sporty-global-uat-bet-bi|Sporty UAT|7200000ms (2hr)|
+|sporty-pub-uat-bi-main2|Sporty UAT|7200000ms (2hr)|
+|encore-pub-prod-bi-main-v5-cluster|Encore Prod|7200000ms (2hr)|
+|encore-global-prod-bet-bi|Encore Prod|7200000ms (2hr)|
+|encore-pub-uat-bi-main|Encore UAT|7200000ms (2hr)|
+|encore-global-uat-bet-bi|Encore UAT|7200000ms (2hr)|
+
+Reference :
+- [DBA-11859: Check and adjust the BI related RDSs global 'max_execution_time' limit.In Progress](https://opennetltd.atlassian.net/browse/DBA-11859)
+- [SRE-10736: modify the RDS parameter ‘max_execution_time’ to ‘7200000’Done](https://opennetltd.atlassian.net/browse/SRE-10736)
+
+### Airflow-level Mechanisms
+
+#### Auto-kill
+
+1. `dagrun_timeout`
+    - When a DAG run times out, running tasks are forcibly stopped and marked as `skipped`, and the DAG run is marked as `failed`.
+    - ⚠️ This only kills the Airflow task but the Redshift query is not terminated and may continue running as a zombie.
+    - Reference : [Airflow monitoring DAGs | check_and_kill_accidental_queries](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/3938025503/Airflow+monitoring+DAGs#check_and_kill_accidental_queries)
+        
+2. `metabase_long_running_queries_monitor`
+    - Every 10 minutes, automatically kills Metabase queries that are stuck or running too long on all BI RDS instances (except Encore UAT).
+    - Reference : [Metabase Long Running Queries Monitor](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/3241115649)
+        
+
+# Gap Summary
+
+### 🔴 RDS only has SELECT execution time limit
+
+#### **Current State**
+
+Now we only applied `max_execution_time` configuration for RDS and that only works for `SELECT` queries.
+
+#### **Potential solution**
+
+1. **Monitoring DAG**
+    * Create an Airflow DAG that periodically scans `information_schema.processlist` and kills queries (including DML) exceeding a defined execution time threshold, similar to the existing `check_and_kill_accidental_queries` pattern.
+    * Pros : No further infrastructure needed and consistent with existing pattern (Redshift), highly customizable such as whitelist, thresholds, alerting
+    * Cons : Minimum interval ~1 min (limit of Airflow DAG), cannot catch very short-lived queries
+    * Another similar implementation with [MySQL Event Scheduler](https://blogs.reliablepenguin.com/2025/09/28/automatically-killing-long-running-queries-in-aurora-mysql-serverless-v2 "https://blogs.reliablepenguin.com/2025/09/28/automatically-killing-long-running-queries-in-aurora-mysql-serverless-v2")
+        
+2. **pt-kill (Percona Toolkit)**
+    * A command-line tool that continuously monitors and kills queries based on execution time, user, or query pattern. Requires a dedicated host to run.
+    * Pros : Fine-grained control over which queries to kill (by user, database, or query pattern)
+    * Cons : Requires further machine to run
+    * reference : [Percona Toolkit Documentation](https://docs.percona.com/percona-toolkit/pt-kill.html)
+        
+### 🟡 Some of **Redshift queues without hard limits**
+- DS queue and Default queue on Sporty Prod have no execution time limit
+- Sporty UAT and Encore clusters have almost no limits across all queues
