@@ -66,7 +66,7 @@ source: [DataExport](https://www.youtube.com/watch?v=JiedBnTFCeg&list=PLwUdL9DpG
 ```sql
 CREATE TABLE users_growth_accounting (
     user_id           TEXT,
-    first_active_date DATE,
+    first_active_date DATE, 
     last_active_date  DATE,
     daily_active_state  TEXT,   -- New/Retained/Churned/Resurrected/Stale
     weekly_active_state TEXT,
@@ -74,6 +74,11 @@ CREATE TABLE users_growth_accounting (
     date              DATE,
     PRIMARY KEY (user_id, date)
 );
+-- first_active_date : 該使用者第一次出現的日期，如果一開始在錯誤的日期開始累積，最終可能會得到錯誤的使用者首次活躍日期，而他們實際上很久以前就活躍了
+-- last_active_date：這將是他們最後一次活躍的日期
+-- daily_active_state (日活躍狀態) & weekly_active_state (週活躍狀態)：這將是我們增長會計的 value
+-- dates_active (活躍日期陣列)：bit map
+
 
 -- 每日累積查詢核心邏輯
 WITH yesterday AS (
