@@ -104,14 +104,26 @@ SELECT
         WHEN t.user_id IS NOT NULL
              AND y.last_active_date = t.today_date - INTERVAL '1 day'  THEN 'Retained'
         WHEN t.user_id IS NOT NULL
-             AND y.last_active_date < t.today_date - INTERVAL '1 day'  THEN 'Resurrected'
+             AND y.last_active_date < t.today_date - INTERVAL '1 day'  THEN 'Resurrected' -- 回流
         WHEN t.user_id IS NULL
-             AND y.last_active_date = y.date                           THEN 'Churned'
-        ELSE 'Stale'
+             AND y.last_active_date = y.date                           THEN 'Churned' -- 流失
+        ELSE 'Stale' -- 沉睡
     END as daily_active_state
 FROM today t
 FULL OUTER JOIN yesterday y ON t.user_id = y.user_id;
 ```
+要特別注意的是關於周活躍狀態 (weekly active state)，因為對於前 7 天留存和回流的定義會有所不同，在周活躍中的留存 (retained) 我們實際想看的是過去 7 天的任何一個時間點是否活躍，因此應該要使用如下
+```SQL
+CASE 
+	WHEN t.user_id IS NULL THEN 'NEW'
+	WHEN y.last_active_date < t.todat_date - INTERVAL '7 day' THEN 'Resurrected'
+	WHEN y.last_active_date >= y.date - INTERVAL '7 day'  THEN 'Retained' -- 使用昨天的日期是因為今天可能不活躍
+	WHEN t.today_date IS NULL AND y.last_active_date = y.date - INTERVAL '7 day'  THEN 'Churned'
+	ELSE 'Stale'
+END AS weekly_active_state
+```
+這邊的數學計算與邏輯蠻複雜的，因此 Facebook 實際上是使用 bit map 的方式進行日期的位移
+
 
 <mark style="background:#fff88f">Survivor Analysis (存活分析)</mark>
 

@@ -1,13 +1,7 @@
 [
-  "obsidian-git",
-  "obsidian-excalidraw-plugin",
-  "calendar",
-  "colored-text",
-  "highlightr-plugin",
-  "obsidian-style-settings",
-  "obsidian-importer",
   "editing-toolbar",
-  "obsidian-icon-folder",
-  "table-editor-obsidian",
-  "dataview"
+  "obsidian-excalidraw-plugin",
+  "obsidian-outliner",
+  "templater-obsidian",
+  "obsidian-git"
 ]
