@@ -81,10 +81,12 @@ CREATE TABLE users_growth_accounting (
 
 
 -- 每日累積查詢核心邏輯
+--- get yesterday data from users_growth_accounting table 
 WITH yesterday AS (
     SELECT * FROM users_growth_accounting
     WHERE date = '2023-02-28'
 ),
+--- get today data and 
 today AS (
     SELECT user_id,
            DATE_TRUNC('day', event_time::TIMESTAMP)::DATE as today_date
