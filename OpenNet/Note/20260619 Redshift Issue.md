@@ -100,8 +100,7 @@ Hi @Sam Hou @Marcus Lira，我們應該開始根據 dashboard 的使用情況來
 我認為除非我們精簡並優化一些 pipeline，否則無法避免這個問題。主要的工作可能是需要跟利害關係人（stakeholders）溝通，讓他們了解現況。
 
 ---
-
-### **Sam Hou [TW-BI-D]** — 昨天 上午 10:45
+**Sam Hou [TW-BI-D]** — 昨天 上午 10:45
 
 我有幾個問題：
 
@@ -109,3 +108,15 @@ Hi @Sam Hou @Marcus Lira，我們應該開始根據 dashboard 的使用情況來
 2. 我們能否自動識別有問題的 DAG？我們現在有幾百個 DAG，需要有更好的解決方案。也許可以基於 Scott 的試算表，做出一些快速查閱的指標。
 3. 哪些 DAG 沒有採用 general functions？我們能掃描出來嗎？應該讓 DA 們遵守這個規範。
 4. 現在的優先順序是什麼？是 Scott 的 Lineage 分析中標紅的那些 DAG 嗎？@Scott Wu @Kevin Wei @Marcus Lira
+---
+**Isaac Lee [TW-BI-DE]** — 昨天 下午 2:08
+
+Hi @Sam Hou，更新一下。現在改為透過 Sporty 和 Encore Prod 的 Airflow API 來抓取所有 active DAG，結果如下：
+![[Pasted image 20260623095425.png]]
+- [non-standard DAG list](https://docs.google.com/spreadsheets/d/18xM8ycFEtp4yG8J4DovGUIq6QpDZqES49gHiTJ258mE/edit?gid=1191012198#gid=1191012198)
+---
+**Sam Hou [TW-BI-D]** — 昨天 下午 2:16
+
+有些是很舊的 DAG，有些是在把資料拉進 dataframe。我認為應該修正它們，但關於優先順序，不確定這是不是最緊急的，這部分交給 Marcus 來安排
+
+---
