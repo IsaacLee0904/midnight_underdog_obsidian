@@ -322,3 +322,71 @@ Hi @Marcus Lira @Dominykas Zenkevicius，我們每天還有 VACUUM DELETE job �
 3. 個人帳號或團隊帳號（如 `da_trading`）跑臨時的長時間查詢（adhoc long query）
 
 ---
+**Kevin Wei [TW-BI-DE] OOO 6/19-6/23** — 今天 凌晨 12:09
+
+我剛在 Default queue 加了監控規則，任何執行超過 1 小時的查詢會自動被 kill
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 12:10
+
+現在可以把 DA 查詢的 CS（Concurrency Scaling）關掉了。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 12:11
+
+我會繼續調查 DA 的 high_importance DAG。
+
+---
+**Kevin Wei [TW-BI-DE] OOO 6/19-6/23** — 今天 凌晨 12:34
+
+除了那個誇張的 12 小時查詢之外，我找到了今晚 warehouse 延遲的原因，就是第 (3) 點：**個人或團隊帳號跑的臨時長時間查詢**。
+
+在 09:30 - 10:30 這段時間有大量來自個人帳號的長時間查詢湧入，warehouse DAG 從那時候開始出現延遲。
+
+在這段高強度的 user 查詢期結束後，ANALYZE DAG 又開始跑，cluster 已經沒有多餘的資源加速，導致 DAG 延遲更加惡化，直到稍早有人採取行動才改善。
+![[Pasted image 20260623101153.png]]
+![[Pasted image 20260623101201.png]]
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 12:54
+
+但個人帳號應該已經有設 timeout 了吧？
+![[Pasted image 20260623101242.png]]
+
+---
+**Kevin Wei [TW-BI-DE] OOO 6/19-6/23** — 今天 凌晨 1:05
+
+需要再確認一下他們的 role，我看到很多查詢執行時間超過 5 分鐘，甚至接近 20 分鐘。🤔
+![[Pasted image 20260623101321.png]]
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 1:07
+
+- alex → `da_group`
+- jiamin → `ds_group`
+- rajshree → `da_group`
+
+這在這個連結裡可以看到：[https://github.com/opennetltd/dba-redshift-privileges/blob/main/config/user_accounts/jiamin_wang/prod.yaml](https://github.com/opennetltd/dba-redshift-privileges/blob/main/config/user_accounts/jiamin_wang/prod.yaml)
+
+---
+ **Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 4:10
+
+關於個人用戶造成問題這件事，我認為應該撤銷他們對 `bi-warehouse` 的存取權限，改讓他們使用 `bi-report`（serverless），並且設定嚴格的 timeout。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 4:13
+
+我已經開了一個 PR，針對排名前幾的 high_importance DAG 減少 DDL 使用量，需要有人 review，也需要協助監控。
+
+另外，我認為 `realsports.src_bet_liability_summary_v01.py` 需要改進做法，應該把 create table 改為 truncate。
+
+`dags/main/main.src_live_virtuals_summ_min.py` 影響最大，每天產生 4000+ 個 DDL。
+
+我早上會看 copilot 的 review 意見，但在那之前大家可以自由處理這個問題。
+
+PR 連結：[https://github.com/opennetltd/data_analysis/pull/9267/files](https://github.com/opennetltd/data_analysis/pull/9267/files)
+
+cc @Kevin Wei [TW-BI-DE]
+
+---
+
