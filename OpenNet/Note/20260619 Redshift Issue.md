@@ -120,3 +120,205 @@ Hi @Sam Hou，更新一下。現在改為透過 Sporty 和 Encore Prod 的 Airfl
 有些是很舊的 DAG，有些是在把資料拉進 dataframe。我認為應該修正它們，但關於優先順序，不確定這是不是最緊急的，這部分交給 Marcus 來安排
 
 ---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 下午 5:17
+
+@Sam Hou，我會寫一份附有行動項目的事故報告（incident report）。針對這次具體問題，調查 `src_casino_user_segmentation` 是第一優先，因為 cluster 一直在重複遇到同樣的問題。
+
+`data-analysis` cluster 這個情況很不尋常，因為同樣的 DAG 在 `bi-warehouse` cluster 和 serverless cluster 都能正常運作。
+
+至於 Scott 分享的那份試算表，我們會把它列入 Q3 的較長期專案來處理
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 下午 6:02
+
+我注意到在 warehouse_engineer 這邊，`parallel` 預設是 `TRUE`；但在 data-analysis repo 這邊，`parallel` 預設是 `FALSE`。
+
+不確定這樣設計是否有特別原因，但預設不應該是 false。
+![[Pasted image 20260623095959.png]]
+![[Pasted image 20260623100006.png]]
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 8:37
+
+我會開始把這些 DAG 的 `parallel_on` 改成 `True`。
+
+目前我沒看到任何可能造成影響的地方。
+
+cc @Kevin Wei [TW-BI-DE]
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:23
+
+等這些都完成後，我們確實可以把預設值改成 True。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 10:23
+
+我剛 merge 了
+另外，也把 `high_importance` 移回 `data-analysis` 監控了。
+
+但現在 `bi-warehouse` 的壓力很大。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:36
+
+是的，還有很多 task 在排隊，看起來短時間查詢因為中等時長查詢增加而被延誤了：
+![[Pasted image 20260623100124.png]]
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 10:43
+
+我已經移除了 DA (high_importance) 並且對兩邊都啟用了 CS（Concurrency Scaling），應該會恢復到原本的狀態了。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:46
+
+你不覺得現在 Airflow 可能是瓶頸嗎？有超過 400 個 task 在排隊等待執行——如果我們有更多 slot，它們應該可以更快被執行。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:48
+
+比幾個小時前好一些了，那時候大概有 500 個排程 slot，但現在還是很多。是 warehouse 的 Airflow。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 10:48
+
+我認為是 Redshift 在拖慢它們。你可以查一下哪些 DAG 在等待嗎？感覺有點不對勁。
+有沒有什麼 backfill 在追進度？感覺同時跑太多查詢了。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:50
+
+bi-warehouse cluster 的 CPU 使用率大約 60%，Redshift 應該還有足夠的資源來執行更多查詢。我來查一下哪些 DAG 被排程了。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:55
+
+以下是一些有 task 排程等待執行的 DAG 清單：
+
+- `afbet_facts.t_facts_event_info` — 比排程晚了超過 3 小時，正在追進度，task 卡在 scheduled 狀態
+- `afbet_instant_win.t_instant_win_bet` — 同上
+- `afbet_instant_win.t_instant_win_bet_detail` — 同上
+- `afbet_instant_win.t_instant_win_bet_detail_new` — 同上
+- `afbet_instant_win.t_instant_win_ticket_v2` — 同上
+- `afbet_instant_win.t_instant_win_user_bet_builder_selection_pt` — 同上
+
+看起來現在瓶頸是 Airflow default pool 的 slot 數量不足。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 10:56
+
+試著多開一些 slot，但我覺得最後還是會排到隊伍裡。
+
+---
+ **Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:57
+
+我可以再加 50 個 slot 看看有沒有幫助。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 10:57
+
+我們也可以試試重啟 cluster，感覺有什麼東西卡住了。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 10:59
+
+增加 slot 數量後，排程中的 task 數量開始穩定下降，我會持續監控 Redshift CPU 使用率。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 11:04
+
+雖然我把 slot 數量增加到 150，但 Airflow 似乎有個硬上限是 120（可能是在 Airflow config 某處設定的）。嘗試繼續增加到 175，但還是無法超過 120 個 slot。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 11:05
+
+有一個 ANALYZE 在跑：
+
+```
+ANALYZE afbet_patron_ng.logs_patron_fe_behav;
+```
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 11:18
+
+很多 Airflow task 還是卡在 scheduled 狀態，running slot 數量無法超過 125-127。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 11:23
+
+我已經把那個 ANALYZE 給 kill 掉了，看看情況。如果沒有改善，我們就重啟。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 11:25
+
+那些 task 在 Airflow 裡卡在 scheduled 狀態，根本還沒有跑到 Redshift 上。增加 slot 上限應該能解決這個問題，但我不知道要怎麼在 AWS EKS 上存取 Airflow config 來增加 running slot 的上限。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 11:26
+
+這是因為 Redshift 滿了，查詢跑太久了……在等待中。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 11:33
+
+看起來排隊數量在下降了。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 11:37
+
+排程中的 task 數量首次降到 340 以下了！🎉
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 11:48
+
+看起來現在在跑更多查詢了，我去吃點東西，等等回來看看。
+
+---
+**Dominykas Zenkevicius [EU-BI-DE]** — 昨天 晚上 11:55
+
+排程中的 task 數量繼續下降，現在大約 250 了。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 昨天 晚上 11:55
+
+這是在我 kill 掉 analyze job 和一些 idle session 之後發生的。
+
+---
+**Kevin Wei [TW-BI-DE] OOO 6/19-6/23** — 昨天 晚上 11:58
+
+Hi @Marcus Lira @Dominykas Zenkevicius，我們每天還有 VACUUM DELETE job 也會消耗資源，我剛把它標記為成功（跳過），這樣應該可以給 bi-warehouse 更多空間來追進度。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 12:00
+
+呼！看起來恢復正常了！😅
+
+---
+**Kevin Wei [TW-BI-DE] OOO 6/19-6/23** — 今天 凌晨 12:01
+
+另外，`app_report_airflow_rw` 這個 user 是什麼時候有的？它的 role 是什麼？有一個查詢跑了 12 小時……
+
+看起來我們需要針對所有 role 設定長時間查詢自動中止（long query abort）的監控規則。
+![[Pasted image 20260623100741.png]]
+
+--- 
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 12:02
+
+那是我剛剛 kill 掉的其中一個 idle session。
+
+---
+**Marcus Lira [EU-BI-DE-L]** — 今天 凌晨 12:02
+
+我也 kill 了一個來自 `da_trading` 的，還有其他來自 `app_airflow_rw` 的。
+
+---
+**Kevin Wei [TW-BI-DE] OOO 6/19-6/23** — 今天 凌晨 12:07
+
+根據我的經驗，通常導致 `bi-warehouse` cluster 變慢、warehouse DAG 執行時間拉長甚至延遲的原因有：
+
+1. 新的 DA job 從很久以前開始持續做 backfill
+2. 新的 DA job 高併發，同時跑很多查詢
+3. 個人帳號或團隊帳號（如 `da_trading`）跑臨時的長時間查詢（adhoc long query）
+
+---
