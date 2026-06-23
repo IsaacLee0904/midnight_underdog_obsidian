@@ -388,7 +388,3 @@ PR 連結：[https://github.com/opennetltd/data_analysis/pull/9267/files](https:
 
 cc @Kevin Wei [TW-BI-DE]
 
----
-
-
-# bi_de_internal
