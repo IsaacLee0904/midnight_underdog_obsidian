@@ -156,6 +156,8 @@ GROUP BY 1, 2
 ORDER BY 2;
 ```
 
+>[!hint] Data Engineer Interview Important Thing
+>
 
 #### Window-based Pattern (時間視窗模式)
 
