@@ -157,7 +157,9 @@ ORDER BY 2;
 ```
 
 >[!hint] Data Engineer Interview Important Thing
->
+>1. Table Scans：需要很在乎自己寫的 SQL 如何可以減少掃描次數，因為這是優化 SQL Query 的第一要務 EX. `COUNT(CASE WHEN ...)` 來做 pivot table 會非常高效，因為這樣通常只需要掃描一次 table
+>2. Cumulative Table Design：
+
 
 #### Window-based Pattern (時間視窗模式)
 
