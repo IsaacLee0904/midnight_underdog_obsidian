@@ -497,7 +497,10 @@ TBD
 
 ### 4.2 Alerting Coverage
 
-RDS alerting rules are defined in the [dba-alert-rules](https://github.com/opennetltd/dba-alert-rules/tree/main/aurora-mysql) repo, as documented in [MySQL Alerting rules system](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/3286728768/MySQL+Alerting+rules+system).
+RDS alerting rules are defined in the [dba-alert-rules](https://github.com/opennetltd/dba-alert-rules/tree/main/aurora-mysql) repo, as documented in [MySQL Alerting rules system](https://opennetltd.atlassian.net/wiki/spaces/DBA/pages/3286728768/MySQL+Alerting+rules+system). All alerts are delivered to Slack (#dba-alert) via Grafana. P0 alerts are additionally forwarded to #bi-alert for BI team visibility.
 
 ![[Screenshot 2026-06-17 at 6.06.49 PM.png|639]]
-All alerts are delivered to Slack (`dba-alert`) via Grafana.
+Reference :
+- [DBA-12788: Forward BI-Related RDS Alerts to BI TeamTRACKING](https://opennetltd.atlassian.net/browse/DBA-12788)
+- [SRE-11273: Re-route BI-related RDS alerts to additional BI channelDone](https://opennetltd.atlassian.net/browse/SRE-11273)
+
