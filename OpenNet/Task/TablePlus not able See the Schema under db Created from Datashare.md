@@ -2,3 +2,6 @@ Due to currently Prod Sporty Redshift workload issue. DE team plan to [switch pe
 
 ![[Pasted image 20260702110426.png]]
 
+### Serverless and Datashare 
+
+![[Screenshot 2026-07-02 at 11.13.21 AM.png]]
