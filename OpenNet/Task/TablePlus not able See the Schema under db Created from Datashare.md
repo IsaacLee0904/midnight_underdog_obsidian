@@ -63,3 +63,5 @@ SELECT
    'TABLE' as table_type 
 FROM svv_external_tables;
 ```
+
+![[Screenshot 2026-07-02 at 3.33.17 PM.png]]
