@@ -12,7 +12,7 @@ Due to currently Prod Sporty Redshift workload issue. DE team plan to [switch pe
 #### TablePlus conn with Redshift Driver
 ![[Screenshot 2026-07-02 at 11.23.08 AM.png]]
 
-什麼都沒有顯示，但是我是可以查詢 `SVV_ALL_SCHEMAS` 的
+什麼都沒有顯示，但是可以查詢 `SVV_ALL_SCHEMAS` 的
 ```sql
 -- show all the datashare
 SELECT * FROM SVV_ALL_SCHEMAS;
@@ -24,3 +24,5 @@ WHERE database_name IN ('bi_warehouse', 'bi_report')
 ORDER BY database_name, schema_name;
 ```
 ![[Screenshot 2026-07-02 at 11.32.23 AM.png]]
+
+-> 代表 DA 帳號是有 `SVV_ALL_SCHEMAS` 權限的，因此也代表 Tableplus 不是透過查詢 SVV_ALL_SCHEMAS 來拿到 UI 上的顯示資訊
