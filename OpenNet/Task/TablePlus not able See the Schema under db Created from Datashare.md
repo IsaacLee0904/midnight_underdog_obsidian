@@ -33,5 +33,33 @@ Step2. 透過連線 dev db 來看 TablePlus 在顯示 UI 時使用的 query
 ```SQL
 SELECT nspname FROM pg_catalog.pg_namespace;
 
-SELECT pg_catalog.pg_get_userbyid(p.proowner) as owner,p.oid AS oid,n.nspname AS function_schema,p.proname AS function_name,CASE WHEN p.proisagg THEN'aggregate'WHEN p.prorettype='pg_catalog.trigger'::pg_catalog.regtype THEN'trigger'ELSE'function'END AS function_type FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace;
+SELECT 
+  pg_catalog.pg_get_userbyid(p.proowner) as owner,
+  p.oid AS oid,
+  n.nspname AS function_schema,
+  p.proname AS function_name,
+  CASE。
+     WHEN p.proisagg THEN'aggregate'
+     WHEN p.prorettype='pg_catalog.trigger'::pg_catalog.regtypeTHEN'trigger'
+     ELSE'function'
+  END AS function_type 
+FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace;
+
+SELECT 
+    tablename as table_name,
+    schemaname as table_schema,
+    'TABLE' as table_type 
+FROM pg_tables 
+UNION 
+SELECT 
+    viewname as table_name,
+    schemaname as table_schema,
+    'VIEW' as table_type 
+FROM pg_views 
+UNION 
+SELECT 
+   tablename as table_name,
+   schemaname as table_schema,
+   'TABLE' as table_type 
+FROM svv_external_tables;
 ```
