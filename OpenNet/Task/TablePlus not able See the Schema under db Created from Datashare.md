@@ -10,6 +10,8 @@ Due to currently Prod Sporty Redshift workload issue. DE team plan to [switch pe
 ### Troubleshooting 
 
 #### TablePlus conn with Redshift Driver
+
+Step1. 測試是否可以看到 `SVV_ALL_SCHEMAS`
 ![[Screenshot 2026-07-02 at 11.23.08 AM.png]]
 
 什麼都沒有顯示，但是可以查詢 `SVV_ALL_SCHEMAS` 的
@@ -26,3 +28,10 @@ ORDER BY database_name, schema_name;
 ![[Screenshot 2026-07-02 at 11.32.23 AM.png]]
 
 -> 代表 DA 帳號是有 `SVV_ALL_SCHEMAS` 權限的，因此也代表 Tableplus 不是透過查詢 SVV_ALL_SCHEMAS 來拿到 UI 上的顯示資訊
+
+Step2. 透過連線 dev db 來看 TablePlus 在顯示 UI 時使用的 query
+```SQL
+SELECT nspname FROM pg_catalog.pg_namespace;
+
+SELECT pg_catalog.pg_get_userbyid(p.proowner) as owner,p.oid AS oid,n.nspname AS function_schema,p.proname AS function_name,CASE WHEN p.proisagg THEN'aggregate'WHEN p.prorettype='pg_catalog.trigger'::pg_catalog.regtype THEN'trigger'ELSE'function'END AS function_type FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace;
+```
