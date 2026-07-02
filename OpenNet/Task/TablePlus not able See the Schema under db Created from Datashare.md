@@ -5,3 +5,21 @@ Due to currently Prod Sporty Redshift workload issue. DE team plan to [switch pe
 ### Serverless and Datashare 
 
 ![[Screenshot 2026-07-02 at 11.13.21 AM.png]]
+
+
+### Troubleshooting 
+
+#### TablePlus conn with Redshift Driver
+![[Screenshot 2026-07-02 at 11.23.08 AM.png]]
+
+什麼都沒有顯示，但是我是可以查詢 `SVV_ALL_SCHEMAS` 的
+```sql
+-- show all the datashare
+SELECT * FROM SVV_ALL_SCHEMAS;
+
+-- show each schema and it belong database
+SELECT database_name, schema_name
+FROM SVV_ALL_SCHEMAS
+WHERE database_name IN ('bi_warehouse', 'bi_report')
+ORDER BY database_name, schema_name;
+```
