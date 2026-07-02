@@ -1,0 +1,2 @@
+Due to currently Prod Sporty Redshift workload issue. DE team plan to [switch personal ad-hoc query to additional serverless](https://opennetltd.atlassian.net/jira/software/projects/BDE/boards/117?jql=assignee%20%3D%20712020%3A993acc76-02e5-4173-9e2b-61373ff1764c&selectedIssue=BDE-1425). After grant permission, most of user login with TablePlus can only see `public` schema (as screenshot), but are able to query normally. Except Alex and he is using [DataGrip](https://www.jetbrains.com/datagrip/) which can see all schemas correctly.
+
