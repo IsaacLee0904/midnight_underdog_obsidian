@@ -23,3 +23,4 @@ FROM SVV_ALL_SCHEMAS
 WHERE database_name IN ('bi_warehouse', 'bi_report')
 ORDER BY database_name, schema_name;
 ```
+![[Screenshot 2026-07-02 at 11.32.23 AM.png]]
