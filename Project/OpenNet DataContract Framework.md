@@ -139,7 +139,7 @@ All pipelines must have table-level lineage established in OpenMetadata. For DA 
 - Broader coverage across the full data supply chain
 ### Phase 3 : Column-level & Data Quality Enforcement (Nice to have)
 
-**Goal:** Evolve from table-level notification to column-level change detection and data quality contract enforcement.
+**Goal:** Evolve from table-level notification to column-level change detection and data quality contract enforcement. And those task could be define by [data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper").
 
 **Pros:**
 - More precise impact assessment — only notify owners whose downstream assets use the affected column
