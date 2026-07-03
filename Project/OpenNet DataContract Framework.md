@@ -70,7 +70,6 @@ For DE DAGs, lineage is extracted by parsing the DAG files directly to identify 
 <mark style="background:#fff88f">data_keeper</mark>
 [data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper") is an internal automation tool that manages and deploys configurations to OpenMetadata using version-controlled YAML files. It handles things like data quality tests, catalog services. In this project, data_keeper acts as the contract declaration layer to sync metadata like ownership, stakeholders, and consumers to OpenMetadata.
 
-
 <mark style="background:#fff88f">OpenMetadata</mark>
 OpenMetadata is the central metadata layer. It keeps track of table and dashboard ownership, traces lineage across pipelines, and exposes a REST API so external systems (like GitHub Actions) can query downstream dependencies.
 
