@@ -171,6 +171,10 @@ All pipelines must have table-level lineage established in OpenMetadata. For DA 
 - Slack notification target : DM to downstream owners vs. dedicated alert channel (which channel)?
 - Notification content : PR link, affected table, downstream impact scope (Copilot Summary)?
 - Ownership coverage : How to using OpenMetadata to coverage all the owner and how do we handle tables without a registered owner (edge case)?
+- Consumer / Stakeholder notification : How should consumers who are not part of the OM lineage graph (e.g. backend engineers, PMs) be notified? Three options under consideration :
+	- **Option A — OM Follower** : Create OM accounts for consumers and let them self-register as Followers. GitHub Actions only needs to query OM. Downside: requires provisioning OM accounts for non-DE/DA users, which is likely impractical.
+	- **Option B — data_keeper YAML** : Store consumer lists in `config/data_contract/` YAML files. GitHub Actions reads both OM lineage (downstream owners) and data_keeper YAML (consumers) and merges the two. Downside: GitHub Actions has two data sources, increasing complexity.
+	- **Option C — OM Custom Property** : Store consumer lists in data_keeper YAML, but have data_keeper sync them to a custom property on each OM table entity. GitHub Actions queries only OM for both downstream owners and consumers. Keeps consumer data version-controlled while keeping GitHub Actions simple.
 
 
 
