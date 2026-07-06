@@ -16,7 +16,8 @@ A data contract is a versioned, machine-readable agreement between a data produc
 - **Semantics** : what the fields actually mean — the business definitions, not just the technical names
 - **Service Level Agreements (SLAs)** : freshness guarantees, latency, availability expectations
 - **Data Quality Rules** : completeness thresholds, referential integrity, format constraints
-- **Ownership** : who is accountable for producing the data, who is accountable for consuming it
+- **Ownership** : who is accountable for producing the data
+-  **Stakeholder** : who is accountable for consuming it
 - **Change Management** : how breaking changes are communicated, how versioning works, what constitutes a violation
 
 ### Case Study
@@ -68,7 +69,24 @@ For DE DAGs, lineage is extracted by parsing the DAG files directly to identify 
 
 ### Components
 <mark style="background:#fff88f">data_keeper</mark>
-[data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper") is an internal automation tool that manages and deploys configurations to OpenMetadata using version-controlled YAML files. It handles things like data quality tests, catalog services. In this project, data_keeper acts as the contract declaration layer to sync metadata like ownership, stakeholders, and consumers to OpenMetadata.
+[data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper") is an internal automation tool that manages and deploys configurations to OpenMetadata using version-controlled YAML files. It handles things like data quality tests, catalog services. In this project, data_keeper acts as the contract declaration layer to sync metadata like ownership, stakeholders, and consumers to OpenMetadata. Below is an example of a data contract definition :
+
+![[Screenshot 2026-07-06 at 3.17.32 PM.png]]
+```yaml
+# example of yaml file
+# config/data_contract/bi_warehouse/t_blog_rewrites_v2.yaml
+contractedService:
+  provider:
+    name: t_blog_rewrites_v2
+    team: Data Engineer Team
+    contact: isaac.lee@opennet.tw
+  consumer:
+    - name: Encore Application
+      team: Backend Team
+      contact: danny.lin@football.com
+```
+
+reference : [Building a Data Contract: From Design to Deployment](https://cleandataarchitecture.substack.com/i/158709063/practical-guide-creating-a-data-contract-from-a-to-z)
 
 <mark style="background:#fff88f">OpenMetadata</mark>
 OpenMetadata is the central metadata layer. It keeps track of table and dashboard ownership, traces lineage across pipelines, and exposes a REST API so external systems (like GitHub Actions) can query downstream dependencies.
