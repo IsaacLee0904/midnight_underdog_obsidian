@@ -40,10 +40,16 @@ ref - [Implementing Data Contracts at GoCardless](https://medium.com/gocardless-
 ref - [3 Things Our Software Engineers Love About Data Contracts](https://medium.com/gocardless-tech/3-things-our-software-engineers-love-about-data-contracts-3106e1f1602d "https://medium.com/gocardless-tech/3-things-our-software-engineers-love-about-data-contracts-3106e1f1602d")
 
 ### What We Can Learn ?
+
 Across case studies above, two patterns stand out.
+
 First, **ownership is the foundation of everything**. Before any automated notification or contract enforcement can work, every data asset must have an owner. Without this, a data contract is just documentation — not an agreement.
+
 Second, **a centralized metadata platform is the enabler**. PayPal, Miro, and GoCardless all converged on a single source of truth for their data contracts — whether that is DataHub, an internal catalog, or an open standard. Having ownership, lineage, schema, and SLAs in one place is what makes automation and visibility possible.
-These two principles directly inform our approach : we use OpenMetadata as the centralized metadata layer, and treat ownership registration as the first step. This proposal focuses on ownership and change notification as the starting point, with the flexibility to evolve toward schema enforcement and data quality contracts as the system matures.
+
+Third, data contracts can be enforced at different levels. Across the industry, data contract enforcement ranges from soft (notifications, visibility) to hard (CI/CD checks that block deployments until downstream teams acknowledge the change). The most mature implementations treat data contracts the same way software teams treat API contracts (breaking changes require explicit sign-off before they can merge). Our current development pace is fast. Enforcing hard rules would require explicit sign-off from stakeholders across teams, which would slow things down. So starting with soft notifications as the first step.
+
+These principles directly inform our approach : we use OpenMetadata as the centralized metadata layer, and treat ownership registration as the first step. This proposal focuses on ownership and change notification as the starting point, with the flexibility to evolve toward schema enforcement and data quality contracts as the system matures. To support this evolution, we adopt [data_keeper](https://github.com/opennetltd/data_keeper) as the primary tool for declaring and deploying data contracts — enabling teams to define quality rules in version-controlled YAML files and automatically deploy them to OpenMetadata.
 
 ## Implementation
 ### Proposal Architecture Overview
