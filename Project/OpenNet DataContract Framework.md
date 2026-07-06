@@ -181,6 +181,7 @@ All pipelines must have table-level lineage established in OpenMetadata. For DA 
 	- **Option A — OM Follower** : Create OM accounts for consumers and let them self-register as Followers. GitHub Actions only needs to query OM. Downside: requires provisioning OM accounts for non-DE/DA users, which is likely impractical.
 	- **Option B — data_keeper YAML** : Store consumer lists in `config/data_contract/` YAML files. GitHub Actions reads both OM lineage (downstream owners) and data_keeper YAML (consumers) and merges the two. Downside: GitHub Actions has two data sources, increasing complexity.
 	- **Option C — OM Custom Property** : Store consumer lists in data_keeper YAML, but have data_keeper sync them to a custom property on each OM table entity. GitHub Actions queries only OM for both downstream owners and consumers. Keeps consumer data version-controlled while keeping GitHub Actions simple.
+- Dashboard change detection : The current trigger mechanism only covers table changes via PR merges in the three monitored repositories. Changes made directly in Metabase — such as modifying dashboard SQL, adding or removing columns — have no trigger point. Metabase does not provide webhooks for dashboard modification events. How should dashboard-level changes be detected and surfaced?
 
 
 
