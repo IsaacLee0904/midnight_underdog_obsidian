@@ -2,20 +2,19 @@
 * related DAG
 	* <font color="#548dd4">afbet_instant_win.t_instant_win_ticket_v2</font> & <font color="#548dd4">afbet_instant_win.t_instant_win_ticket_v2_new</font> : DAG for sync data to warehouse
 	* <font color="#548dd4">afbet_instant_win.t_instat_win_ticket_v2_app</font> : copy data from tz to zm
-	* <font color="#548dd4">bi_realsports.src_realsports_all_orders_v12_hot_delete</font> : delete old data (older than 95 days) from hot table **daily**
-- hot table : 90 days
-- related country : ng, gh
 
-Step0. Record the original row count
+Step0. Record the original row count and min(create_time)
 * row_count : 6445574610
 ```SQL
-SELECT
-  stat_date AS date,                                                             
-  COUNT(*) AS row_count
-FROM bi_realsports.src_realsports_all_orders_v12                        
-WHERE stat_date >= '2026-01-27' AND stat_date < '2026-04-27'                     
-GROUP BY stat_date
-ORDER BY date;   
+-- min(create_time) = 2025-06-20 00:00:10.000
+select min(create_time)
+from afbet_instant_win_tz.t_instant_win_ticket_v2
+where country_code = 'zm'
+
+-- 12211962
+select count(*)
+from afbet_instant_win_tz.t_instant_win_ticket_v2
+where country_code = 'zm'
 ```
 
 Step1. Create Empty hot table
