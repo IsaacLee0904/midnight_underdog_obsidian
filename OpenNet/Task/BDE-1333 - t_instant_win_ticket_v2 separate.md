@@ -44,7 +44,7 @@ Step3. **Clean Up** :
 ```
 
 
-Step2. Adjust the DAG
+Step2. Adjust DA DAGs
 * <font color="#548dd4">afbet_main.t_order_record_hot_delete</font>
 	* 刪掉原本 brand = encore do nothing 的 brand guard 移除
 
