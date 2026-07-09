@@ -16,7 +16,7 @@ from afbet_instant_win_tz.t_instant_win_ticket_v2
 where country_code = 'zm'
 ```
 
-Step1. Dual Write + Backfill
+Step1. Dual Write 
 PR : https://github.com/opennetltd/warehouse_engineer/pull/2672/changes#diff-d8e39bf16d3763f24dedea0a317d67879473a6b86f80a8b397f449330fd768e7
 ```markdown
 ### [BDE-1333](https://opennetltd.atlassian.net/browse/BDE-1333?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ) Separate TZ and ZM Data for Instant Win Ticket Tables in Redshift
