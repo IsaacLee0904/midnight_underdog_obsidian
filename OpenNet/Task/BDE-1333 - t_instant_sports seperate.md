@@ -1,7 +1,6 @@
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_instant_win.t_instant_win_ticket_v2</font> & <font color="#548dd4">afbet_instant_win.t_instant_win_ticket_v2_new</font> : DAG for sync data to warehouse
-	* <font color="#548dd4">afbet_instant_win.t_instat_win_ticket_v2_app</font> : copy data from tz to zm
+	* <font color="#548dd4">afbet_instant_win.t_instant_sports</font> 
 
 Step0. Record the original row count and min(create_time)
 * row_count : 6445574610
@@ -30,8 +29,7 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 
 Step1. **Dual Write + Backfill** ← _this PR_
 
-- Update `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_ticket_v2` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_ticket_v2` (new target)
-- Create backfill `_app` DAG: copy historical ZM records from `afbet_instant_win_tz.t_instant_ticket_v2` into `afbet_instant_win_zm.t_instant_ticket_v2` to ensure ZM table is complete before DA migration
+- - Update DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_sports` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_sports` (new target), this pipeline original don't have `_new` to write zm data to tz.
 - Validate ZM table data is correct and up-to-date
 
 Step2. **Migrate DA DAGs** :
