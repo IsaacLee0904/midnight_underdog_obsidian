@@ -2,18 +2,12 @@
 * related DAG
 	* <font color="#548dd4">afbet_instant_win.t_instant_sports</font> 
 
-Step0. Record the original row count and min(create_time)
-* row_count : 6445574610
+Step0. Record the original row count 
+* row_count : 15
 ```SQL
--- min(create_time) = 2025-06-20 00:00:10.000
-select min(create_time)
-from afbet_instant_win_tz.t_instant_win_ticket_v2
-where country_code = 'zm'
-
--- 12211962
+-- 15
 select count(*)
-from afbet_instant_win_tz.t_instant_win_ticket_v2
-where country_code = 'zm'
+from afbet_instant_win_zm.t_instant_sports
 ```
 
 Step1. Dual Write 
