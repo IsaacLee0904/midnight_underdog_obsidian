@@ -2,8 +2,8 @@
 #### Basic Information
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_instant_win.t_instant_win_ticket_v2</font> & <font color="#548dd4">afbet_instant_win.t_instant_win_ticket_v2_new</font> : DAG for sync data to warehouse
-	* <font color="#548dd4">afbet_instant_win.t_instat_win_ticket_v2_app</font> : copy data from tz to zm
+	* <font color="#548dd4">afbet_instant_win.t_instant_win_bet</font> & <font color="#548dd4">afbet_instant_win.t_instant_win_bet</font> : DAG for sync data to warehouse
+	* <font color="#548dd4">afbet_instant_win.t_instant_win_bet_app</font> : copy data from tz to zm
 
 Step0. Record the original row count and min(create_time)
 * row_count : 52318208
