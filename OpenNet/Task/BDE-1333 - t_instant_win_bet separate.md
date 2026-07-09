@@ -6,16 +6,16 @@
 	* <font color="#548dd4">afbet_instant_win.t_instat_win_ticket_v2_app</font> : copy data from tz to zm
 
 Step0. Record the original row count and min(create_time)
-* row_count : 6445574610
+* row_count : 52318208
 ```SQL
--- min(create_time) = 2025-06-20 00:00:10.000
+-- min(create_time) = 2024-09-17 00:00:00.000
 select min(create_time)
-from afbet_instant_win_tz.t_instant_win_ticket_v2
+from afbet_instant_win_tz.t_instant_win_bet
 where country_code = 'zm'
 
--- 12211962
+-- 52318208
 select count(*)
-from afbet_instant_win_tz.t_instant_win_ticket_v2
+from afbet_instant_win_tz.t_instant_win_bet
 where country_code = 'zm'
 ```
 
