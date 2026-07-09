@@ -20,7 +20,7 @@ where country_code = 'zm'
 Step1. Dual Write + Backfill
 PR : https://github.com/opennetltd/warehouse_engineer/pull/2692
 ```markdown
-### [BDE-1333] Separate TZ and ZM Data for Instant Win Ticket Tables in Redshift
+### [BDE-1333] Separate TZ and ZM Data for Instant Win Tables in Redshift
 
 #### Background
 
