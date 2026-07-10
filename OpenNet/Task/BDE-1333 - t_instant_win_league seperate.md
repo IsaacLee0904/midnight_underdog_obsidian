@@ -29,8 +29,8 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 
 Step1. **Dual Write + Backfill** ← _this PR_
 
-- Update `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_bet_detail` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_bet_detail` (new target)
-- Create `_backfill` DAG: backfill historical records from 20250101 since is where `afbet_instant_win_tz.t_instant_win_bet_detail` has the min(create_time) directly from RDS to ensure ZM table is complete before DA migration
+- Update `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_league` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_league` (new target)
+- Create `_backfill` DAG: backfill historical records since the table is very small but time range is wide will do one year per run to ensure ZM table is complete before DA migration
 - Validate ZM table data is correct and up-to-date
 
 Step2. **Migrate DA DAGs** :
