@@ -4,8 +4,18 @@
 	* <font color="#548dd4">afbet_instant_win.t_instant_win_team_pool_backfill</font> : copy data from tz to zm
 
 Step0. Record the original row count and min(create_time)
+row_count : 296
+```SQL
+-- min(create_time) = 2020-02-04 06:09:32.000
+select min(create_time)
+from afbet_instant_win_tz.t_instant_win_multi_bet_bonus_record
 
-All country tables are empty due to the DAG start at 202509 but the source table data start at 202507 no need to backfill 
+-- RDS : 9455410
+
+select count(*)
+from afbet_instant_win.t_instant_win_multi_bet_bonus_record tiwmbbr
+where create_time >= '2025-01-01 00:00:00.000'
+```
 
 Step1. Dual Write + Backfill
 PR : https://github.com/opennetltd/warehouse_engineer/pull/2711
