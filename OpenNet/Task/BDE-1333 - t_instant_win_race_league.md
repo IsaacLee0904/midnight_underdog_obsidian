@@ -1,21 +1,10 @@
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_instant_win.### t_instant_win_race_league</font> : DAG for sync data to warehouse
-	* <font color="#548dd4">afbet_instant_win.t_instant_win_league_backfill</font> : copy data from tz to zm
+	* <font color="#548dd4">afbet_instant_win.t_instant_win_race_league</font> : DAG for sync data to warehouse
 
 Step0. Record the original row count and min(create_time)
-* row_count : 296
-```SQL
--- min(create_time) = 2025-01-29 00:00:00.000
-select min(create_time)
-from afbet_instant_win_tz.t_instant_win_multi_bet_bonus_record
 
--- RDS : 9455410
-
-select count(*)
-from afbet_instant_win.t_instant_win_multi_bet_bonus_record tiwmbbr
-where create_time >= '2025-01-01 00:00:00.000'
-```
+All country tables are empty due to the DAG start at 202509 but the source table data start at 202507 no need to backfill 
 
 Step1. Dual Write + Backfill
 PR : https://github.com/opennetltd/warehouse_engineer/pull/2702
@@ -30,8 +19,8 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 
 Step1. **Dual Write + Backfill** ← _this PR_
 
-- Update `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_multi_bet_bonus_record` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_multi_bet_bonus_record` (new target)
-- Create `_backfill` DAG: full load backfill historical records to ensure ZM table is complete before DA migration
+- Update `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_race_league` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_race_league` (new target)
+- For this pipeline all country tables are empty due to the DAG start at 202509 but the source table data start at 202507 no need to backfill 
 - Validate ZM table data is correct and up-to-date
 
 Step2. **Migrate DA DAGs** :
