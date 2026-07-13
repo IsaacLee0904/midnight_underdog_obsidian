@@ -17,7 +17,7 @@ where create_time >= '2020-02-01 00:00:00.000'
 ```
 
 Step1. Dual Write + Backfill
-PR : https://github.com/opennetltd/warehouse_engineer/pull/2711
+PR : https://github.com/opennetltd/warehouse_engineer/pull/2714
 ```markdown
 ### [BDE-1333]Separate TZ and ZM Data for Instant Win Tables in Redshift
 
