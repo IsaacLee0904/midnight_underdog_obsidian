@@ -13,7 +13,7 @@ from afbet_instant_win_zm.t_instant_sports
 Step1. Dual Write 
 PR : https://github.com/opennetltd/warehouse_engineer/pull/2684
 ```markdown
-### [BDE-1333](https://opennetltd.atlassian.net/browse/BDE-1333?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ) Separate TZ and ZM Data for Instant Win Ticket Tables in Redshift
+### [BDE-1333] Separate TZ and ZM Data for Instant Win Ticket Tables in Redshift
 
 #### Background
 
