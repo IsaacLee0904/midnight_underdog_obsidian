@@ -4,16 +4,11 @@
 	* <font color="#548dd4">afbet_instant_win.t_instant_win_market_pool_backfill</font> : copy data from tz to zm
 
 Step0. Record the original row count and min(create_time)
-* row_count : 57477490
+* row_count : 296
 ```SQL
--- min(create_time) = 2025-01-01 00:00:09.000
-select min(create_time)
-from afbet_instant_win_tz.t_instant_win_bet_detail
-
--- RDS : 57477490
+-- RDS : 296
 select count(*)
-from afbet_instant_win.t_instant_win_bet_detail
-where create_time >= '2025-01-01T00:00:00'
+from afbet_instant_win.t_instant_win_market_pool
 ```
 
 Step1. Dual Write + Backfill
