@@ -11,6 +11,7 @@ select min(create_time)
 from afbet_instant_win_tz.t_instant_win_multi_bet_bonus_record
 
 -- RDS : 9455410
+
 select count(*)
 from afbet_instant_win.t_instant_win_multi_bet_bonus_record tiwmbbr
 where create_time >= '2025-01-01 00:00:00.000'
