@@ -20,7 +20,7 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 Step1. **Dual Write + Backfill** ← _this PR_
 
 - Update `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_race_league` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_race_league` (new target)
-- For this pipeline all country tables are empty due to the DAG start at 202509 but the source table data start at 202507 no need to backfill 
+- No backfill needed: the source table only has data since 2025-07 but the pipeline start at 202509.
 - Validate ZM table data is correct and up-to-date
 
 Step2. **Migrate DA DAGs** :
