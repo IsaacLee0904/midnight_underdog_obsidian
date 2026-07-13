@@ -6,6 +6,10 @@
 Step0. Record the original row count and min(create_time)
 * row_count : 296
 ```SQL
+-- min(create_time) = 2025-01-29 00:00:00.000
+select min(create_time)
+from afbet_instant_win_tz.t_instant_win_multi_bet_bonus_record
+
 -- RDS : 296
 select count(*)
 from afbet_instant_win.t_instant_win_market_pool
