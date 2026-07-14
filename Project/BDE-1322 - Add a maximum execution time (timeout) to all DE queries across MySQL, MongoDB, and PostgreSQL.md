@@ -16,4 +16,6 @@ Add a maximum execution time / timeout to **all queries owned by DE**, set on th
 - [ ] All DE queries against PostgreSQL set statement_timeout (session, transaction, or role level)
 - [ ] Timeout values are tuned per query type where possible; a 1-hour short-term fallback is applied where a tuned value is not yet determined
 - [ ] Verified that a query exceeding the configured limit is automatically aborted by the database engine
-#### 
+#### Related Info
+ticket : https://opennetltd.atlassian.net/browse/BDE-1322?atlOrigin=eyJpIjoiZDdmNjVkODI5ZDE1NGM5NTgyYzdkZjFhYzZiN2FmYmQiLCJwIjoiaiJ9
+Confluence page : https://opennetltd.atlassian.net/wiki/spaces/DET/pages/edit-v2/4588011646?draftShareId=d670e855-7ff0-44e0-ab01-919beb903dfb
