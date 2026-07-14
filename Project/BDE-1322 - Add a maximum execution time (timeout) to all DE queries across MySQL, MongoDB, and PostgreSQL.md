@@ -2,7 +2,7 @@
 tags: #OpenNet  #data-engineering #data-warehouse   #redshift #mongodb #RDS
 
 ---
-# Background
+## Background
 
 Bad or unbounded queries can run for an excessively long time, consuming database resources and impacting the stability of existing production systems. Today there is no enforced upper bound on query execution time across DE's queries.
 
