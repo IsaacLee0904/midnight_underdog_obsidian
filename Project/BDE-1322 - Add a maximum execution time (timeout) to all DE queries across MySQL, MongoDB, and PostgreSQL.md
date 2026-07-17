@@ -40,8 +40,6 @@ session-level `max_execution_time`, set inside the shared query functions (`run_
 
 **Timeout values** : (TBD — tune with 90-day task duration stats, same method as MongoDB)
 
-**Changes** : (TBD — Kevin's PR, repo/link)
-
 ### MongoDB
 
 **Mechanism** 
