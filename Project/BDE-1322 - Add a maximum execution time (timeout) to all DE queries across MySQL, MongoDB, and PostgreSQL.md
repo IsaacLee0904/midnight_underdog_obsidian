@@ -25,7 +25,16 @@ Design premise : DBA can quickly apply global timeout settings to BI clusters, b
 
 ### MySQL
 
-**Mechanism** : session-level `max_execution_time`, set inside the shared query functions (`run_sql_in_mysql` / `mysql_sql_to_dataframe`) — one choke point covers all callers. Helper `_set_mysql_session_max_execution_time` by Kevin Wei; default 10 min, per-call override via `max_execution_time_min`, `0` to disable, connections in the `mysql_max_execution_time_excluded_conns` Variable are skipped.
+**Mechanism** 
+```SQL
+-- Optimizer hint (per statement)
+SELECT /*+ MAX_EXECUTION_TIME(3600000) */ col FROM orders WHERE ...;
+
+-- Or per session
+SET SESSION max_execution_time = 3600000;  -- 1 hour
+```
+
+session-level `max_execution_time`, set inside the shared query functions (`run_sql_in_mysql` / `mysql_sql_to_dataframe`) — one choke point covers all callers. Helper `_set_mysql_session_max_execution_time` by Kevin Wei; default 10 min, per-call override via `max_execution_time_min`, `0` to disable, connections in the `mysql_max_execution_time_excluded_conns` Variable are skipped.
 
 **Known limitation** : `max_execution_time` only bounds top-level read-only SELECT. `INSERT ... SELECT` / CTAS / UPDATE / DELETE / `SELECT INTO OUTFILE S3` are NOT bounded → writes to BI mart DBs remain unprotected (raised to DBA separately).
 
@@ -35,10 +44,26 @@ Design premise : DBA can quickly apply global timeout settings to BI clusters, b
 
 ### MongoDB
 
+**Mechanism** 
+```SQL
+db.orders.find({ /* ... */ }).maxTimeMS(3600000)
 
+db.orders.aggregate([ /* ... */ ], { maxTimeMS: 3600000 })
+```
 
 ### PostgreSQL
 
+**Mechanism** 
+```SQL
+-- Per session
+SET statement_timeout = '3600s';   -- or 3600000
+
+-- Per transaction
+SET LOCAL statement_timeout = 3600000;
+
+-- Per role (optional, applies to all that role's connections)
+ALTER ROLE de_app SET statement_timeout = '3600s';
+```
 
 
 ---
