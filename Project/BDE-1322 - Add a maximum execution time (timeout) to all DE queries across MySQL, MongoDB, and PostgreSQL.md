@@ -49,6 +49,9 @@ db.orders.find({ /* ... */ }).maxTimeMS(3600000)
 db.orders.aggregate([ /* ... */ ], { maxTimeMS: 3600000 })
 ```
 
+
+**Known limitation** 
+
 ### PostgreSQL
 
 **Mechanism** 
