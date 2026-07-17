@@ -8,6 +8,13 @@ Bad or unbounded queries can run for an excessively long time, consuming databas
 
 To fix this, every DE-owned query gets a maximum execution time, set on the query (or session) per database engine. When the limit is exceeded, the database engine **automatically aborts (kills) the query**, protecting shared resources. Timeout values are tuned per query type where possible; where a tuned value cannot be determined yet, a short-term fallback of **1 hour** (3,600,000 ms) is applied and revisited later.
 
+Scope :
+- [ ] All DE queries against MySQL set a max execution time (`MAX_EXECUTION_TIME` hint or session `max_execution_time`)
+- [ ] All DE queries against MongoDB set `maxTimeMS` on find/aggregate operations
+- [ ] All DE queries against PostgreSQL set `statement_timeout` (session, transaction, or role level)
+- [ ] Timeout values are tuned per query type where possible; a 1-hour short-term fallback is applied where a tuned value is not yet determined
+- [ ] Verified that a query exceeding the configured limit is automatically aborted by the database engine
+
 Related Info : 
 * ticket : https://opennetltd.atlassian.net/browse/BDE-1322?atlOrigin=eyJpIjoiZDdmNjVkODI5ZDE1NGM5NTgyYzdkZjFhYzZiN2FmYmQiLCJwIjoiaiJ9
 
