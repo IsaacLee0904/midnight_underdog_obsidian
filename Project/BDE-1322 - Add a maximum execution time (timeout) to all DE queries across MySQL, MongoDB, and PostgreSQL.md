@@ -21,7 +21,7 @@ Related Info :
 ---
 ## Implementation
 
-Design premise : DBA can quickly apply global timeout settings to BI clusters, but not to non-BI clusters — so DE enforces timeouts at session / query level in our own code. Values are centralized in `dags/etl_method/query_timeout.py` (unit = ms, names suffixed `_MS`); each engine applies them through the mechanism that fits it.
+Design premise : DBA can quickly apply global timeout settings to BI clusters, but not to non-BI clusters — so DE enforces timeouts at session / query level in our own code. <mark style="background:#fff88f">Values are centralized in `dags/etl_method/query_timeout.py` (unit = ms, names suffixed `_MS`); each engine applies them through the mechanism that fits it.</mark> (可能會改)
 
 ### MySQL
 
