@@ -49,6 +49,55 @@ db.orders.find({ /* ... */ }).maxTimeMS(3600000)
 db.orders.aggregate([ /* ... */ ], { maxTimeMS: 3600000 })
 ```
 
+**Value**
+
+
+```SQL
+-- for mongo task
+WITH ranked AS (
+	SELECT
+		dag_id,
+		task_id,
+		duration,
+		ROW_NUMBER() OVER (PARTITION BY dag_id, task_id ORDER BY duration) AS rn,
+		COUNT(*) OVER (PARTITION BY dag_id, task_id) AS cnt
+	FROM airflow.task_instance
+	WHERE dag_id IN (
+	'sporty_odds.SODerivedMarket',
+	'sporty_odds.event_info_history',
+	'sporty_odds.event_match_statuses',
+	'sporty_odds.golden_source_feed_switch'
+	'sporty_odds.manual_settlement_action',
+	'sporty_odds.mapped_event',
+	'sporty_odds.mapping_history',
+	'sporty_odds.monitoring_action_entry',
+	'sporty_odds.monitoring_action_entry_backfill',
+	'sporty_odds.ui_time_tracking_entry',
+	'sporty_odds.uof_message',
+	'sporty_odds_beter.event_info_history',
+	'sporty_odds_sportradar.event_info_history',
+	'encore_rm.order',
+	'sporty_rm.order',
+	'sporty_rm.ui_time_tracking'
+	)
+	AND state = 'success'
+	AND start_date >= NOW() - INTERVAL 90 DAY
+	AND duration IS NOT NULL
+)
+SELECT
+	dag_id,
+	task_id,
+	MAX(cnt) AS runs,
+	ROUND(AVG(duration)) AS avg_sec,
+	ROUND(MAX(CASE WHEN rn = CEIL(cnt * 0.95) THEN duration END)) AS p95_sec,
+	ROUND(MAX(duration)) AS max_sec
+FROM ranked
+WHERE task_id not in ("begin_etl", "end_etl")
+GROUP BY dag_id, task_id
+ORDER BY dag_id, p95_sec DESC;
+```
+![[Screenshot 2026-07-17 at 4.26.49 PM.png]]
+
 
 **Known limitation** 
 
