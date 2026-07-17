@@ -21,7 +21,7 @@ Related Info :
 ---
 ## Implementation
 
-Design premise : DBA can quickly apply global timeout settings to BI clusters, but not to non-BI clusters — so DE enforces timeouts at session / query level in our own code. <mark style="background:#fff88f">Values are centralized in `dags/etl_method/query_timeout.py` (unit = ms, names suffixed `_MS`); each engine applies them through the mechanism that fits it.</mark> (可能會改)
+DBA can quickly apply global timeout settings to BI clusters, but not to non-BI clusters — so DE enforces timeouts at session / query level in our own code. <mark style="background:#fff88f">Values are centralized in `dags/etl_method/query_timeout.py` (unit = ms, names suffixed `_MS`); each engine applies them through the mechanism that fits it.</mark> (可能會改)
 
 ### MySQL
 
@@ -69,7 +69,6 @@ ALTER ROLE de_app SET statement_timeout = '3600s';
 ---
 ## Verification & Impact
 
-- [ ] Kill verification : run a query with `maxTimeMS=1000` against a large collection in the test DAG (`test_mongodb_connection`), expect pymongo `ExecutionTimeout` — attach evidence to ticket
-- Impact : (TBD — what is protected after rollout, remaining gaps)
+
 
 
