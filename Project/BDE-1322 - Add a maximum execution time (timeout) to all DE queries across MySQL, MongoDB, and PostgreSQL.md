@@ -35,33 +35,11 @@ Design premise : DBA can quickly apply global timeout settings to BI clusters, b
 
 ### MongoDB
 
-**Mechanism** : per-query `maxTimeMS`. No choke point exists (each DAG builds its own `MongoHook` connection and calls pymongo directly) and MongoDB has no session-level setting, so the timeout is set on every operation, referencing the shared constants.
-- `find()` → `max_time_ms=` (pymongo argument, snake_case)
-- `count_documents()` / `aggregate()` → `maxTimeMS=` (server command option, camelCase)
-- Timeout semantics : cumulative server-side processing time across all getMore batches = how long the query occupies the DB
 
-**Timeout values** : tuned from 90-day Airflow `task_instance.duration` stats (p95 / max per task); evidence table on Confluence.
-
-| Tier | Value | Applies to | Evidence |
-|---|---|---|---|
-| DEFAULT | 900,000 ms (15 min) | all regular Mongo DAGs | worst task p95 ≤ 24s → 37x+ headroom |
-| WIDE | 1,800,000 ms (30 min) | `sporty_rm.order` | historical single-run max 524s |
-| FALLBACK | 3,600,000 ms (1 hr) | DAGs with no run history in 90 days | ticket rule, revisit later |
-
-**Changes** : branch `feature/BDE-1322-mongodb_execution_time_restrict`
-- `dags/etl_method/query_timeout.py` — tier constants (new)
-- 16 DAGs (~31 call sites) : odds/ ×11, odds_beter/ ×1, odds_sportradar/ ×1, sporty_rm/ ×3
-	- [x] sporty_odds.golden_source_feed_switch
-	- [ ] (remaining 14 MongoHook DAGs)
-	- [ ] sporty_odds.event_match_statuses — special case : `MongoToS3Operator` does not expose `maxTimeMS`
 
 ### PostgreSQL
 
-**Mechanism** : (TBD — session `statement_timeout`; instances to be identified first)
 
-**Timeout values** : (TBD)
-
-**Changes** : (TBD)
 
 ---
 ## Verification & Impact
