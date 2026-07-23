@@ -16,9 +16,9 @@ select max(create_time)
 from afbet_instant_win_tz.t_instant_win_ticket
 where country_code = 'zm'
 
--- 14926664
+-- 54135490
 select count(*)
-from afbet_instant_win_tz.t_instant_win_ticket
+from afbet_instant_win_tz.t_instant_win_transaction
 where country_code = 'zm'
 ```
 
