@@ -20,7 +20,7 @@ where country_code = 'zm'
 Step1. Dual Write + Backfill
 PR : https://github.com/opennetltd/warehouse_engineer/pull/2692
 ```markdown
-### [BDE-1333] Separate TZ and ZM Data for Instant Win Ticket Tables in Redshift
+### [[BDE-1333] Separate TZ and ZM Data for Instant Win Ticket Tables in Redshift
 
 #### Background
 
@@ -30,8 +30,8 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 
 Step1. **Dual Write + Backfill** ← _this PR_
 
-- Update `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_ticket_v2` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_ticket_v2` (new target)
-- Create backfill `_app` DAG: copy historical ZM records from `afbet_instant_win_tz.t_instant_ticket_v2` into `afbet_instant_win_zm.t_instant_ticket_v2` to ensure ZM table is complete before DA migration
+- This [original pipeline](https://airflow-warehouse-pub-prod-bi.on.sportybet2.com/dags/afbet_instant_win.t_instant_win_ticket/grid) is not longer running so no need to adjust 
+- Create backfill `_app` DAG: copy historical ZM records from `afbet_instant_win_tz.t_instant_ticket` into `afbet_instant_win_zm.t_instant_ticket` to ensure ZM table is complete before DA migration
 - Validate ZM table data is correct and up-to-date
 
 Step2. **Migrate DA DAGs** :
