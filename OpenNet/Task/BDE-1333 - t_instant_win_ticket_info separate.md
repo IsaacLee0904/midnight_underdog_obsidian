@@ -36,7 +36,7 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 Step1. **Dual Write + Backfill** ← _this PR_
 
 - This tables has been replaced by other table on the application side so only backfill DAG
-- Create backfill `_new_backfill` DAG: copy tz and zm historical data from RDS and zm dual write to tz and zm tables
+- Create backfill `_new_backfill` DAG: backfill tz and zm historical data from RDS and zm dual write to tz and zm tables
 - Validate ZM table data is correct and up-to-date
 
 Step2. **Migrate DA DAGs** :
