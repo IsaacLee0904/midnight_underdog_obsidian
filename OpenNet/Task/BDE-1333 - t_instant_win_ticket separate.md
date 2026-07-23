@@ -6,14 +6,14 @@
 Step0. Record the original row count and min(create_time)
 * row_count : 
 ```SQL
--- min(create_time) = 2025-06-20 00:00:10.000
+-- min(create_time) = 2024-04-01 00:00:03.000
 select min(create_time)
-from afbet_instant_win_tz.t_instant_win_ticket_v2
+from afbet_instant_win_tz.t_instant_win_ticket
 where country_code = 'zm'
 
--- 12211962
+-- 14926664
 select count(*)
-from afbet_instant_win_tz.t_instant_win_ticket_v2
+from afbet_instant_win_tz.t_instant_win_ticket
 where country_code = 'zm'
 ```
 
