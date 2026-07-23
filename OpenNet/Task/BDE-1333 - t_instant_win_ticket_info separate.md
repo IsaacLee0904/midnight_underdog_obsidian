@@ -4,22 +4,11 @@
 	* <font color="#548dd4">afbet_instant_win.t_instant_win_ticket_info_new_backfill</font> : backfill tz and zm data from RDS
 
 Step0. Record the original row count and min(create_time)
-* row_count : 
+* row_count : 31368
 ```SQL
--- min(create_time) = 2024-04-01 00:00:03.000
-select min(create_time)
-from afbet_instant_win_tz.t_instant_win_ticket
-where country_code = 'zm'
-
--- max(create_time) = 2025-06-24 06:01:26.000
-select max(create_time)
-from afbet_instant_win_tz.t_instant_win_ticket
-where country_code = 'zm'
-
--- 14926664
+-- RDS : 31368
 select count(*)
-from afbet_instant_win_tz.t_instant_win_ticket
-where country_code = 'zm'
+from afbet_instant_win_zm.t_instant_win_ticket_info_his
 ```
 
 Step1. Dual Write + Backfill
