@@ -11,6 +11,11 @@ select min(create_time)
 from afbet_instant_win_tz.t_instant_win_ticket
 where country_code = 'zm'
 
+-- max(create_time) = 2025-06-24 06:01:26.000
+select max(create_time)
+from afbet_instant_win_tz.t_instant_win_ticket
+where country_code = 'zm'
+
 -- 14926664
 select count(*)
 from afbet_instant_win_tz.t_instant_win_ticket
