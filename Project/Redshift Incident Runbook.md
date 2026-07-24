@@ -29,4 +29,6 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 # **Part 2 : Recovery & Backlog Catch-up**
 
 
+Routing Rules with Airflow Variable
 
+![[Screenshot 2026-07-24 at 3.15.10 PM.png]]
