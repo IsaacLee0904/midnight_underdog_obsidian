@@ -6,7 +6,15 @@
 Step0. Record the original row count and min(create_time)
 * row_count : 
 ```SQL
+-- min(create_time) = 2024-04-01 00:00:00.000
+select min(create_time)
+from afbet_instant_win_tz.t_instant_win_transaction
+where country_code = 'zm'
 
+-- 54198944
+select count(*)
+from afbet_instant_win_tz.t_instant_win_transaction
+where country_code = 'zm'
 ```
 
 Step1. Dual Write + Backfill
