@@ -6,6 +6,13 @@ This runbook covers incidents where Redshift slows down, stalls, or shuts down o
 
 # **Part 1 : Detecting & Diagnosing
 
+## Alert Sources
+
+## Triage 
+
+## Diagnosis
+
+## Immediate Mitigation
 
 
 
