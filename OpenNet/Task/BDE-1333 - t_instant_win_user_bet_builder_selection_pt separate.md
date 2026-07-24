@@ -1,20 +1,19 @@
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_bet_builder_selection_pt</font> : DAG for sync data to warehouse
-	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_extension_new</font> : 
+	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_bet_builder_selection_pt</font> & <font color="#548dd4">afbet_instant_win.t_instant_win_user_bet_builder_selection_pt_decompress_new</font> : DAG for sync data to warehouse
+	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_bet_builder_selection_pt_decompress_new</font> : 
 
 Step0. Record the original row count and min(create_time)
 * row_count : 
 ```SQL
--- min(create_time) = 2024-04-01 00:00:00.000
+-- min(create_time) = 2025-01-01 00:41:43.000 >> backfill should from 2025-01-01 00:00:00
 select min(create_time)
-from afbet_instant_win_tz.t_instant_win_transaction
-where country_code = 'zm'
+from afbet_instant_win_tz.t_instant_win_user_bet_builder_selection_pt
 
--- 54198944
+-- RDS : 95312
 select count(*)
-from afbet_instant_win_tz.t_instant_win_transaction
-where country_code = 'zm'
+from afbet_instant_win.t_instant_win_user_bet_builder_selection_pt
+where create_time >= '2025-01-01 00:00:00'
 ```
 
 Step1. Dual Write + Backfill
