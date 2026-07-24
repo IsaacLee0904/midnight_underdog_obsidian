@@ -1,4 +1,6 @@
-# Redshift Incident Runbook
+tags: #OpenNet  #data-engineering #redshift #data-warehouse 
+
+---
 
 這份 runbook 針對「Redshift 因 AWS 問題或高負載，導致變慢 / 卡住 / shutdown」的事故情境。
 
