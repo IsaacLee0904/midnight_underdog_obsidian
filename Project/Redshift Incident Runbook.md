@@ -5,8 +5,11 @@ tags: #OpenNet  #data-engineering #redshift #data-warehouse
 
 This runbook covers incidents where Redshift slows down, stalls, or shuts down or heavy workload. It is organized into two parts : Part 1 covers how to investigate when a problem is detected, and Part 2 covers how to work through the backlog once Redshift is back.
 
+## Platform Architecture
 
 
+
+For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
 
 
 # **Part 1 : Detecting & Diagnosing**
