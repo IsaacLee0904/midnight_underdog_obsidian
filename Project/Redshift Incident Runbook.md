@@ -2,8 +2,11 @@ tags: #OpenNet  #data-engineering #redshift #data-warehouse
 
 ---
 
-這份 runbook 針對「Redshift 因 AWS 問題或高負載，導致變慢 / 卡住 / shutdown」的事故情境。
+This runbook covers incidents where Redshift slows down, stalls, or shuts down or heavy workload. It is organized into two parts : Part 1 covers how to investigate when a problem is detected, and Part 2 covers how to work through the backlog once Redshift is back.
 
-分兩部分：
-- **Part 1**：發現問題時怎麼排查
-- **Part 2**：Redshift 回來後怎麼消化 backlog
+# **Part 1 :** **Detecting & Diagnosing**
+
+
+
+
+# **Part 2 :** ** **Recovery & Backlog Catch-up****
