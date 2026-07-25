@@ -92,4 +92,3 @@ Routing Rules with Airflow Variable
 ]
 ```
 
-![[Screenshot 2026-07-24 at 3.15.10 PM.png]]
