@@ -16,7 +16,7 @@ from afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt
 ```
 
 Step1. Dual Write + Backfill
-PR : https://github.com/opennetltd/warehouse_engineer/pull/2804
+PR : https://github.com/opennetltd/warehouse_engineer/pull/2812
 ```markdown
 ### [BDE-1333] Separate TZ and ZM Data for Instant Win Ticket Tables in Redshift
 
