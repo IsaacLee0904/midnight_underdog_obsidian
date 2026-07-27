@@ -6,14 +6,13 @@
 Step0. Record the original row count and min(create_time)
 * row_count : 
 ```SQL
--- min(create_time) = 2025-01-01 00:41:43.000 >> backfill should from 2025-01-01 00:00:00
+-- min(create_time) = 2026-04-01 00:04:10.000 >> backfill should from 2025-01-01 00:00:00
 select min(create_time)
-from afbet_instant_win_tz.t_instant_win_user_bet_builder_selection_pt
+from afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt
 
--- RDS : 95312
+-- original table : 98046
 select count(*)
-from afbet_instant_win.t_instant_win_user_bet_builder_selection_pt
-where create_time >= '2025-01-01 00:00:00'
+from afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt
 ```
 
 Step1. Dual Write + Backfill
@@ -29,7 +28,7 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 
 Step1. **Dual Write + Backfill** ← _this PR_
 
-- Create `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_user_bet_builder_selection_pt` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt` (new target)
+- Create `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_user_bet_builder_selection_pt_decompress` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt_decompress` (new target)
 - Create `_zm_backfill` DAG: backfill historical records to ensure ZM table is complete before DA migration
 - Validate ZM table data is correct and up-to-date
 
