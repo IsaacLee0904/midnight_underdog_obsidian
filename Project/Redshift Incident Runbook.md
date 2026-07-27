@@ -31,68 +31,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 Routing Rules with Airflow Variable
 
-```json
-[
-  {
-    "cluster_name": "bi-warehouse",
-    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
-    "tags": ["cluster:bi-warehouse", "management", "v12", "v13", "booking_code", "high_importance", ["1_day", "redshift"]],
-    "enabled": true,
-    "connection_mappings": [
-      {
-        "from_connection": "warehouse_bi_pub_prod_rw",
-        "to_connection": "warehouse_bi_pub_prod_rw"
-      },
-      {
-        "from_connection": "warehouse_pub_prod_ro",
-        "to_connection": "warehouse_pub_prod_ro"
-      },
-      {
-        "from_connection": "*",
-        "to_connection": "warehouse_bi_pub_prod_rw"
-      }
-    ]
-  },
-  {
-    "cluster_name": "bi-report",
-    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
-    "tags": ["cluster:bi-report", "adhoc", "backfill", "hqe", ["1_week", "redshift"]],
-    "enabled": true,
-    "connection_mappings": [
-      {
-        "from_connection": "warehouse_bi_pub_prod_rw",
-        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
-      },
-      {
-        "from_connection": "warehouse_pub_prod_ro",
-        "to_connection": "warehouse_pub_prod_bi_report_serverless_ro"
-      },
-      {
-        "from_connection": "*",
-        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
-      }
-    ]
-  },
-  {
-    "cluster_name": "data-analysis", 
-    "enabled": true,
-    "tags": ["cluster:data-analysis", "high_importance", ["1_hour", "redshift"]],
-    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
-    "connection_mappings": [
-      {
-        "from_connection": "warehouse_pub_prod_ro",
-        "to_connection": "warehouse_bi_data_analysis_ro"
-      },
-      {
-        "from_connection": "*",
-        "to_connection": "warehouse_bi_data_analysis_rw"
-      }
-    ]
-  }
-]
-```
-
-
+**normal settings**
 
 ```json
 [
@@ -138,6 +77,69 @@ Routing Rules with Airflow Variable
   },
   {
     "cluster_name": "data-analysis",                           
+    "enabled": true,
+    "tags": ["cluster:data-analysis", "high_importance", ["1_hour", "redshift"]],
+    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
+    "connection_mappings": [
+      {
+        "from_connection": "warehouse_pub_prod_ro",
+        "to_connection": "warehouse_bi_data_analysis_ro"
+      },
+      {
+        "from_connection": "*",
+        "to_connection": "warehouse_bi_data_analysis_rw"
+      }
+    ]
+  }
+]
+```
+
+
+**serverless CPU spike setting**
+```json
+[
+  {
+    "cluster_name": "bi-warehouse",
+    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
+    "tags": ["cluster:bi-warehouse", "management", "v12", "v13", "booking_code", "high_importance", ["1_day", "redshift"]],
+    "enabled": true,
+    "connection_mappings": [
+      {
+        "from_connection": "warehouse_bi_pub_prod_rw",
+        "to_connection": "warehouse_bi_pub_prod_rw"
+      },
+      {
+        "from_connection": "warehouse_pub_prod_ro",
+        "to_connection": "warehouse_pub_prod_ro"
+      },
+      {
+        "from_connection": "*",
+        "to_connection": "warehouse_bi_pub_prod_rw"
+      }
+    ]
+  },
+  {
+    "cluster_name": "bi-report",
+    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
+    "tags": ["cluster:bi-report", "adhoc", "backfill", "hqe", ["1_week", "redshift"]],
+    "enabled": true,
+    "connection_mappings": [
+      {
+        "from_connection": "warehouse_bi_pub_prod_rw",
+        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
+      },
+      {
+        "from_connection": "warehouse_pub_prod_ro",
+        "to_connection": "warehouse_pub_prod_bi_report_serverless_ro"
+      },
+      {
+        "from_connection": "*",
+        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
+      }
+    ]
+  },
+  {
+    "cluster_name": "data-analysis", 
     "enabled": true,
     "tags": ["cluster:data-analysis", "high_importance", ["1_hour", "redshift"]],
     "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
