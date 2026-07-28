@@ -10,10 +10,10 @@ Step0. Record the original row count and min(create_time)
 select min(create_time)
 from afbet_instant_win_tz.t_instant_win_user_round_settled_pt
 
--- RDS : 95312
+-- RDS : 2162489
 select count(*)
-from afbet_instant_win.t_instant_win_user_bet_builder_selection_pt
-where create_time >= '2025-01-01 00:00:00'
+from afbet_instant_win.t_instant_win_user_round_settled_pt
+where create_time >= '2021-01-01 00:00:00'
 ```
 
 Step1. Dual Write + Backfill
