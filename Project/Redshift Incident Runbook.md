@@ -9,7 +9,8 @@ This runbook covers incidents where Redshift slows down, stalls, or shuts down o
 
 ### Redshift 
 
-目前 Redshift 採用的是 multi-cluster structure 
+目前 Redshift 採用的是 multi-cluster structure，下面以 Prod Sporty 為例，所有資料實際上存放在 `bi-warehouse` 
+
 ![[Screenshot 2026-07-28 at 5.23.57 PM.png]]
 
 
