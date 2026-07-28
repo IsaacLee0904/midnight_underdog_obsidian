@@ -1,7 +1,7 @@
 #### Basic Information
 * related DAG
-	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_round_settled_pt</font> & <font color="#548dd4">afbet_instant_win.t_instant_win_user_round_settled_pt_decompress_new</font> : DAG for sync data to warehouse
-	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_bet_builder_selection_pt_decompress_zm_backfill</font> : backfill DAG for backfill zm data 
+	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_round_settled_pt</font> & <font color="#548dd4">afbet_instant_win.t_instant_win_user_round_settled_pt_new</font> : DAG for sync data to warehouse
+	* <font color="#548dd4">afbet_instant_win.t_instant_win_user_round_settled_pt_zm_backfill</font> : backfill DAG for backfill zm data 
 
 Step0. Record the original row count and min(create_time)
 * row_count : 
