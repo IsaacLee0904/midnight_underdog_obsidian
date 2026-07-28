@@ -10,7 +10,7 @@ Step0. Record the original row count and min(create_time)
 select min(create_time)
 from afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt
 
--- original table : 98046
+-- original table : 98641
 select count(*)
 from afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt
 ```

@@ -6,14 +6,14 @@
 Step0. Record the original row count and min(create_time)
 * row_count : 57477490
 ```SQL
--- min(create_time) = 2025-01-01 00:00:09.000
+-- min(create_time) = 2021-09-02 02:50:28.000 >> backfill from 2021-01-01
 select min(create_time)
-from afbet_instant_win_tz.t_instant_win_bet_detail
+from afbet_instant_win_tz.t_instant_win_user_round_current_v4
 
--- RDS : 57477490
+-- RDS : 4485366
 select count(*)
-from afbet_instant_win.t_instant_win_bet_detail
-where create_time >= '2025-01-01T00:00:00'
+from afbet_instant_win.t_instant_win_user_round_current_v4 tiwurcv
+where create_time >= '2021-01-01 00:00:00'
 ```
 
 Step1. Dual Write + Backfill
