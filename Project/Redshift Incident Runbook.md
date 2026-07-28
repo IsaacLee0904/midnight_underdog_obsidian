@@ -7,6 +7,11 @@ This runbook covers incidents where Redshift slows down, stalls, or shuts down o
 
 ## Platform Architecture
 
+### Redshift 
+
+目前 Redshift 採用的是 multi-cluster structure 
+![[Screenshot 2026-07-28 at 5.23.57 PM.png]]
+
 
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
