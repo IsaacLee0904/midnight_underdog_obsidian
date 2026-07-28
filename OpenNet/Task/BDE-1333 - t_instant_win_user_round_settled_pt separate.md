@@ -29,7 +29,7 @@ Currently, both TZ and ZM data are written into the TZ Redshift table, leaving t
 
 Step1. **Dual Write + Backfill** ← _this PR_
 
-- Create `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_user_bet_builder_selection_pt` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_user_bet_builder_selection_pt` (new target)
+- Create `_new` DAGs : ZM data writes to both `afbet_instant_win_tz.t_instant_win_user_round_settled_pt` (existing, for backward compatibility) and `afbet_instant_win_zm.t_instant_win_user_round_settled_pt` (new target)
 - Create `_zm_backfill` DAG: backfill historical records to ensure ZM table is complete before DA migration
 - Validate ZM table data is correct and up-to-date
 
