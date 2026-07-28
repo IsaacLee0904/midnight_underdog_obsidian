@@ -6,9 +6,9 @@
 Step0. Record the original row count and min(create_time)
 * row_count : 
 ```SQL
--- min(create_time) = 2025-01-01 00:41:43.000 >> backfill should from 2025-01-01 00:00:00
+-- min(create_time) = 2025-01-01 00:00:12.000 >> backfill should from 2025-01-01 00:00:00
 select min(create_time)
-from afbet_instant_win_tz.t_instant_win_user_bet_builder_selection_pt
+from afbet_instant_win_tz.t_instant_win_user_round_settled_pt
 
 -- RDS : 95312
 select count(*)
