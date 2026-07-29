@@ -43,7 +43,10 @@ SET statement_timeout TO 600000; -- 600s
 Step1. DA job 預設使用 `_prod_ro` 或 `_prod_rw` 來作為 conn
 Step2. 執行時會去讀取 `readshift_multicluster_settings` 比對 cluster 的 tags 與 DAG tags
 Step3. 比對完之後會轉換到相對應的 `connection_mappings` 中的 cluster conn
-Step4. 
+Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
+![[Screenshot 2026-07-29 at 3.36.50 PM.png]]
+
+
 
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
