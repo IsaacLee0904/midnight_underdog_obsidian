@@ -33,10 +33,12 @@ SET statement_timeout TO 600000; -- 600s
 >[! warning]
 >之前有做實驗嘗試用 manucal WLM，但 AWS 已經確認了 Redshift 內部會把一個查詢改成多個子查詢，變成 timeout 實際上是套用在每一個子查詢上而不是總時長，因此改回 auto
 
+### Airflow
+
+
+
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
-
-
 # **Part 1 : Detecting & Diagnosing**
 
 ## Early Signs
