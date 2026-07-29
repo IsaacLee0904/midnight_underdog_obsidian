@@ -46,6 +46,67 @@ Step3. 比對完之後會轉換到相對應的 `connection_mappings` 中的 clus
 Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
 ![[Screenshot 2026-07-29 at 3.36.50 PM.png]]
 
+**normal readshift_multicluster_settings settings** 
+```json
+[
+  {
+    "cluster_name": "bi-warehouse",
+    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
+    "tags": ["cluster:bi-warehouse", "management", "v12", "v13", ["1_day", "redshift"]],
+    "enabled": true,
+    "connection_mappings": [
+      {
+        "from_connection": "warehouse_bi_pub_prod_rw",
+        "to_connection": "warehouse_bi_pub_prod_rw"
+      },
+      {
+        "from_connection": "warehouse_pub_prod_ro",
+        "to_connection": "warehouse_pub_prod_ro"
+      },
+      {
+        "from_connection": "*",
+        "to_connection": "warehouse_bi_pub_prod_rw"
+      }
+    ]
+  },
+  {
+    "cluster_name": "bi-report",
+    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
+    "tags": ["cluster:bi-report", "adhoc", "backfill", "hqe"],
+    "enabled": true,
+    "connection_mappings": [
+      {
+        "from_connection": "warehouse_bi_pub_prod_rw",
+        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
+      },
+      {
+        "from_connection": "warehouse_pub_prod_ro",
+        "to_connection": "warehouse_pub_prod_bi_report_serverless_ro"
+      },
+      {
+        "from_connection": "*",
+        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
+      }
+    ]
+  },
+  {
+    "cluster_name": "data-analysis",                           
+    "enabled": true,
+    "tags": ["cluster:data-analysis", "high_importance", ["1_hour", "redshift"]],
+    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
+    "connection_mappings": [
+      {
+        "from_connection": "warehouse_pub_prod_ro",
+        "to_connection": "warehouse_bi_data_analysis_ro"
+      },
+      {
+        "from_connection": "*",
+        "to_connection": "warehouse_bi_data_analysis_rw"
+      }
+    ]
+  }
+]
+```
 
 
 
@@ -133,7 +194,7 @@ Routing Rules with Airflow Variable
 ```
 
 
-**serverless CPU spike setting**
+Leader Node CPU spike setting**
 ```json
 [
   {
