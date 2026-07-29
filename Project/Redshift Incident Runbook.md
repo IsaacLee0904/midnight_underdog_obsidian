@@ -35,6 +35,12 @@ SET statement_timeout TO 600000; -- 600s
 
 ### Airflow
 
+#### Airflow Routing Rules
+
+目前透過 `readshift_multicluster_settings` 做 routing 來決定與方便控制不同的 DAG 要在哪一個 cluster 上面跑
+![[Screenshot 2026-07-29 at 3.09.56 PM.png]]
+
+
 
 
 
