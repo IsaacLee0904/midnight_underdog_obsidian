@@ -17,9 +17,12 @@ This runbook covers incidents where Redshift slows down, stalls, or shuts down o
 ![[Screenshot 2026-07-29 at 2.30.34 PM.png]]
 
 #### Redshift Workload Manage
+
+`bi_warehouse` WLM
 ![[Screenshot 2026-07-29 at 2.44.21 PM.png]]
 ref : [[Redshift Workload Management (WLM)]]
 
+`bi_analysis` WLM
 
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
