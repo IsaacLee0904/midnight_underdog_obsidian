@@ -9,10 +9,16 @@ This runbook covers incidents where Redshift slows down, stalls, or shuts down o
 
 ### Redshift 
 
+#### Redshift Cluster Structure
+
 目前 Redshift 採用的是 multi-cluster structure，下面以 Prod Sporty 為例，所有資料實際上存放在 `bi-warehouse` ，其他 consumer cluster 透過 data share 取得資料
 
 ![[Screenshot 2026-07-28 at 5.23.57 PM.png]]
 ![[Screenshot 2026-07-29 at 2.30.34 PM.png]]
+
+#### Redshift Workload Manage
+![[Screenshot 2026-07-29 at 2.44.21 PM.png]]
+ref : [[Redshift Workload Management (WLM)]]
 
 
 
