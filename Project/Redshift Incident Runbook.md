@@ -58,7 +58,7 @@ Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
 	* 角色：讓 Ad-hoc 分析、backfill 跑在這上面避免影響到 `data-anlaysis` 的 workload
 	* 規則：如果 tag 裡面有 `"cluster:bi-report", "adhoc", "backfill", "hqe"`任意一個或是同時有 "1_day" + "redshift" 就會跑在這個 serverless 上
 
-
+Airflow Variable Setting
 ```json
 [
   {
@@ -119,6 +119,8 @@ Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
   }
 ]
 ```
+
+
 
 
 
