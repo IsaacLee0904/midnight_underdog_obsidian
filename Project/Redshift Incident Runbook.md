@@ -154,6 +154,29 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 ## Triage 
 
+Early Signs 只告訴我們「一堆 job 掛了」，但還沒告訴我們「是哪一層的問題」。在衝進去 kill query 之前，先花一分鐘判斷方向，避免明明是 Airflow / 連線 / 程式碼的問題卻一直盯著 Redshift。
+
+**先做幾個快速判斷：**
+
+1. **範圍**：是**跨多個 DAG** 同時 fail，還是**集中在單一 / 剛部署**的 DAG？
+	* 跨多個、不同 owner 一起掛 → 偏 Redshift 或共用資源層
+	* 集中在單一 or 剛上線的 DAG → 偏該 DAG 的 code / config
+2. **Airflow scheduled slots**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc)，scheduled slots 有沒有飆到數百？有 → task 塞住排不出去，偏 Redshift 變慢 / 卡住。
+3. **錯誤訊息類型**：是 timeout、connection refused、auth error 還是 code exception？connection / auth 類 → 偏連線層（Redshift service outage、憑證被 GitHub workflow 改動）。
+4. **時間點**：是不是週二 weekly reboot 時段（約 UTC+8 13:00）？是的話多半是預期性 backlog，直接走 [[#**Part 2 : Recovery & Backlog Catch-up**|Part 2]] 消化，見 [[Redshift Reboot]]。
+
+**四個可能的層級**（可能同時發生、互相觸發，非互斥）：
+
+| Layer | 典型徵兆 |
+|---|---|
+| 🔴 **Redshift** | 長查詢卡住、CPU / Leader Node CPU 飆升、大量短查詢高並行耗盡 cluster |
+| 🟡 **Airflow** | `MAX_TIS_PER_QUERY` 太低漏掉低優先級 task、新 DAG 高並行把其他 DAG 餓死 |
+| 🔵 **Connection / Auth** | 目標 DB outage / 維護、憑證或權限被改、worker 與 cluster 間網路問題 |
+| 🟣 **Code** | 共用 general function 有 bug、routing 被改壞 connection mapping、DAG 改動有副作用 |
+
+> [!NOTE] 判斷結果
+> 若判斷是 **🔴 Redshift 負載 / 效能** → 進 [[#Diagnosis]] 找出具體元凶。其他層級則跳出本 runbook 的主線，往對應方向處理。
+
 ## Diagnosis
 
 ## Immediate Mitigation
