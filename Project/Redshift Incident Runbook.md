@@ -143,7 +143,8 @@ Total System Capacity = WORKER_CONCURRENCY * Works count
 
 ⚠️ 如果設置的太低，低優先級的 task 無法被領取就會導致 task 卡在 scheduled 狀態，最終被 skip / fail ；但如果設置太高又會導致 db 負載過高
 
->[!]
+>[!NOTE] 設定 Worker or Scheduler ：data_service_deployement repo prod branch / [airflow-da/values-da.yaml](https://github.com/opennetltd/data_service_deployment/blob/prod/releases/airflow-da/values-da.yaml)
+
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
 # **Part 1 : Detecting & Diagnosing**
