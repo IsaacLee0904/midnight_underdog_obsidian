@@ -56,7 +56,7 @@ Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
 	* 規則：tag 有 "cluster:data-analysis" 或 "high_importance" 任意一個又或是同時有 "1_hour" + "redshift" 就會在 `data-analysis` 上跑
 * `bi-report` (serverless) 
 	* 角色：讓 Ad-hoc 分析、backfill 跑在這上面避免影響到 `data-anlaysis` 的 workload
-	* 規則：
+	* 規則：如果 tag 裡面有 `"cluster:bi-report", "adhoc", "backfill", "hqe"`任意一個或是同時有 "1_day" + "redshift" 就會跑在這個 serverless 上
 
 
 ```json
