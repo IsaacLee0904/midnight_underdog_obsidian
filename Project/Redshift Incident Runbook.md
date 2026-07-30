@@ -123,7 +123,7 @@ Airflow Variable Setting
 #### Airflow Configuration Setting
 
 ##### Pool Setting
-可以透過 [admin/pool](https://airflow-da-pub-prod-bi.on.sportybet2.com/pool/list/) 觀看目前有哪些 pool 以及 pool 的情況
+可以透過 [admin/pool](https://airflow-da-pub-prod-bi.on.sportybet2.com/pool/list/) 觀看目前有哪些 pool 以及 pool 的情況也可以透過 [Grafana dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 中的 Default pool running slots 與 Default pool scheduled slots 來監控使用狀況
 
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
