@@ -122,6 +122,8 @@ Airflow Variable Setting
 
 #### Airflow Configuration Setting
 
+##### Pool Setting
+
 
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
