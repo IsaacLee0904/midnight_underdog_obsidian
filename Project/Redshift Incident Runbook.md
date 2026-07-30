@@ -46,7 +46,7 @@ Step3. 比對完之後會轉換到相對應的 `connection_mappings` 中的 clus
 Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
 ![[Screenshot 2026-07-29 at 3.36.50 PM.png]]
 
-#### Sporty Prod Setting
+<mark style="background:#fff88f">Sporty Prod Setting</mark>
 ![[Screenshot 2026-07-30 at 1.44.09 PM.png]]
 * `bi-warehouse`
 	* 角色：預設會讓 Airflow job 跑在 `bi-warehouse` 
@@ -120,7 +120,7 @@ Airflow Variable Setting
 ]
 ```
 
-
+#### Airflow Configuration Setting
 
 
 
