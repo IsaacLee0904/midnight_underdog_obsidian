@@ -128,8 +128,7 @@ Airflow Variable Setting
 預設使用 `default_pool` (通用、slot 數量大) 來跑大多數的 job，當遇到重要或高並行的 job 則會透過在 task 中設定 `pool = <pool)name>`派到 slot 數較小的專用 pool (<font color="#ff0000">pool 越小代表刻意設定了可以並行的上限，用來保護 cluster</font>)
 
 ##### Worker Setting
-
-
+目前設定 `PARALLELISM 128` ，代表跨所有 pool 與 worker 的全部最大同時執行 task 數是 128 
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
 # **Part 1 : Detecting & Diagnosing**
