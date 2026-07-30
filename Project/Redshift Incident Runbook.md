@@ -46,7 +46,8 @@ Step3. 比對完之後會轉換到相對應的 `connection_mappings` 中的 clus
 Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
 ![[Screenshot 2026-07-29 at 3.36.50 PM.png]]
 
-**normal readshift_multicluster_settings settings** 
+#### Sporty Prod Setting
+![[Screenshot 2026-07-30 at 1.44.09 PM.png]]
 ```json
 [
   {
