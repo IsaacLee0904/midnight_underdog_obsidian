@@ -49,7 +49,8 @@ Step4. 如果沒有 match 到任何 tags 就會繼續在 `bi-warehouse` 跑
 #### Sporty Prod Setting
 ![[Screenshot 2026-07-30 at 1.44.09 PM.png]]
 * `bi-warehouse` : 預設會讓 Airflow job 跑在 `bi-warehouse` 上，如果 tag 有 match "cluster:bi-warehouse", "management", "v12" 會跑在 `bi-warehouse` 上
-* 
+* `data-analysis` : tag 有 "cluster:data-analysis" 或 "high_importance" 任意一個又或是同時有 "1_hour" + "redshift" 就會在 `data-analysis` 上跑
+* `bi-report` (serverless) : 
 
 
 ```json
