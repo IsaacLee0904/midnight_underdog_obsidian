@@ -290,3 +290,84 @@ Leader Node CPU spike setting**
   }
 ]
 ```
+
+
+
+### 第 11 頁 — 目前的監控：Airflow 與 Redshift
+
+關鍵 dashboard、指標系統，以及排查系統劣化時要看的具體指標。
+
+**Airflow 監控**
+
+- **Default Pool Slots（Airflow Alerts Dashboard）** — [連結](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts)
+    - 追蹤指標：Running slots（正在執行的 task 數）、Scheduled slots（排隊等待 worker slot 的 task 數）。
+    - 觀察重點：Redshift 劣化時，running 數維持在高檔、scheduled 數飆到數百 → task 堆積並失敗。
+- **CPU / Memory 與 DAG Run Delay（Airflow EKS Dashboard）** — [連結](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/adk6avn6n2tc0aee/airflow-eks)
+    - 追蹤指標：各 DAG 的 CPU / Memory 使用率、DAG run delay（排定執行時間與實際開始的落差）。
+    - 觀察重點：DAG 層級突然的 CPU/Mem 飆升代表 cluster 有問題或程式碼有問題。DAG run delay 是 pool 塞滿前的早期警訊。
+
+**Redshift 監控**
+
+- **AWS Console — Cluster Metrics**：CPU 使用率與 Disk 使用率 %、讀/寫 throughput、資料庫連線數。
+- **AWS Console — Query Monitoring**：Queued vs. Running 查詢數、耗時辨識（檢查長時間查詢）。
+- **Grafana — Redshift Cluster Dashboard** — [連結](https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluster/redshift-cluster)：整合式 dashboard，一頁呈現所有 cluster 層級基礎設施指標；事故時可直接與 Airflow 面板交叉比對。
+
+---
+
+### 第 12 頁 — 常見告警與根因
+
+**Redshift 效能劣化的常見原因**——為什麼 cluster 會突然變慢、task 會 timeout？以下是擾亂運作的核心 pattern。
+
+**🔄 持續 Backfill**
+
+- 症狀：Redshift 出現長查詢、Airflow running slots 維持高檔、其他 job 變慢。
+- 根因：新 job 在回補歷史資料，產生超出常態容量、未預期的大量查詢。
+- 緩解：限制並行（`max_active_runs` 或專用 pool）／把 backfill 排在離峰時段／用 `"backfill"` tag 路由到 `bi-report`。
+
+**⚡ 高並行 Job**
+
+- 症狀：Redshift 連線數 / WLM queue 深度突然跳升、Airflow scheduled slots 飆升。
+- 根因：新 job 同時送出大量平行查詢，壓垮 cluster。
+- 緩解：用 `max_active_tasks` 限制並行／指派到 slot 上限很緊的專用 pool／檢視查詢模式——改為 batch 或序列化 task。
+
+**👤 Ad-hoc 查詢**
+
+- 目標帳號：個人帳號或團隊存取（如 `da_trading`）。
+- 症狀：Cluster loading 飆升、其他 job 變慢或比平常久。
+- 根因：在共用的 `bi-warehouse` 上手動跑探索性查詢，影響到 prod job。
+- ⚠ 緩解計畫：把這些 ad-hoc 查詢移到 Serverless 以隔離 production（Isaac 正在處理）。
+
+> ℹ **調查流程**：Airflow Alerts dashboard（檢查 scheduled slot 是否飆升）→ AWS Console Query Monitoring（找出出問題的查詢）→ 透過 query metadata 交叉比對 DAG owner。
+
+---
+
+### 第 13 頁 — 可能原因：Airflow Job 被 Skip / Fail
+
+參考用——各原因可能重疊並同時互相觸發。
+
+**🔴 Redshift**
+
+1. Redshift 內部錯誤或服務問題
+2. 重度長查詢吃掉 cluster 資源
+3. 大量短查詢高並行，耗盡 cluster
+4. Leader Node CPU 飆升，拖慢查詢 planning
+
+**🟡 Airflow**
+
+1. `MAX_TIS_PER_QUERY` 太低——scheduler 漏掉低優先級 task
+2. 新 DAG 高並行且 `max_active_tasks` 太低——把其他 DAG 資源餓死
+3. DAG 的 `priority_weight` 太低 + timeout 太短——永遠來不及被領取
+
+**🔵 連線 / 認證**
+
+1. 目標 DB（Redshift、MySQL 等）故障或維護中
+2. 憑證或權限被 GitHub workflow 改動
+3. Airflow worker 與目標 cluster 間的網路問題
+
+**🟣 程式碼**
+
+1. 共用通用函式引入 bug
+2. 查詢路由機制被更動，破壞了 connection mapping
+3. DAG 程式碼變更，對共用資源產生非預期的副作用
+
+> ⚠ 這些原因並非互斥。單一事件（例如部署了一個新的高並行 DAG）可能同時觸發 第 2 欄 → 第 1 欄 → 第 3 欄 的連鎖反應。
