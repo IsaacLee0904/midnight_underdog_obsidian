@@ -139,7 +139,11 @@ Total System Capacity = WORKER_CONCURRENCY * Works count
 ```
 
 ##### Scheduler Setting
+用來控制 scheduler 每個週期掃描多少 task instance 來決定接下來能跑什麼，目前設置是`MAX_TIS_PER_QUERY = 300`
 
+⚠️ 如果設置的太低，低優先級的 task 無法被領取就會導致 task 卡在 scheduled 狀態，最終被 skip / fail ；但如果設置太高又會導致 db 負載過高
+
+>[!]
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
 # **Part 1 : Detecting & Diagnosing**
