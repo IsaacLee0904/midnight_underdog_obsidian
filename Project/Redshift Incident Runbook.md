@@ -170,9 +170,9 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 * 如果 warehouse job & DA job 都有壞掉，有可能是主要的 cluster (`bi-warehouse`) 故障，連帶使用 data share 的 consumer 也一起壞掉
 * 如果只有 DA job 有一些壞掉，那可能是單獨的 consumer 故障
 
-AWS console - Redshift Monitoring : https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/dashboard)
-
-Redshift Grafana : https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluster/redshift-cluster?orgId=1&from=now-6h&to=now&timezone=utc&var-datasource=mimir-sporty-pub-prod-misc&var-brandname=sporty&var-environment=prod&var-countrycode=pub&var-cluster=sporty-pub-prod-bi-report-provisioned
+>[!Note] Redshift 監控 dashboard
+>* AWS console - Redshift Monitoring : https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/dashboard
+>* Redshift Grafana : https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluster/redshift-cluster?orgId=1&from=now-6h&to=now&timezone=utc&var-datasource=mimir-sporty-pub-prod-misc&var-brandname=sporty&var-environment=prod&var-countrycode=pub&var-cluster=sporty-pub-prod-bi-report-provisioned
 
 ##### Step 2. 調查流程
 
