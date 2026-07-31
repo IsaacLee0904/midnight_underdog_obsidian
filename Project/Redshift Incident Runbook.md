@@ -150,15 +150,15 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 ## Early Signs
 
-最早、也最常見的訊號，就是 **Slack 告警頻道在短時間內湧入大量 Airflow job fail**
-
-當 Redshift 變慢、卡住或 shutdown 時，查詢它的 Airflow task 會接連 timeout / fail 並推送告警。關鍵是看**規模**：如果是**同時、跨多個 DAG** 一起掛，通常代表是 Redshift 這種共用層出問題
+最早、也最常見的訊號，就是 **Slack 告警頻道 (主要 pipeline alert channel 如下) 在短時間內湧入大量 Airflow job fail**
 
 * bi_warehouse_alert
 * bi_job
 * bi_job_encore
 * bi_high_priority_job
 * bi_high_priority_job_encore
+
+當 Redshift 變慢、卡住或 shutdown 時，查詢它的 Airflow task 會接連 timeout / fail 並推送告警。關鍵是看**規模**：如果是**同時、跨多個 DAG** 一起掛，通常代表是 Redshift 或 Airflow 這種共用層出問題
 
 ## Triage 
 
