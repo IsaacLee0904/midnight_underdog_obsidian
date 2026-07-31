@@ -176,107 +176,29 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 在這階段如果看到 Health Status 異常或是 CPU Spike 就可以判斷是 cluster 本身故障
 
-##### Step 2. 調查流程
+##### Step 2. 更細緻判斷具體原因
 
-1. **Airflow Alerts dashboard**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots**，檢查 scheduled slot 是否飆升
-2. **AWS Console Query Monitoring**：進 [Query Monitoring](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-bi-warehouse&tab=queries) 找出正在拖慢 cluster 的問題查詢
+排除 cluster 本身故障後，搭配 **Airflow Monitoring dashboard** 與 **AWS Console Query Monitoring** 進一步判斷是屬於下面 [[#Diagnosis]] 的哪一種情境（持續 Backfill / 高並行 Job / Ad-hoc 查詢）：
+
+1. **Airflow Alerts dashboard**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 Default pool running slots 與 Default pool scheduled slots 是否飆升
+	![[Pasted image 20260731155516.png]]
+
+2. **AWS Console Query Monitoring**：進 [Query Monitoring](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-bi-warehouse&tab=queries) (db name : bi_warehouse / user : bi_report) 找出正在拖慢 cluster 的問題查詢
+	![[Pasted image 20260731155404.png]]
+	
 3. **對照 DAG owner**：透過 query metadata 交叉比對，找出這個查詢是哪個 DAG / owner
 
 ## Diagnosis
 
-#### 🔄 持續 Backfill
+#### 1. Cluster 故障
 
-* 症狀：Redshift 出現長查詢、Airflow running slots 維持高檔、其他 job 變慢。
-* 根因：新 job 在回補歷史資料，產生超出常態容量、未預期的大量查詢。
-* 緩解：限制並行（`max_active_runs` 或專用 pool）／把 backfill 排在離峰時段／用 `"backfill"` tag 路由到 `bi-report`。
+? 
 
-#### ⚡ 高並行 Job
+#### 2. Leader Node CPU Spike
+* 症狀：[Redshift - data-analysis](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-data-analysis) CPU 持續很高
+  ![[Pasted image 20260731155728.png]]
+* 緩解：調整 DA job 的 workload，透過將 `readshift_multicluster_settings` 中 tag `["1_day", "redshift"]` 移去 bi_warehouse 跑
 
-* 症狀：Redshift 連線數 / WLM queue 深度突然跳升、Airflow scheduled slots 飆升。
-* 根因：新 job 同時送出大量平行查詢，壓垮 cluster。
-* 緩解：用 `max_active_tasks` 限制並行／指派到 slot 上限很緊的專用 pool／檢視查詢模式——改為 batch 或序列化 task。
-
-#### 👤 Ad-hoc 查詢
-
-* 目標帳號：個人帳號或團隊存取（如 `da_trading`）。
-* 症狀：Cluster loading 飆升、其他 job 變慢或比平常久。
-* 根因：在共用的 `bi-warehouse` 上手動跑探索性查詢，影響到 prod job。
-* 緩解：把這些 ad-hoc 查詢移到 Serverless 以隔離 production（Isaac 正在處理）。
-
-## Immediate Mitigation
-
-
-
-# **Part 2 : Recovery & Backlog Catch-up**
-
-
-Routing Rules with Airflow Variable
-
-**normal settings**
-
-```json
-[
-  {
-    "cluster_name": "bi-warehouse",
-    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
-    "tags": ["cluster:bi-warehouse", "management", "v12", "v13", ["1_day", "redshift"]],
-    "enabled": true,
-    "connection_mappings": [
-      {
-        "from_connection": "warehouse_bi_pub_prod_rw",
-        "to_connection": "warehouse_bi_pub_prod_rw"
-      },
-      {
-        "from_connection": "warehouse_pub_prod_ro",
-        "to_connection": "warehouse_pub_prod_ro"
-      },
-      {
-        "from_connection": "*",
-        "to_connection": "warehouse_bi_pub_prod_rw"
-      }
-    ]
-  },
-  {
-    "cluster_name": "bi-report",
-    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
-    "tags": ["cluster:bi-report", "adhoc", "backfill", "hqe"],
-    "enabled": true,
-    "connection_mappings": [
-      {
-        "from_connection": "warehouse_bi_pub_prod_rw",
-        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
-      },
-      {
-        "from_connection": "warehouse_pub_prod_ro",
-        "to_connection": "warehouse_pub_prod_bi_report_serverless_ro"
-      },
-      {
-        "from_connection": "*",
-        "to_connection": "warehouse_bi_pub_prod_bi_report_serverless_rw"
-      }
-    ]
-  },
-  {
-    "cluster_name": "data-analysis",                           
-    "enabled": true,
-    "tags": ["cluster:data-analysis", "high_importance", ["1_hour", "redshift"]],
-    "aws_redshift_iam_role": "arn:aws:iam::942878658013:role/sporty-pub-prod-redshift-warehouse",
-    "connection_mappings": [
-      {
-        "from_connection": "warehouse_pub_prod_ro",
-        "to_connection": "warehouse_bi_data_analysis_ro"
-      },
-      {
-        "from_connection": "*",
-        "to_connection": "warehouse_bi_data_analysis_rw"
-      }
-    ]
-  }
-]
-```
-
-
-Leader Node CPU spike setting**
 ```json
 [
   {
@@ -337,6 +259,33 @@ Leader Node CPU spike setting**
   }
 ]
 ```
+
+#### 3. 持續 Backfill
+
+* 症狀：Redshift 出現長查詢、Airflow running slots 維持高檔、其他 job 變慢
+* 根因：新 job 在回補歷史資料，產生超出常態容量、未預期的大量查詢
+* 緩解：限制並行（`max_active_runs` 或專用 pool）／把 backfill 排在離峰時段／用 `"backfill"` tag 路由到 `bi-report`
+
+#### 4. 高並行 Job
+
+* 症狀：Redshift 連線數 / WLM queue 深度突然跳升、Airflow scheduled slots 飆升
+* 根因：新 job 同時送出大量平行查詢，壓垮 cluster
+* 緩解：用 `max_active_tasks` 限制並行／指派到 slot 上限很緊的專用 pool／檢視查詢模式——改為 batch 或序列化 task
+
+#### 5. Ad-hoc 查詢
+
+* 目標帳號：個人帳號或團隊存取（如 `da_trading`
+* 症狀：Cluster loading 飆升、其他 job 變慢或比平常久
+* 根因：在共用的 `bi-warehouse` 上手動跑探索性查詢，影響到 prod job
+* 解決方式：請下查詢的人砍掉 query
+
+
+# **Part 2 : Recovery & Backlog Catch-up**
+
+Step1. 開 CS
+
+Step2. backfill script 
+
 
 
 
