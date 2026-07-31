@@ -173,9 +173,11 @@ AWS console - Redshift Monitoring : https://eu-central-1.console.aws.amazon.com/
 
 Redshift Grafana : https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluster/redshift-cluster?orgId=1&from=now-6h&to=now&timezone=utc&var-datasource=mimir-sporty-pub-prod-misc&var-brandname=sporty&var-environment=prod&var-countrycode=pub&var-cluster=sporty-pub-prod-bi-report-provisioned
 
-#### Step 2. 檢查 Airflow Alerts Dashboard 的 pool slots
+#### Step 2. 調查流程
 
-看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots** 兩個 panel
+1. **Airflow Alerts dashboard**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots**，檢查 scheduled slot 是否飆升
+2. **AWS Console Query Monitoring**：進 [Query Monitoring](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-bi-warehouse&tab=queries) 找出正在拖慢 cluster 的問題查詢
+3. **對照 DAG owner**：透過 query metadata 交叉比對，找出這個查詢是哪個 DAG / owner
 
 
 ## Diagnosis
