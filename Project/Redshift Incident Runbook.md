@@ -165,10 +165,10 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 ##### Step 1. 從告警頻道回推是哪個 cluster 有問題
 
-先看是哪些 channel 在噴，判斷是哪個 cluster 出問題：
+先看是哪些 channel 在噴，初步判斷是哪個 cluster 出問題：
 
-* 如果 `warehouse` / `bi_report` 都有 job 壞掉，有可能是主要的 cluster (`bi-warehouse`) 故障，連帶使用 data share 的 consumer 也一起壞掉
-* 如果只有 Sporty `bi_report` 有一些壞掉，那可能是因為 leader node CPU spike 導致的
+* 如果 warehouse job & DA job 都有壞掉，有可能是主要的 cluster (`bi-warehouse`) 故障，連帶使用 data share 的 consumer 也一起壞掉
+* 如果只有 DA job 有一些壞掉，那可能是單獨的 consumer 故障
 
 AWS console - Redshift Monitoring : https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/dashboard)
 
