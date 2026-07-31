@@ -180,6 +180,25 @@ Redshift Grafana : https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluste
 
 ## Diagnosis
 
+#### 🔄 持續 Backfill
+
+* 症狀：Redshift 出現長查詢、Airflow running slots 維持高檔、其他 job 變慢。
+* 根因：新 job 在回補歷史資料，產生超出常態容量、未預期的大量查詢。
+* 緩解：限制並行（`max_active_runs` 或專用 pool）／把 backfill 排在離峰時段／用 `"backfill"` tag 路由到 `bi-report`。
+
+#### ⚡ 高並行 Job
+
+* 症狀：Redshift 連線數 / WLM queue 深度突然跳升、Airflow scheduled slots 飆升。
+* 根因：新 job 同時送出大量平行查詢，壓垮 cluster。
+* 緩解：用 `max_active_tasks` 限制並行／指派到 slot 上限很緊的專用 pool／檢視查詢模式——改為 batch 或序列化 task。
+
+#### 👤 Ad-hoc 查詢
+
+* 目標帳號：個人帳號或團隊存取（如 `da_trading`）。
+* 症狀：Cluster loading 飆升、其他 job 變慢或比平常久。
+* 根因：在共用的 `bi-warehouse` 上手動跑探索性查詢，影響到 prod job。
+* 緩解：把這些 ad-hoc 查詢移到 Serverless 以隔離 production（Isaac 正在處理）。
+
 ## Immediate Mitigation
 
 
