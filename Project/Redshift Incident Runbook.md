@@ -259,6 +259,8 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 ]
 ```
 
+同時監控 Airflow slot 看他有沒有消化掉，如果消化掉了就可以移回去 warehouse 的 delay 沒有
+
 #### 3. 持續 Backfill
 
 * 症狀：Redshift 出現長查詢、Airflow running slots 維持高檔、其他 job 變慢
