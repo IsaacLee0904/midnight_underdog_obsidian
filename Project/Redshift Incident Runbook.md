@@ -174,6 +174,8 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 >* AWS console - Redshift Monitoring : https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/dashboard
 >* Redshift Grafana : https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluster/redshift-cluster?orgId=1&from=now-6h&to=now&timezone=utc&var-datasource=mimir-sporty-pub-prod-misc&var-brandname=sporty&var-environment=prod&var-countrycode=pub&var-cluster=sporty-pub-prod-bi-report-provisioned
 
+在這階段如果看到 Health Status 異常或是 CPU Spike 就可以判斷是 cluster 本身故障
+
 ##### Step 2. 調查流程
 
 1. **Airflow Alerts dashboard**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots**，檢查 scheduled slot 是否飆升
