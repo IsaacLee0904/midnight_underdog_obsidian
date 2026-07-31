@@ -146,6 +146,7 @@ Total System Capacity = WORKER_CONCURRENCY * Works count
 >[!NOTE] 設定 Worker or Scheduler ：data_service_deployement repo prod branch / [airflow-da/values-da.yaml](https://github.com/opennetltd/data_service_deployment/blob/prod/releases/airflow-da/values-da.yaml)
 
 For entire information please reference [DE internal briefing about Redshift, Airflow, Monitoring](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4578279470/DE+internal+briefing+about+Redshift+Airflow+Monitoring)
+
 # **Part 1 : Detecting & Diagnosing**
 
 ## Early Signs
@@ -162,7 +163,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 ## Triage 
 
-#### Step 1. 從告警頻道回推是哪個 cluster 有問題
+##### Step 1. 從告警頻道回推是哪個 cluster 有問題
 
 先看是哪些 channel 在噴，判斷是哪個 cluster 出問題：
 
@@ -173,12 +174,11 @@ AWS console - Redshift Monitoring : https://eu-central-1.console.aws.amazon.com/
 
 Redshift Grafana : https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluster/redshift-cluster?orgId=1&from=now-6h&to=now&timezone=utc&var-datasource=mimir-sporty-pub-prod-misc&var-brandname=sporty&var-environment=prod&var-countrycode=pub&var-cluster=sporty-pub-prod-bi-report-provisioned
 
-#### Step 2. 調查流程
+##### Step 2. 調查流程
 
 1. **Airflow Alerts dashboard**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots**，檢查 scheduled slot 是否飆升
 2. **AWS Console Query Monitoring**：進 [Query Monitoring](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-bi-warehouse&tab=queries) 找出正在拖慢 cluster 的問題查詢
 3. **對照 DAG owner**：透過 query metadata 交叉比對，找出這個查詢是哪個 DAG / owner
-
 
 ## Diagnosis
 
