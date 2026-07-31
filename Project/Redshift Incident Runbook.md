@@ -259,7 +259,9 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 ]
 ```
 
-同時監控 Airflow slot 看他有沒有消化掉，如果消化掉了就可以移回去 warehouse 的 delay 沒有
+同時監控 Airflow slot 看他有沒有消化掉，如果消化掉了就可以移回去 warehouse 的 delay 如果超過一小時可能要開啟 CS (https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-bi-warehouse)
+
+* warehouse job 如果大量 delay：先開 CS 然後把 DA job 移去 serverless 跑 然後去 anncoument 發公告，結束之後可以請 DA 回補資料
 
 #### 3. 持續 Backfill
 
