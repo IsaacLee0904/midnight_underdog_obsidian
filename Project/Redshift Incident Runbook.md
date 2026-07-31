@@ -150,7 +150,9 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 ## Early Signs
 
-通常當 Slack alert channel 出現大量的 Airflow job 失敗錯誤時，很有可能就是 Redshift 或 Airflow 出現了問題。當 Redshift 變慢或卡住時，查詢 Redshift 的 Airflow job 會開始大量 timeout / fail，這些失敗會被推送到幾個 Slack 告警頻道——**短時間內湧入大量 DAG fail 告警**，就是最早、也最常見的訊號
+最早、也最常見的訊號，就是 **Slack 告警頻道在短時間內湧入大量 Airflow job fail**
+
+當 Redshift 變慢、卡住或 shutdown 時，查詢它的 Airflow task 會接連 timeout / fail 並推送告警。關鍵是看**規模**：如果是**同時、跨多個 DAG** 一起掛，通常代表是 Redshift 這種共用層出問題
 
 * bi_warehouse_alert
 * bi_job
