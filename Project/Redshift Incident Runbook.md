@@ -169,8 +169,8 @@ Early Signs 只告訴我們「一堆 job 掛了」，但還沒告訴我們「是
 1. **範圍**：是**跨多個 DAG** 同時 fail，還是**集中在單一 / 剛部署**的 DAG？
 	* 跨多個、不同 owner 一起掛 → 偏 Redshift 或共用資源層
 	* 集中在單一 or 剛上線的 DAG → 偏該 DAG 的 code / config
-2. **Airflow scheduled slots**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc)，scheduled slots 有沒有飆到數百？有 → task 塞住排不出去，偏 Redshift 變慢 / 卡住。
-3. **錯誤訊息類型**：是 timeout、connection refused、auth error 還是 code exception？connection / auth 類 → 偏連線層（Redshift service outage、憑證被 GitHub workflow 改動）。
+2. **Airflow scheduled slots**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc)，scheduled slots 有沒有飆到數百？有 → task 塞住排不出去，偏 Redshift 變慢 / 卡住
+3. **錯誤訊息類型**：是 timeout、connection refused、auth error 還是 code exception？connection / auth 類 → 偏連線層（Redshift service outage、憑證被 GitHub workflow 改動)
 
 **四個可能的層級**（可能同時發生、互相觸發，非互斥）：
 
