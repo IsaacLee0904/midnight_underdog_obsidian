@@ -162,27 +162,32 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 ## Triage 
 
-Early Signs 只告訴我們「一堆 job 掛了」，但還沒告訴我們「是哪一層的問題」。在衝進去 kill query 之前，先花一分鐘判斷方向，避免明明是 Airflow / 連線 / 程式碼的問題卻一直盯著 Redshift。
+#### Step 1. 從告警頻道回推是哪個 cluster 有問題
 
-**先做幾個快速判斷：**
+job 跑在哪個 cluster 是由 **tag → routing rule** 決定的（見 [[#Airflow Routing Rules]]），所以要先從「哪些頻道在噴」回推「哪個 cluster 的 job 在壞」：
 
-1. **範圍**：是**跨多個 DAG** 同時 fail，還是**集中在單一 / 剛部署**的 DAG？
-	* 跨多個、不同 owner 一起掛 → 偏 Redshift 或共用資源層
-	* 集中在單一 or 剛上線的 DAG → 偏該 DAG 的 code / config
-2. **Airflow scheduled slots**：看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc)，scheduled slots 有沒有飆到數百？有 → task 塞住排不出去，偏 Redshift 變慢 / 卡住
-3. **錯誤訊息類型**：是 timeout、connection refused、auth error 還是 code exception？connection / auth 類 → 偏連線層（Redshift service outage、憑證被 GitHub workflow 改動)
+* `bi_high_priority_job` / `_encore`：多帶 `high_importance` tag → 通常跑在 **`data-analysis`**
+* `bi_job` / `_encore`：一般 job，沒特別 tag 就 default 到 **`bi-warehouse`**，帶 `adhoc/backfill/hqe` 的才到 `bi-report`
+* `bi_warehouse_alert`：**`bi-warehouse`**（producer）本身的健康 / 告警
 
-**四個可能的層級**（可能同時發生、互相觸發，非互斥）：
+再依「壞掉的範圍」判斷：
 
-| Layer | 典型徵兆 |
+| 觀察到的範圍 | 可能的 cluster 問題 |
 |---|---|
-| 🔴 **Redshift** | 長查詢卡住、CPU / Leader Node CPU 飆升、大量短查詢高並行耗盡 cluster |
-| 🟡 **Airflow** | `MAX_TIS_PER_QUERY` 太低漏掉低優先級 task、新 DAG 高並行把其他 DAG 餓死 |
-| 🔵 **Connection / Auth** | 目標 DB outage / 維護、憑證或權限被改、worker 與 cluster 間網路問題 |
-| 🟣 **Code** | 共用 general function 有 bug、routing 被改壞 connection mapping、DAG 改動有副作用 |
+| warehouse + 多個 consumer 一起壞 | 懷疑 **producer（`bi-warehouse`）本身故障**——consumer 都靠 data share 讀它的資料，producer 掛了會連帶壞 |
+| 只有 `data-analysis` 的 job 壞、warehouse 正常 | 偏 `data-analysis` 自己的老問題（leader node CPU spike / catalog bloat / cluster freeze，見 [[#**Part 2 : Recovery & Backlog Catch-up**\|Part 2]]） |
+| 只有 `bi-report` 的 job 壞 | 偏那批 adhoc / backfill 自己的問題，或 serverless 端狀況 |
 
-> [!NOTE] 判斷結果
-> 若判斷是 **🔴 Redshift 負載 / 效能** → 進 [[#Diagnosis]] 找出具體元凶。其他層級則跳出本 runbook 的主線，往對應方向處理。
+#### Step 2. 檢查 Airflow Alerts Dashboard 的 pool slots
+
+看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots** 兩個 panel：
+
+* **running 維持高檔、scheduled 飆到數百** → task 大量堆積排不出去，偏 Redshift 變慢 / 卡住
+* running 正常、scheduled 也不高 → 比較不像 Redshift 塞住，往 Airflow / 連線 / code 層想
+
+> [!NOTE]
+> 這個 Default pool 面板反映的是 **DA Airflow** 的吞吐；warehouse / encore 若是分開的 Airflow，要看對應的面板。
+
 
 ## Diagnosis
 
