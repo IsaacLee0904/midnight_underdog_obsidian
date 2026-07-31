@@ -164,21 +164,16 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 
 #### Step 1. 從告警頻道回推是哪個 cluster 有問題
 
-job 跑在哪個 cluster 是由 **tag → routing rule** 決定的（見 [[#Airflow Routing Rules]]），所以要先從「哪些頻道在噴」回推「哪個 cluster 的 job 在壞」：
+先看是哪些 channel 在噴，判斷是哪個 cluster 出問題：
 
-* `bi_high_priority_job` / `_encore`：多帶 `high_importance` tag → 通常跑在 **`data-analysis`**
-* `bi_job` / `_encore`：一般 job，沒特別 tag 就 default 到 **`bi-warehouse`**，帶 `adhoc/backfill/hqe` 的才到 `bi-report`
-* `bi_warehouse_alert`：**`bi-warehouse`**（producer）本身的健康 / 告警
+* 如果 `warehouse` / `bi_report` 都有 job 壞掉，有可能是主要的 cluster (`bi-warehouse`) 故障，連帶使用 data share 的 consumer 也一起壞掉
+* 如果只有 Sporty `bi_report` 有一些壞掉，那可能是因為 leader node CPU spike 導致的
+
+AWS console Redshift 
 
 #### Step 2. 檢查 Airflow Alerts Dashboard 的 pool slots
 
-看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots** 兩個 panel：
-
-* **running 維持高檔、scheduled 飆到數百** → task 大量堆積排不出去，偏 Redshift 變慢 / 卡住
-* running 正常、scheduled 也不高 → 比較不像 Redshift 塞住，往 Airflow / 連線 / code 層想
-
-> [!NOTE]
-> 這個 Default pool 面板反映的是 **DA Airflow** 的吞吐；warehouse / encore 若是分開的 Airflow，要看對應的面板。
+看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots** 兩個 panel
 
 
 ## Diagnosis
