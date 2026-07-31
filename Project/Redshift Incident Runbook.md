@@ -193,7 +193,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 #### 1. Cluster 故障
 * CS 卡住 / 
 * 看 event log / monitoring dashboard 
-* 請 DBA 重啟
+* 請 DBA 重啟 and create ticket for AWS
 
 #### 2. Leader Node CPU Spike
 * 症狀：[Redshift - data-analysis](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-data-analysis) CPU 持續很高
