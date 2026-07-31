@@ -173,7 +173,6 @@ AWS console - Redshift Monitoring : https://eu-central-1.console.aws.amazon.com/
 
 Redshift Grafana : https://grafana-infra.k8s.on.sportybet2.com/d/redshift-cluster/redshift-cluster?orgId=1&from=now-6h&to=now&timezone=utc&var-datasource=mimir-sporty-pub-prod-misc&var-brandname=sporty&var-environment=prod&var-countrycode=pub&var-cluster=sporty-pub-prod-bi-report-provisioned
 
-
 #### Step 2. 檢查 Airflow Alerts Dashboard 的 pool slots
 
 看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots** 兩個 panel
