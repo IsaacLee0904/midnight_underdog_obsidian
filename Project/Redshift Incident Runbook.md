@@ -191,8 +191,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 ## Diagnosis
 
 #### 1. Cluster 故障
-
-? 
+* 
 
 #### 2. Leader Node CPU Spike
 * 症狀：[Redshift - data-analysis](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/cluster-details?cluster=sporty-pub-prod-data-analysis) CPU 持續很高
