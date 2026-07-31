@@ -280,7 +280,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 #### 5. Ad-hoc 查詢
 
 * 目標帳號：個人帳號或團隊存取（如 `da_trading`
-* 症狀：Cluster loading 飆升、其他 job 變慢或比平常久
+* 症狀：Cluster loading 飆升、其他 job 變慢或比平常久d
 * 根因：在共用的 `bi-warehouse` 上手動跑探索性查詢，影響到 prod job
 * 解決方式：請下查詢的人砍掉 query
 
@@ -288,6 +288,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 # **Part 2 : Recovery & Backlog Catch-up**
 
 Step1. 開 CS
+https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/workload-management?parameter-group=sporty-pub-prod-bi-warehouse
 
 Step2. backfill script 
 https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4541382705/Warehouse+Airflow+Failed+Task+Recovery+Script
