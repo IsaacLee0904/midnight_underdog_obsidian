@@ -169,7 +169,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 * 如果 `warehouse` / `bi_report` 都有 job 壞掉，有可能是主要的 cluster (`bi-warehouse`) 故障，連帶使用 data share 的 consumer 也一起壞掉
 * 如果只有 Sporty `bi_report` 有一些壞掉，那可能是因為 leader node CPU spike 導致的
 
-AWS console Redshift 
+[AWS console - Redshift Monitoring](https://eu-central-1.console.aws.amazon.com/redshiftv2/home?region=eu-central-1#/dashboard)
 
 #### Step 2. 檢查 Airflow Alerts Dashboard 的 pool slots
 
