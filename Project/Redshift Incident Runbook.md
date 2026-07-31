@@ -290,7 +290,7 @@ For entire information please reference [DE internal briefing about Redshift, Ai
 Step1. 開 CS
 
 Step2. backfill script 
-
+https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4541382705/Warehouse+Airflow+Failed+Task+Recovery+Script
 
 
 
