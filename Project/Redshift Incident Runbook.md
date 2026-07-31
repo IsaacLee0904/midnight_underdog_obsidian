@@ -170,14 +170,6 @@ job 跑在哪個 cluster 是由 **tag → routing rule** 決定的（見 [[#Airf
 * `bi_job` / `_encore`：一般 job，沒特別 tag 就 default 到 **`bi-warehouse`**，帶 `adhoc/backfill/hqe` 的才到 `bi-report`
 * `bi_warehouse_alert`：**`bi-warehouse`**（producer）本身的健康 / 告警
 
-再依「壞掉的範圍」判斷：
-
-| 觀察到的範圍 | 可能的 cluster 問題 |
-|---|---|
-| warehouse + 多個 consumer 一起壞 | 懷疑 **producer（`bi-warehouse`）本身故障**——consumer 都靠 data share 讀它的資料，producer 掛了會連帶壞 |
-| 只有 `data-analysis` 的 job 壞、warehouse 正常 | 偏 `data-analysis` 自己的老問題（leader node CPU spike / catalog bloat / cluster freeze，見 [[#**Part 2 : Recovery & Backlog Catch-up**\|Part 2]]） |
-| 只有 `bi-report` 的 job 壞 | 偏那批 adhoc / backfill 自己的問題，或 serverless 端狀況 |
-
 #### Step 2. 檢查 Airflow Alerts Dashboard 的 pool slots
 
 看 [Airflow Alerts dashboard](https://grafana-pub-prod-misc.k8s.on.sportybet2.com/d/ddvknf88xc3y8d/airflow-alerts?orgId=1&from=now-1h&to=now&timezone=utc) 的 **Default pool running slots** 與 **Default pool scheduled slots** 兩個 panel：
