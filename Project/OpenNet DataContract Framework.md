@@ -182,35 +182,6 @@ All pipelines must have table-level lineage established in OpenMetadata. For DA 
 	- **Option B — GitHub Actions reads data_keeper directly** : After a PR is merged in one of the monitored repos, the GitHub Actions workflow cross-references the data_keeper YAML to identify registered stakeholders and notifies them alongside the downstream owners fetched from OM. Downside: GitHub Actions now has two data sources (OM + data_keeper repo), increasing workflow complexity.
 	- **Option C — Sync to OM Custom Property** : data_keeper syncs the consumer list from YAML into a custom property on the OM table entity. When a PR is merged, GitHub Actions fetches both downstream owners and the consumer custom property from OM in a single query. Keeps consumer data version-controlled while keeping the GitHub Actions workflow simple.
 - Dashboard change detection : The current trigger mechanism only covers table changes via PR merges in the three monitored repositories. Changes made directly in Metabase — such as modifying dashboard SQL, adding or removing columns — have no trigger point. Metabase does not provide webhooks for dashboard modification events. How should dashboard-level changes be detected and surfaced?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Reference
 * https://soda.io/blog/guide-to-data-contracts
 * https://medium.com/airbnb-engineering/metis-building-airbnbs-next-generation-data-management-platform-d2c5219edf19
