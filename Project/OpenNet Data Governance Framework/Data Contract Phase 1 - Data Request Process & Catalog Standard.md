@@ -50,3 +50,39 @@ The following fields are defined based on industry practices and tailored to our
 
 ![[Screenshot 2026-09-03 at 10.32.32 AM.png]]
 
+### How to Populate Catalog Fields
+
+Catalog metadata is managed through version-controlled YAML files in [data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper") under `config/data_catalog/`. This follows the **docs-as-code** principle — rather than manually editing fields in the OpenMetadata UI, metadata is declared alongside the data pipeline code, reviewed through pull requests, and automatically synced to OpenMetadata. This ensures catalog information is version-controlled, auditable, and consistent across tables.
+
+#### Registration Strategy
+
+The registration approach differs data layer by :
+
+1. **RDS Source Tables**
+    
+
+Column descriptions are sourced directly from DDL comments maintained on the source RDS databases. These are automatically synced to OpenMetadata via the existing connector (currently about 80% coverage).
+
+2. Warehouse Tables
+    
+
+Tables updated by DAGs in [warehouse_engineer](https://github.com/opennetltd/warehouse_engineer "https://github.com/opennetltd/warehouse_engineer") are registered through YAML files in [data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper") under `config/data_catalog/`. For the initial backfill, a script will cross-reference the source RDS DDL comments for columns that share the same name. For any new table created after, the catalog YAML must be included as part of the deployment to production.
+
+`RDS DDL comments (source) ↓ Generated YAML draft stored in data_keeper ↓ Register on OpenMetadata`
+
+3. Data mart Tables
+    
+
+Tables updated by DAGs in [data_analysis](https://github.com/opennetltd/data_analysis "https://github.com/opennetltd/data_analysis") are registered through YAML files in [data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper") under `config/data_catalog/`. Since DA tables often involve complex SQL transformations, an LLM-assisted approach is expected to be used to generate the initial description draft. For any new table created after, the catalog YAML must be included as part of the deployment to production.
+
+```markdown
+DA pipeline SQL + warehouse schema 
+        ↓ LLM generates description draft
+Generated YAML draft stored in data_keeper 
+        ↓ 
+Register on OpenMetadata
+```
+
+#### YAML Template
+
+Each field in the template maps to a specific location in OpenMetadata. The annotated screenshot below shows where each field appears in the OM UI.
