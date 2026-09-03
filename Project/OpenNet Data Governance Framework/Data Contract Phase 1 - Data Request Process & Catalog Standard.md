@@ -65,7 +65,11 @@ Column descriptions are sourced directly from DDL comments maintained on the sou
 Tables updated by DAGs in [warehouse_engineer](https://github.com/opennetltd/warehouse_engineer "https://github.com/opennetltd/warehouse_engineer") are registered through YAML files in [data_keeper](https://github.com/opennetltd/data_keeper "https://github.com/opennetltd/data_keeper") under `config/data_catalog/`. For the initial backfill, a script will cross-reference the source RDS DDL comments for columns that share the same name. For any new table created after, the catalog YAML must be included as part of the deployment to production.
 
 ```markdown
-
+RDS DDL comments (source)
+    ↓ 
+Generated YAML draft stored in data_keeper
+    ↓ 
+Register on OpenMetadata
 ```
 
 
@@ -83,3 +87,68 @@ Register on OpenMetadata
 #### YAML Template
 
 Each field in the template maps to a specific location in OpenMetadata. The annotated screenshot below shows where each field appears in the OM UI.
+![[Pasted image 20260903103844.png]]
+
+```yaml
+# example of data catalog yaml file
+version: <the version of catalog>     # increment on each change
+
+assets:
+  - name: <table_name>
+    description: >
+      <Describe what this table contains and its business purpose.>
+
+    owner: <owner_name>                # warehouse table will default be `Data Engineer Team`
+    scheduleInterval: <cron>           # cron expression e.g. 00 1 * * *
+    sensitivity: <level>               # table-level sensitivity classification
+
+    columns:
+      - name: <column_name>
+        description: >
+          <Describe what this column represents, including known values if applicable.>
+        sensitivity: <level>           # column-level sensitivity classification
+```
+
+>[!note]
+>OpenMetadata natively supports [bulk import via CSV](https://docs.open-metadata.org/v2.0.x/how-to-guides/data-discovery/import#how-to-bulk-import-a-table "https://docs.open-metadata.org/v2.0.x/how-to-guides/data-discovery/import#how-to-bulk-import-a-table"). However, CSV files are difficult to review in pull requests and lack version control visibility. This template adopts YAML instead, modeled after [dbt's YAML structure](https://docs.getdbt.com/docs/build/documentation?version=2 "https://docs.getdbt.com/docs/build/documentation?version=2"), to keep metadata changes auditable through standard code review workflows and to ensure compatibility and ease of migration to a modern data stack. Ideally it can programmatically synced to OM via it API.
+
+## Data Contract
+
+Data Contract defines the agreement between data producers and consumers, who is responsible for producing the data, who is consuming it, and what expectations both sides have agreed upon. While the Data Catalog answers _"what is this table?"_, the Data Contract answers _"who depends on this table, and what have we committed to them?"_
+
+For a detailed definition, case studies, and the full technical architecture, refer to the [Data Contract Proposal](https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4541251596 "https://opennetltd.atlassian.net/wiki/spaces/DET/pages/4541251596").
+
+### Contract Declaration Standard
+
+A data contract begins by establishing the producer-consumer relationship for a given table. Schema expectations, SLA guarantees, and data quality enforcement will be introduced as the framework matures.
+
+A contract is declared as a YAML file in data_keeper under `config/data_contract/{database}/{schema}/{table}.yaml`.
+```yaml
+# example of yaml file
+version: <the version of contract>     # increment on each change
+
+contractedService:
+  provider:
+    name: <table_name>
+    team: <team_name>                  # e.g. Data Engineer Team
+    contact: <email>                   # e.g. isaac.lee@opennet.tw
+  consumer:
+    - name: <consumer_name>            # e.g. Fraud team Mutiplce Account Blocker
+      team: <team_name>                # e.g. Fraud Team
+      contact: <email>                 # e.g. areal.chiang@opennet.tw
+```
+reference : [Building a Data Contract: From Design to Deployment](https://cleandataarchitecture.substack.com/i/158709063/practical-guide-creating-a-data-contract-from-a-to-z "https://cleandataarchitecture.substack.com/i/158709063/practical-guide-creating-a-data-contract-from-a-to-z")
+
+### Contract Declaration Workflow
+
+A data contract is required when an external team or stakeholder requests access to a BI data asset. Once the request is approved through the data access request process (see Section 3), the responsible DE or DA declares a contract YAML, registering the consumer information.
+
+>[!note]
+>Internal downstream owners do not need to be declared in the contract — they are resolved automatically through OM lineage when a change notification is triggered.
+
+## Data **Sensitivity Policy**
+
+規範標準 
+
+PII : 
+PCI DSS : 
