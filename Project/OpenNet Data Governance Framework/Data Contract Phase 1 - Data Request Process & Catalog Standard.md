@@ -175,3 +175,11 @@ CAN/CAN't
 - 可以怎麼用
 - 不能怎麼用
 - 有什麼條件
+
+
+
+Reference
+
+https://www.youtube.com/watch?v=nC6wm1o3t7o
+
+https://www.youtube.com/watch?v=_B6jDjp9jjw&t=334s
