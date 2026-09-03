@@ -147,6 +147,18 @@ A data contract is required when an external team or stakeholder requests access
 >Internal downstream owners do not need to be declared in the contract — they are resolved automatically through OM lineage when a change notification is triggered.
 
 ## Data **Sensitivity Policy**
+This section defines the data sensitivity classification standard for all data assets managed by the BI team. All tables and columns are expected to carry a sensitivity label, which serves as the foundation for access control decisions in the data access request process.
+
+Our classification is aligned with internationally recognized data protection standards, including :
+
+- **PII (Personally Identifiable Information)** : Governed by GDPR and CCPA, covering any data that can identify an individual such as name, phone number, email etc.
+    
+- **PCI DSS (Payment Card Industry Data Security Standard)** : Covering payment and financial transaction data.
+    
+
+Beyond above requirements, certain data is also restricted based on internal governance and business control considerations, including data that can count real revenue like GGR, Stake, Bet, Margin etc.
+
+
 
 規範標準 
 
