@@ -176,8 +176,6 @@ CAN/CAN't
 - 不能怎麼用
 - 有什麼條件
 
-
-
 Reference
 
 https://www.youtube.com/watch?v=nC6wm1o3t7o
