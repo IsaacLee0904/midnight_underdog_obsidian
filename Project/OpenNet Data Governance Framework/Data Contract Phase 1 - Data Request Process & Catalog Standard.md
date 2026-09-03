@@ -168,3 +168,10 @@ PCI DSS : 信用卡資訊
 額外討論：hash 跟 non-hash 情境，有 hash 就可以被取用嗎
 
 **分類**
+![[Screenshot 2026-09-03 at 1.49.41 PM.png]]
+
+CAN/CAN't
+
+- 可以怎麼用
+- 不能怎麼用
+- 有什麼條件
