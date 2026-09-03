@@ -150,5 +150,7 @@ A data contract is required when an external team or stakeholder requests access
 
 規範標準 
 
-PII : 
-PCI DSS : 
+PII : 可識別個人身份的資料 EX. user_id 對應真實身份、電話、email
+PCI DSS : 信用卡資訊
+
+額外討論：hash 跟 non-hash 情境，有 hash 就可以被取用嗎
