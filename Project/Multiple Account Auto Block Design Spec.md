@@ -91,10 +91,8 @@ DISTKEY (account_number) SORTKEY (country_code, signal_type, account_number);
 - `created_at` **frozen** : `REPLACE INTO` re-inserts rows, so a dynamic `SYSDATE` would reset it every delivery.
 - `first_seen_at` **kept in holder** : lets the backfill chunk on business time; **not** delivered to RDS.
 - **Zero-DELETE** : emptied accounts sent as `count=0, []`, overwritten via `REPLACE INTO`, no `DELETE`.
-    
 - **Guarded upsert** : out-of-order re-runs never overwrite newer data with older.
     
 
 ### Backfill
-
 On initial build every row shares one `created_at`/`updated_at` (the build day) → can't window on `updated_at` (one giant batch → Aurora lag / holder OOM). So backfill windows on **business time** `first_seen_at`.
