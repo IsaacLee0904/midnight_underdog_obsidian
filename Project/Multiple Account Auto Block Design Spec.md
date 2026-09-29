@@ -1,4 +1,8 @@
 
+tags: #OpenNet  #data-engineering #data-warehouse #fraud-team #reverse-etl 
+
+---
+
 # Background
 
 The Fraud team's **Multiple Account Auto Block (MAD)** actively scans the user base to detect clusters of linked accounts (sharing name / withdrawal account / deposit instrument / device, etc.) that are involved in risk flows, and applies block policies to them. (Currently Phase 1 only NG active)
@@ -180,4 +184,108 @@ DISTKEY (device_id) SORTKEY (country_code, device_id);
 ### Backfill
 On initial build every row shares one `created_at`/`updated_at` (the build day) → can't window on `updated_at` (one giant batch → Aurora lag / holder OOM).
 
+### Name : `t_fraud_name_profile` & `t_fraud_name_profile_holder`& `t_fraud_name_token`
+![[Pasted image 20260929155501.png]]
 
+**Pipeline**
+- orignal
+    - [bi_patron.t_fraud_name_profile](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_name_profile/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_name_profile/grid")
+    - [bi_patron.t_fraud_name_holder](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_name_holder/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_name_holder/grid")
+    - [bi_patron.t_fraud_name_token](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_name_token/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_name_token/grid")
+- reverse
+    - [reverse_etl_fraud.t_fraud_name_profile](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_name_profile/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_name_profile/grid")
+    - [reverse_etl_fraud.t_fraud_name_holder](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_name_holder/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_name_holder/grid")
+    - [reverse_etl_fraud.t_fraud_name_token](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_name_token/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_name_token/grid")
+        
+**Purpose**
+- **Profile** `t_fraud_name_profile`: user → normalised certificated name (forward).
+- **Token** `t_fraud_name_token`: name tokens → user, **fuzzy** blocking keys.
+- **Holder** `t_fraud_name_holder`: normalised name → users, **exact** match on `norm_form_sorted`.
+    
+Plaintext normalised, no hash. Normalisation and tokenisation run in the Airflow worker.
+
+### Source
+`bi_warehouse.afbet_patron_{country}.t_patron_user_certification` — synced from patron MySQL RDS by `warehouse_engineer`, **hourly :15**. Extract windows source by `update_time`.
+
+|Column|Use|
+|---|---|
+|`user_id`|grain|
+|`first_name` / `last_name`|→ normalised into `norm_form_original` / `norm_form_sorted`|
+|`status`|→ `cert_status` (carried)|
+|`data_source`|→ `data_source` (carried)|
+|`id`|→ `src_cert_id` (traceability)|
+|`is_del`|source soft-delete → BI-internal tombstone|
+|`update_time`|→ `src_updated_at` (business time) + delta watermark|
+
+### Normalisation & tokenisation (Python worker)
+
+- **Normalise**: strip titles → uppercase → non-A–Z to a single space → sort tokens.
+    - `norm_form_original` — token order kept (display / order-sensitive score).
+    - `norm_form_sorted` — tokens sorted A–Z — **the exact lookup key** (also the holder grain).
+- **Tokenise** (for `name_token`): split on space → drop tokens < 2 chars → `token_seq` = 0-based position (gaps kept) → `prefix_key` = first 3 chars → `phonetic_key` = vowels removed then repeats collapsed.
+
+### Schema design
+```sql
+-- profile: one row per (country_code, user_id)
+CREATE TABLE bi_report.bi_patron.t_fraud_name_profile (
+    country_code       VARCHAR(16)  NOT NULL,
+    user_id            VARCHAR(64)  NOT NULL,
+    norm_form_original VARCHAR(128) NOT NULL,   -- order kept
+    norm_form_sorted   VARCHAR(128) NOT NULL,   -- tokens sorted -- exact lookup key
+    cert_status        INTEGER,
+    data_source        INTEGER,
+    src_cert_id        VARCHAR(30),             -- traceability
+    src_updated_at     TIMESTAMP,               -- source update_time (business time, backfill window)
+    is_del             SMALLINT     NOT NULL DEFAULT 0,   -- BI-internal tombstone; NOT delivered
+    updated_at         TIMESTAMP    NOT NULL DEFAULT SYSDATE   -- load time, reverse-ETL delta key
+)
+DISTKEY (user_id) SORTKEY (country_code, updated_at);
+
+-- token: one row per (country_code, user_id, token_seq), derived from profile
+CREATE TABLE bi_report.bi_patron.t_fraud_name_token (
+    country_code   VARCHAR(16) NOT NULL,
+    user_id        VARCHAR(64) NOT NULL,
+    token_seq      SMALLINT    NOT NULL,   -- 0-based position
+    prefix_key     VARCHAR(8)  NOT NULL,   -- first 3 chars -- blocking key
+    phonetic_key   VARCHAR(32) NOT NULL,   -- vowels removed + repeats collapsed -- blocking key
+    src_updated_at TIMESTAMP,              -- carried from profile (BI-internal)
+    is_del         SMALLINT    NOT NULL DEFAULT 0,   -- tombstone
+    updated_at     TIMESTAMP   NOT NULL DEFAULT SYSDATE   -- BI-internal delta key
+)
+DISTKEY (user_id) SORTKEY (country_code, updated_at);
+
+-- holder: one row per normalised name -> active users (derived from profile, is_del = 0)
+CREATE TABLE bi_report.bi_patron.t_fraud_name_holder (
+    country_code     VARCHAR(16)    NOT NULL,
+    norm_form_sorted VARCHAR(128)   NOT NULL,
+    user_count       INTEGER        NOT NULL,   -- active users carrying this name (0 for emptied names)
+    user_ids         VARCHAR(65535) NOT NULL,   -- JSON array, LISTAGG, capped to byte limit
+    src_updated_at   TIMESTAMP,                 -- MAX across the name's profile rows (BI-internal, backfill window, NOT delivered)
+    updated_at       TIMESTAMP      NOT NULL DEFAULT SYSDATE
+)
+DISTKEY (norm_form_sorted) SORTKEY (country_code, norm_form_sorted);
+```
+
+>[!note] `src_updated_at` is **source business time** (from `update_time`); `updated_at` is the **BI (warehouse) clock** (`SYSDATE`) and drives the reverse-ETL delta. `is_del` (profile / token) is a **BI-internal tombstone**, and `src_updated_at`/`updated_at` are BI-internal too — **none of them are delivered**. The Fraud RDS name tables carry no `is_del` and no timestamps; instead `is_del = 1` is turned into an RDS `DELETE` at reverse-ETL time.
+
+### Update logic
+
+- **Profile** (`:00`) : extract cert delta (`update_time` window + **2 h look-back**), normalise in Python, guarded upsert on `src_updated_at`. Removed / empty-normalising names set `is_del = 1` (tombstone).
+- **Token** (`:10`) : read the profile delta; **tombstone** all touched users' existing tokens then **rebuild** their token set (a name change alters the token count, so rows are deleted-then-inserted, not updated in place); guarded on `src_updated_at`.
+- **Holder** (`:10`) : recompute touched names (`profile.updated_at ∈ window`) over active rows (`is_del = 0`): `user_count`, `user_ids = LISTAGG(user_id)` per `norm_form_sorted`; an emptied name → `user_count = 0, user_ids = '[]'`.
+- **Reverse** : `:15` profile, `:20` token, `:20` holder → delta on `updated_at` → `UNLOAD` → S3 (5 MB) → Aurora `REPLACE INTO`.
+    - **Profile reverse also issues** `DELETE` for `is_del = 1` users (names shrink).
+    - Token delivers only the five blocking columns (no timestamps).
+    - Holder delivers `country_code, norm_form_sorted, user_count, user_ids, updated_at` (`src_updated_at` not delivered); loaded with `LOAD_ESCAPED_BY = ""` for valid JSON.
+
+### Key decisions
+- **Python normalise/tokenise** : the phonetic key needs a regex backreference Redshift can't run.
+- `is_del` **is a BI-internal tombstone** : not a delivered column; it lets `name_token` derive deletes and turns into an RDS `DELETE` at reverse-ETL. RDS name tables have no `is_del` / no timestamps.
+- `norm_form_sorted` **is the exact key and the holder grain** : must carry the same collation across `name_profile` and `name_holder`.
+- **Token is rebuilt, not updated** : on any name change, delete the user's tokens then insert the new set.
+- **Holder handles shrink** : unlike the device holder, names can be removed / re-certified, so an emptied name is written as `count = 0, []` (no DELETE needed).
+- **Profile reverse issues DELETE** : names shrink, unlike asset/device forward
+
+### Backfill
+
+On initial build every row shares one `updated_at` (the build day) → can't window on it. So backfill windows on **business time** `src_updated_at`.
