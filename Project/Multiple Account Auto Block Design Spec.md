@@ -82,6 +82,8 @@ CREATE TABLE bi_report.bi_pocket.t_fraud_identity_asset_holder (
 DISTKEY (account_number) SORTKEY (country_code, signal_type, account_number);
 ```
 
+>[!note] Business time = `first_seen_at`/`last_seen_at` (from source). `created_at`/`updated_at` = our warehouse `SYSDATE` (`created_at` frozen once; `updated_at` bumped each run). `src_update_time` = internal guard, not delivered. RDS column defaults fall back to the Fraud clock only if we omit them — we always send them.
+
 ### Update logic
 - **Base** (`:00`) — window source event time `(create_time OR update_time)` + **2 h look-back**; dedup to earliest `create_time`; guarded upsert: `first_seen_at = LEAST`, `is_del`/`account_name` overwrite only if `src_update_time` is newer, `updated_at = SYSDATE`.
 - **Holder** (`:10`) — recompute touched accounts (`base.updated_at ∈ window`) over active rows (`is_del = 0`); emptied → `user_count = 0, user_ids = '[]'`.
@@ -156,4 +158,26 @@ CREATE TABLE bi_report.bi_patron.t_fraud_identity_device_holder (
 )
 DISTKEY (device_id) SORTKEY (country_code, device_id);
 ```
+
+`DISTKEY(device_id)` so the holder rebuild groups co-located. Holder is all-time append-only — `user_count` only grows.
+
+> [!note] `last_seen_at` is **source business time**. `created_at` / `updated_at` are the **BI (warehouse) clock** (`SYSDATE`) — `created_at` set once and frozen, `updated_at` bumped each upsert and drives the reverse-ETL delta. `src_update_time` is a BI-internal guard, not delivered. The RDS `DEFAULT`/`ON UPDATE` on `created_at`/`updated_at` falls back to the Fraud RDS clock only if the load omits the column — so the loader always supplies both.
+
+### Update logic
+
+- **Base** (`:00`) — window source event time `(create_time OR update_time)` + **2 h look-back**; dedup to latest state per `(user_id, device_id)`; guarded upsert: `last_seen_at = GREATEST`, `platform`/`status` overwrite only if `src_update_time` is newer, `updated_at = SYSDATE`, `created_at` frozen.
+- **Holder** (`:10`) — recompute touched devices (`base.updated_at ∈ window`): `user_count`, `user_ids = LISTAGG(user_id)`, `last_seen_at = MAX`. No delete/emptied case (list never shrinks).
+- **Reverse** (`:15` forward, `:20` holder) — delta on `updated_at` → `UNLOAD` → S3 (5 MB) → Aurora `REPLACE INTO`; `created_at` frozen; holder uses `LOAD_ESCAPED_BY = ""` for valid JSON. `last_seen_at` / `src_update_time` not delivered.
+    
+
+### Key decisions
+
+- `created_at` **frozen** : `REPLACE INTO` re-inserts rows, so a dynamic `SYSDATE` would reset it every delivery.
+- **No** `is_del` : bindings are never removed; the holder is all-time append-only and `last_seen_at` carries liveness (fraud applies its own recency th reshold at read time).
+- `last_seen_at` **kept in holder** : used to chunk the backfill on business time; **not** delivered to RDS.
+- **Guarded upsert** : out-of-order re-runs never overwrite newer data with older.
+    
+### Backfill
+On initial build every row shares one `created_at`/`updated_at` (the build day) → can't window on `updated_at` (one giant batch → Aurora lag / holder OOM).
+
 
