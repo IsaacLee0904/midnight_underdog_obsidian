@@ -22,9 +22,7 @@ Related Info :
 ## Implementation
 
 
-
 ### MySQL
-
 **Mechanism** 
 ```SQL
 -- Optimizer hint (per statement)
@@ -34,7 +32,23 @@ SELECT /*+ MAX_EXECUTION_TIME(3600000) */ col FROM orders WHERE ...;
 SET SESSION max_execution_time = 3600000;  -- 1 hour
 ```
 
+step1. 
+在 `run_sql_in_mysql` 的 method 鐘新增 session_timeout，如次一來，可以透過 global 為 dag 設定 default 的一小時 session_timeout，除此之外也可以根據每一個 dag 的情況設置
 
+```python
+# dags/etl_method/select_into_s3_method.py/run_sql_in_mysql
+
+@time_counter
+def run_sql_in_mysql(sql_query, db_conn, aurora_version=3, print_sql=True, local_infile=False, fetch=False, session_timeout=None):
+	database_hook = MySqlHook(mysql_conn_id=db_conn, local_infile=local_infile)
+	database_conn = database_hook.get_conn()
+	database_cur = database_conn.cursor()
+	dag_info = get_dag_context()
+```
+
+step2. adjust in batch
+* an_test : https://github.com/opennetltd/warehouse_engineer/pull/3050/changes
+* 
 
 
 
