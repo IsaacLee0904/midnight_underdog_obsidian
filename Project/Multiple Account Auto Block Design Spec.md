@@ -92,7 +92,68 @@ DISTKEY (account_number) SORTKEY (country_code, signal_type, account_number);
 - `first_seen_at` **kept in holder** : lets the backfill chunk on business time; **not** delivered to RDS.
 - **Zero-DELETE** : emptied accounts sent as `count=0, []`, overwritten via `REPLACE INTO`, no `DELETE`.
 - **Guarded upsert** : out-of-order re-runs never overwrite newer data with older.
-    
-
 ### Backfill
 On initial build every row shares one `created_at`/`updated_at` (the build day) → can't window on `updated_at` (one giant batch → Aurora lag / holder OOM). So backfill windows on **business time** `first_seen_at`.
+
+
+## Device : `t_fraud_identity_device` & `t_fraud_identity_device_holder`
+![[Pasted image 20260929154747.png]]
+
+**Pipeline**
+- original
+    - [bi_patron.t_fraud_identity_device](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_identity_device/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_identity_device/grid")
+    - [bi_patron.t_fraud_identity_device_holder](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_identity_device_holder/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/bi_patron.t_fraud_identity_device_holder/grid")
+        
+- reverse
+    - [reverse_etl_fraud.t_fraud_identity_device](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_identity_device/grid "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_identity_device/grid")
+    - [reverse_etl_fraud.t_fraud_identity_device_holder](https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_identity_device_holder/grid?dag_run_id=scheduled__2026-09-19T22%3A20%3A00%2B00%3A00&task_id=end_etl&tab=logs&base_date=2026-09-19T22%3A20%3A00Z "https://airflow-da-pub-prod-bi.on.sportybet2.com/dags/reverse_etl_fraud.t_fraud_identity_device_holder/grid?dag_run_id=scheduled__2026-09-19T22%3A20%3A00%2B00%3A00&task_id=end_etl&tab=logs&base_date=2026-09-19T22%3A20%3A00Z")
+        
+
+**Purpose**
+- **Forward** `t_fraud_identity_device`: user → login devices.
+- **Holder** `t_fraud_identity_device_holder`: device → users (the cluster expansion).
+    
+**Scope**
+native App only (ANDROID / IOS). Plaintext `TRIM`, case preserved, no hash. No `is_del`, no `signal_type` — `device_id` alone is the identifier and bindings are never removed.
+
+### Source
+`bi_warehouse.afbet_patron_{country}.t_patron_user_device` — synced from patron MySQL RDS by `warehouse_engineer`, **hourly :50**. Filter: `platform IN ('ANDROID','IOS') AND device_id IS NOT NULL AND CHAR_LENGTH(TRIM(device_id)) >= 16 AND LOWER(TRIM(device_id)) NOT IN ('undefined','null','none','unknown','nan','nil')`.
+
+| Column             | Use                                             |
+| ------------------ | ----------------------------------------------- |
+| `user_id`          | grain                                           |
+| `device_id`        | identifier — `TRIM`, case preserved             |
+| `platform`         | filter (`ANDROID`/`IOS`) + carried              |
+| `status`           | carried unfiltered (fraud filters at read time) |
+| `create_time`      | fallback for `last_seen_at`                     |
+| `update_time`      | recency guard + delta watermark                 |
+| `last_active_time` | → `last_seen_at` (business time / liveness)     |
+
+### Schema design
+```sql
+-- base: one row per (country_code, user_id, device_id)
+CREATE TABLE bi_report.bi_patron.t_fraud_identity_device (
+    country_code    VARCHAR(16)  NOT NULL,
+    user_id         VARCHAR(64)  NOT NULL,
+    device_id       VARCHAR(64)  NOT NULL,   -- plaintext TRIM, case preserved
+    platform        VARCHAR(16),             -- ANDROID / IOS
+    status          VARCHAR(16),             -- carried unfiltered
+    last_seen_at    TIMESTAMP,               -- business time (source last_active_time), liveness
+    src_update_time TIMESTAMP,               -- staleness guard, not delivered
+    created_at      TIMESTAMP    NOT NULL DEFAULT SYSDATE,  -- frozen on insert
+    updated_at      TIMESTAMP    NOT NULL DEFAULT SYSDATE   -- reverse-ETL delta key
+)
+DISTKEY (device_id) SORTKEY (country_code, device_id);
+
+-- holder: one row per device -> all its users (all-time, append-only)
+CREATE TABLE bi_report.bi_patron.t_fraud_identity_device_holder (
+    country_code VARCHAR(16)    NOT NULL,
+    device_id    VARCHAR(64)    NOT NULL,
+    user_count   INTEGER        NOT NULL,   -- all-time distinct users
+    user_ids     VARCHAR(65535) NOT NULL,   -- JSON array, LISTAGG, capped to byte limit
+    last_seen_at TIMESTAMP,                 -- MAX; backfill chunking only, not delivered
+    updated_at   TIMESTAMP      NOT NULL DEFAULT SYSDATE
+)
+DISTKEY (device_id) SORTKEY (country_code, device_id);
+```
+
