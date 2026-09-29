@@ -41,9 +41,8 @@ For the full product requirements, conditions, and table schema, see the Fraud t
 ### Source
 `bi_warehouse.afbet_pocket_{country}.t_pocket_bank_asset` — synced from pocket MySQL RDS by `warehouse_engineer`, **hourly :50**. Filter: `asset_type = 2 AND action = 2 AND TRIM(account_number) <> ''`
 
-|                         |                                                   |
-| ----------------------- | ------------------------------------------------- |
 | Column                  | Use                                               |
+| ----------------------- | ------------------------------------------------- |
 | `user_id`               | grain                                             |
 | `asset_type` / `action` | filter (`2` / `2`); `action 2 → signal_type 2`    |
 | `account_number`        | identifier — `TRIM`, string, never cast to number |
@@ -54,27 +53,43 @@ For the full product requirements, conditions, and table schema, see the Fraud t
 
 ### Schema design
 
-`-- base: one row per (country_code, user_id, signal_type, account_number) CREATE TABLE bi_report.bi_pocket.t_fraud_identity_asset ( country_code VARCHAR(16) NOT NULL, user_id VARCHAR(64) NOT NULL, signal_type SMALLINT NOT NULL, -- 2 = WITHDRAWAL account_number VARCHAR(64) NOT NULL, -- plaintext TRIM account_name VARCHAR(128), is_del SMALLINT NOT NULL DEFAULT 0, first_seen_at TIMESTAMP, -- business time (source create_time) src_update_time TIMESTAMP, -- staleness guard, not delivered created_at TIMESTAMP NOT NULL DEFAULT SYSDATE, -- frozen on insert updated_at TIMESTAMP NOT NULL DEFAULT SYSDATE -- reverse-ETL delta key ) DISTKEY (account_number) SORTKEY (country_code, signal_type, account_number); -- holder: one row per account -> active users CREATE TABLE bi_report.bi_pocket.t_fraud_identity_asset_holder ( country_code VARCHAR(16) NOT NULL, account_number VARCHAR(64) NOT NULL, signal_type SMALLINT NOT NULL, user_count INTEGER NOT NULL, -- true active count (uncapped) user_ids VARCHAR(65535) NOT NULL, -- JSON array, LISTAGG, capped to byte limit first_seen_at TIMESTAMP, updated_at TIMESTAMP NOT NULL DEFAULT SYSDATE ) DISTKEY (account_number) SORTKEY (country_code, signal_type, account_number);`
+```sql
+-- base: one row per (country_code, user_id, signal_type, account_number)
+CREATE TABLE bi_report.bi_pocket.t_fraud_identity_asset (
+    country_code    VARCHAR(16)  NOT NULL,
+    user_id         VARCHAR(64)  NOT NULL,
+    signal_type     SMALLINT     NOT NULL,   -- 2 = WITHDRAWAL
+    account_number  VARCHAR(64)  NOT NULL,   -- plaintext TRIM
+    account_name    VARCHAR(128),
+    is_del          SMALLINT     NOT NULL DEFAULT 0,
+    first_seen_at   TIMESTAMP,               -- business time (source create_time)
+    src_update_time TIMESTAMP,               -- staleness guard, not delivered
+    created_at      TIMESTAMP    NOT NULL DEFAULT SYSDATE,  -- frozen on insert
+    updated_at      TIMESTAMP    NOT NULL DEFAULT SYSDATE   -- reverse-ETL delta key
+)
+DISTKEY (account_number) SORTKEY (country_code, signal_type, account_number);
 
-`DISTKEY(account_number)` so the holder rebuild groups co-located. `first_seen_at` = business (linkage windows on it); `updated_at` = pipeline (reverse delta windows on it).
-
-Business time = `first_seen_at`/`last_seen_at` (from source). `created_at`/`updated_at` = our warehouse `SYSDATE` (`created_at` frozen once; `updated_at` bumped each run). `src_update_time` = internal guard, not delivered. RDS column defaults fall back to the Fraud clock only if we omit them — we always send them.
+-- holder: one row per account -> active users
+CREATE TABLE bi_report.bi_pocket.t_fraud_identity_asset_holder (
+    country_code   VARCHAR(16)    NOT NULL,
+    account_number VARCHAR(64)    NOT NULL,
+    signal_type    SMALLINT       NOT NULL,
+    user_count     INTEGER        NOT NULL,   -- true active count (uncapped)
+    user_ids       VARCHAR(65535) NOT NULL,   -- JSON array, LISTAGG, capped to byte limit
+    first_seen_at  TIMESTAMP,
+    updated_at     TIMESTAMP      NOT NULL DEFAULT SYSDATE
+)
+DISTKEY (account_number) SORTKEY (country_code, signal_type, account_number);
+```
 
 ### Update logic
-
 - **Base** (`:00`) — window source event time `(create_time OR update_time)` + **2 h look-back**; dedup to earliest `create_time`; guarded upsert: `first_seen_at = LEAST`, `is_del`/`account_name` overwrite only if `src_update_time` is newer, `updated_at = SYSDATE`.
-    
 - **Holder** (`:10`) — recompute touched accounts (`base.updated_at ∈ window`) over active rows (`is_del = 0`); emptied → `user_count = 0, user_ids = '[]'`.
-    
 - **Reverse** (`:15` forward, `:20` holder) — delta on `updated_at` → `UNLOAD` → S3 (5 MB) → Aurora `REPLACE INTO`; `created_at` frozen; holder uses `LOAD_ESCAPED_BY = ""` for valid JSON.
-    
-
 ### Key decisions
 
 - `created_at` **frozen** : `REPLACE INTO` re-inserts rows, so a dynamic `SYSDATE` would reset it every delivery.
-    
 - `first_seen_at` **kept in holder** : lets the backfill chunk on business time; **not** delivered to RDS.
-    
 - **Zero-DELETE** : emptied accounts sent as `count=0, []`, overwritten via `REPLACE INTO`, no `DELETE`.
     
 - **Guarded upsert** : out-of-order re-runs never overwrite newer data with older.
