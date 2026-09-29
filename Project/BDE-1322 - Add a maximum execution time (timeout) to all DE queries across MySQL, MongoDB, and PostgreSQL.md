@@ -21,7 +21,7 @@ Related Info :
 ---
 ## Implementation
 
-DBA can quickly apply global timeout settings to BI clusters, but not to non-BI clusters — so DE enforces timeouts at session / query level in our own code. <mark style="background:#fff88f">Values are centralized in `dags/etl_method/query_timeout.py` (unit = ms, names suffixed `_MS`); each engine applies them through the mechanism that fits it.</mark> (可能會改)
+
 
 ### MySQL
 
@@ -34,11 +34,13 @@ SELECT /*+ MAX_EXECUTION_TIME(3600000) */ col FROM orders WHERE ...;
 SET SESSION max_execution_time = 3600000;  -- 1 hour
 ```
 
-session-level `max_execution_time`, set inside the shared query functions (`run_sql_in_mysql` / `mysql_sql_to_dataframe`) — one choke point covers all callers. Helper `_set_mysql_session_max_execution_time` by Kevin Wei; default 10 min, per-call override via `max_execution_time_min`, `0` to disable, connections in the `mysql_max_execution_time_excluded_conns` Variable are skipped.
 
-**Known limitation** : `max_execution_time` only bounds top-level read-only SELECT. `INSERT ... SELECT` / CTAS / UPDATE / DELETE / `SELECT INTO OUTFILE S3` are NOT bounded → writes to BI mart DBs remain unprotected (raised to DBA separately).
 
-**Timeout values** : (TBD — tune with 90-day task duration stats, same method as MongoDB)
+
+
+
+
+
 
 ### MongoDB
 
