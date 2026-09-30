@@ -47,15 +47,6 @@ def run_sql_in_mysql(sql_query, db_conn, aurora_version=3, print_sql=True, local
 ```
 
 step2. adjust in batch
-* an_test : https://github.com/opennetltd/warehouse_engineer/pull/3050/changes
-* bi_marketing / bi_realsports / bi_report : https://github.com/opennetltd/warehouse_engineer/pull/3051
-* chat / sporty_chat / codecenter / encore_push : https://github.com/opennetltd/warehouse_engineer/pull/3058
-* facts : 
-
-
-
-
-
 
 
 ### MongoDB
