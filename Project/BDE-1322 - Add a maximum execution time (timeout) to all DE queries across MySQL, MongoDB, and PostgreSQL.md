@@ -48,7 +48,7 @@ def run_sql_in_mysql(sql_query, db_conn, aurora_version=3, print_sql=True, local
 
 step2. adjust in batch
 
-
+RDS PR : https://github.com/opennetltd/warehouse_engineer/pull/3070
 ### MongoDB
 
 **Mechanism** 
