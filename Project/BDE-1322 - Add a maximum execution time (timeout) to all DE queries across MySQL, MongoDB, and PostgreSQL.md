@@ -124,6 +124,8 @@ SET LOCAL statement_timeout = 3600000;
 ALTER ROLE de_app SET statement_timeout = '3600s';
 ```
 
+Redshift PR : https://github.com/opennetltd/warehouse_engineer/pull/3090
+
 
 ---
 ## Verification & Impact
