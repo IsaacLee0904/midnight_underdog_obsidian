@@ -5,6 +5,7 @@
 
 ### Write Engine
 
-### Data Catalog 
+
+### Storage + Data Catalog 
 
 ### Query Engine
