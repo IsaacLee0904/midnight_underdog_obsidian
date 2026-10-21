@@ -6,9 +6,9 @@
 ### Write Engine
 
 
-|     | Athena | Glue job (spark) | EMR (spark) | Glue job (DuckDB) | Trino |
-| --- | ------ | ---------------- | ----------- | ----------------- | ----- |
-|     |        |                  |             |                   |       |
+|          | Athena | Glue job (spark)  | EMR (spark) | Glue job (DuckDB) | Trino |
+| -------- | ------ | ----------------- | ----------- | ----------------- | ----- |
+| Read TSV |        | `spark.read.csv`  |             |                   |       |
 
 ### Storage + Data Catalog 
 
