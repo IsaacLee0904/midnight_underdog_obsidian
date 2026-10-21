@@ -6,9 +6,16 @@
 ### Write Engine
 
 
-|          | Athena | Glue job (spark)  | EMR (spark) | Glue job (DuckDB) | Trino |
-| -------- | ------ | ----------------- | ----------- | ----------------- | ----- |
-| Read TSV |        | `spark.read.csv`  |             |                   |       |
+|                         | Athena | Glue job (spark) | EMR (spark) | Glue job (DuckDB) | Trino |
+| ----------------------- | ------ | ---------------- | ----------- | ----------------- | ----- |
+| Reading TSV             |        | `spark.read.csv` |             |                   |       |
+| MERGE / UPDATE / DELETE |        |                  |             |                   |       |
+| Table maintenance       |        |                  |             |                   |       |
+| Partitioning (`day()`)  |        |                  |             |                   |       |
+| Data volume limit       |        |                  |             |                   |       |
+| Startup time            |        |                  |             |                   |       |
+| Pricing                 |        |                  |             |                   |       |
+| Airflow integration     |        |                  |             |                   |       |
 
 ### Storage + Data Catalog 
 
