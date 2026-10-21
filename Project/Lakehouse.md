@@ -25,3 +25,93 @@
 | **Access flexibility**  <br>(Can we move files with `aws s3 cp`, set lifecycle rules, or repair tables by hand?)           | ✅ Standard S3 bucket: `aws s3 cp`, S3 Lifecycle, replication and manual repair all work                                                                                                                          | ⚠️ Tables are written through Iceberg engines and the S3 Tables APIs; general S3 features such as Lifecycle rules and manual file operations are not the normal path (verify which S3 features apply before relying on them)                             |
 
 ### Query Engine (Future)
+
+
+
+
+
+### Athena
+
+  
+
+- [MERGE INTO](https://docs.aws.amazon.com/athena/latest/ug/merge-into-statement.html)
+
+- [OPTIMIZE](https://docs.aws.amazon.com/athena/latest/ug/optimize-statement.html)
+
+- [VACUUM](https://docs.aws.amazon.com/athena/latest/ug/vacuum-statement.html)
+
+- [OpenCSVSerDe for processing CSV](https://docs.aws.amazon.com/athena/latest/ug/csv-serde.html)
+
+- [SELECT, including the `"$path"` pseudo-column](https://docs.aws.amazon.com/athena/latest/ug/select.html)
+
+- [Creating Iceberg tables (partition transforms)](https://docs.aws.amazon.com/athena/latest/ug/querying-iceberg-creating-tables.html)
+
+- [Service quotas (query timeouts)](https://docs.aws.amazon.com/athena/latest/ug/service-limits.html)
+
+- [Athena pricing](https://aws.amazon.com/athena/pricing/)
+
+  
+
+### AWS Glue
+
+  
+
+- [Using the Iceberg framework in AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-format-iceberg.html)
+
+- [Job properties and worker types](https://docs.aws.amazon.com/glue/latest/dg/add-job.html)
+
+- [AWS Glue pricing](https://aws.amazon.com/glue/pricing/)
+
+- [AWS Big Data Blog: Cost-effective ETL with DuckDB and Amazon S3 Tables on AWS Glue](https://aws.amazon.com/blogs/big-data/cost-effective-etl-with-duckdb-and-amazon-s3-tables-on-aws-glue/)
+
+  
+
+### Spark and Iceberg
+
+  
+
+- [Spark CSV data source options](https://spark.apache.org/docs/latest/sql-data-sources-csv.html)
+
+- [Iceberg Spark writes (MERGE INTO, UPDATE, DELETE)](https://iceberg.apache.org/docs/latest/spark-writes/)
+
+- [Iceberg Spark procedures (rewrite_data_files, expire_snapshots, remove_orphan_files)](https://iceberg.apache.org/docs/latest/spark-procedures/)
+
+- [Iceberg table configuration (copy-on-write / merge-on-read modes)](https://iceberg.apache.org/docs/latest/configuration/)
+
+- [Iceberg table spec (partition transforms)](https://iceberg.apache.org/spec/)
+
+  
+
+### EMR Serverless
+
+  
+
+- [Pre-initialized capacity](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/pre-init-capacity.html)
+
+- [Amazon EMR pricing (includes EMR Serverless)](https://aws.amazon.com/emr/pricing/)
+
+  
+
+### DuckDB
+
+  
+
+- [Reading CSV files](https://duckdb.org/docs/current/data/csv/overview)
+
+- [Reading faulty CSV files (rejects table)](https://duckdb.org/docs/current/data/csv/reading_faulty_csv_files)
+
+- [Writing to Iceberg](https://duckdb.org/docs/current/core_extensions/iceberg/writing_to_iceberg)
+
+- [New DuckDB-Iceberg features in v1.5.3 (MERGE INTO)](https://duckdb.org/2026/05/29/new-iceberg-features)
+
+  
+
+### Trino
+
+  
+
+- [Iceberg connector](https://trino.io/docs/current/connector/iceberg.html)
+
+- [Hive connector (CSV tables)](https://trino.io/docs/current/connector/hive.html)
+
+- [Fault-tolerant execution](https://trino.io/docs/current/admin/fault-tolerant-execution.html)
