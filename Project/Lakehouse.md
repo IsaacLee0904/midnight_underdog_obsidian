@@ -6,6 +6,10 @@
 ### Write Engine
 
 
+|     | Athena | Glue job (spark) | EMR (spark) | Glue job (DuckDB) | Trino |
+| --- | ------ | ---------------- | ----------- | ----------------- | ----- |
+|     |        |                  |             |                   |       |
+
 ### Storage + Data Catalog 
 
 ### Query Engine (Future)
